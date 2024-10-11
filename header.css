@@ -1,7 +1,18 @@
+.grid-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 100px 1fr 100px;
+  grid-template-rows: 100px 1000px 50px;
+  grid-template-areas:
+    "header header header"
+    "side-left balance-content side-right"
+    "footer footer footer";
+}
+
 .header {
   grid-area: header;
   display: grid;
-  grid-template-columns: 100px 9fr 100px;
+  grid-template-columns: 1fr 9fr 1fr;
   width: 100%;
   height: 100px;
   background-color: #4856dd;
@@ -110,6 +121,20 @@
   font-size: 18px;
   text-align: center;
 }
+
+.last-nav a {
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family: Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.last-nav a:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
 .last-nav a {
   position: relative;
   color: white;
@@ -119,23 +144,6 @@
   margin-right: 10px;
   transition: transform 0.3s ease, color 0.3s ease;
   font-weight: normal;
-}
-
-.last-nav a::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 2px;
-  background-color: yellow;
-  left: 0;
-  bottom: 0;
-  transition: width 0.3s ease;
-}
-
-/* .last-nav a:hover {
-    
-  } */
-
-.last-nav a:hover::after {
-  width: 100%; /* Gạch chân màu vàng xuất hiện */
+  font-family: Helvetica, sans-serif;
+  font-size: 14px;
 }

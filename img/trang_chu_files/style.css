@@ -46,6 +46,7 @@
   font-size: 12px;
 }
 .top-left a {
+  font-family: Helvetica, Arial, sans-serif;
   text-align: center;
   float: left;
   text-decoration: none;
@@ -117,7 +118,6 @@
 .cart {
   grid-area: cart;
   text-align: center;
-  margin-top: 13px;
 }
 
 .last-nav {
@@ -127,12 +127,12 @@
 }
 
 .last-nav a {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
   text-decoration: none;
   color: white;
   margin-left: 10px;
   margin-right: 10px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 14px;
 }
 
 .last-nav a:hover {
@@ -149,10 +149,14 @@
 }
 
 .banner {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.522), rgba(0, 0, 0, 0.44)),
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.422),
+      rgba(0, 0, 0, 0.441)
+    ),
     url("img/banner.png");
   background-repeat: no-repeat;
-  background-position: 70%;
+  background-attachment: fixed;
   background-size: cover;
   height: 463px;
   margin-top: 20px;
@@ -164,6 +168,9 @@
 .banner .box-left,
 .banner .box-right {
   width: 50%;
+}
+.banner .box-right img {
+  border-radius: 15px;
 }
 
 .banner .box-left h2 {
@@ -203,7 +210,6 @@
 .banner .box-right img {
   margin: 0px 10px;
   animation: animation 3s infinite linear;
-  border-radius: 15px;
 }
 
 .banner .box-right img:nth-child(1) {
@@ -396,7 +402,7 @@
 
 .footer {
   grid-area: footer;
-  font-size: 14px;
+  font-size: 12px;
   align-self: center;
   justify-self: center;
 }

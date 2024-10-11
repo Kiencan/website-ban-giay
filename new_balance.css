@@ -22,7 +22,7 @@
     "footer footer footer";
 }
 
-/* .header {
+.header {
   grid-area: header;
   display: grid;
   grid-template-columns: 1fr 9fr 1fr;
@@ -127,6 +127,7 @@
 .cart {
   grid-area: cart;
   text-align: center;
+  margin-top: 13px;
 }
 
 .last-nav {
@@ -149,11 +150,13 @@
   position: relative;
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 14px;
   margin-left: 10px;
   margin-right: 10px;
   transition: transform 0.3s ease, color 0.3s ease;
   font-weight: normal;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
 }
 
 .last-nav a::after {
@@ -174,7 +177,8 @@
 .last-nav a:hover::after {
   width: 100%; /* Gạch chân màu vàng xuất hiện */
 }
-*/ .side-left {
+
+.side-left {
   grid-area: side-left;
   background-color: lightgray;
 }
@@ -455,7 +459,7 @@
 
 .footer {
   grid-area: footer;
-  font-size: 14px;
+  font-size: 12px;
   align-self: center;
   justify-self: center;
 }
