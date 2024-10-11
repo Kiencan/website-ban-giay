@@ -1,0 +1,371 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 9fr 1fr;
+  grid-template-rows: 1fr 9fr 0.4fr;
+  grid-template-areas:
+    "header header header"
+    "side-left content side-right"
+    "footer footer footer";
+}
+
+/* .header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: 1fr 9fr 1fr;
+  width: 100%;
+  height: 100px;
+  background-color: #4856dd;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+}
+
+.middle {
+  display: grid;
+  grid-template-columns: 1fr 7fr 1fr;
+  grid-template-rows: 0.7fr 1.5fr 1fr;
+  grid-template-areas:
+    "first-nav first-nav first-nav"
+    "logo search-bar cart"
+    "logo last-nav cart";
+}
+
+.first-nav {
+  grid-area: first-nav;
+  display: grid;
+  grid-template-columns: 4fr 3fr;
+  grid-template-areas: "top-left top-right";
+}
+.top-left {
+  grid-area: top-left;
+  font-size: 12px;
+}
+.top-left a {
+  text-align: center;
+  float: left;
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-top: 3px;
+}
+.top-right {
+  grid-area: top-right;
+  font-size: 12px;
+}
+.top-right a {
+  text-align: center;
+  float: right;
+  text-decoration: none;
+  color: white;
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-top: 3px;
+}
+
+.logo {
+  grid-area: logo;
+}
+
+.search-bar {
+  grid-area: search-bar;
+  display: flex;
+  text-align: center;
+  width: 800px;
+  height: 32px;
+  background-color: #fff;
+  padding: 2px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-left: 70px;
+  margin-top: 5px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0 10px;
+  font-size: 19px;
+  color: black;
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 30px;
+  background-color: #536bf6;
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+  margin-left: 20px;
+  text-decoration: none;
+  margin-top: 1px;
+}
+
+.search-icon:hover {
+  background-color: #4154a8;
+}
+.cart {
+  grid-area: cart;
+  text-align: center;
+}
+
+.last-nav {
+  grid-area: last-nav;
+  font-size: 18px;
+  text-align: center;
+}
+
+.last-nav a {
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.last-nav a:hover {
+  text-decoration: underline;
+} */
+
+.side-left {
+  grid-area: side-left;
+  background-color: lightgray;
+}
+.content {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: 1fr 5fr 4fr;
+  grid-template-areas: "cac-anh anh-chinh thong-tin";
+  margin-top: 30px;
+}
+
+.cac-anh {
+  grid-area: cac-anh;
+}
+
+.cac-anh div {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.anh-chinh {
+  grid-area: anh-chinh;
+  position: relative;
+  text-align: center;
+  color: black;
+}
+
+.tl {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+.tl button {
+  background-color: rgb(250, 250, 250);
+  border-radius: 15px;
+  padding: 10px;
+  border: none;
+}
+
+.br {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+
+.br a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 50%;
+}
+
+.br a:hover {
+  background-color: #ddd;
+  color: black;
+}
+.previous_round {
+  background-color: #f1f1f1;
+  color: black;
+  font-size: 30px;
+}
+
+.next_round {
+  background-color: #f1f1f1;
+  color: black;
+  font-size: 30px;
+}
+
+.thong-tin {
+  grid-area: thong-tin;
+  display: grid;
+  margin-right: 30px;
+  margin-left: 10px;
+  grid-template-columns: 6fr;
+  grid-template-rows: 0.6fr 0.4fr 1.5fr 0.5fr 2.5fr 1fr 1fr;
+  grid-template-areas:
+    "ten-giay"
+    "tien"
+    "kieu-giay"
+    "size-text"
+    "chon-size"
+    "add-bag"
+    "favorite";
+}
+.ten-giay {
+  grid-area: ten-giay;
+  padding-top: 20px;
+}
+
+.tien {
+  grid-area: tien;
+  display: flex;
+  align-items: center;
+}
+
+.kieu-giay {
+  grid-area: kieu-giay;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 5px;
+}
+.item {
+  border: 2px groove lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.size-text {
+  grid-area: size-text;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "select-size size-guide";
+}
+
+.select-size {
+  grid-area: select-size;
+  display: flex;
+  align-items: center;
+}
+
+.size-guide {
+  grid-area: size-guide;
+  margin-left: auto;
+  margin-right: 0;
+  display: flex;
+  align-items: center;
+}
+
+.chon-size {
+  grid-area: chon-size;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 7px;
+}
+.size {
+  background-color: white;
+  font-size: 20px;
+  border: 2px groove lightgray;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add_bag {
+  grid-area: add-bag;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.add_bag button {
+  background-color: black;
+  border-radius: 50px;
+  color: white;
+  font-size: 20px;
+  width: 90%;
+  cursor: pointer;
+  padding: 15px;
+  margin-top: 20px;
+}
+.favorite {
+  grid-area: favorite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.favorite button {
+  background-color: white;
+  border-radius: 50px;
+  border: 1px groove gray;
+  font-size: 20px;
+  width: 90%;
+  cursor: pointer;
+  padding: 15px;
+}
+
+.side-right {
+  grid-area: side-right;
+  background-color: lightgray;
+}
+.echbay-sms-messenger {
+  width: 45px;
+  display: block;
+}
+.echbay-sms-messenger a {
+  line-height: 45px;
+  color: transparent;
+  display: block;
+}
+.echbay-sms-messenger div.phonering-alo-zalo {
+  display: block;
+}
+
+.echbay-sms-messenger div.phonering-alo-alo {
+  background-image: url("img/tele.png");
+  background-size: cover;
+}
+.echbay-sms-messenger div.phonering-alo-sms {
+  background-image: url("img/ins.png");
+  background-size: cover;
+}
+.echbay-sms-messenger div.phonering-alo-zalo {
+  background-image: url("img/zalo.png");
+  background-size: cover;
+}
+.echbay-sms-messenger div.phonering-alo-messenger {
+  background-image: url("img/mess.png");
+  background-size: cover;
+}
+.echbay-sms-messenger div {
+  margin: 14px 0;
+  background-size: 70%;
+  border-radius: 50%;
+  box-shadow: 0 3px 3px #888;
+}
+.echbay-sms-messenger div:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  background-position: center 50%;
+}
+.echbay-sms-messenger {
+  text-align: center;
+  right: 20px;
+  position: fixed;
+  bottom: 20px;
+  z-index: 999;
+}
+.footer {
+  grid-area: footer;
+  font-size: 14px;
+  text-align: center;
+}

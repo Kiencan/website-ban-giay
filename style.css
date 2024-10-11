@@ -1,0 +1,393 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 9fr 1fr;
+  grid-template-rows: 1fr 9fr 0.4fr;
+  grid-template-areas:
+    "header header header"
+    "side-left content side-right"
+    "footer footer footer";
+}
+
+/* .header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: 1fr 9fr 1fr;
+  width: 100%;
+  height: 100px;
+  background-color: #4856dd;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+}
+
+.middle {
+  display: grid;
+  grid-template-columns: 1fr 7fr 1fr;
+  grid-template-rows: 0.7fr 1.5fr 1fr;
+  grid-template-areas:
+    "first-nav first-nav first-nav"
+    "logo search-bar cart"
+    "logo last-nav cart";
+}
+
+.first-nav {
+  grid-area: first-nav;
+  display: grid;
+  grid-template-columns: 4fr 3fr;
+  grid-template-areas: "top-left top-right";
+}
+.top-left {
+  grid-area: top-left;
+  font-size: 12px;
+}
+.top-left a {
+  text-align: center;
+  float: left;
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-top: 3px;
+}
+.top-right {
+  grid-area: top-right;
+  font-size: 12px;
+}
+.top-right a {
+  text-align: center;
+  float: right;
+  text-decoration: none;
+  color: white;
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-top: 3px;
+}
+
+.logo {
+  grid-area: logo;
+}
+
+.search-bar {
+  grid-area: search-bar;
+  display: flex;
+  text-align: center;
+  width: 800px;
+  height: 32px;
+  background-color: #fff;
+  padding: 2px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-left: 70px;
+  margin-top: 5px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0 10px;
+  font-size: 19px;
+  color: black;
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 30px;
+  background-color: #536bf6;
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+  margin-left: 20px;
+  text-decoration: none;
+  margin-top: 1px;
+}
+
+.search-icon:hover {
+  background-color: #4154a8;
+}
+.cart {
+  grid-area: cart;
+  text-align: center;
+}
+
+.last-nav {
+  grid-area: last-nav;
+  font-size: 18px;
+  text-align: center;
+}
+
+.last-nav a {
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.last-nav a:hover {
+  text-decoration: underline;
+} */
+
+.side-left {
+  grid-area: side-left;
+}
+.content {
+  grid-area: content;
+  text-align: center;
+}
+
+.banner {
+  background-image: url("img/banner.png");
+  height: 463px;
+  margin-top: 20px;
+  display: flex;
+  padding: 0px 133px;
+  position: relative;
+}
+
+.banner .box-left,
+.banner .box-right {
+  width: 50%;
+}
+
+.banner .box-left h2 {
+  font-size: 48px;
+  margin-top: 75px;
+  color: #fff;
+}
+
+.banner .box-left p {
+  color: #d0d0d0;
+}
+
+.banner .box-left button {
+  width: 191px;
+  height: 40px;
+  margin-top: 41px;
+  background: #1d1a1a;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: 0.4s;
+}
+
+.banner .box-left button:hover {
+  background: orange;
+}
+
+.banner .box-right {
+  padding-left: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner .box-right img {
+  margin: 0px 10px;
+  animation: animation 3s infinite linear;
+}
+
+.banner .box-right img:nth-child(1) {
+  animation-delay: 0.5s;
+}
+.banner .box-right img:nth-child(2) {
+  animation-delay: 1s;
+}
+
+@keyframes animation {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.to-bottom {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.sale-section {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sale-section h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #3333a1;
+}
+
+.product-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.product-item {
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-item img {
+  width: 200px;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.product-item p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.product-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.store-info h2 {
+  margin-top: 30px;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.store-info p {
+  font-size: 16px;
+  width: 600px; /* Đặt chiều rộng của phần tử */
+  text-align: justify;
+  color: #333;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.social-icons {
+  margin-top: 10px;
+}
+
+.social-icons a {
+  margin: 0 10px;
+}
+
+.social-icons a img:hover {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.social-icons img {
+  width: 40px;
+}
+
+.payment-shipping h3 {
+  font-size: 20px;
+  margin: 20px 0 10px;
+}
+
+.payment-shipping p {
+  font-size: 16px;
+  color: #333;
+}
+.trust {
+  align-items: center;
+}
+.side-right {
+  grid-area: side-right;
+}
+.echbay-sms-messenger {
+  width: 45px;
+  display: block;
+}
+.echbay-sms-messenger a {
+  line-height: 45px;
+  color: transparent;
+  display: block;
+}
+.echbay-sms-messenger div.phonering-alo-zalo {
+  display: block;
+}
+
+.echbay-sms-messenger div.phonering-alo-alo {
+  background-image: url("img/tele.png");
+  background-size: cover;
+}
+.echbay-sms-messenger div.phonering-alo-sms {
+  background-image: url("img/ins.png");
+  background-size: cover;
+}
+.echbay-sms-messenger div.phonering-alo-zalo {
+  background-image: url("img/zalo.png");
+  background-size: cover;
+}
+.echbay-sms-messenger div.phonering-alo-messenger {
+  background-image: url("img/mess.png");
+  background-size: cover;
+}
+.echbay-sms-messenger div {
+  margin: 14px 0;
+  background-size: 70%;
+  border-radius: 50%;
+  box-shadow: 0 3px 3px #888;
+}
+.echbay-sms-messenger div:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  background-position: center 50%;
+}
+.echbay-sms-messenger {
+  text-align: center;
+  right: 20px;
+  position: fixed;
+  bottom: 20px;
+  z-index: 999;
+}
+
+.footer {
+  grid-area: footer;
+  font-size: 14px;
+  align-self: center;
+  justify-self: center;
+}
