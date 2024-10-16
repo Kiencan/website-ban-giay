@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Arial;
+  /* font-family: Arial; */
 }
 .grid-container {
   display: grid;
@@ -12,129 +12,6 @@
     "side-left content side-right"
     "footer footer footer";
 }
-
-/* .header {
-  grid-area: header;
-  display: grid;
-  grid-template-columns: 1fr 9fr 1fr;
-  width: 100%;
-  height: 100px;
-  background-color: #4856dd;
-  position: fixed;
-  top: 0;
-  z-index: 1;
-}
-
-.middle {
-  display: grid;
-  grid-template-columns: 1fr 7fr 1fr;
-  grid-template-rows: 0.7fr 1.5fr 1fr;
-  grid-template-areas:
-    "first-nav first-nav first-nav"
-    "logo search-bar cart"
-    "logo last-nav cart";
-}
-
-.first-nav {
-  grid-area: first-nav;
-  display: grid;
-  grid-template-columns: 4fr 3fr;
-  grid-template-areas: "top-left top-right";
-}
-.top-left {
-  grid-area: top-left;
-  font-size: 12px;
-}
-.top-left a {
-  text-align: center;
-  float: left;
-  text-decoration: none;
-  color: white;
-  margin-left: 10px;
-  margin-right: 20px;
-  margin-top: 3px;
-}
-.top-right {
-  grid-area: top-right;
-  font-size: 12px;
-}
-.top-right a {
-  text-align: center;
-  float: right;
-  text-decoration: none;
-  color: white;
-  margin-left: 20px;
-  margin-right: 10px;
-  margin-top: 3px;
-}
-
-.logo {
-  grid-area: logo;
-}
-
-.search-bar {
-  grid-area: search-bar;
-  display: flex;
-  text-align: center;
-  width: 800px;
-  height: 32px;
-  background-color: #fff;
-  padding: 2px;
-  border-radius: 2px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  margin-left: 70px;
-  margin-top: 5px;
-}
-
-.search-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: none;
-  padding: 0 10px;
-  font-size: 19px;
-  color: black;
-}
-
-.search-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 55px;
-  height: 30px;
-  background-color: #536bf6;
-  border-radius: 2px;
-  color: white;
-  cursor: pointer;
-  margin-left: 20px;
-  text-decoration: none;
-  margin-top: 1px;
-}
-
-.search-icon:hover {
-  background-color: #4154a8;
-}
-.cart {
-  grid-area: cart;
-  text-align: center;
-}
-
-.last-nav {
-  grid-area: last-nav;
-  font-size: 18px;
-  text-align: center;
-}
-
-.last-nav a {
-  text-decoration: none;
-  color: white;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.last-nav a:hover {
-  text-decoration: underline;
-} */
 
 .side-left {
   grid-area: side-left;
@@ -251,6 +128,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "select-size size-guide";
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
 }
 
 .select-size {

@@ -1,14 +1,14 @@
 .header {
   grid-area: header;
   display: grid;
-  grid-template-columns: 100px 9fr 100px;
+  grid-template-columns: 1fr 9fr 1fr;
   width: 100%;
   height: 100px;
   background-color: #4856dd;
   position: fixed;
   top: 0;
   z-index: 1;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 .middle {
@@ -56,6 +56,7 @@
 
 .logo {
   grid-area: logo;
+  margin-top: 6.5px;
 }
 
 .search-bar {
@@ -103,6 +104,7 @@
 .cart {
   grid-area: cart;
   text-align: center;
+  margin-top: 13px;
 }
 
 .last-nav {
@@ -110,15 +112,28 @@
   font-size: 18px;
   text-align: center;
 }
+/*
+.last-nav a {
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.last-nav a:hover {
+  text-decoration: underline;
+} */
 .last-nav a {
   position: relative;
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 14px;
   margin-left: 10px;
   margin-right: 10px;
   transition: transform 0.3s ease, color 0.3s ease;
   font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
 }
 
 .last-nav a::after {
@@ -132,9 +147,9 @@
   transition: width 0.3s ease;
 }
 
-/* .last-nav a:hover {
-    
-  } */
+.last-nav a:hover {
+  font-weight: bold;
+}
 
 .last-nav a:hover::after {
   width: 100%; /* Gạch chân màu vàng xuất hiện */
