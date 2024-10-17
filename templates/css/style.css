@@ -6,7 +6,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 9fr 1fr;
-  grid-template-rows: 1fr 9fr 0.4fr;
+  grid-template-rows: 100px 9fr 40px;
   grid-template-areas:
     "header header header"
     "side-left content side-right"
@@ -21,11 +21,11 @@
   text-align: center;
 }
 
-.banner {
+.content .banner {
   background-image: linear-gradient(rgba(0, 0, 0, 0.522), rgba(0, 0, 0, 0.44)),
-    url("img/banner.png");
+    url("../image/banner.png");
   background-repeat: no-repeat;
-  background-position: 70%;
+  background-position: 100%;
   background-size: cover;
   height: 463px;
   margin-top: 20px;
@@ -118,7 +118,7 @@
   position: relative;
 }
 .slogan {
-  background-image: url("img/trang_chu_files/slogan.webp");
+  background-image: url("../image/slogan.webp");
   background-repeat: no-repeat;
   background-position: 30%;
   background-size: cover;
@@ -304,20 +304,20 @@
   display: block;
 }
 
-.echbay-sms-messenger div.phonering-alo-alo {
-  background-image: url("img/tele.png");
+.echbay-sms-messenger .phonering-alo-alo {
+  background-image: url("../image/tele.png");
   background-size: cover;
 }
-.echbay-sms-messenger div.phonering-alo-sms {
-  background-image: url("img/ins.png");
+.echbay-sms-messenger .phonering-alo-sms {
+  background-image: url(../image/instagram.png);
   background-size: cover;
 }
 .echbay-sms-messenger div.phonering-alo-zalo {
-  background-image: url("img/zalo.png");
+  background-image: url("../image/zalo.png");
   background-size: cover;
 }
 .echbay-sms-messenger div.phonering-alo-messenger {
-  background-image: url("img/mess.png");
+  background-image: url(../image/mess.png);
   background-size: cover;
 }
 .echbay-sms-messenger div {

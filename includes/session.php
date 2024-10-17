@@ -1,0 +1,1 @@
+<!-- Hàm liên quan đến session hay cookies -->

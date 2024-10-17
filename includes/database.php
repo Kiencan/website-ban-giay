@@ -1,0 +1,1 @@
+<!-- Các hàm sử lý liên quan đến database -->
