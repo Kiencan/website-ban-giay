@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if ((! isset($_SESSION['username']))) {
+        header('location:login_test.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,8 +75,7 @@
                 </div>
             </div>
             <div class="mar-right">
-                <div class='dang-nhap'><a href="login_test.php">Đăng nhập</a></div>
-                <div class='dang-ky'><a href="dangky.php">Đăng ký</a></div>
+                <div class='dang-xuat'><a href="logout_test.php">Đăng xuất</a></div>
             </div>
         </header>
         <div class="side-left"></div>
