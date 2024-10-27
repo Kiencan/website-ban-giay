@@ -7,8 +7,9 @@ Cấu trúc thư mục:
 + session.php: file chứa các hàm liên quan đến session và cookies
 
 - Folder modules:
-+ Folder auth: Folder của đăng nhập
-+ Folder users: ...
++ Folder auth: Folder các chức năng đăng nhập
++ Folder user: Trang của user
++ Folder admin: Trang của admin
 
 - Folder templates
 + Folder css: chứa các file css

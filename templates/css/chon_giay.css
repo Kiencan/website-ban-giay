@@ -17,6 +17,7 @@
   grid-area: side-left;
   background-color: lightgray;
 }
+
 .content {
   grid-area: content;
   display: grid;

@@ -1,9 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap");
 * {
   margin: 0;
   padding: 0;
   /* font-family: Arial; */
 }
-.grid-container {
+.main-grid-container {
   display: grid;
   grid-template-columns: 1fr 9fr 1fr;
   grid-template-rows: 100px 9fr 40px;
@@ -13,15 +14,15 @@
     "footer footer footer";
 }
 
-.side-left {
+.main-side-left {
   grid-area: side-left;
 }
-.content {
+.main-content {
   grid-area: content;
   text-align: center;
 }
 
-.content .banner {
+.main-content .banner {
   background-image: linear-gradient(rgba(0, 0, 0, 0.522), rgba(0, 0, 0, 0.44)),
     url("../image/banner.png");
   background-repeat: no-repeat;
@@ -288,50 +289,50 @@
 .trust {
   align-items: center;
 }
-.side-right {
+.main-side-right {
   grid-area: side-right;
 }
-.echbay-sms-messenger {
+.main-side-right .echbay-sms-messenger {
   width: 45px;
   display: block;
 }
-.echbay-sms-messenger a {
+.main-side-right .echbay-sms-messenger a {
   line-height: 45px;
   color: transparent;
   display: block;
 }
-.echbay-sms-messenger div.phonering-alo-zalo {
+.main-side-right .echbay-sms-messenger div.phonering-alo-zalo {
   display: block;
 }
 
-.echbay-sms-messenger .phonering-alo-alo {
+.main-side-right .echbay-sms-messenger .phonering-alo-alo {
   background-image: url("../image/tele.png");
   background-size: cover;
 }
-.echbay-sms-messenger .phonering-alo-sms {
+.main-side-right .echbay-sms-messenger .phonering-alo-sms {
   background-image: url(../image/instagram.png);
   background-size: cover;
 }
-.echbay-sms-messenger div.phonering-alo-zalo {
+.main-side-right .echbay-sms-messenger div.phonering-alo-zalo {
   background-image: url("../image/zalo.png");
   background-size: cover;
 }
-.echbay-sms-messenger div.phonering-alo-messenger {
-  background-image: url(../image/mess.png);
+.main-side-right .echbay-sms-messenger div.phonering-alo-messenger {
+  background-image: url("../image/mess.png");
   background-size: cover;
 }
-.echbay-sms-messenger div {
+.main-side-right .echbay-sms-messenger div {
   margin: 14px 0;
   background-size: 70%;
   border-radius: 50%;
   box-shadow: 0 3px 3px #888;
 }
-.echbay-sms-messenger div:hover {
+.main-side-right .echbay-sms-messenger div:hover {
   transform: scale(1.1);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   background-position: center 50%;
 }
-.echbay-sms-messenger {
+.main-side-right .echbay-sms-messenger {
   text-align: center;
   right: 20px;
   position: fixed;

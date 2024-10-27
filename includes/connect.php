@@ -1,14 +1,23 @@
-<!-- Kết nối với database -->
-
 <?php
-    $server ='localhost';
-    $user = 'root';
-    $password = '';
-    $database = '3h1a';
+// Kết nối với database
+if (!defined('_CODE')) {
+    die('Access denied');
+}
 
-    $conn = new mysqli($server, $user, $password, $database);
+try {
+    if (class_exists('PDO')) {
+        $dsn = 'mysql:dbname=' . _DB . ';host=' . _HOST;
 
-    if($conn) {
-        mysqli_query($conn, "SET NAMES 'utf8' ");
+        $options = [
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8', // set utf8
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION //Tạo thông báo ra ngoại lệ khi gặp lôi
+        ];
+
+        $conn = new PDO($dsn, _USER, _PASS, $options);
     }
-?>
+} catch (Exception $exception) {
+    echo '<div style="color:red; padding:5px 15px; border: 1px solid red">';
+    echo $exception->getMessage() . '<br>';
+    echo '</div>';
+    die();
+}

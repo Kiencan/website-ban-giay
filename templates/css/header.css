@@ -9,10 +9,16 @@
   top: 0;
   z-index: 1;
   font-family: "Nunito", sans-serif;
+  grid-template-areas: "mar-left middle mar-right";
+}
+
+.mar-left {
+  grid-area: mar-left;
 }
 
 .middle {
   display: grid;
+  grid-area: middle;
   grid-template-columns: 1fr 7fr 1fr;
   grid-template-rows: 0.7fr 1.5fr 1fr;
   grid-template-areas:
@@ -153,4 +159,12 @@
 
 .last-nav a:hover::after {
   width: 100%; /* Gạch chân màu vàng xuất hiện */
+}
+
+.mar-right {
+  grid-area: mar-right;
+}
+
+.mar-right a {
+  text-decoration: none;
 }
