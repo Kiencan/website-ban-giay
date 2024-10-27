@@ -2,14 +2,14 @@
 // Các hằng số chung của project
 
 // Điều hướng file
-const _MODULE = 'home';
+const _MODULE = 'user';
 const _ACTION = 'dashboard';
 
 // Cấp quyền truy cập cho file
 const _CODE = true;
 
 // Thiết lập host
-define('_WEB_HOST', 'http://' . $_SERVER['HTTP_HOST'] . '/website-ban');
+define('_WEB_HOST', 'http://' . $_SERVER['HTTP_HOST'] . '/website-ban-giay');
 define('_WEB_HOST_TEMPLATE', _WEB_HOST . '/templates');
 
 // Thiết lập path

@@ -13,9 +13,9 @@ if (!isLogin()) {
 
 // Truy vấn vào bảng customer
 $listUser = getRaw("SELECT * FROM customer ORDER BY update_at");
-// echo '<pre>';
-// print_r($listUser);
-// echo '</pre>';
+echo '<pre>';
+print_r($listUser);
+echo '</pre>';
 
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
