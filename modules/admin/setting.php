@@ -4,7 +4,7 @@ if (!defined('_CODE')) {
 }
 
 $title = [
-    'pageTitle' => 'Dashboard'
+    'pageTitle' => 'Cấu hình'
 ];
 
 layouts('header-admin', $title);
@@ -15,11 +15,6 @@ if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
 
-$listUser = getRaw("SELECT * FROM customer WHERE admin = 1 ORDER BY update_at");
-$listProd = getRaw("SELECT * FROM products ORDER BY update_at");
-$listCate = getRaw("SELECT * FROM category");
-$listComment = getRaw("SELECT * FROM comment");
-
 ?>
 
 <body>
@@ -27,7 +22,7 @@ $listComment = getRaw("SELECT * FROM comment");
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
             <div class="d-flex align-items-center">
                 <i class="fas fa-align-left text-light fs-4 me-5" id="menu-toggle"></i>
-                <a href="?module=user&action=trangchu"><img src="<?php echo _WEB_HOST_TEMPLATE; ?>/image/logo.jpg" width="100px"></a>
+                <a href="#"><img src="<?php echo _WEB_HOST_TEMPLATE; ?>/image/logo.jpg" width="100px"></a>
             </div>
 
 
@@ -45,8 +40,8 @@ $listComment = getRaw("SELECT * FROM comment");
                             <i class="fas fa-user me-2"></i>Admin
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="?module=admin&action=setting">Cấu hình</a></li>
-                            <li><a class="dropdown-item" href="?module=auth&action=logout">Logout</a></li>
+                            <li><a class="dropdown-item" href="#">Cấu hình</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -68,7 +63,7 @@ $listComment = getRaw("SELECT * FROM comment");
                 </form>
                 <a
                     href="?module=admin"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
                 <a
                     href="?module=admin&action=user_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-regular fa-user me-2"></i>Quản lý thành viên</a>
@@ -85,8 +80,8 @@ $listComment = getRaw("SELECT * FROM comment");
                     href="?module=admin&action=comment_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-comment-dots me-2"></i>Quản lý bình luận</a>
                 <a
-                    href="?module=admin&action=setting"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
+                    href=""
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
                 <a
                     href="?module=auth&action=logout"
                     class="list-group-item list-group-item-action px-4 py-3 text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
@@ -99,62 +94,24 @@ $listComment = getRaw("SELECT * FROM comment");
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="?module=admin" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
-                    <li class="breadcrumb-item active"> Trang chủ quản trị </li>
+                    <li class="breadcrumb-item active"> Cấu hình </li>
                 </ul>
             </div>
 
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Trang chủ quản trị</h1>
+                <h1 class="mt-4">Cấu hình các trang</h1>
             </div>
 
             <div class="container-fluid px-4">
-                <div class="row g-3 my-2">
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <i class="fa-solid fa-bag-shopping fs-1 primary-text"></i>
-                            <div>
-                                <h3 class="fs-2"><?php echo count($listProd); ?></h3>
-                                <p class="fs-5">Sản phẩm</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <i class="fas fa-chart-line fs-1 primary-text"></i>
-                            <div>
-                                <h3 class="fs-2"><?php echo count($listCate); ?></h3>
-                                <p class="fs-5">Danh mục</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <i class="fas fa-comment-dots fs-1 primary-text"></i>
-                            <div>
-                                <h3 class="fs-2"><?php echo count($listComment); ?></h3>
-                                <p class="fs-5">Bình luận</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <i class="fa fa-user fs-1 primary-text"></i>
-                            <div>
-                                <h3 class="fs-2"><?php echo count($listUser); ?></h3>
-                                <p class="fs-5">Thành viên</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 1</a>
+                <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 2</a>
+                <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 3</a>
+                <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 4</a>
             </div>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
     </div>
-
 </body>
 
 </html>

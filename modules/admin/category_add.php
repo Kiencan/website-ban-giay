@@ -1,25 +1,55 @@
+<!-- Đăng ký tài khoản -->
 <?php
 if (!defined('_CODE')) {
     die('Access denied');
 }
-
-$title = [
-    'pageTitle' => 'Dashboard'
-];
+$title = ['pageTitle' => 'Thêm danh mục'];
 
 layouts('header-admin', $title);
 
-// Kiểm tra trạng thái đăng nhập
+if (isPost()) {
+    $filterAll = filter();
 
-if (!isLogin()) {
-    redirect('?module=auth&action=login');
+    $errors = []; // mảng chứa lỗi\
+
+    // Kiểm tra họ và tên: bắt buộc phải nhập, nhập ít nhất 5 ký tự
+    if (empty($filterAll['category_name'])) {
+        $errors['category_name']['required'] = 'Vui lòng nhập tên danh mục';
+    }
+
+    if (empty($filterAll['category_title'])) {
+        $errors['category_title']['required'] = 'Vui lòng nhập tiêu đề';
+    }
+
+
+    if (empty($errors)) {
+        $dataInsert = [
+            'category_name' => $filterAll['category_name'],
+            'category_title' => $filterAll['category_title'],
+        ];
+        $insertStatus = insert('category', $dataInsert);
+        if ($insertStatus) {
+            setFlashData('smg', 'Thêm danh mục thành công!');
+            setFlashData('smg_types', 'success');
+            redirect('?module=admin&action=category_management');
+        } else {
+            setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
+            setFlashData('smg_types', 'danger');
+            redirect('?module=admin&action=category_add');
+        }
+    } else {
+        setFlashData('smg', 'Vui lòng kiểm tra lại thông tin');
+        setFlashData('smg_types', 'danger');
+        setFlashData('errors', $errors);
+        setFlashData('old', $filterAll);
+        redirect('?module=admin&action=category_add');
+    }
 }
 
-$listUser = getRaw("SELECT * FROM customer WHERE admin = 1 ORDER BY update_at");
-$listProd = getRaw("SELECT * FROM products ORDER BY update_at");
-$listCate = getRaw("SELECT * FROM category");
-$listComment = getRaw("SELECT * FROM comment");
-
+$smg = getFlashData('smg');
+$smg_types = getFlashData('smg_types');
+$errors = getFlashData('errors');
+$old = getFlashData('old');
 ?>
 
 <body>
@@ -68,13 +98,13 @@ $listComment = getRaw("SELECT * FROM comment");
                 </form>
                 <a
                     href="?module=admin"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
                 <a
                     href="?module=admin&action=user_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-regular fa-user me-2"></i>Quản lý thành viên</a>
                 <a
                     href="?module=admin&action=category_management"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
@@ -99,65 +129,56 @@ $listComment = getRaw("SELECT * FROM comment");
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="?module=admin" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
-                    <li class="breadcrumb-item active"> Trang chủ quản trị </li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=user_management" style="text-decoration: none">Quản lý danh mục</a></li>
+                    <li class="breadcrumb-item active"> Thêm danh mục </li>
                 </ul>
             </div>
 
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Trang chủ quản trị</h1>
+                <h1 class="mt-4">Thêm danh mục</h1>
             </div>
 
-            <div class="container-fluid px-4">
-                <div class="row g-3 my-2">
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <i class="fa-solid fa-bag-shopping fs-1 primary-text"></i>
-                            <div>
-                                <h3 class="fs-2"><?php echo count($listProd); ?></h3>
-                                <p class="fs-5">Sản phẩm</p>
+            <div class="container px-4">
+                <div class="row" style="margin: 50px auto">
+                    <?php
+                    if (!empty($smg)) {
+                        getSmg($smg, $smg_types);
+                    }
+                    ?>
+                    <form action="" method="post">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group mg-form">
+                                    <label for="">Tên danh mục</label>
+                                    <input class="form-control" type="text" placeholder="Tên danh mục" name="category_name"
+                                        value="<?php echo old('category_name', $old) ?>" />
+                                    <?php
+                                    echo form_error('category_name', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Title</label>
+                                    <input class="form-control" type="text" placeholder="Title" name="category_title"
+                                        value="<?php echo old('category_title', $old) ?>" />
+                                    <?php
+                                    echo form_error('category_title', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <i class="fas fa-chart-line fs-1 primary-text"></i>
-                            <div>
-                                <h3 class="fs-2"><?php echo count($listCate); ?></h3>
-                                <p class="fs-5">Danh mục</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <i class="fas fa-comment-dots fs-1 primary-text"></i>
-                            <div>
-                                <h3 class="fs-2"><?php echo count($listComment); ?></h3>
-                                <p class="fs-5">Bình luận</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <i class="fa fa-user fs-1 primary-text"></i>
-                            <div>
-                                <h3 class="fs-2"><?php echo count($listUser); ?></h3>
-                                <p class="fs-5">Thành viên</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+                <div class="row d-grid gap-2 justify-content-center">
+                    <button class="btn btn-primary" type="submit">Thêm danh mục</button>
+                    <a href="?module=admin&action=user_management" class="btn btn-success" type="submit">Quay lại</a>
+                </div>
+                </form>
             </div>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
     </div>
-
 </body>
 
-</html>
 
 <?php
 layouts('footer-admin');
