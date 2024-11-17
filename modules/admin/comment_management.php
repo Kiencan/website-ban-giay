@@ -57,17 +57,9 @@ $smg_types = getFlashData('smg_types');
         <div class="bg-white" id="sidebar-wrapper">
 
             <div class="list-group list-group-flush fw-bold">
-                <form class="d-flex p-1 border-bottom border-light my-3">
-                    <div class="input-group">
-                        <input class="form-control form-control-sm" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-white px-4" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </form>
                 <a
                     href="?module=admin"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-house me-2"></i>Dashboard</a>
                 <a
                     href="?module=admin&action=user_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-regular fa-user me-2"></i>Quản lý thành viên</a>
@@ -112,7 +104,7 @@ $smg_types = getFlashData('smg_types');
                 <div class="row my-5">
 
                     <div class="col overflow-auto">
-                        <table class="table bg-white rounded shadow-sm table-hover mt-3">
+                        <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">
                             <thead>
                                 <tr>
                                     <th scope="col" width="50">ID</th>
@@ -157,29 +149,7 @@ $smg_types = getFlashData('smg_types');
                             </tbody>
                         </table>
                     </div>
-                    <!-- Pagination -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <!-- Pagination -->
                 </div>
-
             </div>
         </div>
     </div>

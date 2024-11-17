@@ -4,7 +4,33 @@ if (!defined('_CODE')) {
 }
 ?>
 
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+<script>
+    var table = $('#datatable').DataTable({
+        layout: {
+            topStart: {
+                pageLength: {
+                    menu: [5, 25, 50, 100]
+                }
+            }, // góc trái trên
+            // topEnd: null, // góc pháp trên
+            // bottomEnd: {
+            //     paging: {
+            //         type: 'simple_numbers' // chỉ có một nút next
+            //     }
+            // },  // góc phải dưới
+            // bottomStart: {
+            //     pageLength: {
+            //         menu: [5, 25, 50, 100]
+            //     }
+            // } // góc trái dưới
+        },
+    });
+</script>
 <script>
     var el = document.getElementById("wrapper");
     var toggleButton = document.getElementById("menu-toggle");

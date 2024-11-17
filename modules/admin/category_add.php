@@ -19,6 +19,12 @@ if (isPost()) {
 
     if (empty($filterAll['category_title'])) {
         $errors['category_title']['required'] = 'Vui lòng nhập tiêu đề';
+    } else {
+        if (strlen($filterAll['category_title']) < 5) {
+            $errors['category_title']['min'] = 'Tiêu đề quá ngắn';
+        } else if (strlen($filterAll['category_title']) > 200) {
+            $errors['category_title']['max'] = 'Tiều đề quá dài';
+        }
     }
 
 
@@ -88,17 +94,9 @@ $old = getFlashData('old');
         <div class="bg-white" id="sidebar-wrapper">
 
             <div class="list-group list-group-flush fw-bold">
-                <form class="d-flex p-1 border-bottom border-light my-3">
-                    <div class="input-group">
-                        <input class="form-control form-control-sm" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-white px-4" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </form>
                 <a
                     href="?module=admin"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-house me-2"></i>Dashboard</a>
                 <a
                     href="?module=admin&action=user_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-regular fa-user me-2"></i>Quản lý thành viên</a>
@@ -168,7 +166,7 @@ $old = getFlashData('old');
                         </div>
                 </div>
                 <div class="row d-grid gap-2 justify-content-center">
-                    <button class="btn btn-primary" type="submit">Thêm danh mục</button>
+                    <button class="btn btn-primary" type="submit">Thêm người dùng</button>
                     <a href="?module=admin&action=user_management" class="btn btn-success" type="submit">Quay lại</a>
                 </div>
                 </form>

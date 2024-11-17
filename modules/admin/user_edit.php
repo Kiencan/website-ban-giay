@@ -157,17 +157,9 @@ if (!empty($userDetail)) {
         <div class="bg-white" id="sidebar-wrapper">
 
             <div class="list-group list-group-flush fw-bold">
-                <form class="d-flex p-1 border-bottom border-light my-3">
-                    <div class="input-group">
-                        <input class="form-control form-control-sm" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-white px-4" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </form>
                 <a
                     href="?module=admin"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-house me-2"></i>Dashboard</a>
                 <a
                     href="?module=admin&action=user_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-regular fa-user me-2"></i>Quản lý thành viên</a>
