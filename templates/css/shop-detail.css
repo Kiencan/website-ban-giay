@@ -1,0 +1,12 @@
+.carousel-inner img {
+  width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều ngang */
+  height: 100%; /* Phù hợp với chiều cao của lớp cha */
+  object-fit: cover; /* Lấp đầy khung hình */
+}
+.col-lg-6 {
+  height: auto; /* Đảm bảo lớp cha mở rộng theo nội dung */
+}
+.border {
+  height: auto; /* Tương tự như trên */
+  overflow: hidden; /* Đảm bảo nội dung không bị cắt */
+}
