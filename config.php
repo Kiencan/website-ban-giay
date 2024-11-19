@@ -3,7 +3,7 @@
 
 // Điều hướng file
 const _MODULE = 'user';
-const _ACTION = 'trangchu';
+const _ACTION = 'dashboard';
 
 // Cấp quyền truy cập cho file
 const _CODE = true;

@@ -18,7 +18,7 @@ if (!isLogin()) {
 if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
-$listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id INNER JOIN customer ON order_item.customer_id =customer.id ORDER BY order_item.customer_id");
+$listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id INNER JOIN product_type ON products.p_id = product_type.product_id INNER JOIN customer ON order_item.customer_id = customer.id ORDER BY order_item.customer_id");
 // echo '<pre>';
 // print_r($listOrder);
 // echo '</pre>';
@@ -137,7 +137,7 @@ $smg_types = getFlashData('smg_types');
                                             <td><?php echo $item['address'] ?></td>
                                             <td><?php echo $item['phone'] ?></td>
                                             <td><?php echo $item['p_name'] ?></td>
-                                            <td><?php echo $item['p_price'] ?></td>
+                                            <td><?php echo $item['product_price'] ?></td>
                                             <td><?php echo $item['order_status'] == 1 ? '<button class="btn btn-success"> Đã xử lý </button>' :
                                                     '<button class="btn btn-danger"> Chưa xử lý </button>'; ?></td>
                                             <td>

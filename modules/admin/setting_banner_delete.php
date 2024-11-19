@@ -3,6 +3,7 @@ if (!defined('_CODE')) {
     die('Access denied');
 }
 
+
 $filterAll = filter();
 
 if (!empty($filterAll['id'])) {

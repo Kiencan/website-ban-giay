@@ -5,7 +5,7 @@ if (!defined('_CODE')) {
 
 $title = [
 
-    'pageTitle' => 'Item deail'
+  'pageTitle' => 'Item deail'
 
 ];
 
@@ -81,9 +81,9 @@ if (!isLogin()) {
       </div>
       <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-          <a href="?module=user" class="navbar-brand"
-            ><h1 class="display-6" style="color: #4856dd">3H1A Store</h1></a
-          >
+          <a href="?module=user" class="navbar-brand">
+            <h1 class="display-6" style="color: #4856dd">3H1A Store</h1>
+          </a>
 
           <button
             class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
@@ -100,9 +100,7 @@ if (!isLogin()) {
                 <a
                   href="#"
                   class="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  >Sneaker</a
-                >
+                  data-bs-toggle="dropdown">Sneaker</a>
                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
                   <a href="?module=user&action=giayAdidas" class="dropdown-item">Giày Adidas</a>
                   <a href="?module=user&action=giayNike" class="dropdown-item">Giày Nike</a>
@@ -117,163 +115,149 @@ if (!isLogin()) {
             </div>
 
             <div class="d-flex m-3 me-0">
-            <button
-              class="btn-search btn border border-secondary rounded-circle bg-white me-4"
-              data-bs-toggle="modal"
-              data-bs-target="#searchModal"
-              style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"
-            >
-              <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
-            </button>
-            <a href="?module=user&action=cart" class="position-relative me-4 my-auto">
-              <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
-              <span
-                class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                style="top: -5px; left: 15px; height: 20px; min-width: 20px;"
-              >
-                3
-              </span>
-            </a>
-            <a href="#" class="my-auto">
-              <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
-            </a>
-          </div>
+              <button
+                class="btn-search btn border border-secondary rounded-circle bg-white me-4"
+                data-bs-toggle="modal"
+                data-bs-target="#searchModal"
+                style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
+              </button>
+              <a href="?module=user&action=cart" class="position-relative me-4 my-auto">
+                <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
+                <span
+                  class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                  style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
+                  3
+                </span>
+              </a>
+              <a href="#" class="my-auto">
+                <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+              </a>
+            </div>
 
           </div>
         </nav>
       </div>
-    </div>
-    <!-- Navbar End -->
+  </div>
+  <!-- Navbar End -->
 
-    <!-- Modal Search Start -->
-    <div
-      class="modal fade"
-      id="searchModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content rounded-0">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Tìm kiếm</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+  <!-- Modal Search Start -->
+  <div
+    class="modal fade"
+    id="searchModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content rounded-0">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tìm kiếm</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex align-items-center">
+          <div class="input-group w-75 mx-auto d-flex">
+            <input
+              type="search"
+              class="form-control p-3"
+              placeholder="Nhập tại đây"
+              aria-describedby="search-icon-1" />
+            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+
           </div>
-          <div class="modal-body d-flex align-items-center">
-            <div class="input-group w-75 mx-auto d-flex">
-              <input
-                type="search"
-                class="form-control p-3"
-                placeholder="Nhập tại đây"
-                aria-describedby="search-icon-1"
-              />
-              <span id="search-icon-1" class="input-group-text p-3"
-                ><i class="fa fa-search"></i
-              ></span>
+        </div>
 
-            </div>
-          </div>
+        <!-- Single Page Header start -->
+        <div class="container-fluid page-header py-5">
+          <h1 class="text-center text-white display-6 text-primary">Sản phẩm</h1>
+          <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item">
+              <a href="#">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="#">Sneaker</a>
+            </li>
+            <li class="breadcrumb-item active text-white">Giày Adidas</li>
+          </ol>
+        </div>
+        <!-- Single Page Header End -->
 
-    <!-- Single Page Header start -->
-    <div class="container-fluid page-header py-5">
-      <h1 class="text-center text-white display-6 text-primary">Sản phẩm</h1>
-      <ol class="breadcrumb justify-content-center mb-0">
-        <li class="breadcrumb-item">
-          <a href="#">Trang chủ</a>
-        </li> 
-        <li class="breadcrumb-item">
-          <a href="#">Sneaker</a>
-        </li>
-        <li class="breadcrumb-item active text-white">Giày Adidas</li>
-      </ol>
-    </div>
-    <!-- Single Page Header End -->
+        <!-- Single Product Start -->
+        <div class="container-fluid py-5 mt-5">
+          <div class="container py-5">
+            <div class="row g-4 mb-5">
+              <div class="col-lg-8 col-xl-9">
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <div
+                      id="carouselId"
+                      class="carousel slide position-relative border rounded"
+                      data-bs-ride="carousel">
+                      <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active rounded">
+                          <img
+                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong1.jpg"
+                            class="img-fluid w-100 h-100 bg-secondary rounded"
+                            alt="Giày Adidas Duramo"
+                            onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong1.jpg', document.querySelector('h4').textContent)"
+                            style="cursor: pointer" />
+                        </div>
+                        <div class="carousel-item rounded">
+                          <img
+                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong2.jpg"
+                            class="img-fluid w-100 h-100 rounded"
+                            alt="Second slide"
+                            onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong2.jpg')"
+                            style="cursor: pointer" />
+                        </div>
+                        <div class="carousel-item rounded">
+                          <img
+                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong3.jpg"
+                            class="img-fluid w-100 h-100 rounded"
+                            alt="Second slide"
+                            onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong3.jpg')"
+                            style="cursor: pointer" />
+                        </div>
+                        <div class="carousel-item rounded">
+                          <img
+                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong4.jpg"
+                            class="img-fluid w-100 h-100 rounded"
+                            alt="Second slide"
+                            onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong4.jpg')"
+                            style="cursor: pointer" />
+                        </div>
+                      </div>
+                      <button
+                        class="carousel-control-prev"
+                        type="button"
+                        data-bs-target="#carouselId"
+                        data-bs-slide="prev"
+                        style="background-color: black">
+                        <span
+                          class="carousel-control-prev-icon"
+                          aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
 
-    <!-- Single Product Start -->
-    <div class="container-fluid py-5 mt-5">
-      <div class="container py-5">
-        <div class="row g-4 mb-5">
-          <div class="col-lg-8 col-xl-9">
-            <div class="row g-4">
-              <div class="col-lg-6">
-                <div
-                  id="carouselId"
-                  class="carousel slide position-relative border rounded"
-                  data-bs-ride="carousel"
-                >
-                  <div class="carousel-inner" role="listbox">
-                    <div class="carousel-item active rounded">
-                      <img
-                        src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong1.jpg"
-                        class="img-fluid w-100 h-100 bg-secondary rounded"
-                        alt="Giày Adidas Duramo"
-                        onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong1.jpg', document.querySelector('h4').textContent)"
-                        style="cursor: pointer"
-                      />
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                     </div>
-                    <div class="carousel-item rounded">
+                    <div class="modal-body text-center">
                       <img
-                        src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong2.jpg"
-                        class="img-fluid w-100 h-100 rounded"
-                        alt="Second slide"
-                        onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong2.jpg')"
-                        style="cursor: pointer"
-                      />
-                    </div>
-                    <div class="carousel-item rounded">
-                      <img
-                        src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong3.jpg"
-                        class="img-fluid w-100 h-100 rounded"
-                        alt="Second slide"
-                        onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong3.jpg')"
-                        style="cursor: pointer"
-                      />
-                    </div>
-                    <div class="carousel-item rounded">
-                      <img
-                        src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong4.jpg"
-                        class="img-fluid w-100 h-100 rounded"
-                        alt="Second slide"
-                        onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong4.jpg')"
-                        style="cursor: pointer"
-                      />
+                        id="modalImage"
+                        src=""
+                        class="img-fluid rounded"
+                        alt="Modal Image" />
                     </div>
                   </div>
-                  <button
-                    class="carousel-control-prev"
-                    type="button"
-                    data-bs-target="#carouselId"
-                    data-bs-slide="prev"
-                    style="background-color: black"
-                  >
-                    <span
-                      class="carousel-control-prev-icon"
-                      aria-hidden="true"
-                    ></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                  <img
-                    id="modalImage"
-                    src=""
-                    class="img-fluid rounded"
-                    alt="Modal Image" />
                 </div>
               </div>
-            </div>
-          </div>
 
 
               <div class="col-lg-6">
@@ -288,14 +272,12 @@ if (!isLogin()) {
                       text-decoration: line-through;
                       font-family: 'Open Sans', sans-serif;
                     ">2.500.000đ</span>
-              <span
-                style="
+                  <span
+                    style="
                       font-weight: bold;
                       color: black;
                       font-family: 'Open Sans', sans-serif;
-                    "
-                    >1.499.000đ</span
-                  >
+                    ">1.499.000đ</span>
                 </h5>
                 <div class="d-flex mb-4">
                   <i class="fa fa-star text-secondary"></i>
@@ -307,7 +289,7 @@ if (!isLogin()) {
                 <!-- <p class="mb-4">
                   The generated Lorem Ipsum is therefore always free from
                   repetition injected humour, or non-characteristic words etc.
-                </p> -->    
+                </p> -->
 
                 <div class="type-giay">
                   <span class="select-color mt-3">Màu sắc</span>
@@ -324,42 +306,38 @@ if (!isLogin()) {
                 </div>
 
                 <div class="chon-size">
-                <span class="select-size mt-3">Kích thước</span>
-                <div class="container-product d-flex justify-content-start p-3">
-                  <button class="size">35</button>
-                  <button class="size">36</button>
-                  <button class="size">37</button>
-                  <button class="size">38</button>
-                  <button class="size">39</button>
-                  <button class="size">39.5</button>
-                  <button class="size">40</button>
-                  <button class="size">40.5</button>
-                  <button class="size">41</button>
-                  <button class="size">42</button>
-                </div>
-                <span class="select-quantity pt-3 mt-3">Số lượng</span>
+                  <span class="select-size mt-3">Kích thước</span>
+                  <div class="container-product d-flex justify-content-start p-3">
+                    <button class="size">35</button>
+                    <button class="size">36</button>
+                    <button class="size">37</button>
+                    <button class="size">38</button>
+                    <button class="size">39</button>
+                    <button class="size">39.5</button>
+                    <button class="size">40</button>
+                    <button class="size">40.5</button>
+                    <button class="size">41</button>
+                    <button class="size">42</button>
+                  </div>
+                  <span class="select-quantity pt-3 mt-3">Số lượng</span>
 
                 </div>
                 <div
                   class="input-group quantity mb-3 mt-3"
-                  style="width: 100px"
-                >
+                  style="width: 100px">
                   <div class="input-group-btn">
                     <button
-                      class="btn btn-sm btn-minus rounded-circle bg-light border"
-                    >
+                      class="btn btn-sm btn-minus rounded-circle bg-light border">
                       <i class="fa fa-minus"></i>
                     </button>
                   </div>
                   <input
                     type="text"
                     class="form-control form-control-sm text-center border-0"
-                    value="1"
-                  />
+                    value="1" />
                   <div class="input-group-btn">
                     <button
-                      class="btn btn-sm btn-plus rounded-circle bg-light border"
-                    >
+                      class="btn btn-sm btn-plus rounded-circle bg-light border">
                       <i class="fa fa-plus"></i>
                     </button>
                   </div>
@@ -367,16 +345,12 @@ if (!isLogin()) {
                 <a
                   href="#"
                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4"
-                  style ="color: #4856dd"
-                  ><i class="fa fa-shopping-bag me-2" style ="color: #4856dd"></i> Thêm vào giỏ hàng</a
-                >
+                  style="color: #4856dd"><i class="fa fa-shopping-bag me-2" style="color: #4856dd"></i> Thêm vào giỏ hàng</a>
                 <a
                   href="#"
                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4"
-                  style ="color: #4856dd"
-                  ><i class="fa fa-phone me-2" style ="color: #4856dd"></i>Tư vấn:
-                  0383083743</a
-                >
+                  style="color: #4856dd"><i class="fa fa-phone me-2" style="color: #4856dd"></i>Tư vấn:
+                  0383083743</a>
               </div>
               <div class="col-lg-12">
                 <nav>
@@ -389,8 +363,7 @@ if (!isLogin()) {
                       data-bs-toggle="tab"
                       data-bs-target="#nav-about"
                       aria-controls="nav-about"
-                      aria-selected="true"
-                    >
+                      aria-selected="true">
                       Mô tả
                     </button>
                     <button
@@ -401,8 +374,7 @@ if (!isLogin()) {
                       data-bs-toggle="tab"
                       data-bs-target="#nav-mission"
                       aria-controls="nav-mission"
-                      aria-selected="false"
-                    >
+                      aria-selected="false">
                       Đánh giá
                     </button>
                   </div>
@@ -412,8 +384,7 @@ if (!isLogin()) {
                     class="tab-pane active"
                     id="nav-about"
                     role="tabpanel"
-                    aria-labelledby="nav-about-tab"
-                  >
+                    aria-labelledby="nav-about-tab">
                     <p>
                       The generated Lorem Ipsum is therefore always free from
                       repetition injected humour, or non-characteristic words
@@ -482,8 +453,7 @@ if (!isLogin()) {
                       <input
                         type="text"
                         class="form-control border-0 me-4"
-                        placeholder="Tên của bạn *"
-                      />
+                        placeholder="Tên của bạn *" />
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -491,8 +461,7 @@ if (!isLogin()) {
                       <input
                         type="email"
                         class="form-control border-0"
-                        placeholder="Email *"
-                      />
+                        placeholder="Email *" />
                     </div>
                   </div>
                   <div class="col-lg-12">
@@ -504,8 +473,7 @@ if (!isLogin()) {
                         cols="30"
                         rows="8"
                         placeholder="Đánh giá *"
-                        spellcheck="false"
-                      ></textarea>
+                        spellcheck="false"></textarea>
 
                     </div>
                     <p>
@@ -521,8 +489,7 @@ if (!isLogin()) {
                         <p class="mb-0 me-3">Mức độ hài lòng:</p>
                         <div
                           class="d-flex align-items-center"
-                          style="font-size: 12px"
-                        >
+                          style="font-size: 12px">
                           <i class="fa fa-star text-muted"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
@@ -532,10 +499,8 @@ if (!isLogin()) {
                       </div>
                       <a
                         href="#"
-                        class="btn border border-secondary text-primary rounded-pill px-4 py-3"
-                      >
-                        Bình luận</a
-                      >
+                        class="btn border border-secondary text-primary rounded-pill px-4 py-3">
+                        Bình luận</a>
                     </div>
                     <p class="text-dark">
                       The generated Lorem Ipsum is therefore always free
@@ -545,257 +510,234 @@ if (!isLogin()) {
                     </p>
                   </div>
                 </div>
-              </div>
-              <div class="tab-pane" id="nav-vision" role="tabpanel">
-                <p class="text-dark">
-                  Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
-                  tempor sit. Aliqu diam amet diam et eos labore. 3
-                </p>
-                <p class="mb-0">
-                  Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam
-                  et eos labore. Clita erat ipsum et lorem et sit
-                </p>
-              </div>
+            </div>
+            <div class="tab-pane" id="nav-vision" role="tabpanel">
+              <p class="text-dark">
+                Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
+                tempor sit. Aliqu diam amet diam et eos labore. 3
+              </p>
+              <p class="mb-0">
+                Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam
+                et eos labore. Clita erat ipsum et lorem et sit
+              </p>
             </div>
           </div>
-          <form action="#">
-            <h4 class="mb-5 fw-bold">Leave a Reply</h4>
-            <div class="row g-4">
-              <div class="col-lg-6">
-                <div class="border-bottom rounded">
-                  <input
-                    type="search"
-                    class="form-control p-3"
-                    placeholder="Nhập từ khóa"
-                    aria-describedby="search-icon-1"
-                  />
-                  <span id="search-icon-1" class="input-group-text p-3"
-                    ><i class="fa fa-search"></i
-                  ></span>
-                </div>
-                <div class="mb-4">
-                  <h4>Danh mục</h4>
-                  <ul class="list-unstyled item-categorie">
-                    <li>
-                      <div class="d-flex justify-content-between item-name">
-                        <a href="?module=user&action=giayAdidas"
-                          ><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b306"></i>Giày Adidas</a
-                        >
-                        <span>(3)</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex justify-content-between item-name">
-                        <a href="?module=user&action=giayNike"
-                          ><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b306"></i>Giày Nike</a
-                        >
-                        <span>(5)</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex justify-content-between item-name">
-                        <a href="?module=user&action=giayPuma"
-                          ><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b306"></i>Giày Puma</a
-                        >
-                        <span>(2)</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex justify-content-between item-name">
-                        <a href="?module=user&action=giayLining"
-                          ><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b306"></i>Giày Lining</a
-                        >
-                        <span>(8)</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex justify-content-between item-name">
-                        <a href="?module=user&action=giayAnta"
-                          ><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b306"></i>Giày Anta</a
-                        >
-                        <span>(5)</span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+        </div>
+        <form action="#">
+          <h4 class="mb-5 fw-bold">Leave a Reply</h4>
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="border-bottom rounded">
+                <input
+                  type="search"
+                  class="form-control p-3"
+                  placeholder="Nhập từ khóa"
+                  aria-describedby="search-icon-1" />
+                <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
               </div>
-              <div class="col-lg-12">
-                <h4 class="mb-4">Sản phẩm nổi bật</h4>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded" style="width: 100px; height: 100px">
-                    <img
-                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                      class="img-fluid rounded"
-                      alt="Image"
-                    />
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Giày Adidas Duramo </h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
+              <div class="mb-4">
+                <h4>Danh mục</h4>
+                <ul class="list-unstyled item-categorie">
+                  <li>
+                    <div class="d-flex justify-content-between item-name">
+                      <a href="?module=user&action=giayAdidas"><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b3066"></i>Giày Adidas</a>
+                      <span>(3)</span>
                     </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">1.5oo.000đ</h5>
-                      <h5 class="text-danger text-decoration-line-through">
-                        2.000.000đ
-                      </h5>
+                  </li>
+                  <li>
+                    <div class="d-flex justify-content-between item-name">
+                      <a href="?module=user&action=giayNike"><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b3066"></i>Giày Nike</a>
+                      <span>(5)</span>
                     </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded" style="width: 100px; height: 100px">
-                    <img
-                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                      class="img-fluid rounded"
-                      alt="Image"
-                    />
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Giày Adidas Duramo </h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <div class="d-flex justify-content-between item-name">
+                      <a href="?module=user&action=giayPuma"><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b3066"></i>Giày Puma</a>
+                      <span>(2)</span>
                     </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">1.5oo.000đ</h5>
-                      <h5 class="text-danger text-decoration-line-through">
-                        2.000.000đ
-                      </h5>
+                  </li>
+                  <li>
+                    <div class="d-flex justify-content-between item-name">
+                      <a href="?module=user&action=giayLining"><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b3066"></i>Giày Lining</a>
+                      <span>(8)</span>
                     </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded" style="width: 100px; height: 100px">
-                    <img
-                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                      class="img-fluid rounded"
-                      alt="Image"
-                    />
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Giày Adidas Duramo </h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <div class="d-flex justify-content-between item-name">
+                      <a href="?module=user&action=giayAnta"><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b3066"></i>Giày Anta</a>
+                      <span>(5)</span>
                     </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">1.5oo.000đ</h5>
-                      <h5 class="text-danger text-decoration-line-through">
-                        2.000.000đ
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded" style="width: 100px; height: 100px">
-                    <img
-                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                      class="img-fluid rounded"
-                      alt="Image"
-                    />
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Giày Adidas Duramo </h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">1.5oo.000đ</h5>
-                      <h5 class="text-danger text-decoration-line-through">
-                        2.000.000đ
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded" style="width: 100px; height: 100px">
-                    <img
-                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                      class="img-fluid rounded"
-                      alt="Image"
-                    />
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Giày Adidas Duramo </h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">1.5oo.000đ</h5>
-                      <h5 class="text-danger text-decoration-line-through">
-                        2.000.000đ
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded" style="width: 100px; height: 100px">
-                    <img
-                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                      class="img-fluid rounded"
-                      alt="Image"
-                    />
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Giày Adidas Duramo </h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">1.5oo.000đ</h5>
-                      <h5 class="text-danger text-decoration-line-through">
-                        2.000.000đ
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center my-4">
-                  <a
-                    href="#"
-                    class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100"
-                    >Xem thêm</a
-                  >
-                </div>
+                  </li>
+                </ul>
               </div>
-              <div class="col-lg-12">
-                <div class="position-relative">
+            </div>
+            <div class="col-lg-12">
+              <h4 class="mb-4">Sản phẩm nổi bật</h4>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded" style="width: 100px; height: 100px">
                   <img
-                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/banner-fruits.jpg"
-                    class="img-fluid w-100 rounded"
-                    alt=""
-                  />
-                  <div
-                    class="position-absolute"
-                    style="top: 50%; right: 10px; transform: translateY(-50%)"
-                  >
-                    <h3 class="text-secondary fw-bold">
-                      Sneaker <br />
-                      Authentic <br />
-                      Banner
-                    </h3>
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
+                    class="img-fluid rounded"
+                    alt="Image" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Giày Adidas Duramo </h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
                   </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">1.5oo.000đ</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      2.000.000đ
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
+                    class="img-fluid rounded"
+                    alt="Image" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Giày Adidas Duramo </h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">1.5oo.000đ</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      2.000.000đ
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
+                    class="img-fluid rounded"
+                    alt="Image" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Giày Adidas Duramo </h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">1.5oo.000đ</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      2.000.000đ
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
+                    class="img-fluid rounded"
+                    alt="Image" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Giày Adidas Duramo </h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">1.5oo.000đ</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      2.000.000đ
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
+                    class="img-fluid rounded"
+                    alt="Image" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Giày Adidas Duramo </h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">1.5oo.000đ</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      2.000.000đ
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
+                    class="img-fluid rounded"
+                    alt="Image" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Giày Adidas Duramo </h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">1.5oo.000đ</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      2.000.000đ
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center my-4">
+                <a
+                  href="#"
+                  class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Xem thêm</a>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="position-relative">
+                <img
+                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/banner-fruits.jpg"
+                  class="img-fluid w-100 rounded"
+                  alt="" />
+                <div
+                  class="position-absolute"
+                  style="top: 50%; right: 10px; transform: translateY(-50%)">
+                  <h3 class="text-secondary fw-bold">
+                    Sneaker <br />
+                    Authentic <br />
+                    Banner
+                  </h3>
+                </div>
                 </li>
                 <li>
                   <div class="d-flex justify-content-between item-name">
@@ -821,183 +763,182 @@ if (!isLogin()) {
                     <span>(5)</span>
                   </div>
                 </li>
-              </ul>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-        <h1 class="fw-bold mb-0">Sản phẩm liên quan</h1>
-        <div class="vesitable">
-          <div class="owl-carousel vegetable-carousel justify-content-center">
-            <div
-              class="border border-primary rounded position-relative vesitable-item"
-            >
-              <div class="vesitable-img">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-1.jpg"
-                  class="img-fluid rounded"
-                  alt="Image" />
-              </div>
-              <div>
-                <h6 class="mb-2">Big Banana</h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">2.99 $</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    4.11 $
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-2.jpg"
-                  class="img-fluid rounded"
-                  alt="" />
-              </div>
-              <div>
-                <h6 class="mb-2">Big Banana</h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">2.99 $</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    4.11 $
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-3.jpg"
-                  class="img-fluid rounded"
-                  alt="" />
-              </div>
-              <div>
-                <h6 class="mb-2">Big Banana</h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">2.99 $</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    4.11 $
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded me-4" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/vegetable-item-4.jpg"
-                  class="img-fluid rounded"
-                  alt="" />
-              </div>
-              <div>
-                <h6 class="mb-2">Big Banana</h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">2.99 $</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    4.11 $
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded me-4" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/vegetable-item-5.jpg"
-                  class="img-fluid rounded"
-                  alt="" />
-              </div>
-              <div>
-                <h6 class="mb-2">Big Banana</h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">2.99 $</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    4.11 $
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded me-4" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/vegetable-item-6.jpg"
-                  class="img-fluid rounded"
-                  alt="" />
-              </div>
-              <div>
-                <h6 class="mb-2">Big Banana</h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">2.99 $</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    4.11 $
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-center my-4">
-              <a
-                href="#"
-                class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="position-relative">
-              <img
-                src="img/banner-fruits.jpg"
-                class="img-fluid w-100 rounded"
-                alt="" />
+          <h1 class="fw-bold mb-0">Sản phẩm liên quan</h1>
+          <div class="vesitable">
+            <div class="owl-carousel vegetable-carousel justify-content-center">
               <div
-                class="position-absolute"
-                style="top: 50%; right: 10px; transform: translateY(-50%)">
-                <h3 class="text-secondary fw-bold">
-                  Fresh <br />
-                  Fruits <br />
-                  Banner
-                </h3>
+                class="border border-primary rounded position-relative vesitable-item">
+                <div class="vesitable-img">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-1.jpg"
+                    class="img-fluid rounded"
+                    alt="Image" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Big Banana</h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">2.99 $</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      4.11 $
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-2.jpg"
+                    class="img-fluid rounded"
+                    alt="" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Big Banana</h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">2.99 $</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      4.11 $
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-3.jpg"
+                    class="img-fluid rounded"
+                    alt="" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Big Banana</h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">2.99 $</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      4.11 $
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded me-4" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/vegetable-item-4.jpg"
+                    class="img-fluid rounded"
+                    alt="" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Big Banana</h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">2.99 $</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      4.11 $
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded me-4" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/vegetable-item-5.jpg"
+                    class="img-fluid rounded"
+                    alt="" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Big Banana</h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">2.99 $</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      4.11 $
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded me-4" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/vegetable-item-6.jpg"
+                    class="img-fluid rounded"
+                    alt="" />
+                </div>
+                <div>
+                  <h6 class="mb-2">Big Banana</h6>
+                  <div class="d-flex mb-2">
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star text-secondary"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2">2.99 $</h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      4.11 $
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center my-4">
+                <a
+                  href="#"
+                  class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="position-relative">
+                <img
+                  src="img/banner-fruits.jpg"
+                  class="img-fluid w-100 rounded"
+                  alt="" />
+                <div
+                  class="position-absolute"
+                  style="top: 50%; right: 10px; transform: translateY(-50%)">
+                  <h3 class="text-secondary fw-bold">
+                    Fresh <br />
+                    Fruits <br />
+                    Banner
+                  </h3>
+                </div>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
     <!-- Single Product End -->
@@ -1005,13 +946,11 @@ if (!isLogin()) {
     <!-- Footer Start -->
     <div
       class="container-fluid text-white-50 footer pt-5 mt-5"
-      style="background-color: #4f4f58"
-    >
+      style="background-color: #4f4f58">
       <div class="container py-5">
         <div
           class="pb-4 mb-4"
-          style="border-bottom: 1px solid rgba(226, 175, 24, 0.5)"
-        >
+          style="border-bottom: 1px solid rgba(226, 175, 24, 0.5)">
           <div class="row g-4">
             <div class="col-lg-3">
               <a href="#">
@@ -1026,13 +965,11 @@ if (!isLogin()) {
                 <input
                   class="form-control border-0 w-100 py-3 px-4 rounded-pill"
                   type="number"
-                  placeholder="Nhập email của bạn"
-                />
+                  placeholder="Nhập email của bạn" />
                 <button
                   type="submit"
                   class="btn border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
-                  style="top: 0; right: 0; background-color: #4856dd"
-                >
+                  style="top: 0; right: 0; background-color: #4856dd">
                   Gửi ngay
                 </button>
               </div>
@@ -1041,24 +978,16 @@ if (!isLogin()) {
               <div class="d-flex justify-content-end pt-3">
                 <a
                   class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
-                  href=""
-                  ><i class="fab fa-twitter"></i
-                ></a>
+                  href=""><i class="fab fa-twitter"></i></a>
                 <a
                   class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
-                  href=""
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
+                  href=""><i class="fab fa-facebook-f"></i></a>
                 <a
                   class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
-                  href=""
-                  ><i class="fab fa-tiktok"></i
-                ></a>
+                  href=""><i class="fab fa-tiktok"></i></a>
                 <a
                   class="btn btn-outline-secondary btn-md-square rounded-circle"
-                  href=""
-                  ><i class="fa fa-phone"></i
-                ></a>
+                  href=""><i class="fa fa-phone"></i></a>
               </div>
             </div>
           </div>
@@ -1075,11 +1004,9 @@ if (!isLogin()) {
               <a
                 href=""
                 class="btn border-secondary py-2 px-4 rounded-pill"
-                style="color: aliceblue"
-                >Xem thêm</a
-              >
+                style="color: aliceblue">Xem thêm</a>
             </div>
-          </div> 
+          </div>
           <div class="col-lg-3 col-md-6">
             <div class="d-flex flex-column text-start footer-item">
               <h4 class="text-light mb-3">Thông tin</h4>
@@ -1117,119 +1044,111 @@ if (!isLogin()) {
   </div>
 </div>
 <!-- Single Product End -->
-   <!-- Side-right container -->
-   <div class="container">
-      <div class="row justify-content-end">
-        <div class="col-auto">
-          <div class="side-right position-fixed">
-            <div class="echbay-sms-messenger">
-              <div class="phonering-alo-alo">
-                <a
-                  href="tel:0387440192"
-                  rel="nofollow"
-                  class="echbay-phonering-alo-event"
-                ></a>
-              </div>
-              <div class="phonering-alo-sms">
-                <a
-                  href="sms:0387440192"
-                  rel="nofollow"
-                  class="echbay-phonering-sms-event"
-                ></a>
-              </div>
-              <div class="phonering-alo-zalo">
-                <a
-                  href="https://zalo.me/0387440192"
-                  target="_blank"
-                  rel="nofollow"
-                  class="echbay-phonering-zalo-event"
-                ></a>
-              </div>
-              <div class="phonering-alo-messenger">
-                <a
-                  href="https://www.facebook.com/3h1a.store"
-                  target="_blank"
-                  rel="nofollow"
-                  class="echbay-phonering-messenger-event"
-                ></a>
-              </div>
-            </div>
+<!-- Side-right container -->
+<div class="container">
+  <div class="row justify-content-end">
+    <div class="col-auto">
+      <div class="side-right position-fixed">
+        <div class="echbay-sms-messenger">
+          <div class="phonering-alo-alo">
+            <a
+              href="tel:0387440192"
+              rel="nofollow"
+              class="echbay-phonering-alo-event"></a>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Copyright Start -->
-    <div class="container-fluid copyright bg-dark py-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-            <span class="text-light"
-              ><a href="#"
-                ><i class="fas fa-copyright text-light me-2"></i>3H1A Strore</a
-              >, All right reserved.</span
-            >
+          <div class="phonering-alo-sms">
+            <a
+              href="sms:0387440192"
+              rel="nofollow"
+              class="echbay-phonering-sms-event"></a>
           </div>
-          <div class="col-md-6 my-auto text-center text-md-end text-white">
-            <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-            <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-            <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-            Designed By
-            <a class="border-bottom" href="https://htmlcodex.com">KTN Group</a>
-            Distributed By
-            <a class="border-bottom" href="https://themewagon.com">HUS</a>
+          <div class="phonering-alo-zalo">
+            <a
+              href="https://zalo.me/0387440192"
+              target="_blank"
+              rel="nofollow"
+              class="echbay-phonering-zalo-event"></a>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="row g-5">
-      <div class="col-lg-3 col-md-6">
-        <div class="footer-item">
-          <h4 class="text-light mb-3">Why People Like us!</h4>
-          <p class="mb-4">
-            typesetting, remaining essentially unchanged. It was popularised
-            in the 1960s with the like Aldus PageMaker including of Lorem
-            Ipsum.
-          </p>
-          <a
-            href=""
-            class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="d-flex flex-column text-start footer-item">
-          <h4 class="text-light mb-3">Shop Info</h4>
-          <a class="btn-link" href="">About Us</a>
-          <a class="btn-link" href="">Contact Us</a>
-          <a class="btn-link" href="">Privacy Policy</a>
-          <a class="btn-link" href="">Terms & Condition</a>
-          <a class="btn-link" href="">Return Policy</a>
-          <a class="btn-link" href="">FAQs & Help</a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="d-flex flex-column text-start footer-item">
-          <h4 class="text-light mb-3">Account</h4>
-          <a class="btn-link" href="">My Account</a>
-          <a class="btn-link" href="">Shop details</a>
-          <a class="btn-link" href="">Shopping Cart</a>
-          <a class="btn-link" href="">Wishlist</a>
-          <a class="btn-link" href="">Order History</a>
-          <a class="btn-link" href="">International Orders</a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="footer-item">
-          <h4 class="text-light mb-3">Contact</h4>
-          <p>Address: 1429 Netus Rd, NY 48247</p>
-          <p>Email: Example@gmail.com</p>
-          <p>Phone: +0123 4567 8910</p>
-          <p>Payment Accepted</p>
-          <img src="img/payment.png" class="img-fluid" alt="" />
+          <div class="phonering-alo-messenger">
+            <a
+              href="https://www.facebook.com/3h1a.store"
+              target="_blank"
+              rel="nofollow"
+              class="echbay-phonering-messenger-event"></a>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Copyright Start -->
+<div class="container-fluid copyright bg-dark py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>3H1A Strore</a>, All right reserved.</span>
+      </div>
+      <div class="col-md-6 my-auto text-center text-md-end text-white">
+        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+        Designed By
+        <a class="border-bottom" href="https://htmlcodex.com">KTN Group</a>
+        Distributed By
+        <a class="border-bottom" href="https://themewagon.com">HUS</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row g-5">
+  <div class="col-lg-3 col-md-6">
+    <div class="footer-item">
+      <h4 class="text-light mb-3">Why People Like us!</h4>
+      <p class="mb-4">
+        typesetting, remaining essentially unchanged. It was popularised
+        in the 1960s with the like Aldus PageMaker including of Lorem
+        Ipsum.
+      </p>
+      <a
+        href=""
+        class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="d-flex flex-column text-start footer-item">
+      <h4 class="text-light mb-3">Shop Info</h4>
+      <a class="btn-link" href="">About Us</a>
+      <a class="btn-link" href="">Contact Us</a>
+      <a class="btn-link" href="">Privacy Policy</a>
+      <a class="btn-link" href="">Terms & Condition</a>
+      <a class="btn-link" href="">Return Policy</a>
+      <a class="btn-link" href="">FAQs & Help</a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="d-flex flex-column text-start footer-item">
+      <h4 class="text-light mb-3">Account</h4>
+      <a class="btn-link" href="">My Account</a>
+      <a class="btn-link" href="">Shop details</a>
+      <a class="btn-link" href="">Shopping Cart</a>
+      <a class="btn-link" href="">Wishlist</a>
+      <a class="btn-link" href="">Order History</a>
+      <a class="btn-link" href="">International Orders</a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="footer-item">
+      <h4 class="text-light mb-3">Contact</h4>
+      <p>Address: 1429 Netus Rd, NY 48247</p>
+      <p>Email: Example@gmail.com</p>
+      <p>Phone: +0123 4567 8910</p>
+      <p>Payment Accepted</p>
+      <img src="img/payment.png" class="img-fluid" alt="" />
+    </div>
+  </div>
+</div>
+</div>
 </div>
 <!-- Footer End -->
 

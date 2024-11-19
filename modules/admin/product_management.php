@@ -19,7 +19,9 @@ if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
 
-$listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id");
+$listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id INNER JOIN product_type ON products.p_id = product_type.product_id INNER JOIN product_image 
+    ON product_type.id = product_image.product_type_id;");
+
 // echo '<pre>';
 // print_r($listProd);
 // echo '</pre>';
@@ -117,7 +119,6 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                                     <th scope="col">Ảnh sản phẩm</th>
                                     <th scope="col">Trạng thái</th>
                                     <th scope="col">Danh mục</th>
-                                    <th scope="col">Model</th>
                                     <th width="5%"> Sửa </th>
                                     <th width="5%"> Xóa </th>
                                 </tr>
@@ -132,12 +133,11 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                                         <tr>
                                             <td><?php echo $product['p_id'] ?></td>
                                             <td><?php echo $product['p_name'] ?></td>
-                                            <td><?php echo $product['p_price'] . " VNĐ" ?></td>
-                                            <td><img src="<?php echo _WEB_HOST_TEMPLATE . '/image/giay1/' . $product['p_image'] ?>" width="100px" /></td>
-                                            <td><?php echo $product['p_quantity_available'] > 0 ? '<button class="btn btn-success"> Còn hàng </button>' :
+                                            <td><?php echo $product['product_price'] . " VNĐ" ?></td>
+                                            <td><img src="<?php echo _WEB_HOST_TEMPLATE . '/image/giay1/' . $product['product_image'] ?>" width="100px" /></td>
+                                            <td><?php echo $product['product_quantity'] > 0 ? '<button class="btn btn-success"> Còn hàng </button>' :
                                                     '<button class="btn btn-danger"> Hết hàng </button>'; ?></td>
                                             <td><?php echo $product['category_name'] ?></td>
-                                            <td><?php echo $product['p_model'] ?></td>
                                             <td><a href="<?php echo "?module=admin&action=product_edit&p_id=" . $product['p_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                             <td><a href="<?php echo "?module=admin&action=product_delete&p_id=" . $product['p_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
                                                     <i class="fa-solid fa-trash"></i></a></td>

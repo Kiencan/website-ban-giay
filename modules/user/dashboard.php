@@ -11,10 +11,6 @@ layouts('header', $title);
 
 // Kiểm tra trạng thái đăng nhập
 
-if (!isLogin()) {
-  redirect('?module=auth&action=login');
-}
-
 $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
 ?>
 
@@ -94,20 +90,9 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
               3
             </span>
           </a>
-          <div class="dropdown">
-            <a
-              href="#"
-              class="my-auto"
-              id="dropdownMenuButton"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-              <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
-              <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
-            </ul>
+          <div class="d-flex flex-column gap-1 " style="width: 130px;">
+            <a type="button" class="btn btn-dark" href="?module=auth&action=login">Đăng nhập</a>
+            <a type="button" class="btn btn-dark" href="?module=auth&action=register">Đăng kí</a>
           </div>
         </div>
       </div>
