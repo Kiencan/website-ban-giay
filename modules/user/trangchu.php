@@ -28,7 +28,7 @@ if (!isLogin()) {
     <!-- Navbar start -->
     <div class="container-fluid fixed-top">
       <div
-        class="container topbar d-none d-lg-block"
+        class="container topbar d-none d-lg-block mb-3"
         style="background-color: #4856dd"
       >
         <div class="d-flex justify-content-between">
@@ -96,7 +96,7 @@ if (!isLogin()) {
 
             <div class="d-flex m-3 me-0">
             <button
-              class="btn-search btn border border-secondary rounded-circle bg-white me-4"
+              class="btn-search btn border border-secondary rounded-circle bg-white me-4 my-auto"
               data-bs-toggle="modal"
               data-bs-target="#searchModal"
               style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"
@@ -112,11 +112,27 @@ if (!isLogin()) {
                 3
               </span>
             </a>
-            <a href="#" class="my-auto">
-              <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
-            </a>
+            <!-- <div class="dropdown">
+              <a
+                href="#"
+                class="my-auto"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+              </ul>
+            </div> -->
+            <div class="d-flex flex-column gap-1 " style="width: 130px;">
+              <button type="button" class="btn btn-dark">Đăng nhập</button>
+              <button type="button" class="btn btn-dark">Đăng kí</button>
+            </div>
           </div>
-
           </div>
         </nav>
       </div>

@@ -26,6 +26,13 @@
 }
 /*** Spinner End ***/
 
+/*** Navbar start ***/
+.navbar .hover-effect:hover {
+  background-color: #1a6fc9;
+}
+
+/*** Navbar end ***/
+
 /*** Hero Header ***/
 .hero-header {
   background: linear-gradient(
@@ -80,9 +87,8 @@
 
 .page-header {
   position: relative;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(../image/cart-page-header-img1a.jpg);
-
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;

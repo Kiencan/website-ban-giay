@@ -24,37 +24,41 @@ if (!isLogin()) {
     </div>
     <!-- Spinner End -->
 
-    <!-- Navbar start -->
-    <div class="container-fluid fixed-top">
-      <div class="container topbar bg-primary d-none d-lg-block">
+  <!-- Navbar start -->
+  <div class="container-fluid fixed-top">
+      <div
+        class="container topbar d-none d-lg-block"
+        style="background-color: #4856dd"
+      >
         <div class="d-flex justify-content-between">
           <div class="top-info ps-2">
-            <small class="me-3"
-              ><i class="fas fa-map-marker-alt me-2 text-secondary"></i>
-              <a href="#" class="text-white">123 Street, New York</a></small
+            <a href="#" class="text-white"
+              ><small class="text-white mx-2">Về chúng tôi</small>/</a
             >
-            <small class="me-3"
-              ><i class="fas fa-envelope me-2 text-secondary"></i
-              ><a href="#" class="text-white">Email@Example.com</a></small
+            <a href="#" class="text-white"
+              ><small class="text-white mx-2">Liên hệ</small>/</a
+            >
+            <a href="#" class="text-white"
+              ><small class="text-white ms-2">Trở thành đối tác </small>/</a
+            >
+            <a href="#" class="text-white"
+              ><small class="text-white ms-2">Chương trình</small></a
             >
           </div>
           <div class="top-link pe-2">
             <a href="#" class="text-white"
-              ><small class="text-white mx-2">Privacy Policy</small>/</a
+              ><small class="text-white mx-2">Hỗ trợ</small>/</a
             >
             <a href="#" class="text-white"
-              ><small class="text-white mx-2">Terms of Use</small>/</a
-            >
-            <a href="#" class="text-white"
-              ><small class="text-white ms-2">Sales and Refunds</small></a
+              ><small class="text-white ms-2">Thông báo</small></a
             >
           </div>
         </div>
       </div>
       <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-          <a href="index.html" class="navbar-brand"
-            ><h1 class="text-primary display-6">Fruitables</h1></a
+          <a href="?module=user" class="navbar-brand"
+            ><h1 class="display-6" style="color: #4856dd">3H1A Store</h1></a
           >
           <button
             class="navbar-toggler py-2 px-3"
@@ -62,53 +66,56 @@ if (!isLogin()) {
             data-bs-toggle="collapse"
             data-bs-target="#navbarCollapse"
           >
-            <span class="fa fa-bars text-primary"></span>
+            <span class="fa fa-bars" style="color: #4856dd"></span>
           </button>
           <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
             <div class="navbar-nav mx-auto">
-              <a href="index.html" class="nav-item nav-link">Home</a>
-              <a href="shop.html" class="nav-item nav-link active">Shop</a>
-              <a href="shop-detail.html" class="nav-item nav-link"
-                >Shop Detail</a
-              >
+              <a href="?module=user&action=trangchu" class="nav-item nav-link">Trang chủ</a>
+              <a href="?module=user&action=shop" class="nav-item nav-link">Bán chạy</a>
+              <a href="?module=user&action=shop" class="nav-item nav-link">Giảm giá</a>
               <div class="nav-item dropdown">
                 <a
                   href="#"
                   class="nav-link dropdown-toggle"
                   data-bs-toggle="dropdown"
-                  >Pages</a
+                  >Sneaker</a
                 >
                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                  <a href="cart.html" class="dropdown-item">Cart</a>
-                  <a href="chackout.html" class="dropdown-item">Chackout</a>
-                  <a href="testimonial.html" class="dropdown-item"
-                    >Testimonial</a
-                  >
-                  <a href="404.html" class="dropdown-item">404 Page</a>
+                  <a href="?module=user&action=giayAdidas" class="dropdown-item">Giày Adidas</a>
+                  <a href="?module=user&action=giayNike" class="dropdown-item">Giày Nike</a>
+                  <a href="??module=user&action=giayPuma" class="dropdown-item">Giày Puma</a>
+                  <a href="?module=user&action=giayLining" class="dropdown-item">Giày Lining</a>
+                  <a href="?module=user&action=giayAnta" class="dropdown-item">Giày Anta</a>
                 </div>
               </div>
-              <a href="contact.html" class="nav-item nav-link">Contact</a>
+              <a href="?module=user&action=quanao" class="nav-item nav-link">Quần áo</a>
+              <a href="?module=user&action=phukien" class="nav-item nav-link">Phụ kiện</a>
+              <a href="?module=user&action=sandal" class="nav-item nav-link">Sandal</a>
             </div>
+
             <div class="d-flex m-3 me-0">
-              <button
-                class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                data-bs-toggle="modal"
-                data-bs-target="#searchModal"
+            <button
+              class="btn-search btn border border-secondary rounded-circle bg-white me-4"
+              data-bs-toggle="modal"
+              data-bs-target="#searchModal"
+              style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"
+            >
+              <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
+            </button>
+            <a href="?module=user&action=cart" class="position-relative me-4 my-auto">
+              <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
+              <span
+                class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                style="top: -5px; left: 15px; height: 20px; min-width: 20px;"
               >
-                <i class="fas fa-search text-primary"></i>
-              </button>
-              <a href="#" class="position-relative me-4 my-auto">
-                <i class="fa fa-shopping-bag fa-2x"></i>
-                <span
-                  class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                  style="top: -5px; left: 15px; height: 20px; min-width: 20px"
-                  >3</span
-                >
-              </a>
-              <a href="#" class="my-auto">
-                <i class="fas fa-user fa-2x"></i>
-              </a>
-            </div>
+                3
+              </span>
+            </a>
+            <a href="#" class="my-auto">
+              <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+            </a>
+          </div>
+
           </div>
         </nav>
       </div>
@@ -461,43 +468,60 @@ if (!isLogin()) {
               <div class="col-lg-9">
                 <div class="row g-4 justify-content-center">
                   <div class="col-md-6 col-lg-6 col-xl-4">
-                    <div class="rounded position-relative item-item">
-                      <div class="img-item">
-                        <img
-                          src="img/fruite-item-5.jpg"
-                          class="img-fluid w-100 rounded-top"
-                          alt=""
-                        />
-                      </div>
-                      <div
-                        class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                        style="top: 10px; left: 10px"
-                      >
-                        Fruits
-                      </div>
-                      <div
-                        class="p-4 border border-secondary border-top-0 rounded-bottom"
-                      >
-                        <h4>Grapes</h4>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit sed do eiusmod te incididunt
-                        </p>
+                      <div class="rounded position-relative my-item">
+                        <div class="img-item">
+                          <img
+                            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay2.jpg"
+                            class="img-fluid w-100 rounded-top"
+                            alt=""
+                          />
+                        </div>
                         <div
-                          class="d-flex justify-content-between flex-lg-wrap"
+                          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                          style="top: 10px; left: 10px"
                         >
-                          <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                          <a
-                            href="#"
-                            class="btn border border-secondary rounded-pill px-3 text-primary"
-                            ><i
-                              class="fa fa-shopping-bag me-2 text-primary"
-                            ></i>
-                            Add to cart</a
+                          Giày sneaker
+                        </div>
+                        <div class="p-4 border-top-0 rounded-bottom">
+                          <h4>Giày Adidas Duramo</h4>
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit sed do eiusmod te incididunt
+                          </p>
+                          <p>
+                            <span style="text-decoration: line-through"
+                              >2.500.00đ</span
+                            >
+                            <span style="font-weight: bold; color: black"
+                              >1.499.000đ</span
+                            >
+                          </p>
+                          <div
+                            class="d-flex justify-content-between flex-lg-wrap"
                           >
+                            <a
+                              href="#"
+                              class="btn border border-secondary rounded-circle p-auto me-2"
+                              style="
+                                background-color: rgb(255, 255, 255);
+                                color: white;
+                                width: 40px;
+                                height: 40px;
+                              "
+                            >
+                              <i class="fa fa-heart"></i>
+                              <!-- Icon trái tim -->
+                            </a>
+
+                            <a
+                              href="#"
+                              class="btn border border-secondary rounded-pill px-3"
+                              ><i class="fa fa-shopping-bag me-2"></i>Thêm vào
+                              giỏ hàng</a
+                            >
+                          </div>
                         </div>
                       </div>
-                    </div>
                   </div>
                   <div class="col-md-6 col-lg-6 col-xl-4">
                     <div class="rounded position-relative my-item">
@@ -515,8 +539,7 @@ if (!isLogin()) {
                         Fruits
                       </div>
                       <div
-                        class="p-4 border border-secondary border-top-0 rounded-bottom"
-                      >
+                        class="p-4 border border-secondary border-top-0 rounded-bottom">
                         <h4>Grapes</h4>
                         <p>
                           Lorem ipsum dolor sit amet consectetur adipisicing

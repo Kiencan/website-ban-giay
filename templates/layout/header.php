@@ -3,17 +3,17 @@ if (!defined('_CODE')) {
     die('Access denied');
 }
 
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="utf-8" />
+  <head> 
+    <meta charset="utf-8"/>
     <title>Fruitables - Vegetable Website Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
-
+    
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,9 +43,7 @@ if (!defined('_CODE')) {
     <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/style.css" rel="stylesheet" />
     <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/header.css" rel="stylesheet" />
     <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/shop-detail.css" rel="stylesheet" />
-  </head>
-
-
+  </head> 
 <body>
 </body>
 
