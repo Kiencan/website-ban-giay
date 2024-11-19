@@ -1,12 +1,37 @@
-.carousel-inner img {
-  width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều ngang */
-  height: 100%; /* Phù hợp với chiều cao của lớp cha */
-  object-fit: cover; /* Lấp đầy khung hình */
+.container-product {
+  display: flex;
+  gap: 30px; /* Reduced gap for more compact layout */
+  flex-wrap: wrap;
 }
-.col-lg-6 {
-  height: auto; /* Đảm bảo lớp cha mở rộng theo nội dung */
+.container-product button {
+  background-color: white;
+  width: 50px;
 }
-.border {
-  height: auto; /* Tương tự như trên */
-  overflow: hidden; /* Đảm bảo nội dung không bị cắt */
+.product {
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+
+.product-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  margin-top: 8px;
+  position: relative;
+}
+
+.product-name::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background-color: black;
+  margin: 4px auto 0;
+  transition: width 0.3s ease; /* Tạo hiệu ứng mượt */
+}
+
+/* Khi phần tử có lớp 'active', gạch chân hiển thị */
+.product-name.active::after {
+  width: 100%; /* Đường gạch đen kéo dài toàn bộ chữ */
 }
