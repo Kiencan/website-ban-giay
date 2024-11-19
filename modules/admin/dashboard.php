@@ -15,6 +15,10 @@ if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
 
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+
 $listUser = getRaw("SELECT * FROM customer WHERE admin = 1 ORDER BY update_at");
 $listProd = getRaw("SELECT * FROM products ORDER BY update_at");
 $listCate = getRaw("SELECT * FROM category");

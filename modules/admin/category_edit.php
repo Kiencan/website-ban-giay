@@ -3,6 +3,14 @@
 if (!defined('_CODE')) {
     die('Access denied');
 }
+
+if (!isLogin()) {
+    redirect('?module=auth&action=login');
+}
+
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
 $title = ['pageTitle' => 'Sửa danh mục'];
 
 layouts('header-admin', $title);

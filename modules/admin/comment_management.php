@@ -14,6 +14,10 @@ layouts('header-admin', $title);
 if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
+
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
 $listComment = getRaw("SELECT * FROM comment INNER JOIN products ON comment.p_id = products.p_id INNER JOIN customer ON comment.customer_id = customer.id");
 
 $smg = getFlashData('smg');

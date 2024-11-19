@@ -4,6 +4,14 @@ if (!defined('_CODE')) {
 }
 $title = ['pageTitle' => 'Cập nhật banner'];
 
+if (!isLogin()) {
+    redirect('?module=auth&action=login');
+}
+
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+
 layouts('header-admin', $title);
 $filterAll = filter();
 

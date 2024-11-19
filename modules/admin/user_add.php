@@ -7,6 +7,14 @@ $title = ['pageTitle' => 'Thêm người dùng'];
 
 layouts('header-admin', $title);
 
+if (!isLogin()) {
+    redirect('?module=auth&action=login');
+}
+
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+
 if (isPost()) {
     $filterAll = filter();
 

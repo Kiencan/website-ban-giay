@@ -15,6 +15,10 @@ if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
 
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+
 ?>
 
 <body>

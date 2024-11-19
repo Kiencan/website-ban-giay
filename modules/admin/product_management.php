@@ -15,6 +15,10 @@ if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
 
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+
 $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id");
 // echo '<pre>';
 // print_r($listProd);

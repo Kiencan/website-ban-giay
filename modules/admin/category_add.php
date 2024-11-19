@@ -7,6 +7,15 @@ $title = ['pageTitle' => 'Thêm danh mục'];
 
 layouts('header-admin', $title);
 
+// Kiểm tra trạng thái admin
+if (!isLogin()) {
+    redirect('?module=auth&action=login');
+}
+
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+
 if (isPost()) {
     $filterAll = filter();
 

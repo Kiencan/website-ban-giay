@@ -14,6 +14,10 @@ layouts('header-admin', $title);
 if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
+
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
 $listCate = getRaw("SELECT * FROM category");
 // echo '<pre>';
 // print_r($listCate);

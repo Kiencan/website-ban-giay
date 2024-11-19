@@ -14,6 +14,10 @@ layouts('header-admin', $title);
 if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
+
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
 $listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id INNER JOIN customer ON order_item.customer_id =customer.id ORDER BY order_item.customer_id");
 // echo '<pre>';
 // print_r($listOrder);

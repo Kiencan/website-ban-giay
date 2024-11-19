@@ -7,6 +7,14 @@ $title = ['pageTitle' => 'Sửa banner'];
 
 layouts('header-admin', $title);
 
+if (!isLogin()) {
+    redirect('?module=auth&action=login');
+}
+
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+
 $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
 
 ?>

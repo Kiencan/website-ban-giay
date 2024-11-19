@@ -195,3 +195,18 @@ function isLogin()
     }
     return $checkLogin;
 }
+
+function isAdmin()
+{
+    $checkAdmin = false;
+    if (getSession('token_login')) {
+        $tokenLogin = getSession('token_login');
+
+        // Kiểm tra token có giống trong database hay không
+        $checkAdmin = oneRaw("SELECT admin FROM token_login JOIN customer ON token_login.user_id = customer.id WHERE token = '$tokenLogin' AND admin = 1");
+        if (!empty($checkAdmin)) {
+            $checkAdmin = true;
+        }
+    }
+    return $checkAdmin;
+}
