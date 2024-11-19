@@ -4283,14 +4283,14 @@ fieldset:disabled .btn {
 .breadcrumb-item + .breadcrumb-item::before {
   float: left;
   padding-right: 0.5rem;
-  color: #6c757d;
+  color: #f0f0f0;
   content: var(
     --bs-breadcrumb-divider,
     "/"
   ); /* rtl: var(--bs-breadcrumb-divider, "/") */
 }
 .breadcrumb-item.active {
-  color: #6c757d;
+  color: #f0f0f0;
 }
 .pagination {
   display: flex;
