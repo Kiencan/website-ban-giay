@@ -35,6 +35,3 @@ if (file_exists($path)) {
 } else {
     require_once('modules/error/404.php');
 }
-// if ((! isset($_SESSION['username']))) {
-//     header('location:?module=auth&action=login');
-// }
