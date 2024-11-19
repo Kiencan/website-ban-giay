@@ -1,19 +1,13 @@
+<!-- Đăng ký tài khoản -->
 <?php
 if (!defined('_CODE')) {
     die('Access denied');
 }
-
-$title = [
-    'pageTitle' => 'Cấu hình'
-];
+$title = ['pageTitle' => 'Sửa banner'];
 
 layouts('header-admin', $title);
 
-// Kiểm tra trạng thái đăng nhập
-
-if (!isLogin()) {
-    redirect('?module=auth&action=login');
-}
+$listBanner = getRaw("SELECT * FROM banner ORDER BY id");
 
 ?>
 
@@ -22,7 +16,7 @@ if (!isLogin()) {
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
             <div class="d-flex align-items-center">
                 <i class="fas fa-align-left text-light fs-4 me-5" id="menu-toggle"></i>
-                <a href="#"><img src="<?php echo _WEB_HOST_TEMPLATE; ?>/image/logo.jpg" width="100px"></a>
+                <a href="?module=user&action=trangchu"><img src="<?php echo _WEB_HOST_TEMPLATE; ?>/image/logo.jpg" width="100px"></a>
             </div>
 
 
@@ -40,8 +34,8 @@ if (!isLogin()) {
                             <i class="fas fa-user me-2"></i>Admin
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Cấu hình</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="?module=admin&action=setting">Cấu hình</a></li>
+                            <li><a class="dropdown-item" href="?module=auth&action=logout">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -72,7 +66,7 @@ if (!isLogin()) {
                     href="?module=admin&action=comment_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-comment-dots me-2"></i>Quản lý bình luận</a>
                 <a
-                    href=""
+                    href="?module=admin&action=setting"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
                 <a
                     href="?module=auth&action=logout"
@@ -86,19 +80,63 @@ if (!isLogin()) {
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
-                    <li class="breadcrumb-item active"> Cấu hình </li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=category_management" style="text-decoration: none">Cấu hình</a></li>
+                    <li class="breadcrumb-item active"> Sửa banner </li>
                 </ul>
             </div>
 
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Cấu hình các trang</h1>
+                <h1 class="mt-4">Sửa banner</h1>
             </div>
 
-            <div class="container-fluid btn-group-vertical px-4 gap-3 w-25">
-                <a href="?module=admin&action=setting_banner" class="btn btn-success">Chỉnh sửa banner</a>
-                <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 2</a>
-                <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 3</a>
-                <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 4</a>
+            <div class="container-fluid px-4">
+
+                <div class="row my-5">
+
+                    <div class="col overflow-auto">
+                        <a href="?module=admin&action=setting_banner_add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Thêm banner trên</a>
+                        <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50">ID</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Hình ảnh</th>
+                                    <th width="5%"> Sửa </th>
+                                    <th width="5%"> Xóa </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if (!empty($listBanner)):
+                                    $count = 0;
+                                    foreach ($listBanner as $banner):
+                                        $count++;
+                                ?>
+                                        <tr>
+                                            <td><?php echo $banner['id'] ?></td>
+                                            <td><?php echo $banner['banner_name'] ?></td>
+                                            <td><img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $banner['banner'] ?>" width="100px" /></td>
+                                            <td><a href="<?php echo "?module=admin&action=setting_banner_edit&id=" . $banner['id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                            <td><a href="<?php echo "?module=admin&action=setting_banner_delete&id=" . $banner['id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
+                                                    <i class="fa-solid fa-trash"></i></a></td>
+                                        </tr>
+                                    <?php
+                                    endforeach;
+
+                                else:
+                                    ?>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="alert alert-danger text-center">Không có người dùng nào!</div>
+                                        </td>
+                                    </tr>
+                                <?php
+                                endif;
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -106,7 +144,6 @@ if (!isLogin()) {
     </div>
 </body>
 
-</html>
 
 <?php
 layouts('footer-admin');

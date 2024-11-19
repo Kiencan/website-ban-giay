@@ -1,6 +1,6 @@
 <?php
 if (!defined('_CODE')) {
-    die('Access denied');
+  die('Access denied');
 }
 
 ?> 
@@ -44,6 +44,7 @@ if (!defined('_CODE')) {
     <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/header.css" rel="stylesheet" />
     <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/shop-detail.css" rel="stylesheet" />
   </head> 
+
 <body>
 </body>
 

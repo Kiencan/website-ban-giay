@@ -1,81 +1,82 @@
-<!-- Đăng ký tài khoản -->
 <?php
 if (!defined('_CODE')) {
     die('Access denied');
 }
-$title = ['pageTitle' => 'Sửa danh mục'];
+$title = ['pageTitle' => 'Thêm sản phẩm'];
 
 layouts('header-admin', $title);
-$filterAll = filter();
-
-if (!empty($filterAll['category_id'])) {
-    $categoryId = $filterAll['category_id'];
-
-    $categoryDetail = oneRaw("SELECT * FROM category WHERE category_id = $categoryId");
-    // echo '<pre>';
-    // print_r($categoryDetail);
-    // echo '</pre>';
-    if (!empty($categoryDetail)) {
-        // Tồn tại
-        setFlashData('category-detail', $categoryDetail);
-    } else {
-        redirect('?module=admin&action=category_management');
-    }
-}
-
 
 if (isPost()) {
     $filterAll = filter();
 
-    $errors = []; // mảng chứa lỗi\
+    $errors = []; // mảng chứa lỗi
 
-    // Kiểm tra họ và tên: bắt buộc phải nhập, nhập ít nhất 5 ký tự
-    if (empty($filterAll['category_name'])) {
-        $errors['category_name']['required'] = 'Vui lòng nhập tên danh mục';
-    }
-
-    if (empty($filterAll['category_title'])) {
-        $errors['category_title']['required'] = 'Vui lòng nhập tiêu đề';
+    if (empty($_FILES['banner']['name'])) {
+        $errors['banner']['required'] = 'Vui lòng upload ảnh.';
     } else {
-        if (strlen($filterAll['category_title']) < 5) {
-            $errors['category_title']['min'] = 'Tiêu đề quá ngắn';
-        } else if (strlen($filterAll['category_title']) > 200) {
-            $errors['category_title']['max'] = 'Tiều đề quá dài';
+        // Get file information
+        $imageName = basename($_FILES['banner']['name']);
+        $imageSize = $_FILES['banner']['size'];
+        $imageTemp = $_FILES['banner']['tmp_name'];
+        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif']; // Allowed file types
+        $fileExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
+
+        // Set target directory
+        $targetDir = _WEB_PATH_TEMPLATE . 'image/';
+        $targetFilePath = $targetDir . $imageName;
+
+        // Validate file type
+        if (!in_array($fileExtension, $allowedTypes)) {
+            $errors['banner']['type'] = 'Chỉ chấp nhận các định dạng ảnh: JPG, JPEG, PNG, GIF.';
+        }
+
+        // Validate file size (e.g., 5MB maximum)
+        if ($imageSize > 5 * 1024 * 1024) {
+            $errors['banner']['size'] = 'Dung lượng ảnh không được vượt quá 5MB.';
+        }
+
+        // Check if file already exists
+        if (file_exists($targetFilePath)) {
+            $errors['banner']['exists'] = 'File này đã tồn tại. Vui lòng chọn một ảnh khác hoặc đổi tên file.';
         }
     }
 
 
     if (empty($errors)) {
-        $dataUpdate = [
-            'category_name' => $filterAll['category_name'],
-            'category_title' => $filterAll['category_title'],
+        $dataInsert = [
+            'banner_name' => 'banner_tren',
+            'banner' => $imageName,
         ];
 
-        $updateStatus = update('category', $dataUpdate, "category_id = '$categoryId'");
-        if ($updateStatus) {
-            setFlashData('smg', 'Chỉnh sửa thông tin danh mục thành công!');
-            setFlashData('smg_types', 'success');
+        $insertStatus = insert('banner', $dataInsert);
+        if ($insertStatus) {
+            if (move_uploaded_file($imageTemp, $targetFilePath)) {
+                setFlashData('smg', 'Thêm banner thành công!');
+                setFlashData('smg_types', 'success');
+                redirect('?module=admin&action=setting_banner');
+            } else {
+                setFlashData('smg', 'Upload banner không thành công!');
+                setFlashData('smg_types', 'danger');
+                redirect('?module=admin&action=setting_banner_add');
+            }
         } else {
             setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
             setFlashData('smg_types', 'danger');
+            redirect('?module=admin&action=setting_banner_add');
         }
     } else {
         setFlashData('smg', 'Vui lòng kiểm tra lại thông tin');
         setFlashData('smg_types', 'danger');
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
+        redirect('?module=admin&action=setting_banner_add');
     }
-    redirect('?module=admin&action=category_edit&category_id=' . $categoryId);
 }
 
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
-$categoryDetail = getFlashData('category-detail');
-if (!empty($categoryDetail)) {
-    $old = $categoryDetail;
-}
 ?>
 
 <body>
@@ -122,7 +123,7 @@ if (!empty($categoryDetail)) {
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-regular fa-user me-2"></i>Quản lý thành viên</a>
                 <a
                     href="?module=admin&action=category_management"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
@@ -134,7 +135,7 @@ if (!empty($categoryDetail)) {
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-comment-dots me-2"></i>Quản lý bình luận</a>
                 <a
                     href="?module=admin&action=setting"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
                 <a
                     href="?module=auth&action=logout"
                     class="list-group-item list-group-item-action px-4 py-3 text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
@@ -147,48 +148,38 @@ if (!empty($categoryDetail)) {
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
-                    <li class="breadcrumb-item"><a href="?module=admin&action=category_management" style="text-decoration: none">Quản lý danh mục</a></li>
-                    <li class="breadcrumb-item active"> Sửa danh mục </li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=product_management" style="text-decoration: none">Danh sách Banner</a></li>
+                    <li class="breadcrumb-item active"> Thêm Banner </li>
                 </ul>
             </div>
 
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Sửa danh mục</h1>
+                <h1 class="mt-4">Thêm Banner</h1>
             </div>
 
-            <div class="container px-4">
+            <div class="container-fluid px-4">
                 <div class="row" style="margin: 50px auto">
                     <?php
                     if (!empty($smg)) {
                         getSmg($smg, $smg_types);
                     }
                     ?>
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col">
                                 <div class="form-group mg-form">
-                                    <label for="">Tên danh mục</label>
-                                    <input class="form-control" type="text" placeholder="Tên danh mục" name="category_name"
-                                        value="<?php echo old('category_name', $old) ?>" />
+                                    <label for="">Ảnh banner</label>
+                                    <input class="form-control" type="file" name="banner" />
                                     <?php
-                                    echo form_error('category_name', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-                                <div class="form-group mg-form">
-                                    <label for="">Title</label>
-                                    <input class="form-control" type="text" placeholder="Title" name="category_title"
-                                        value="<?php echo old('category_title', $old) ?>" />
-                                    <?php
-                                    echo form_error('category_title', '<p class="text-danger">', '</p>', $errors);
+                                    echo form_error('banner', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
                             </div>
                         </div>
                 </div>
                 <div class="row d-grid gap-2 justify-content-center">
-                    <input type="hidden" name="category_id" value="<?php echo $categoryId ?>" />
-                    <button class="btn btn-primary" type="submit">Cập nhật danh mục</button>
-                    <a href="?module=admin&action=category_management" class="btn btn-success" type="submit">Quay lại</a>
+                    <button class="btn btn-primary" type="submit">Thêm Banner</button>
+                    <a href="?module=admin&action=setting_banner" class="btn btn-success" type="button">Quay lại</a>
                 </div>
                 </form>
             </div>

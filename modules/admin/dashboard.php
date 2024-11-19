@@ -59,7 +59,7 @@ $listComment = getRaw("SELECT * FROM comment");
 
             <div class="list-group list-group-flush fw-bold">
                 <a
-                    href="?module=admin"
+                    href="?module=admin&action=dashboard"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-house me-2"></i>Dashboard</a>
                 <a
                     href="?module=admin&action=user_management"

@@ -26,7 +26,7 @@ $smg_types = getFlashData('smg_types');
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
             <div class="d-flex align-items-center">
                 <i class="fas fa-align-left text-light fs-4 me-5" id="menu-toggle"></i>
-                <a href="#"><img src="<?php echo _WEB_HOST_TEMPLATE; ?>/image/logo.jpg" width="100px"></a>
+                <a href="?module=user&action=trangchu"><img src="<?php echo _WEB_HOST_TEMPLATE; ?>/image/logo.jpg" width="100px"></a>
             </div>
 
 
@@ -36,7 +36,7 @@ $smg_types = getFlashData('smg_types');
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse me-5" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light fw-bold" href="#" id="navbarDropdown"
@@ -58,7 +58,7 @@ $smg_types = getFlashData('smg_types');
 
             <div class="list-group list-group-flush fw-bold">
                 <a
-                    href="?module=admin"
+                    href="?module=admin&action=dashboard"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-house me-2"></i>Dashboard</a>
                 <a
                     href="?module=admin&action=user_management"
@@ -89,7 +89,7 @@ $smg_types = getFlashData('smg_types');
         <div id="page-content-wrapper">
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="?module=admin" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
                     <li class="breadcrumb-item"><a href="#" style="text-decoration: none">Quản lý bình luận</a></li>
                     <li class="breadcrumb-item active"> Danh sách bình luận </li>
                 </ul>
