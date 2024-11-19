@@ -12,6 +12,13 @@ layouts('header', $title);
 // Kiểm tra trạng thái đăng nhập
 
 $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
+$filterAll = filter();
+if (!empty($filterAll["id"])) {
+  $user_id = $filterAll["id"];
+  $num_order = getRows("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id INNER JOIN product_type ON order_item.product_type_id = product_type.id WHERE customer_id = '$user_id'");
+} else if (empty($filterAll["id"])) {
+  $num_order = 0;
+}
 ?>
 
 <!-- Spinner Start -->
@@ -41,7 +48,7 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
   </div>
   <div class="container px-0">
     <nav class="navbar navbar-light bg-white navbar-expand-xl">
-      <a href="?module=user" class="navbar-brand">
+      <a href="?module=user&action=trangchu" class="navbar-brand">
         <h1 class="display-6" style="color: #4856dd">3H1A Store</h1>
       </a>
       <button
@@ -87,7 +94,7 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
             <span
               class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
-              3
+              <?php echo $num_order ?>
             </span>
           </a>
           <div class="d-flex flex-column gap-1 " style="width: 130px;">

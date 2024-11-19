@@ -16,6 +16,8 @@ if (!isLogin()) {
 }
 
 $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
+$filterAll = filter();
+
 ?>
 
 <!-- Spinner Start -->
@@ -45,7 +47,7 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
   </div>
   <div class="container px-0">
     <nav class="navbar navbar-light bg-white navbar-expand-xl">
-      <a href="?module=user" class="navbar-brand">
+      <a href="?module=user&action=trangchu" class="navbar-brand">
         <h1 class="display-6" style="color: #4856dd">3H1A Store</h1>
       </a>
       <button
@@ -86,12 +88,12 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
             style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
             <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
           </button>
-          <a href="?module=user&action=cart" class="position-relative me-4 my-auto">
+          <a href="?module=user&action=cart&id=<?php echo $filterAll["id"] ?>" class="position-relative me-4 my-auto">
             <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
             <span
               class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
-              3
+              <?php echo getRows("SELECT * FROM order_item WHERE customer_id = " . $filterAll["id"]) ?>
             </span>
           </a>
           <div class="dropdown">
