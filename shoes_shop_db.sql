@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2024 at 06:08 PM
+-- Generation Time: Nov 21, 2024 at 03:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,16 +24,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart_item`
+-- Table structure for table `banner`
 --
 
-CREATE TABLE `cart_item` (
-  `cart_id` int(11) NOT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `total_cost` int(11) DEFAULT NULL
+CREATE TABLE `banner` (
+  `id` int(11) NOT NULL,
+  `banner_name` varchar(20) NOT NULL,
+  `banner` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `banner`
+--
+
+INSERT INTO `banner` (`id`, `banner_name`, `banner`) VALUES
+(1, 'banner_duoi', 'baner-1a.png'),
+(2, 'banner_tren', 'hero-img-1a.png'),
+(3, 'banner_tren', 'hero-img-2a.jpg');
 
 -- --------------------------------------------------------
 
@@ -43,18 +50,19 @@ CREATE TABLE `cart_item` (
 
 CREATE TABLE `category` (
   `category_id` int(11) NOT NULL,
-  `category_name` varchar(50) NOT NULL,
-  `category_title` varchar(100) NOT NULL
+  `category_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`category_id`, `category_name`, `category_title`) VALUES
-(1, 'Iphone', 'A device to receive and send information'),
-(2, 'Samsung', 'The products from Samsung'),
-(6, 'Giày', 'New Balance');
+INSERT INTO `category` (`category_id`, `category_name`) VALUES
+(1, 'Iphone'),
+(2, 'Samsung'),
+(6, 'Giày'),
+(7, 'Giày 123'),
+(8, 'Sneaker');
 
 -- --------------------------------------------------------
 
@@ -64,7 +72,7 @@ INSERT INTO `category` (`category_id`, `category_name`, `category_title`) VALUES
 
 CREATE TABLE `comment` (
   `comment_id` int(11) NOT NULL,
-  `p_id` int(11) DEFAULT NULL,
+  `p_id` varchar(50) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   `comment_time` datetime DEFAULT current_timestamp(),
   `comment_content` varchar(2000) DEFAULT NULL
@@ -75,8 +83,8 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`comment_id`, `p_id`, `customer_id`, `comment_time`, `comment_content`) VALUES
-(3, 29, 13, '2024-11-16 21:48:45', 'Sản phẩm rất tệ'),
-(5, 30, 12, '2024-11-16 21:49:27', 'Mua về là vứt');
+(3, '29', 13, '2024-11-16 21:48:45', 'Sản phẩm rất tệ'),
+(5, '30', 12, '2024-11-16 21:49:27', 'Mua về là vứt');
 
 -- --------------------------------------------------------
 
@@ -121,7 +129,9 @@ INSERT INTO `customer` (`id`, `username`, `password`, `fullname`, `address`, `ph
 CREATE TABLE `order_item` (
   `order_id` int(11) NOT NULL,
   `customer_id` int(11) DEFAULT NULL,
-  `product_id` int(11) DEFAULT NULL,
+  `product_id` varchar(50) DEFAULT NULL,
+  `product_type_id` int(11) DEFAULT NULL,
+  `order_quantity` int(11) DEFAULT NULL,
   `order_status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -129,10 +139,12 @@ CREATE TABLE `order_item` (
 -- Dumping data for table `order_item`
 --
 
-INSERT INTO `order_item` (`order_id`, `customer_id`, `product_id`, `order_status`) VALUES
-(1, 15, 29, 1),
-(2, 9, 35, 1),
-(3, 15, 30, 0);
+INSERT INTO `order_item` (`order_id`, `customer_id`, `product_id`, `product_type_id`, `order_quantity`, `order_status`) VALUES
+(1, 15, '29', NULL, NULL, 1),
+(2, 9, '35', NULL, NULL, 1),
+(3, 15, '30', NULL, NULL, 1),
+(5, 11, 'ES1111', 2, 3, 0),
+(6, 14, 'ES1111', 1, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -154,14 +166,9 @@ CREATE TABLE `payment` (
 --
 
 CREATE TABLE `products` (
-  `p_id` int(11) NOT NULL,
+  `p_id` varchar(50) NOT NULL,
   `p_name` varchar(50) DEFAULT NULL,
-  `p_image` varchar(50) NOT NULL,
   `p_description` varchar(2000) DEFAULT NULL,
-  `p_model` varchar(50) DEFAULT NULL,
-  `p_price` int(11) DEFAULT NULL,
-  `p_discount` int(11) DEFAULT NULL,
-  `p_quantity_available` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL
@@ -171,10 +178,95 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`p_id`, `p_name`, `p_image`, `p_description`, `p_model`, `p_price`, `p_discount`, `p_quantity_available`, `category_id`, `create_at`, `update_at`) VALUES
-(29, 'Iphone 13 Pro Max', 'iphone13promax.jpg', 'sdfsdafsadfsadfdsafdas', '512GB', 15000000, 10000000, 50, 1, '2024-11-16 14:47:48', '2024-11-16 14:59:10'),
-(30, 'Samsung Galaxy Z Flip 5', 'samsungZFip5.png', 'ssdfasdfsdafdsaf', '512GB', 26999000, 13999000, 10, 2, '2024-11-15 18:58:41', '2024-11-16 14:55:11'),
-(35, 'Iphone 16 Pro Max', 'iphone16.jpg', 'Sản phẩm rất tốt', '64GB', 30000000, 20000000, 15, 1, '2024-11-16 14:46:13', NULL);
+INSERT INTO `products` (`p_id`, `p_name`, `p_description`, `category_id`, `create_at`, `update_at`) VALUES
+('29', 'Iphone 13 Pro Max', 'sdfsdafsadfsadfdsafdas', 1, '2024-11-16 14:47:48', '2024-11-16 14:59:10'),
+('30', 'Samsung Galaxy Z Flip 5', 'ssdfasdfsdafdsaf', 2, '2024-11-15 18:58:41', '2024-11-16 14:55:11'),
+('35', 'Iphone 16 Pro Max', 'Sản phẩm rất tốt', 1, '2024-11-16 14:46:13', NULL),
+('36', 'Samsung Galaxy Z Fold 6', 'Sản phẩm của Trung Quốc', 2, '2024-11-17 00:16:10', NULL),
+('39', 'Samsung Galaxy S24 Ultra', 'Hàng limitted', 2, '2024-11-17 11:26:37', '2024-11-17 23:17:57'),
+('ES1111', 'Giày Nike E-Series', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.\r\n\r\nPhần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 8, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_color`
+--
+
+CREATE TABLE `product_color` (
+  `color_id` int(11) NOT NULL,
+  `color_name` varchar(20) DEFAULT NULL,
+  `rate` decimal(10,0) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `product_color`
+--
+
+INSERT INTO `product_color` (`color_id`, `color_name`, `rate`) VALUES
+(1, 'hong', 4),
+(2, 'den', 5),
+(3, 'trang', 4),
+(4, 'vang', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_image`
+--
+
+CREATE TABLE `product_image` (
+  `image_id` int(11) NOT NULL,
+  `color_id` int(11) DEFAULT NULL,
+  `product_image` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `product_image`
+--
+
+INSERT INTO `product_image` (`image_id`, `color_id`, `product_image`) VALUES
+(1, 1, 'giayhong1.jpg'),
+(2, 1, 'giayhong2.jpg'),
+(3, 1, 'giayhong3.jpg'),
+(4, 1, 'giayhong4.jpg'),
+(5, 2, 'giayden1.jpg'),
+(6, 2, 'giayden2.jpg'),
+(7, 2, 'giayden3.jpg'),
+(8, 2, 'giayden4.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_size`
+--
+
+CREATE TABLE `product_size` (
+  `size_id` int(11) NOT NULL,
+  `size` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `color_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_type`
+--
+
+CREATE TABLE `product_type` (
+  `id` int(11) NOT NULL,
+  `product_id` varchar(50) DEFAULT NULL,
+  `color_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `product_type`
+--
+
+INSERT INTO `product_type` (`id`, `product_id`, `color_id`) VALUES
+(1, 'ES1111', NULL),
+(2, 'ES1111', NULL);
 
 -- --------------------------------------------------------
 
@@ -191,23 +283,14 @@ CREATE TABLE `token_login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `token_login`
---
-
-INSERT INTO `token_login` (`id`, `user_id`, `token`, `create_at`, `last_active`) VALUES
-(38, 14, 'a6b0a6a3abf61e7a125f57a1583e6731ab5c3fed', '2024-11-16 14:23:57', NULL);
-
---
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `cart_item`
+-- Indexes for table `banner`
 --
-ALTER TABLE `cart_item`
-  ADD PRIMARY KEY (`cart_id`),
-  ADD KEY `cart_item_ibfk_1` (`customer_id`),
-  ADD KEY `product_id` (`product_id`);
+ALTER TABLE `banner`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `category`
@@ -220,8 +303,8 @@ ALTER TABLE `category`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`comment_id`),
-  ADD KEY `p_id` (`p_id`),
-  ADD KEY `customer_id` (`customer_id`);
+  ADD KEY `customer_id` (`customer_id`),
+  ADD KEY `p_id` (`p_id`);
 
 --
 -- Indexes for table `customer`
@@ -235,14 +318,15 @@ ALTER TABLE `customer`
 ALTER TABLE `order_item`
   ADD PRIMARY KEY (`order_id`),
   ADD KEY `customer_id` (`customer_id`),
-  ADD KEY `product_id` (`product_id`);
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `product_type_id` (`product_type_id`);
 
 --
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`payment_id`),
-  ADD KEY `cart_id` (`cart_id`);
+  ADD KEY `payment_ibfk_1` (`cart_id`);
 
 --
 -- Indexes for table `products`
@@ -250,6 +334,34 @@ ALTER TABLE `payment`
 ALTER TABLE `products`
   ADD PRIMARY KEY (`p_id`),
   ADD KEY `category_id` (`category_id`);
+
+--
+-- Indexes for table `product_color`
+--
+ALTER TABLE `product_color`
+  ADD PRIMARY KEY (`color_id`);
+
+--
+-- Indexes for table `product_image`
+--
+ALTER TABLE `product_image`
+  ADD PRIMARY KEY (`image_id`),
+  ADD KEY `color_id` (`color_id`);
+
+--
+-- Indexes for table `product_size`
+--
+ALTER TABLE `product_size`
+  ADD PRIMARY KEY (`size_id`),
+  ADD KEY `color_id` (`color_id`);
+
+--
+-- Indexes for table `product_type`
+--
+ALTER TABLE `product_type`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `color_id` (`color_id`);
 
 --
 -- Indexes for table `token_login`
@@ -263,16 +375,16 @@ ALTER TABLE `token_login`
 --
 
 --
--- AUTO_INCREMENT for table `cart_item`
+-- AUTO_INCREMENT for table `banner`
 --
-ALTER TABLE `cart_item`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `banner`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -290,7 +402,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -299,53 +411,84 @@ ALTER TABLE `payment`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `products`
+-- AUTO_INCREMENT for table `product_color`
 --
-ALTER TABLE `products`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+ALTER TABLE `product_color`
+  MODIFY `color_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `product_image`
+--
+ALTER TABLE `product_image`
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `product_size`
+--
+ALTER TABLE `product_size`
+  MODIFY `size_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product_type`
+--
+ALTER TABLE `product_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `token_login`
 --
 ALTER TABLE `token_login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `cart_item`
---
-ALTER TABLE `cart_item`
-  ADD CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
-  ADD CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`p_id`);
-
---
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `products` (`p_id`),
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`);
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
+  ADD CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`p_id`) REFERENCES `products` (`p_id`);
 
 --
 -- Constraints for table `order_item`
 --
 ALTER TABLE `order_item`
   ADD CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
-  ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`p_id`);
+  ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`p_id`),
+  ADD CONSTRAINT `order_item_ibfk_3` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`);
 
 --
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart_item` (`cart_id`);
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `order_item` (`order_id`);
 
 --
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`);
+
+--
+-- Constraints for table `product_image`
+--
+ALTER TABLE `product_image`
+  ADD CONSTRAINT `product_image_ibfk_1` FOREIGN KEY (`color_id`) REFERENCES `product_color` (`color_id`);
+
+--
+-- Constraints for table `product_size`
+--
+ALTER TABLE `product_size`
+  ADD CONSTRAINT `product_size_ibfk_1` FOREIGN KEY (`color_id`) REFERENCES `product_color` (`color_id`);
+
+--
+-- Constraints for table `product_type`
+--
+ALTER TABLE `product_type`
+  ADD CONSTRAINT `product_type_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`p_id`),
+  ADD CONSTRAINT `product_type_ibfk_2` FOREIGN KEY (`color_id`) REFERENCES `product_color` (`color_id`);
 
 --
 -- Constraints for table `token_login`
