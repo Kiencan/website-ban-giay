@@ -4280,11 +4280,21 @@ fieldset:disabled .btn {
 .breadcrumb-item + .breadcrumb-item {
   padding-left: 0.5rem;
 }
+.breadcrumb-item a {
+  color: white;
+  text-decoration: none;
+}
+.breadcrumb-item a:hover {
+  color: #000000;
+}
 .breadcrumb-item + .breadcrumb-item::before {
   float: left;
   padding-right: 0.5rem;
-  color: var(--bs-danger);
-  content: var(--bs-breadcrumb-divider, "/");
+  color: #f0f0f0;
+  content: var(
+    --bs-breadcrumb-divider,
+    "/"
+  ); /* rtl: var(--bs-breadcrumb-divider, "/") */
 }
 .breadcrumb-item.active {
   color: #f0f0f0;

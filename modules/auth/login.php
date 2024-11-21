@@ -47,7 +47,7 @@ if (isPost()) {
                     if ($insertStatus) {
                         // Insert thành công, lưu loginToken vào session
                         setSession('token_login', $tokenLogin);
-                        redirect('?module=user&action=trangchu');
+                        redirect('?module=user&action=trangchu&id=' . $userId);
                     } else {
                         setFlashData('smg', 'Không thể đăng nhập vui lòng thử lại sau.');
                         setFlashData('smg_types', 'danger');

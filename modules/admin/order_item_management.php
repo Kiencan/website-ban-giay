@@ -14,7 +14,11 @@ layouts('header-admin', $title);
 if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
-$listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id INNER JOIN customer ON order_item.customer_id =customer.id ORDER BY order_item.customer_id");
+
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+$listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id INNER JOIN product_type ON products.p_id = product_type.product_id INNER JOIN customer ON order_item.customer_id = customer.id ORDER BY order_item.customer_id");
 // echo '<pre>';
 // print_r($listOrder);
 // echo '</pre>';
@@ -38,7 +42,7 @@ $smg_types = getFlashData('smg_types');
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse me-5" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light fw-bold" href="#" id="navbarDropdown"
@@ -91,7 +95,7 @@ $smg_types = getFlashData('smg_types');
         <div id="page-content-wrapper">
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="?module=admin" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
                     <li class="breadcrumb-item"><a href="" style="text-decoration: none">Quản lý đơn hàng</a></li>
                     <li class="breadcrumb-item active"> Danh sách đơn hàng </li>
                 </ul>
@@ -133,7 +137,7 @@ $smg_types = getFlashData('smg_types');
                                             <td><?php echo $item['address'] ?></td>
                                             <td><?php echo $item['phone'] ?></td>
                                             <td><?php echo $item['p_name'] ?></td>
-                                            <td><?php echo $item['p_price'] ?></td>
+                                            <td><?php echo $item['product_price'] ?></td>
                                             <td><?php echo $item['order_status'] == 1 ? '<button class="btn btn-success"> Đã xử lý </button>' :
                                                     '<button class="btn btn-danger"> Chưa xử lý </button>'; ?></td>
                                             <td>

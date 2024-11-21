@@ -15,7 +15,13 @@ if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
 
-$listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id");
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+
+$listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id INNER JOIN product_type ON products.p_id = product_type.product_id INNER JOIN product_image 
+    ON product_type.id = product_image.product_type_id;");
+
 // echo '<pre>';
 // print_r($listProd);
 // echo '</pre>';
@@ -36,7 +42,7 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse me-5" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light fw-bold" href="#" id="navbarDropdown"
@@ -58,7 +64,7 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
 
             <div class="list-group list-group-flush fw-bold">
                 <a
-                    href="?module=admin"
+                    href="?module=admin&action=dashboard"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-house me-2"></i>Dashboard</a>
                 <a
                     href="?module=admin&action=user_management"
@@ -67,7 +73,7 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                     href="?module=admin&action=category_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
-                    href=""
+                    href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
                 <a
                     href="?module=admin&action=order_item_management"
@@ -89,7 +95,7 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
         <div id="page-content-wrapper">
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="?module=admin" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
                     <li class="breadcrumb-item active"> Quản lý sản phẩm </li>
                 </ul>
             </div>
@@ -113,7 +119,6 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                                     <th scope="col">Ảnh sản phẩm</th>
                                     <th scope="col">Trạng thái</th>
                                     <th scope="col">Danh mục</th>
-                                    <th scope="col">Model</th>
                                     <th width="5%"> Sửa </th>
                                     <th width="5%"> Xóa </th>
                                 </tr>
@@ -128,12 +133,11 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                                         <tr>
                                             <td><?php echo $product['p_id'] ?></td>
                                             <td><?php echo $product['p_name'] ?></td>
-                                            <td><?php echo $product['p_price'] . " VNĐ" ?></td>
-                                            <td><img src="<?php echo _WEB_HOST_TEMPLATE . '/image/giay1/' . $product['p_image'] ?>" width="100px" /></td>
-                                            <td><?php echo $product['p_quantity_available'] > 0 ? '<button class="btn btn-success"> Còn hàng </button>' :
+                                            <td><?php echo $product['product_price'] . " VNĐ" ?></td>
+                                            <td><img src="<?php echo _WEB_HOST_TEMPLATE . '/image/giay1/' . $product['product_image'] ?>" width="100px" /></td>
+                                            <td><?php echo $product['product_quantity'] > 0 ? '<button class="btn btn-success"> Còn hàng </button>' :
                                                     '<button class="btn btn-danger"> Hết hàng </button>'; ?></td>
                                             <td><?php echo $product['category_name'] ?></td>
-                                            <td><?php echo $product['p_model'] ?></td>
                                             <td><a href="<?php echo "?module=admin&action=product_edit&p_id=" . $product['p_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                             <td><a href="<?php echo "?module=admin&action=product_delete&p_id=" . $product['p_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
                                                     <i class="fa-solid fa-trash"></i></a></td>

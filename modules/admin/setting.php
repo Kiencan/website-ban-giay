@@ -15,6 +15,10 @@ if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
 
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+
 ?>
 
 <body>
@@ -32,7 +36,7 @@ if (!isLogin()) {
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse me-5" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light fw-bold" href="#" id="navbarDropdown"
@@ -54,7 +58,7 @@ if (!isLogin()) {
 
             <div class="list-group list-group-flush fw-bold">
                 <a
-                    href="?module=admin"
+                    href="?module=admin&action=dashboard"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-house me-2"></i>Dashboard</a>
                 <a
                     href="?module=admin&action=user_management"
@@ -85,7 +89,7 @@ if (!isLogin()) {
         <div id="page-content-wrapper">
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="?module=admin" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
                     <li class="breadcrumb-item active"> Cấu hình </li>
                 </ul>
             </div>
@@ -94,8 +98,8 @@ if (!isLogin()) {
                 <h1 class="mt-4">Cấu hình các trang</h1>
             </div>
 
-            <div class="container-fluid px-4">
-                <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 1</a>
+            <div class="container-fluid btn-group-vertical px-4 gap-3 w-25">
+                <a href="?module=admin&action=setting_banner" class="btn btn-success">Chỉnh sửa banner</a>
                 <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 2</a>
                 <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 3</a>
                 <a href="#" class="btn btn-success">Chỉnh sửa ảnh trang 4</a>

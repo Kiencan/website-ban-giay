@@ -4,6 +4,14 @@ if (!defined('_CODE')) {
 }
 $title = ['pageTitle' => 'Cập nhật sản phẩm'];
 
+if (!isLogin()) {
+    redirect('?module=auth&action=login');
+}
+
+if (!isAdmin()) {
+    redirect('?module=user&action=trangchu');
+}
+
 layouts('header-admin', $title);
 $filterAll = filter();
 
@@ -166,7 +174,7 @@ if (!empty($productDetail)) {
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse me-5" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light fw-bold" href="#" id="navbarDropdown"
@@ -188,7 +196,7 @@ if (!empty($productDetail)) {
 
             <div class="list-group list-group-flush fw-bold">
                 <a
-                    href="?module=admin"
+                    href="?module=admin&action=dashboard"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-house me-2"></i>Dashboard</a>
                 <a
                     href="?module=admin&action=user_management"
@@ -219,7 +227,7 @@ if (!empty($productDetail)) {
         <div id="page-content-wrapper">
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="?module=admin" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
                     <li class="breadcrumb-item"><a href="?module=admin&action=product_management" style="text-decoration: none">Danh sách sản phẩm</a></li>
                     <li class="breadcrumb-item active"> Cập nhật sản phẩm </li>
                 </ul>
