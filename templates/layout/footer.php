@@ -13,4 +13,4 @@ if (!defined('_CODE')) {
 <script src="<?php echo _WEB_HOST_TEMPLATE ?>/lib/owlcarousel/owl.carousel.min.js"></script>
 
 <!-- Template Javascript -->
-<script src="<?php echo _WEB_HOST_TEMPLATE ?>/js/main.js"></script> 
+<script src="<?php echo _WEB_HOST_TEMPLATE ?>/js/main.js"></script>

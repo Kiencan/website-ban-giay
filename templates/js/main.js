@@ -175,39 +175,39 @@ function updateCarousel(color) {
   if (color === "hong") {
     images = [
       {
-        src: "${WEB_HOST_TEMPLATE}/image/giayhong1.jpg",
+        src: "templates/image/giayhong1.jpg",
         alt: "Giày Nike E hồng 1",
       },
       {
-        src: "${WEB_HOST_TEMPLATE}/image/giayhong2.jpg",
+        src: "templates/image/giayhong2.jpg",
         alt: "Giày Nike E hồng 2",
       },
       {
-        src: "<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong3.jpg",
+        src: "templates/image/giayhong3.jpg",
         alt: "Giày Nike E hồng 2",
       },
       {
-        src: "<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong4.jpg",
+        src: "templates/image/giayhong4.jpg",
         alt: "Giày Nike E hồng 2",
       },
     ];
   } else if (color === "den") {
     images = [
       {
-        src: "${WEB_HOST_TEMPLATE}/image/giayden1.jpg",
+        src: "templates/image/giayden1.jpg",
         alt: "Giày Nike E đen 1",
       },
       {
-        src: "${WEB_HOST_TEMPLATE}/image/giayden2.jpg",
+        src: "templates/image/giayden2.jpg",
         alt: "Giày Nike E đen 2",
       },
       {
-        src: "${WEB_HOST_TEMPLATE}>/image/giayden3.jpg",
-        alt: "Giày Nike E đen 2",
+        src: "templates/image/giayden3.jpg",
+        alt: "Giày Nike E đen 3",
       },
       {
-        src: "${WEB_HOST_TEMPLATE}/image/giayden4.jpg",
-        alt: "Giày Nike E đen 2",
+        src: "templates/image/giayden4.jpg",
+        alt: "Giày Nike E đen 4",
       },
     ];
   }
@@ -217,38 +217,8 @@ function updateCarousel(color) {
     const carouselItem = document.createElement("div");
     carouselItem.className = `carousel-item ${index === 0 ? "active" : ""}`;
     carouselItem.innerHTML = `
-      <img src="${image.src}" class="img-fluid w-100 h-100 bg-secondary rounded" alt="${image.alt}" />
+      <img src="${image.src}" class="img-fluid w-100 h-100 bg-secondary rounded" alt="${color}" />
     `;
     carouselInner.appendChild(carouselItem);
   });
 }
-// function loadProductData(productId, color) {
-//   fetch("/path/to/api.php")
-//     .then((response) => response.json())
-//     .then((data) => {
-//       const product = data[productId];
-//       if (!product) {
-//         console.error("Sản phẩm không tồn tại!");
-//         return;
-//       }
-
-//       // Cập nhật thông tin sản phẩm
-//       document.querySelector("h4").textContent = product.name;
-//       document.querySelector(".price-original").textContent =
-//         product.price.original;
-//       document.querySelector(".price-discounted").textContent =
-//         product.price.discounted;
-
-//       // Cập nhật carousel
-//       const carouselInner = document.querySelector(".carousel-inner");
-//       carouselInner.innerHTML = "";
-//       const images = product.colors[color] || [];
-//       images.forEach((image, index) => {
-//         const carouselItem = document.createElement("div");
-//         carouselItem.className = `carousel-item ${index === 0 ? "active" : ""}`;
-//         carouselItem.innerHTML = `<img src="${image.src}" class="img-fluid w-100 h-100 bg-secondary rounded" alt="${image.alt}" />`;
-//         carouselInner.appendChild(carouselItem);
-//       });
-//     })
-//     .catch((error) => console.error("Lỗi tải dữ liệu sản phẩm:", error));
-// }

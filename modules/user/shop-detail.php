@@ -14,6 +14,11 @@ layouts('header', $title);
 if (!isLogin()) {
   redirect('?module=auth&action=login');
 }
+$filterAll = filter();
+$listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.p_id = product_type.product_id INNER JOIN category ON products.category_id = category.category_id INNER JOIN product_image ON product_image.product_type_id = product_type.id");
+// echo '<pre>';
+// print_r($listOrder);
+// echo '</pre>';
 
 ?>
 <!-- Spinner Start -->
@@ -44,7 +49,7 @@ if (!isLogin()) {
   </div>
   <div class="container px-0">
     <nav class="navbar navbar-light bg-white navbar-expand-xl">
-      <a href="?module=user" class="navbar-brand">
+      <a href="?module=user&action=trangchu" class="navbar-brand">
         <h1 class="display-6" style="color: #4856dd">3H1A Store</h1>
       </a>
       <button
@@ -158,43 +163,34 @@ if (!isLogin()) {
       <div class="col-lg-8 col-xl-9">
         <div class="row g-4">
           <div class="col-lg-6">
-            <div
-              id="carouselId"
+            <div id="carouselId"
               class="carousel slide position-relative border rounded"
               data-bs-ride="carousel">
               <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active rounded">
-                  <img
-                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong1.jpg"
+                  <img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listOrder[0]['product_image'] ?>"
                     class="img-fluid w-100 h-100 bg-secondary rounded"
                     alt="Giày Adidas Duramo"
-                    onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong1.jpg', document.querySelector('h4').textContent)"
+                    onclick="openModal('<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listOrder[0]['product_image'] ?>')"
                     style="cursor: pointer" />
                 </div>
-                <div class="carousel-item rounded">
-                  <img
-                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong2.jpg"
-                    class="img-fluid w-100 h-100 rounded"
-                    alt="Second slide"
-                    onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong2.jpg')"
-                    style="cursor: pointer" />
-                </div>
-                <div class="carousel-item rounded">
-                  <img
-                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong3.jpg"
-                    class="img-fluid w-100 h-100 rounded"
-                    alt="Second slide"
-                    onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong3.jpg')"
-                    style="cursor: pointer" />
-                </div>
-                <div class="carousel-item rounded">
-                  <img
-                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong4.jpg"
-                    class="img-fluid w-100 h-100 rounded"
-                    alt="Second slide"
-                    onclick="openModal('<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong4.jpg')"
-                    style="cursor: pointer" />
-                </div>
+                <?php
+                if (!empty($listOrder)):
+
+                  for ($i = 1; $i < count($listOrder); $i++):
+                ?>
+                    <div class="carousel-item rounded">
+                      <img
+                        src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listOrder[$i]['product_image'] ?>"
+                        class="img-fluid w-100 h-100 rounded"
+                        alt="Second slide"
+                        onclick="openModal(" <?php echo _WEB_HOST_TEMPLATE . '/image/' . $listOrder[$i]['product_image'] ?>")"
+                        style="cursor: pointer" />
+                    </div>
+                <?php
+                  endfor;
+                endif;
+                ?>
               </div>
               <button
                 class="carousel-control-prev"
@@ -251,9 +247,9 @@ if (!isLogin()) {
 
           <div class="col-lg-6">
             <h4 class="fw-bold mb-3" id="imageModalLabel">
-              Giày Nike E-Series
+              <?php echo $listOrder[0]['p_name'] ?>
             </h4>
-            <p class="mb-3">Phân loại: Sneaker</p>
+            <p class="mb-3">Phân loại: <?php echo $listOrder[0]['category_name'] ?></p>
             <h5 class="fw-bold mb-3">
               <span
                 style="
@@ -320,7 +316,7 @@ if (!isLogin()) {
                 </button>
               </div>
               <input
-                type="text"
+                type="number"
                 class="form-control form-control-sm text-center border-0"
                 value="1" />
               <div class="input-group-btn">
@@ -581,7 +577,7 @@ if (!isLogin()) {
               <ul class="list-unstyled item-categorie">
                 <li>
                   <div class="d-flex justify-content-between item-name">
-                    <a href="?module=user&action=giayAdidas"><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b306"></i>Giày Adidas</a>
+                    <a href="?module=user&action=giayAdidas"><i class="fa fa-shoe-prints fa-rotate-270 fa-sm me-2" style="color: #0b3066"></i>Giày Adidas</a>
                     <span>(3)</span>
                   </div>
                 </li>

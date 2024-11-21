@@ -17,6 +17,11 @@ if (!isLogin()) {
 
 $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
 $filterAll = filter();
+if (!empty($filterAll['id'])) {
+  $id = getRows("SELECT * FROM order_item WHERE customer_id = " . $filterAll["id"]);
+} else {
+  $id = 0;
+}
 
 ?>
 
@@ -88,12 +93,12 @@ $filterAll = filter();
             style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
             <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
           </button>
-          <a href="?module=user&action=cart&id=<?php echo $filterAll["id"] ?>" class="position-relative me-4 my-auto">
+          <a href="?module=user&action=cart&id=<?php echo $id ?>" class="position-relative me-4 my-auto">
             <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
             <span
               class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
-              <?php echo getRows("SELECT * FROM order_item WHERE customer_id = " . $filterAll["id"]) ?>
+              <?php echo $id ?>
             </span>
           </a>
           <div class="dropdown">

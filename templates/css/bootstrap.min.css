@@ -4280,6 +4280,13 @@ fieldset:disabled .btn {
 .breadcrumb-item + .breadcrumb-item {
   padding-left: 0.5rem;
 }
+.breadcrumb-item a {
+  color: white;
+  text-decoration: none;
+}
+.breadcrumb-item a:hover {
+  color: #000000;
+}
 .breadcrumb-item + .breadcrumb-item::before {
   float: left;
   padding-right: 0.5rem;
