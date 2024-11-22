@@ -209,6 +209,11 @@
 .tab-content i {
   color: #4856dd !important;
 }
+
+.product-actions {
+  display: flex;
+  gap: 5px;
+}
 /*** Bán chạy End ***/
 
 /*** Giảm giá Start ***/
