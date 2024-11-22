@@ -15,7 +15,7 @@ if (!isLogin()) {
   redirect('?module=auth&action=login');
 }
 $filterAll = filter();
-$listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.p_id = product_type.product_id INNER JOIN category ON products.category_id = category.category_id INNER JOIN product_image ON product_image.product_type_id = product_type.id");
+$listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.p_id = product_type.product_id INNER JOIN category ON products.category_id = category.category_id");
 // echo '<pre>';
 // print_r($listOrder);
 // echo '</pre>';
@@ -215,6 +215,8 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
                 <span class="visually-hidden">Next</span>
               </button>
             </div>
+            <p class="mb-3">Mã sản phẩm: </p>
+
           </div>
 
           <!-- Modal for enlarged image -->
@@ -255,6 +257,7 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
                 style="
                       text-decoration: line-through;
                       font-family: 'Open Sans', sans-serif;
+                      font-size: 15px;
                     ">2.500.000đ</span>
               <span
                 style="
@@ -292,20 +295,20 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
             <div class="chon-size">
               <span class="select-size mt-3">Kích thước</span>
               <div class="container-product d-flex justify-content-start p-3">
-                <button class="size">35</button>
-                <button class="size">36</button>
-                <button class="size">37</button>
-                <button class="size">38</button>
-                <button class="size">39</button>
-                <button class="size">39.5</button>
-                <button class="size">40</button>
-                <button class="size">40.5</button>
-                <button class="size">41</button>
-                <button class="size">42</button>
+                <button class="size" value="35">35</button>
+                <button class="size" value="36">36</button>
+                <button class="size" value="37">37</button>
+                <button class="size" value="38">38</button>
+                <button class="size" value="39">39</button>
+                <button class="size" value="39.5">39.5</button>
+                <button class="size" value="40">40</button>
+                <button class="size" value="40.5">40.5</button>
+                <button class="size" value="41">41</button>
+                <button class="size" value="42">42</button>
               </div>
               <span class="select-quantity pt-3 mt-3">Số lượng</span>
-
             </div>
+
             <div
               class="input-group quantity mb-3 mt-3"
               style="width: 100px">
@@ -432,12 +435,12 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
                   </div>
                 </div>
               </div>
-              <div
-                class="tab-pane"
-                id="nav-mission"
+              <div 
+                class="tab-pane" 
+                id="nav-mission" 
                 role="tabpanel"
-                aria-labelledby="nav-mission-tab">
-                <div class="d-flex">
+                aria-labelledby="nav-mission-tab"> 
+                <div class="d-flex"> 
                   <img
                     src="img/avatar.jpg"
                     class="img-fluid rounded-circle p-3"
@@ -449,12 +452,12 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
                     </p>
                     <div class="d-flex justify-content-between">
                       <h5>Jason Smith</h5>
-                      <div class="d-flex mb-3">
+                      <div class= "d-flex mb-3" id ="icon-start">
                         <i class="fa fa-star text-secondary"></i>
                         <i class="fa fa-star text-secondary"></i>
                         <i class="fa fa-star text-secondary"></i>
                         <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star text-secondary"></i>
                       </div>
                     </div>
                     <p>
@@ -481,8 +484,8 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
                         <i class="fa fa-star text-secondary"></i>
                         <i class="fa fa-star text-secondary"></i>
                         <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star text-secondary"></i>
+                        <i class="fa fa-star text-dark"></i>
                       </div>
                     </div>
                     <p class="text-dark">
@@ -780,231 +783,334 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
         </div>
       </div>
     </div>
-    <h1 class="fw-bold mb-0">Sản phẩm liên quan</h1>
-    <div class="vesitable">
-      <div class="owl-carousel vegetable-carousel justify-content-center">
-        <div
-          class="border border-primary rounded position-relative vesitable-item">
-          <div class="vesitable-img">
-            <img
-              src="img/vegetable-item-6.jpg"
-              class="img-fluid w-100 rounded-top"
-              alt="" />
-          </div>
-          <div
-            class="text-white bg-primary px-3 py-1 rounded position-absolute"
-            style="top: 10px; right: 10px">
-            Vegetable
-          </div>
-          <div class="p-4 pb-0 rounded-bottom">
-            <h4>Parsely</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmod te incididunt
-            </p>
-            <div class="d-flex justify-content-between flex-lg-wrap">
-              <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-              <a
-                href="#"
-                class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                cart</a>
-            </div>
-          </div>
+    <h1 class="mb-5">Sản phẩm liên quan</h1>
+    <div
+      class="owl-carousel vegetable-carousel justify-content-center text-center">
+      <div class="rounded position-relative giamgia-item">
+        <div class="img-item">
+          <img
+            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt="" />
         </div>
         <div
-          class="border border-primary rounded position-relative vesitable-item">
-          <div class="vesitable-img">
-            <img
-              src="img/vegetable-item-1.jpg"
-              class="img-fluid w-100 rounded-top"
-              alt="" />
-          </div>
-          <div
-            class="text-white bg-primary px-3 py-1 rounded position-absolute"
-            style="top: 10px; right: 10px">
-            Vegetable
-          </div>
-          <div class="p-4 pb-0 rounded-bottom">
-            <h4>Parsely</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmod te incididunt
-            </p>
-            <div class="d-flex justify-content-between flex-lg-wrap">
-              <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-              <a
-                href="#"
-                class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                cart</a>
-            </div>
+          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+          style="top: 10px; left: 10px">
+          Giày sneaker
+        </div>
+        <div class="p-4 border-top-0 rounded-bottom">
+          <h4>Giày Adidas Duramo</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+            eiusmod te incididunt
+          </p>
+          <p>
+            <span style="text-decoration: line-through">2.500.00đ</span>
+            <span style="font-weight: bold; color: black">1.499.000đ</span>
+          </p>
+          <div class="d-flex justify-content-between flex-lg-wrap">
+            <a
+              href="#"
+              class="btn border border-secondary rounded-circle p-auto me-2"
+              style="
+                    background-color: rgb(255, 255, 255);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                  ">
+              <i class="fa fa-heart"></i>
+              <!-- Icon trái tim -->
+            </a>
+            <a
+              href="#"
+              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
           </div>
         </div>
-        <div
-          class="border border-primary rounded position-relative vesitable-item">
-          <div class="vesitable-img">
-            <img
-              src="img/vegetable-item-3.png"
-              class="img-fluid w-100 rounded-top bg-light"
-              alt="" />
-          </div>
-          <div
-            class="text-white bg-primary px-3 py-1 rounded position-absolute"
-            style="top: 10px; right: 10px">
-            Vegetable
-          </div>
-          <div class="p-4 pb-0 rounded-bottom">
-            <h4>Banana</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmod te incididunt
-            </p>
-            <div class="d-flex justify-content-between flex-lg-wrap">
-              <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-              <a
-                href="#"
-                class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                cart</a>
-            </div>
-          </div>
+      </div>
+      <div class="rounded position-relative giamgia-item">
+        <div class="img-item">
+          <img
+            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt="" />
         </div>
         <div
-          class="border border-primary rounded position-relative vesitable-item">
-          <div class="vesitable-img">
-            <img
-              src="img/vegetable-item-4.jpg"
-              class="img-fluid w-100 rounded-top"
-              alt="" />
-          </div>
-          <div
-            class="text-white bg-primary px-3 py-1 rounded position-absolute"
-            style="top: 10px; right: 10px">
-            Vegetable
-          </div>
-          <div class="p-4 pb-0 rounded-bottom">
-            <h4>Bell Papper</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmod te incididunt
-            </p>
-            <div class="d-flex justify-content-between flex-lg-wrap">
-              <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-              <a
-                href="#"
-                class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                cart</a>
-            </div>
+          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+          style="top: 10px; left: 10px">
+          Giày sneaker
+        </div>
+        <div class="p-4 border-top-0 rounded-bottom">
+          <h4>Giày Adidas Duramo</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+            eiusmod te incididunt
+          </p>
+          <p>
+            <span style="text-decoration: line-through">2.500.00đ</span>
+            <span style="font-weight: bold; color: black">1.499.000đ</span>
+          </p>
+          <div class="d-flex justify-content-between flex-lg-wrap">
+            <a
+              href="#"
+              class="btn border border-secondary rounded-circle p-auto me-2"
+              style="
+                    background-color: rgb(255, 255, 255);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                  ">
+              <i class="fa fa-heart"></i>
+              <!-- Icon trái tim -->
+            </a>
+            <a
+              href="#"
+              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
           </div>
         </div>
-        <div
-          class="border border-primary rounded position-relative vesitable-item">
-          <div class="vesitable-img">
-            <img
-              src="img/vegetable-item-5.jpg"
-              class="img-fluid w-100 rounded-top"
-              alt="" />
-          </div>
-          <div
-            class="text-white bg-primary px-3 py-1 rounded position-absolute"
-            style="top: 10px; right: 10px">
-            Vegetable
-          </div>
-          <div class="p-4 pb-0 rounded-bottom">
-            <h4>Potatoes</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmod te incididunt
-            </p>
-            <div class="d-flex justify-content-between flex-lg-wrap">
-              <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-              <a
-                href="#"
-                class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                cart</a>
-            </div>
-          </div>
+      </div>
+      <div class="rounded position-relative giamgia-item">
+        <div class="img-item">
+          <img
+            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt="" />
         </div>
         <div
-          class="border border-primary rounded position-relative vesitable-item">
-          <div class="vesitable-img">
-            <img
-              src="img/vegetable-item-6.jpg"
-              class="img-fluid w-100 rounded-top"
-              alt="" />
-          </div>
-          <div
-            class="text-white bg-primary px-3 py-1 rounded position-absolute"
-            style="top: 10px; right: 10px">
-            Vegetable
-          </div>
-          <div class="p-4 pb-0 rounded-bottom">
-            <h4>Parsely</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmod te incididunt
-            </p>
-            <div class="d-flex justify-content-between flex-lg-wrap">
-              <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-              <a
-                href="#"
-                class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                cart</a>
-            </div>
+          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+          style="top: 10px; left: 10px">
+          Giày sneaker
+        </div>
+        <div class="p-4 border-top-0 rounded-bottom">
+          <h4>Giày Adidas Duramo</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+            eiusmod te incididunt
+          </p>
+          <p>
+            <span style="text-decoration: line-through">2.500.00đ</span>
+            <span style="font-weight: bold; color: black">1.499.000đ</span>
+          </p>
+          <div class="d-flex justify-content-between flex-lg-wrap">
+            <a
+              href="#"
+              class="btn border border-secondary rounded-circle p-auto me-2"
+              style="
+                    background-color: rgb(255, 255, 255);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                  ">
+              <i class="fa fa-heart"></i>
+              <!-- Icon trái tim -->
+            </a>
+            <a
+              href="#"
+              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
           </div>
         </div>
-        <div
-          class="border border-primary rounded position-relative vesitable-item">
-          <div class="vesitable-img">
-            <img
-              src="img/vegetable-item-5.jpg"
-              class="img-fluid w-100 rounded-top"
-              alt="" />
-          </div>
-          <div
-            class="text-white bg-primary px-3 py-1 rounded position-absolute"
-            style="top: 10px; right: 10px">
-            Vegetable
-          </div>
-          <div class="p-4 pb-0 rounded-bottom">
-            <h4>Potatoes</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmod te incididunt
-            </p>
-            <div class="d-flex justify-content-between flex-lg-wrap">
-              <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-              <a
-                href="#"
-                class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                cart</a>
-            </div>
-          </div>
+      </div>
+      <div class="rounded position-relative giamgia-item">
+        <div class="img-item">
+          <img
+            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt="" />
         </div>
         <div
-          class="border border-primary rounded position-relative vesitable-item">
-          <div class="vesitable-img">
-            <img
-              src="img/vegetable-item-6.jpg"
-              class="img-fluid w-100 rounded-top"
-              alt="" />
+          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+          style="top: 10px; left: 10px">
+          Giày sneaker
+        </div>
+        <div class="p-4 border-top-0 rounded-bottom">
+          <h4>Giày Adidas Duramo</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+            eiusmod te incididunt
+          </p>
+          <p>
+            <span style="text-decoration: line-through">2.500.00đ</span>
+            <span style="font-weight: bold; color: black">1.499.000đ</span>
+          </p>
+          <div class="d-flex justify-content-between flex-lg-wrap">
+            <a
+              href="#"
+              class="btn border border-secondary rounded-circle p-auto me-2"
+              style="
+                    background-color: rgb(255, 255, 255);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                  ">
+              <i class="fa fa-heart"></i>
+              <!-- Icon trái tim -->
+            </a>
+            <a
+              href="#"
+              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
           </div>
-          <div
-            class="text-white bg-primary px-3 py-1 rounded position-absolute"
-            style="top: 10px; right: 10px">
-            Vegetable
+        </div>
+      </div>
+      <div class="rounded position-relative giamgia-item">
+        <div class="img-item">
+          <img
+            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt="" />
+        </div>
+        <div
+          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+          style="top: 10px; left: 10px">
+          Giày sneaker
+        </div>
+        <div class="p-4 border-top-0 rounded-bottom">
+          <h4>Giày Adidas Duramo</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+            eiusmod te incididunt
+          </p>
+          <p>
+            <span style="text-decoration: line-through">2.500.00đ</span>
+            <span style="font-weight: bold; color: black">1.499.000đ</span>
+          </p>
+          <div class="d-flex justify-content-between flex-lg-wrap">
+            <a
+              href="#"
+              class="btn border border-secondary rounded-circle p-auto me-2"
+              style="
+                    background-color: rgb(255, 255, 255);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                  ">
+              <i class="fa fa-heart"></i>
+              <!-- Icon trái tim -->
+            </a>
+            <a
+              href="#"
+              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
           </div>
-          <div class="p-4 pb-0 rounded-bottom">
-            <h4>Parsely</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmod te incididunt
-            </p>
-            <div class="d-flex justify-content-between flex-lg-wrap">
-              <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-              <a
-                href="#"
-                class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                cart</a>
-            </div>
+        </div>
+      </div>
+      <div class="rounded position-relative giamgia-item">
+        <div class="img-item">
+          <img
+            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt="" />
+        </div>
+        <div
+          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+          style="top: 10px; left: 10px">
+          Giày sneaker
+        </div>
+        <div class="p-4 border-top-0 rounded-bottom">
+          <h4>Giày Adidas Duramo</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+            eiusmod te incididunt
+          </p>
+          <p>
+            <span style="text-decoration: line-through">2.500.00đ</span>
+            <span style="font-weight: bold; color: black">1.499.000đ</span>
+          </p>
+          <div class="d-flex justify-content-between flex-lg-wrap">
+            <a
+              href="#"
+              class="btn border border-secondary rounded-circle p-auto me-2"
+              style="
+                    background-color: rgb(255, 255, 255);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                  ">
+              <i class="fa fa-heart"></i>
+              <!-- Icon trái tim -->
+            </a>
+            <a
+              href="#"
+              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
+          </div>
+        </div>
+      </div>
+      <div class="rounded position-relative giamgia-item">
+        <div class="img-item">
+          <img
+            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt="" />
+        </div>
+        <div
+          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+          style="top: 10px; left: 10px">
+          Giày sneaker
+        </div>
+        <div class="p-4 border-top-0 rounded-bottom">
+          <h4>Giày Adidas Duramo</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+            eiusmod te incididunt
+          </p>
+          <p>
+            <span style="text-decoration: line-through">2.500.00đ</span>
+            <span style="font-weight: bold; color: black">1.499.000đ</span>
+          </p>
+          <div class="d-flex justify-content-between flex-lg-wrap">
+            <a
+              href="#"
+              class="btn border border-secondary rounded-circle p-auto me-2"
+              style="
+                    background-color: rgb(255, 255, 255);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                  ">
+              <i class="fa fa-heart"></i>
+              <!-- Icon trái tim -->
+            </a>
+            <a
+              href="#"
+              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
+          </div>
+        </div>
+      </div>
+      <div class="rounded position-relative giamgia-item">
+        <div class="img-item">
+          <img
+            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt="" />
+        </div>
+        <div
+          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+          style="top: 10px; left: 10px">
+          Giày sneaker
+        </div>
+        <div class="p-4 border-top-0 rounded-bottom">
+          <h4>Giày Adidas Duramo</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+            eiusmod te incididunt
+          </p>
+          <p>
+            <span style="text-decoration: line-through">2.500.00đ</span>
+            <span style="font-weight: bold; color: black">1.499.000đ</span>
+          </p>
+          <div class="d-flex justify-content-between flex-lg-wrap">
+            <a
+              href="#"
+              class="btn border border-secondary rounded-circle p-auto me-2"
+              style="
+                    background-color: rgb(255, 255, 255);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                  ">
+              <i class="fa fa-heart"></i>
+              <!-- Icon trái tim -->
+            </a>
+            <a
+              href="#"
+              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
           </div>
         </div>
       </div>

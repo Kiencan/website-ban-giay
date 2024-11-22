@@ -207,8 +207,9 @@
   text-align: right;
 }
 .tab-content i {
-  color: #4856dd !important;
+  color: #4856dd;
 }
+
 /*** Bán chạy End ***/
 
 /*** Giảm giá Start ***/
@@ -220,8 +221,8 @@
 .giamgia .giamgia-item:hover {
   box-shadow: 0 0 55px rgba(0, 0, 0, 0.4);
 }
-.giamgia .giamgia-item i {
-  color: #4856dd !important;
+.giamgia-item i {
+  color: #4856dd;
 }
 .giamgia .giamgia-item .img-item {
   overflow: hidden;

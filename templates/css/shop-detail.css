@@ -6,6 +6,30 @@
 .container-product button {
   background-color: white;
   width: 50px;
+  border: 2px solid rgb(153, 150, 150);
+  font-size: 1.15em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgb(4, 4, 4);
+  transition: all 0.25s ease-in-out;
+}
+.container-product button:hover {
+  background-color: black;
+  border-color: black;
+  color: white;
+}
+.container-product button:active {
+  background-color: black;
+  border-color: black;
+  color: white;
+  box-shadow: none;
+}
+.container-product button:focus,
+&:active:focus {
+  background-color: black;
+  border-color: black;
+  color: white;
+  outline: 5px auto black;
 }
 .product {
   text-align: center;

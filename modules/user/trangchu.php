@@ -364,7 +364,7 @@ if (!empty($filterAll['id'])) {
                   <div class="rounded position-relative my-item">
                     <div class="img-item">
                       <img
-                        src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay2.jpg"
+                        src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
                         class="img-fluid w-100 rounded-top"
                         alt="" />
                     </div>
@@ -374,7 +374,7 @@ if (!empty($filterAll['id'])) {
                       Giày sneaker
                     </div>
                     <div class="p-4 border-top-0 rounded-bottom">
-                      <h4>Giày Adidas Duramo</h4>
+                      <h4>GiàyNike E-Series</h4>
                       <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing
                         elit sed do eiusmod te incididunt
