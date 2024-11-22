@@ -19,12 +19,12 @@ if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
 
-$listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id INNER JOIN product_type ON products.p_id = product_type.product_id INNER JOIN product_image 
-    ON product_type.id = product_image.product_type_id;");
-
+$listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id ORDER BY create_at");
 // echo '<pre>';
 // print_r($listProd);
 // echo '</pre>';
+
+
 ?>
 
 <body>
@@ -115,10 +115,9 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                                 <tr>
                                     <th scope="col" width="50">ID</th>
                                     <th scope="col">Tên sản phẩm</th>
-                                    <th scope="col">Giá</th>
                                     <th scope="col">Ảnh sản phẩm</th>
-                                    <th scope="col">Trạng thái</th>
                                     <th scope="col">Danh mục</th>
+                                    <th scope="col">Các size</th>
                                     <th width="5%"> Sửa </th>
                                     <th width="5%"> Xóa </th>
                                 </tr>
@@ -133,11 +132,31 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                                         <tr>
                                             <td><?php echo $product['p_id'] ?></td>
                                             <td><?php echo $product['p_name'] ?></td>
-                                            <td><?php echo $product['product_price'] . " VNĐ" ?></td>
-                                            <td><img src="<?php echo _WEB_HOST_TEMPLATE . '/image/giay1/' . $product['product_image'] ?>" width="100px" /></td>
-                                            <td><?php echo $product['product_quantity'] > 0 ? '<button class="btn btn-success"> Còn hàng </button>' :
-                                                    '<button class="btn btn-danger"> Hết hàng </button>'; ?></td>
+                                            <td><?php
+
+                                                $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.product_id = products.p_id WHERE product_image.product_id = '$product[p_id]'");
+                                                if (!empty($listImg)) {
+                                                    echo '<img src="' . _WEB_HOST_TEMPLATE . '/image/' . $listImg['product_image'] . '" width="100px" alt="">';
+                                                } else {
+                                                    echo '<div class="alert alert-danger text-center">Chưa có hình ảnh, nhấn chỉnh sửa để thêm hình ảnh!</div>';
+                                                }
+
+                                                ?>
+                                            </td>
                                             <td><?php echo $product['category_name'] ?></td>
+                                            <td><?php
+                                                for ($i = 0; $i < 1; $i++) {
+                                                    $listSize = getRaw("SELECT * FROM product_size WHERE product_id = '" . $product['p_id'] . "'");
+                                                    if (!empty($listSize)) {
+                                                        for ($j = 0; $j < count($listSize) - 1; $j++) {
+                                                            echo $listSize[$j]['size'] . ', ';
+                                                        }
+                                                        echo $listSize[count($listSize) - 1]['size'];
+                                                    } else {
+                                                        echo '<div class="alert alert-danger text-center">Chưa có size, nhấn chỉnh sửa để thêm size!</div>';
+                                                    }
+                                                }
+                                                ?></td>
                                             <td><a href="<?php echo "?module=admin&action=product_edit&p_id=" . $product['p_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                             <td><a href="<?php echo "?module=admin&action=product_delete&p_id=" . $product['p_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
                                                     <i class="fa-solid fa-trash"></i></a></td>

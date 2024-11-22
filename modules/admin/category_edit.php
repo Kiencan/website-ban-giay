@@ -40,15 +40,11 @@ if (isPost()) {
     // Kiểm tra họ và tên: bắt buộc phải nhập, nhập ít nhất 5 ký tự
     if (empty($filterAll['category_name'])) {
         $errors['category_name']['required'] = 'Vui lòng nhập tên danh mục';
-    }
-
-    if (empty($filterAll['category_title'])) {
-        $errors['category_title']['required'] = 'Vui lòng nhập tiêu đề';
     } else {
-        if (strlen($filterAll['category_title']) < 5) {
-            $errors['category_title']['min'] = 'Tiêu đề quá ngắn';
-        } else if (strlen($filterAll['category_title']) > 200) {
-            $errors['category_title']['max'] = 'Tiều đề quá dài';
+        $category_name = $filterAll['category_name'];
+        $sql = "SELECT * FROM category WHERE category_name = '$category_name'";
+        if (getRows($sql) > 0) {
+            $errors['category_name']['unique'] = 'Danh mục đã tồn tại';
         }
     }
 
@@ -56,7 +52,6 @@ if (isPost()) {
     if (empty($errors)) {
         $dataUpdate = [
             'category_name' => $filterAll['category_name'],
-            'category_title' => $filterAll['category_title'],
         ];
 
         $updateStatus = update('category', $dataUpdate, "category_id = '$categoryId'");
@@ -180,14 +175,6 @@ if (!empty($categoryDetail)) {
                                         value="<?php echo old('category_name', $old) ?>" />
                                     <?php
                                     echo form_error('category_name', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-                                <div class="form-group mg-form">
-                                    <label for="">Title</label>
-                                    <input class="form-control" type="text" placeholder="Title" name="category_title"
-                                        value="<?php echo old('category_title', $old) ?>" />
-                                    <?php
-                                    echo form_error('category_title', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
                             </div>

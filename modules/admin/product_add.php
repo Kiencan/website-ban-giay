@@ -13,6 +13,7 @@ if (!isAdmin()) {
 }
 
 layouts('header-admin', $title);
+$listCategory = getRaw("SELECT * FROM category");
 
 if (isPost()) {
     $filterAll = filter();
@@ -21,108 +22,26 @@ if (isPost()) {
 
     if (empty($filterAll['p_name'])) {
         $errors['p_name']['required'] = 'Vui lòng nhập tên sản phẩm';
-    } else {
-        if (strlen($filterAll['p_name']) < 5) {
-            $errors['p_name']['min'] = 'Tên sản phẩm quá ngắn';
-        }
-    }
-
-    if (empty($filterAll['p_price'])) {
-        $errors['p_price']['required'] = 'Vui lòng nhập giá sản phẩm';
-    } else {
-        if ($filterAll['p_price'] < 0) {
-            $errors['p_price']['negative'] = 'Giá sản phẩm không âm!';
-        }
-    }
-
-    if ($filterAll['p_discount'] < 0) {
-        $errors['p_discount']['negative'] = 'Giá khuyến mãi không âm!';
-    }
-
-    if (empty($filterAll['p_quantity_available'])) {
-        $errors['p_quantity_available']['required'] = 'Vui lòng nhập số lượng';
-    } else {
-        if ($filterAll['p_quantity_available'] < 0) {
-            $errors['p_quantity_available']['negative'] = 'Số lượng không âm!';
-        } else {
-            if (!isNumberInt($filterAll['p_quantity_available'])) {
-                $errors['p_quantity_available']['non-int'] = 'Số lượng phải là số nguyên';
-            }
-        }
-    }
-
-    if (empty($_FILES['p_image']['name'])) {
-        $errors['p_image']['required'] = 'Vui lòng upload ảnh.';
-    } else {
-        // Get file information
-        $imageName = $_FILES['p_image']['name'];
-        $imageSize = $_FILES['p_image']['size'];
-        $imageTemp = $_FILES['p_image']['tmp_name'];
-        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif']; // Allowed file types
-        $fileExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
-
-        // Set target directory
-        $targetDir = _WEB_PATH_TEMPLATE . 'image/giay1/';
-        $targetFilePath = $targetDir . $imageName;
-
-        // Validate file type
-        if (!in_array($fileExtension, $allowedTypes)) {
-            $errors['p_image']['type'] = 'Chỉ chấp nhận các định dạng ảnh: JPG, JPEG, PNG, GIF.';
-        }
-
-        // Validate file size (e.g., 5MB maximum)
-        if ($imageSize > 5 * 1024 * 1024) {
-            $errors['p_image']['size'] = 'Dung lượng ảnh không được vượt quá 5MB.';
-        }
-
-        // Check if file already exists
-        if (file_exists($targetFilePath)) {
-            $errors['p_image']['exists'] = 'File này đã tồn tại. Vui lòng chọn một ảnh khác hoặc đổi tên file.';
-        }
-    }
-
-    if (empty($filterAll['p_model'])) {
-        $errors['p_model']['required'] = 'Vui lòng nhập tiêu đề';
     }
 
     if (empty($filterAll['p_description'])) {
         $errors['p_description']['required'] = 'Vui lòng nhập mô tả sản phẩm';
-    } else {
-        if (strlen($filterAll['category_title']) > 200) {
-            $errors['p_description']['max'] = 'Vui lòng nhập không quá 200 ký tự!';
-        }
     }
 
     if (empty($errors)) {
-        $dataInsert = [
+        $productInsert = [
+            'p_id' => $filterAll['p_id'],
             'p_name' => $filterAll['p_name'],
-            'p_price' => $filterAll['p_price'],
-            'p_discount' => $filterAll['p_discount'],
-            'p_quantity_available' => $filterAll['p_quantity_available'],
             'category_id' => $filterAll['category_id'],
-            'p_model' => $filterAll['p_model'],
             'p_description' => $filterAll['p_description'],
-            'create_at' => date('Y-m-d H:i:s')
+            'create_at' => date('Y-m-d H:i:s'),
         ];
 
-        $image = $_FILES['p_image']['name'];
-        $imageTemp = $_FILES['p_image']['tmp_name'];
-        $targetDir =  _WEB_PATH_TEMPLATE . 'image/giay1/';
-        $targetFilePath = $targetDir . basename($image);
-
-        $dataInsert['p_image'] = basename($image);
-
-        $insertStatus = insert('products', $dataInsert);
+        $insertStatus = insert('products', $productInsert);
         if ($insertStatus) {
-            if (move_uploaded_file($imageTemp, $targetFilePath)) {
-                setFlashData('smg', 'Thêm sản phẩm thành công!');
-                setFlashData('smg_types', 'success');
-                redirect('?module=admin&action=product_management');
-            } else {
-                setFlashData('smg', 'Upload ảnh không thành công!');
-                setFlashData('smg_types', 'danger');
-                redirect('?module=admin&action=product_add');
-            }
+            setFlashData('smg', 'Thêm sản phẩm thành công!');
+            setFlashData('smg_types', 'success');
+            redirect('?module=admin&action=product_management');
         } else {
             setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
             setFlashData('smg_types', 'danger');
@@ -228,69 +147,38 @@ $old = getFlashData('old');
                         getSmg($smg, $smg_types);
                     }
                     ?>
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="" method="post">
                         <div class="row">
                             <div class="col">
                                 <div class="form-group mg-form">
+                                    <label for="">Mã sản phẩm</label>
+                                    <input class="form-control" type="text" placeholder="Mã sản phẩm" name="p_id" value="<?php echo old('p_id', $old) ?>" />
+                                    <?php
+                                    echo form_error('p_id', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
                                     <label for="">Tên sản phẩm</label>
-                                    <input class="form-control" type="p_name" placeholder="Tên sản phẩm" name="p_name"
-                                        value="<?php echo old('p_name', $old) ?>" />
+                                    <input class="form-control" type="text" placeholder="Tên sản phẩm" name="p_name" value="<?php echo old('p_name', $old) ?>" />
                                     <?php
                                     echo form_error('p_name', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
                                 <div class="form-group mg-form">
-                                    <label for="">Giá sản phẩm</label>
-                                    <input class="form-control" type="p_price" placeholder="Giá sản phẩm" name="p_price"
-                                        value="<?php echo old('p_price', $old) ?>" />
-                                    <?php
-                                    echo form_error('p_price', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-
-                                <div class="form-group mg-form">
-                                    <label for="">Giá khuyến mãi</label>
-                                    <input class="form-control" type="p_discount" placeholder="Giá khuyến mãi" name="p_discount"
-                                        value="<?php echo old('p_discount', $old) ?>" />
-                                    <?php
-                                    echo form_error('p_discount', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-                                <div class="form-group mg-form">
-                                    <label for="">Số lượng</label>
-                                    <input class="form-control" type="p_quantity_available" placeholder="Số lượng" name="p_quantity_available"
-                                        value="<?php echo old('p_quantity_available', $old) ?>" />
-                                    <?php
-                                    echo form_error('p_quantity_available', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group mg-form">
-                                    <label for="">Ảnh sản phẩm</label>
-                                    <input class="form-control" type="file" name="p_image" />
-                                    <?php
-                                    echo form_error('p_image', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-                                <div class="form-group mg-form">
-                                    <label for="category_id"> Danh mục
+                                    <label for=""> Danh mục
                                     </label>
                                     <select class="form-control" name="category_id">
-                                        <option value=1 <?php echo (old('category_id', $old) == 1) ? 'selected' : false; ?>>Iphone</option>
-                                        <option value=2 <?php echo (old('category_id', $old) == 2) ? 'selected' : false; ?>>Samsung</option>
+                                        <?php
+                                        foreach ($listCategory as $category):
+                                        ?>
+                                            <option value=<?= $category['category_id'] ?> <?php echo (old('category_id', $old) == $category['category_id']) ? 'selected' : false; ?>><?= $category['category_name'] ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="form-group mg-form">
-                                    <label for="">Model</label>
-                                    <input class="form-control" type="p_model" placeholder="Mẫu" name="p_model"
-                                        value="<?php echo old('p_model', $old) ?>" />
-                                    <?php
-                                    echo form_error('p_model', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-                                <div class="form-group mg-form">
-                                    <label for="p_description">Mô tả sản phẩm</label>
+                                    <label for="">Mô tả sản phẩm</label>
                                     <textarea class="form-control" id="p_description" placeholder="Mô tả" name="p_description" rows="3"><?php echo old('p_description', $old) ?></textarea>
                                     <?php
                                     echo form_error('p_description', '<p class="text-danger">', '</p>', $errors);

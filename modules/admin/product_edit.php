@@ -18,10 +18,17 @@ $filterAll = filter();
 if (!empty($filterAll['p_id'])) {
     $p_id = $filterAll['p_id'];
 
-    $productDetail = oneRaw("SELECT * FROM products WHERE p_id = $p_id");
+    $productDetail = oneRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id = '$p_id'");
+
+    $sizeDetail = getRaw("SELECT * FROM product_size WHERE product_id = '$p_id' ORDER BY size");
+
+    $imageDetail = getRaw("SELECT * FROM product_image WHERE product_id = '$p_id'");
+
+    $listCategory = getRaw("SELECT * FROM category");
     // echo '<pre>';
     // print_r($productDetail);
     // echo '</pre>';
+
     if (!empty($productDetail)) {
         setFlashData('product-detail', $productDetail);
     } else {
@@ -42,63 +49,6 @@ if (isPost()) {
         }
     }
 
-    if (empty($filterAll['p_price'])) {
-        $errors['p_price']['required'] = 'Vui lòng nhập giá sản phẩm';
-    } else {
-        if ($filterAll['p_price'] < 0) {
-            $errors['p_price']['negative'] = 'Giá sản phẩm không âm!';
-        }
-    }
-
-    if ($filterAll['p_discount'] < 0) {
-        $errors['p_discount']['negative'] = 'Giá khuyến mãi không âm!';
-    }
-
-    if (empty($filterAll['p_quantity_available'])) {
-        $errors['p_quantity_available']['required'] = 'Vui lòng nhập số lượng';
-    } else {
-        if ($filterAll['p_quantity_available'] < 0) {
-            $errors['p_quantity_available']['negative'] = 'Số lượng không âm!';
-        } else {
-            if (!isNumberInt($filterAll['p_quantity_available'])) {
-                $errors['p_quantity_available']['non-int'] = 'Số lượng phải là số nguyên';
-            }
-        }
-    }
-
-
-    if (!empty($_FILES['p_image']['name'])) {
-        // Get file information
-        $imageName = basename($_FILES['p_image']['name']);
-        $imageSize = $_FILES['p_image']['size'];
-        $imageTemp = $_FILES['p_image']['tmp_name'];
-        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif']; // Allowed file types
-        $fileExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
-
-        // Set target directory
-        $targetDir =  _WEB_PATH_TEMPLATE . 'image/giay1/';
-        $targetFilePath = $targetDir . $imageName;
-
-        // Validate file type
-        if (!in_array($fileExtension, $allowedTypes)) {
-            $errors['p_image']['type'] = 'Chỉ chấp nhận các định dạng ảnh: JPG, JPEG, PNG, GIF.';
-        }
-
-        // Validate file size (e.g., 5MB maximum)
-        if ($imageSize > 5 * 1024 * 1024) {
-            $errors['p_image']['size'] = 'Dung lượng ảnh không được vượt quá 5MB.';
-        }
-
-        // Check if file already exists
-        if (file_exists($targetFilePath)) {
-            $errors['p_image']['exists'] = 'File này đã tồn tại. Vui lòng chọn một ảnh khác hoặc đổi tên file.';
-        }
-    }
-
-    if (empty($filterAll['p_model'])) {
-        $errors['p_model']['required'] = 'Vui lòng nhập tiêu đề';
-    }
-
     if (empty($filterAll['p_description'])) {
         $errors['p_description']['required'] = 'Vui lòng nhập mô tả sản phẩm';
     } else {
@@ -108,31 +58,13 @@ if (isPost()) {
     }
 
     if (empty($errors)) {
-        $dataUpdate = [
+        $productUpdate = [
+            'p_id' => $filterAll['p_id'],
             'p_name' => $filterAll['p_name'],
-            'p_price' => $filterAll['p_price'],
-            'p_discount' => $filterAll['p_discount'],
-            'p_quantity_available' => $filterAll['p_quantity_available'],
             'category_id' => $filterAll['category_id'],
-            'p_model' => $filterAll['p_model'],
-            'p_description' => $filterAll['p_description'],
-            'update_at' => date('Y-m-d H:i:s')
         ];
 
-        if ($_FILES['p_image']['name'] == '') {
-            $dataUpdate['p_image'] = $productDetail['p_image'];
-        } else {
-            $dataUpdate['p_image'] = $imageName;
-            if (move_uploaded_file($imageTemp, $targetFilePath)) {
-                // Delete the old image if it exists and is different from the new one
-                $oldImagePath = _WEB_PATH_TEMPLATE . 'image/giay1/' . $productDetail['p_image']; // Old image path
-                if ($productDetail['p_image'] != $imageName && file_exists($oldImagePath)) {
-                    unlink($oldImagePath); // Delete the old image
-                }
-            }
-        }
-
-        $updateStatus = update('products', $dataUpdate, "p_id = '$p_id'");
+        $updateStatus = update('products', $productUpdate, "p_id = '$p_id'");
         if ($updateStatus) {
             setFlashData('smg', 'Cập nhật sản phẩm thành công!');
             setFlashData('smg_types', 'success');
@@ -248,6 +180,14 @@ if (!empty($productDetail)) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group mg-form">
+                                    <label for="">Mã sản phẩm</label>
+                                    <input class="form-control" type="text" placeholder="Mã sản phẩm" name="p_id"
+                                        value="<?php echo old('p_id', $old) ?>" />
+                                    <?php
+                                    echo form_error('p_id', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
                                     <label for="">Tên sản phẩm</label>
                                     <input class="form-control" type="text" placeholder="Tên sản phẩm" name="p_name"
                                         value="<?php echo old('p_name', $old) ?>" />
@@ -256,64 +196,110 @@ if (!empty($productDetail)) {
                                     ?>
                                 </div>
                                 <div class="form-group mg-form">
-                                    <label for="">Giá sản phẩm</label>
-                                    <input class="form-control" type="number" placeholder="Giá sản phẩm" name="p_price"
-                                        value="<?php echo old('p_price', $old) ?>" />
-                                    <?php
-                                    echo form_error('p_price', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-
-                                <div class="form-group mg-form">
-                                    <label for="">Giá khuyến mãi</label>
-                                    <input class="form-control" type="number" placeholder="Giá khuyến mãi" name="p_discount"
-                                        value="<?php echo old('p_discount', $old) ?>" />
-                                    <?php
-                                    echo form_error('p_discount', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-                                <div class="form-group mg-form">
-                                    <label for="">Số lượng</label>
-                                    <input class="form-control" type="number" placeholder="Số lượng" name="p_quantity_available"
-                                        value="<?php echo old('p_quantity_available', $old) ?>" />
-                                    <?php
-                                    echo form_error('p_quantity_available', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group mg-form">
-                                    <label for="">Ảnh sản phẩm</label>
-                                    <input class="form-control" type="file" name="p_image">
-
-                                    <?php
-                                    echo form_error('p_image', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-                                <div class="form-group mg-form">
                                     <label for=""> Danh mục
                                     </label>
                                     <select class="form-control" name="category_id">
-                                        <option value=1 <?php echo (old('category_id', $old) == 1) ? 'selected' : false; ?>>Iphone</option>
-                                        <option value=2 <?php echo (old('category_id', $old) == 2) ? 'selected' : false; ?>>Samsung</option>
+                                        <?php
+                                        foreach ($listCategory as $category):
+                                        ?>
+                                            <option value=<?= $category['category_id'] ?> <?php echo (old('category_id', $old) == $category['category_id']) ? 'selected' : false; ?>><?= $category['category_name'] ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="form-group mg-form">
-                                    <label for="">Model</label>
-                                    <input class="form-control" type="text" placeholder="Mẫu" name="p_model"
-                                        value="<?php echo old('p_model', $old) ?>" />
-                                    <?php
-                                    echo form_error('p_model', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-
-                                <div class=" form-group mg-form">
                                     <label for="">Mô tả sản phẩm</label>
                                     <textarea class="form-control" id="p_description" placeholder="Mô tả" name="p_description" rows="3"><?php echo old('p_description', $old) ?></textarea>
                                     <?php
                                     echo form_error('p_description', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
+                                <a href="?module=admin&action=product_size_add&p_id=<?php echo $p_id ?>" class="btn btn-success mt-3"><i class="fa-solid fa-plus"></i> Thêm size giày</a>
+                                <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="50">STT</th>
+                                            <th scope="col">Size</th>
+                                            <th scope="col">Số lượng</th>
+                                            <th scope="col">Giá</th>
+                                            <th width="5%"> Sửa </th>
+                                            <th width="5%"> Xóa </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+
+                                        if (!empty($sizeDetail)):
+                                            $count = 0;
+                                            foreach ($sizeDetail as $size):
+                                                $count++;
+                                        ?>
+                                                <tr>
+                                                    <td><?php echo $count ?></td>
+                                                    <td><?php echo $size['size'] ?></td>
+                                                    <td><?php echo $size['quantity'] ?></td>
+                                                    <td><?php echo number_format($size['price'], 0, ',', '.') . " VNĐ"; ?></td>
+                                                    <td><a href="<?php echo "?module=admin&action=product_size_edit&p_id=" . $size['product_id'] . "&size_id=" . $size['size_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                    <td><a href="<?php echo "?module=admin&action=product_size_delete&p_id=" . $size['product_id'] . "&size_id=" . $size['size_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
+                                                            <i class="fa-solid fa-trash"></i></a></td>
+                                                </tr>
+                                            <?php
+                                            endforeach;
+
+                                        else:
+                                            ?>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="alert alert-danger text-center">Không có người dùng nào!</div>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        endif;
+                                        ?>
+                                    </tbody>
+                                </table>
+
+                                <a href="?module=admin&action=product_image_add&p_id=<?php echo $p_id ?>" class="btn btn-success mt-3"><i class="fa-solid fa-plus"></i> Thêm hình ảnh</a>
+                                <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="50">STT</th>
+                                            <th scope="col">Ảnh</th>
+                                            <th width="5%"> Sửa </th>
+                                            <th width="5%"> Xóa </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+
+                                        if (!empty($imageDetail)):
+                                            $count = 0;
+                                            foreach ($imageDetail as $image):
+                                                $count++;
+                                        ?>
+                                                <tr>
+                                                    <td><?php echo $count ?></td>
+                                                    <td><img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $image['product_image']; ?>" width="100px"></td>
+                                                    <td><a href="<?php echo "?module=admin&action=product_image_edit&p_id=" . $image['product_id'] . "&image_id=" . $image['image_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                    <td><a href="<?php echo "?module=admin&action=product_image_delete&p_id=" . $image['product_id'] . "&image_id=" . $image['image_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
+                                                            <i class="fa-solid fa-trash"></i></a></td>
+                                                </tr>
+                                            <?php
+                                            endforeach;
+
+                                        else:
+                                            ?>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="alert alert-danger text-center">Không có người dùng nào!</div>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        endif;
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                 </div>
