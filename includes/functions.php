@@ -166,6 +166,17 @@ function redirect($path = 'index.php')
     exit();
 }
 
+// Hàm quay về trang trước đó
+function goBack()
+{
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    } else {
+        header('Location: index.php'); // Trang mặc định nếu không có HTTP_REFERER
+    }
+    exit();
+}
+
 // Hàm thông báo lỗi form
 function form_error($fileName, $before = '', $after = '', $errors)
 {

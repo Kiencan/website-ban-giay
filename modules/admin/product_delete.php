@@ -4,16 +4,19 @@ if (!defined('_CODE')) {
 }
 
 $filterAll = filter();
+// echo '<pre>';
+// print_r($filterAll);
+// echo '</pre>';
 
 if (!empty($filterAll['p_id'])) {
     $p_id = $filterAll['p_id'];
-    $productDetail = oneRaw("SELECT * FROM products WHERE p_id = $p_id");
-    if (!empty($productDetail)) {
-        $imagePath = _WEB_PATH_TEMPLATE . 'image/giay1/' . $productDetail['p_image'];
-        $deletePrododuct = delete('products', "p_id = '$p_id'");
-        if ($deletePrododuct) {
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+    $productDetail = oneRaw("SELECT * FROM products WHERE p_id = '$p_id'");
+    $sizeDetail = getRaw("SELECT * FROM product_size WHERE product_id = '$p_id'");
+    if (!empty($productDetail && $sizeDetail)) {
+        $deleteSize = delete('product_size', "product_id = '$p_id'");
+        if ($deleteSize) {
+            $deleteProduct = delete('products', "p_id = '$p_id'");
+            if ($deleteProduct) {
                 setFlashData('smg', 'Xóa sản phẩm thành công');
                 setFlashData('smg_types', 'success');
             } else {

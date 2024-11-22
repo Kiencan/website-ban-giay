@@ -3,11 +3,7 @@
 if (!defined('_CODE')) {
     die('Access denied');
 }
-$title = ['pageTitle' => 'Thêm danh mục'];
 
-layouts('header-admin', $title);
-
-// Kiểm tra trạng thái admin
 if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
@@ -15,51 +11,87 @@ if (!isLogin()) {
 if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
+$title = ['pageTitle' => 'Cập nhật size'];
+
+layouts('header-admin', $title);
+$filterAll = filter();
+$p_id = $filterAll['p_id'];
+// echo '<pre>';
+// print_r($filterAll);
+// echo '</pre>';
+
+if (!empty($filterAll['size_id'])) {
+    $size_id = $filterAll['size_id'];
+
+    $sizeDetail = oneRaw("SELECT * FROM product_size WHERE size_id = $size_id");
+    // echo '<pre>';
+    // print_r($categoryDetail);
+    // echo '</pre>';
+    if (!empty($sizeDetail)) {
+        // Tồn tại
+        setFlashData('size-detail', $sizeDetail);
+    } else {
+        redirect('?module=admin&action=product_edit&p_id=' . $p_id);
+    }
+}
+
 
 if (isPost()) {
     $filterAll = filter();
 
     $errors = []; // mảng chứa lỗi\
 
-    // Kiểm tra họ và tên: bắt buộc phải nhập, nhập ít nhất 5 ký tự
-    if (empty($filterAll['category_name'])) {
-        $errors['category_name']['required'] = 'Vui lòng nhập tên danh mục';
+    if (empty($filterAll['size'])) {
+        $errors['size']['required'] = 'Vui lòng nhập size giày';
+    }
+
+    if (empty($filterAll['quantity'])) {
+        $errors['quantity']['required'] = 'Vui lòng nhập số lượng';
     } else {
-        $category_name = $filterAll['category_name'];
-        $sql = "SELECT * FROM category WHERE category_name = '$category_name'";
-        if (getRows($sql) > 0) {
-            $errors['category_name']['unique'] = 'Danh mục đã tồn tại';
+        if ($filterAll['quantity'] < 0) {
+            $errors['quantity']['negative'] = 'Số lượng phải là số dương';
+        } else if (!isNumberInt($filterAll['quantity'])) {
+            $errors['quantity']['int'] = 'Số lượng phải là số nguyên';
         }
+    }
+
+    if (empty($filterAll['price'])) {
+        $errors['price']['required'] = 'Vui lòng giá tiền';
     }
 
 
     if (empty($errors)) {
-        $dataInsert = [
-            'category_name' => $filterAll['category_name'],
+        $dataUpdate = [
+            'size' => $filterAll['size'],
+            'quantity' => $filterAll['quantity'],
+            'price' => $filterAll['price'],
         ];
-        $insertStatus = insert('category', $dataInsert);
-        if ($insertStatus) {
-            setFlashData('smg', 'Thêm danh mục thành công!');
+
+        $updateStatus = update('product_size', $dataUpdate, "size_id = '$size_id'");
+        if ($updateStatus) {
+            setFlashData('smg', 'Chỉnh sửa thông tin danh mục thành công!');
             setFlashData('smg_types', 'success');
-            redirect('?module=admin&action=category_management');
         } else {
             setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
             setFlashData('smg_types', 'danger');
-            redirect('?module=admin&action=category_add');
         }
     } else {
         setFlashData('smg', 'Vui lòng kiểm tra lại thông tin');
         setFlashData('smg_types', 'danger');
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
-        redirect('?module=admin&action=category_add');
     }
+    redirect('?module=admin&action=product_size_edit&p_id=' . $p_id);
 }
 
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
+$sizeDetail = getFlashData('size-detail');
+if (!empty($sizeDetail)) {
+    $old = $sizeDetail;
+}
 ?>
 
 <body>
@@ -131,13 +163,13 @@ $old = getFlashData('old');
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
-                    <li class="breadcrumb-item"><a href="?module=admin&action=user_management" style="text-decoration: none">Quản lý danh mục</a></li>
-                    <li class="breadcrumb-item active"> Thêm danh mục </li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=category_management" style="text-decoration: none">Quản lý danh mục</a></li>
+                    <li class="breadcrumb-item active"> Sửa danh mục </li>
                 </ul>
             </div>
 
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Thêm danh mục</h1>
+                <h1 class="mt-4">Sửa danh mục</h1>
             </div>
 
             <div class="container px-4">
@@ -151,19 +183,37 @@ $old = getFlashData('old');
                         <div class="row">
                             <div class="col">
                                 <div class="form-group mg-form">
-                                    <label for="">Tên danh mục</label>
-                                    <input class="form-control" type="text" placeholder="Tên danh mục" name="category_name"
-                                        value="<?php echo old('category_name', $old) ?>" />
+                                    <label for="">Size giày</label>
+                                    <input class="form-control" type="number" placeholder="Nhập size giày" name="size" step="0.1"
+                                        value="<?php echo old('size', $old) ?>" />
                                     <?php
-                                    echo form_error('category_name', '<p class="text-danger">', '</p>', $errors);
+                                    echo form_error('size', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Số lượng</label>
+                                    <input class="form-control" type="number" placeholder="Nhập số lượng" name="quantity"
+                                        value="<?php echo old('quantity', $old) ?>" />
+                                    <?php
+                                    echo form_error('quantity', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Giá</label>
+                                    <input class="form-control" type="number" placeholder="Nhập giá" name="price"
+                                        value="<?php echo old('price', $old) ?>" />
+                                    <?php
+                                    echo form_error('price', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
                             </div>
                         </div>
                 </div>
                 <div class="row d-grid gap-2 justify-content-center">
-                    <button class="btn btn-primary" type="submit">Thêm danh mục</button>
-                    <a href="?module=admin&action=category_management" class="btn btn-success" type="submit">Quay lại</a>
+                    <input type="hidden" name="p_id" value="<?php echo $p_id ?>" />
+                    <input type="hidden" name="size_id" value="<?php echo $size_id ?>" />
+                    <button class="btn btn-primary" type="submit">Cập nhật danh mục</button>
+                    <a href="?module=admin&action=product_edit&p_id=<?php echo $p_id ?>" class="btn btn-success" type="submit">Quay lại</a>
                 </div>
                 </form>
             </div>
