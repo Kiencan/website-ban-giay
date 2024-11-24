@@ -22,11 +22,40 @@ if (isPost()) {
 
     if (empty($filterAll['p_name'])) {
         $errors['p_name']['required'] = 'Vui lòng nhập tên sản phẩm';
+    } else {
+        if (strlen($filterAll['p_name']) < 5) {
+            $errors['p_name']['min'] = 'Tên sản phẩm quá ngắn';
+        }
     }
 
     if (empty($filterAll['p_description'])) {
         $errors['p_description']['required'] = 'Vui lòng nhập mô tả sản phẩm';
+    } else {
+        if (strlen($filterAll['category_title']) > 200) {
+            $errors['p_description']['max'] = 'Vui lòng nhập không quá 200 ký tự!';
+        }
     }
+    if (empty($filterAll['p_price_min'])) {
+        $errors['p_price_min']['required'] = 'Vui lòng giá';
+    } else {
+        if ($filterAll['p_price_min'] < 0) {
+            $errors['p_price_min']['negative'] = 'Giá tiền phải lớn hơn 0!';
+        }
+    }
+
+    if (empty($filterAll['p_price_max'])) {
+        $errors['p_price_max']['required'] = 'Vui lòng giá';
+    } else {
+        if ($filterAll['p_price_max'] < $filterAll['p_price_min']) {
+            $errors['p_price_max']['greater'] = 'Giá max phải lớn hơn giá min!';
+        }
+    }
+    // if (empty($filterAll['size_available'])) {
+    //     $errors['size_available']['required'] = 'Vui lòng nhập size còn';
+    // }
+    // if (empty($filterAll['size_not_available'])) {
+    //     $errors['size_not_available']['required'] = 'Vui lòng nhập size hết';
+    // }
 
     if (empty($errors)) {
         $productInsert = [
@@ -34,6 +63,12 @@ if (isPost()) {
             'p_name' => $filterAll['p_name'],
             'category_id' => $filterAll['category_id'],
             'p_description' => $filterAll['p_description'],
+            'p_price_min' => $filterAll['p_price_min'],
+            'p_price_max' => $filterAll['p_price_max'],
+            'size_available' => $filterAll['size_available'],
+            'size_not_available' => $filterAll['size_not_available'],
+            'isBestSelling' => $filterAll['isBestSelling'],
+            'isDiscount' => $filterAll['isDiscount'],
             'create_at' => date('Y-m-d H:i:s'),
         ];
 
@@ -152,14 +187,16 @@ $old = getFlashData('old');
                             <div class="col">
                                 <div class="form-group mg-form">
                                     <label for="">Mã sản phẩm</label>
-                                    <input class="form-control" type="text" placeholder="Mã sản phẩm" name="p_id" value="<?php echo old('p_id', $old) ?>" />
+                                    <input class="form-control" type="text" placeholder="Mã sản phẩm" name="p_id"
+                                        value="<?php echo old('p_id', $old) ?>" />
                                     <?php
                                     echo form_error('p_id', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
                                 <div class="form-group mg-form">
                                     <label for="">Tên sản phẩm</label>
-                                    <input class="form-control" type="text" placeholder="Tên sản phẩm" name="p_name" value="<?php echo old('p_name', $old) ?>" />
+                                    <input class="form-control" type="text" placeholder="Tên sản phẩm" name="p_name"
+                                        value="<?php echo old('p_name', $old) ?>" />
                                     <?php
                                     echo form_error('p_name', '<p class="text-danger">', '</p>', $errors);
                                     ?>
@@ -183,6 +220,54 @@ $old = getFlashData('old');
                                     <?php
                                     echo form_error('p_description', '<p class="text-danger">', '</p>', $errors);
                                     ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Giá sản phẩm</label>
+                                    <div class="d-flex align-items-center">
+                                        <!-- Giá nhỏ nhất -->
+                                        <input class="form-control me-2" type="text" placeholder="Giá nhỏ nhất" name="p_price_min"
+                                            value="<?php echo old('p_price_min', $old) ?>" style="width: 48%;" />
+                                        <span class="mx-1">-</span>
+                                        <!-- Giá lớn nhất -->
+                                        <input class="form-control ms-2" type="text" placeholder="Giá lớn nhất" name="p_price_max"
+                                            value="<?php echo old('p_price_max', $old) ?>" style="width: 48%;" />
+                                    </div>
+                                    <?php
+                                    echo form_error('p_price_min', '<p class="text-danger">', '</p>', $errors);
+                                    echo form_error('p_price_max', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Size còn</label>
+                                    <input class="form-control" type="text" placeholder="Nhập size giày" name="size_available"
+                                        value="<?php echo old('size_available', $old) ?>" />
+                                    <?php
+                                    echo form_error('size_available', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Size hết</label>
+                                    <input class="form-control" type="text" placeholder="Nhập size giày" name="size_not_available"
+                                        value="<?php echo old('size_not_available', $old) ?>" />
+                                    <?php
+                                    echo form_error('size_not_available', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for=""> Bán chạy
+                                    </label>
+                                    <select class="form-control" name="isBestSelling">
+                                        <option value=0 <?php echo (old('isBestSelling', $old) == 0) ? 'selected' : false; ?>>Hết bán chạy</option>
+                                        <option value=1 <?php echo (old('isBestSelling', $old) == 1) ? 'selected' : false; ?>>Đang bán chạy</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for=""> Giảm giá
+                                    </label>
+                                    <select class="form-control" name="isDiscount">
+                                        <option value=0 <?php echo (old('isDiscount', $old) == 0) ? 'selected' : false; ?>>Hết giảm giá</option>
+                                        <option value=1 <?php echo (old('isDiscount', $old) == 1) ? 'selected' : false; ?>>Đang giảm giá</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
