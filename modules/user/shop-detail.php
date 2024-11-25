@@ -15,10 +15,10 @@ if (!isLogin()) {
   redirect('?module=auth&action=login');
 }
 $filterAll = filter();
-$listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.p_id = product_type.product_id INNER JOIN category ON products.category_id = category.category_id");
-// echo '<pre>';
-// print_r($listOrder);
-// echo '</pre>';
+$listOrder = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id ='" . $filterAll['id'] . "'");
+$product = oneRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id ='" . $filterAll['id'] . "'");
+$listImage = getRaw("SELECT * FROM product_image WHERE product_id ='" . $filterAll['id'] . "'");
+$price = oneRaw("SELECT * FROM product_size WHERE product_id = '" . $filterAll['id'] . "' ORDER BY price");
 
 ?>
 <!-- Spinner Start -->
@@ -98,9 +98,21 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
               3
             </span>
           </a>
-          <a href="#" class="my-auto">
-            <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
-          </a>
+          <div class="dropdown">
+            <a
+              href="#"
+              class="my-auto"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+              <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+              <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
+            </ul>
+          </div>
         </div>
 
       </div>
@@ -168,28 +180,25 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
               data-bs-ride="carousel">
               <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active rounded">
-                  <img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listOrder[0]['product_image'] ?>"
+                  <img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImage[0]['product_image'] ?>"
                     class="img-fluid w-100 h-100 bg-secondary rounded"
                     alt="Giày Adidas Duramo"
-                    onclick="openModal('<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listOrder[0]['product_image'] ?>')"
+                    onclick="openModal('<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImage[0]['product_image'] ?>')"
                     style="cursor: pointer" />
                 </div>
                 <?php
-                if (!empty($listOrder)):
-
-                  for ($i = 1; $i < count($listOrder); $i++):
+                for ($i = 1; $i < count($listImage); $i++):
                 ?>
                     <div class="carousel-item rounded">
                       <img
-                        src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listOrder[$i]['product_image'] ?>"
+                        src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImage[$i]['product_image'] ?>"
                         class="img-fluid w-100 h-100 rounded"
                         alt="Second slide"
-                        onclick="openModal(" <?php echo _WEB_HOST_TEMPLATE . '/image/' . $listOrder[$i]['product_image'] ?>")"
+                        onclick="openModal(" <?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImage[$i]['product_image'] ?>")"
                         style="cursor: pointer" />
                     </div>
                 <?php
                   endfor;
-                endif;
                 ?>
               </div>
               <button
@@ -215,7 +224,7 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
                 <span class="visually-hidden">Next</span>
               </button>
             </div>
-            <p class="mb-3">Mã sản phẩm: </p>
+            <p class="mb-3">Mã sản phẩm: <?php echo $filterAll['id']; ?></p>
 
           </div>
 
@@ -249,22 +258,26 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
 
           <div class="col-lg-6">
             <h4 class="fw-bold mb-3" id="imageModalLabel">
-              <?php echo $listOrder[0]['p_name'] ?>
+              <?php echo $product['p_name'] ?>
             </h4>
-            <p class="mb-3">Phân loại: <?php echo $listOrder[0]['category_name'] ?></p>
+            <p class="mb-3">Phân loại: <?php echo $product['category_name'] ?></p>
             <h5 class="fw-bold mb-3">
               <span
                 style="
                       text-decoration: line-through;
                       font-family: 'Open Sans', sans-serif;
                       font-size: 15px;
-                    ">2.500.000đ</span>
+                    "><?php 
+                    
+                    echo number_format($price['price'] * 2, 0, ',', '.');
+
+                    ?></span>
               <span
                 style="
                       font-weight: bold;
                       color: black;
                       font-family: 'Open Sans', sans-serif;
-                    ">1.499.000đ</span>
+                    "><?php echo number_format($price['price'], 0, ',', '.'); ?> VNĐ</span>
             </h5>
             <div class="d-flex mb-4">
               <i class="fa fa-star text-secondary"></i>
@@ -295,16 +308,14 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
             <div class="chon-size">
               <span class="select-size mt-3">Kích thước</span>
               <div class="container-product d-flex justify-content-start p-3">
-                <button class="size" value="35">35</button>
-                <button class="size" value="36">36</button>
-                <button class="size" value="37">37</button>
-                <button class="size" value="38">38</button>
-                <button class="size" value="39">39</button>
-                <button class="size" value="39.5">39.5</button>
-                <button class="size" value="40">40</button>
-                <button class="size" value="40.5">40.5</button>
-                <button class="size" value="41">41</button>
-                <button class="size" value="42">42</button>
+                <?php 
+                $listSize = getRaw("SELECT * FROM product_size WHERE product_id ='" . $filterAll['id'] . "'");
+                foreach($listSize as $size):
+                ?>
+                  <button class="size" value="<?php echo $size['size'] ?>"><?php echo $size['size'] ?></button>
+                <?php
+                endforeach;
+                ?>
               </div>
               <span class="select-quantity pt-3 mt-3">Số lượng</span>
             </div>
@@ -485,7 +496,7 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
                         <i class="fa fa-star text-secondary"></i>
                         <i class="fa fa-star text-secondary"></i>
                         <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-dark"></i>
+                        <i class="fa fa-star text-muted"></i>
                       </div>
                     </div>
                     <p class="text-dark">
@@ -548,10 +559,10 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
                       class="d-flex align-items-center"
                       style="font-size: 12px">
                       <i class="fa fa-star text-muted"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star text-muted"></i>
+                      <i class="fa fa-star text-muted"></i>
+                      <i class="fa fa-star text-muted"></i>
+                      <i class="fa fa-star text-muted"></i>
                     </div>
                   </div>
                   <a
@@ -1281,7 +1292,7 @@ $listOrder = getRaw("SELECT * FROM products INNER JOIN product_type ON products.
 <!-- Back to Top -->
 <a
   href="#"
-  class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+  class="btn btn-dark border-3 border-dark rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 <?php
 layouts('footer');
