@@ -15,11 +15,8 @@ if (!isLogin()) {
   redirect('?module=auth&action=login');
 }
 $filterAll = filter();
-$listOrder = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id = '" . $filterAll['id'] . "'");
+$product = oneRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id = '" . $filterAll['id'] . "'");
 $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAll['id'] . "'");
-echo '<pre>';
-print_r($listImg);
-echo '</pre>';
 
 ?>
 <!-- Spinner Start -->
@@ -202,6 +199,7 @@ echo '</pre>';
                     </div>
                 <?php
                   endfor;
+                endif;
                 ?>
               </div>
               <button
@@ -270,17 +268,17 @@ echo '</pre>';
                       text-decoration: line-through;
                       font-family: 'Open Sans', sans-serif;
                       font-size: 15px;
-                    "><?php 
-                    
-                    echo number_format($price['price'] * 2, 0, ',', '.');
+                    "><?php
 
-                    ?></span>
+                      echo number_format($product['p_price_max'] * 1.5, 0, ',', '.');
+
+                      ?></span>
               <span
                 style="
                       font-weight: bold;
                       color: black;
                       font-family: 'Open Sans', sans-serif;
-                    "><?php echo number_format($price['price'], 0, ',', '.'); ?> VNĐ</span>
+                    "><?php echo number_format($product['p_price_min'], 0, ',', '.') . " - " . number_format($product['p_price_max'], 0, ',', '.'); ?> VNĐ</span>
             </h5>
             <div class="d-flex mb-4">
               <i class="fa fa-star text-secondary"></i>
@@ -311,14 +309,13 @@ echo '</pre>';
             <div class="chon-size">
               <span class="select-size mt-3">Kích thước</span>
               <div class="container-product d-flex justify-content-start p-3">
-                <?php 
-                $listSize = getRaw("SELECT * FROM product_size WHERE product_id ='" . $filterAll['id'] . "'");
-                foreach($listSize as $size):
-                ?>
-                  <button class="size" value="<?php echo $size['size'] ?>"><?php echo $size['size'] ?></button>
-                <?php
-                endforeach;
-                ?>
+                <button class="size" value="0">0</button>
+                <button class="size" value="0">0</button>
+                <button class="size" value="0">0</button>
+                <button class="size" value="0">0</button>
+                <button class="size" value="0">0</button>
+                <button class="size" value="0">0</button>
+
               </div>
               <span class="select-quantity pt-3 mt-3">Số lượng</span>
             </div>
@@ -449,12 +446,12 @@ echo '</pre>';
                   </div>
                 </div>
               </div>
-              <div 
-                class="tab-pane" 
-                id="nav-mission" 
+              <div
+                class="tab-pane"
+                id="nav-mission"
                 role="tabpanel"
-                aria-labelledby="nav-mission-tab"> 
-                <div class="d-flex"> 
+                aria-labelledby="nav-mission-tab">
+                <div class="d-flex">
                   <img
                     src="img/avatar.jpg"
                     class="img-fluid rounded-circle p-3"
@@ -466,7 +463,7 @@ echo '</pre>';
                     </p>
                     <div class="d-flex justify-content-between">
                       <h5>Jason Smith</h5>
-                      <div class= "d-flex mb-3" id ="icon-start">
+                      <div class="d-flex mb-3" id="icon-start">
                         <i class="fa fa-star text-secondary"></i>
                         <i class="fa fa-star text-secondary"></i>
                         <i class="fa fa-star text-secondary"></i>

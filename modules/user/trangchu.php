@@ -19,7 +19,7 @@ if (!isLogin()) {
 $user_id = getUserIdByToken();
 
 $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
-
+$listProd = getRaw("SELECT * FROM products")
 
 ?>
 
@@ -32,7 +32,7 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
 
 <!-- Navbar start -->
 <div class="container-fluid fixed-top">
-  <div 
+  <div
     class="container topbar d-none d-lg-block mb-3"
     style="background-color: #4856dd">
     <div class="d-flex justify-content-between">
@@ -425,34 +425,32 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                for ($i = 0; $i < 4; $i++):
-                  $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.product_id = products.p_id WHERE product_image.product_id ='" . $listProd[$i]['p_id'] . "'");
-                  $listSize = oneRaw("SELECT * FROM product_size WHERE product_id = '" . $listProd[$i]['p_id'] . "'");
-                  $p_id = isset($listProd[$i]['p_id']) ? $listProd[$i]['p_id'] : '';
+                $listBS = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isBestSelling = 1");
+                foreach ($listBS as $key => $value):
+                  $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
-                    <a href="?module=user&action=shop-detail&id=<?php echo $p_id; ?>">
+                    <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
                       <div class="rounded position-relative my-item">
                         <div class="img-item">
                           <img
-                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $listImg['product_image'] ?>"
+                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $img['product_image'] ?>"
                             class="img-fluid w-100 rounded-top"
                             alt="" />
                         </div>
                         <div
                           class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                           style="top: 10px; left: 10px">
-                          <?php echo $listProd[$i]['category_name'] ?>
+                          <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4 class = "text-center"><?php echo $listProd[$i]['p_name'] ?></h4>
-                          <p class = "text-center">
+                          <h4><?php echo $value['p_name'] ?></h4>
+                          <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
                           </p>
-                          <p >
-                            <span style="text-decoration: line-through"><?php echo number_format($listSize['price'], 0, ',', '.'); ?></span>
-                            <span style="font-weight: bold; color: black"><?php echo number_format($listSize['price'] * 80 / 100, 0, ',', '.') . " VNĐ"; ?></span>
+                          <p>
+                            <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
                           </p>
                           <div class="d-flex justify-content-between flex-lg-wrap">
                             <a
@@ -478,7 +476,7 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
                     </a>
                   </div>
                 <?php
-                endfor;
+                endforeach;
                 ?>
               </div>
             </div>
@@ -495,34 +493,32 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                for ($i = 0; $i < 4; $i++):
-                  $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.product_id = products.p_id WHERE product_image.product_id ='" . $listProd[$i]['p_id'] . "'");
-                  $listSize = oneRaw("SELECT * FROM product_size WHERE product_id = '" . $listProd[$i]['p_id'] . "'");
-                  $p_id = isset($listProd[$i]['p_id']) ? $listProd[$i]['p_id'] : '';
+                $listBS = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isBestSelling = 1");
+                foreach ($listBS as $key => $value):
+                  $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
-                    <a href="?module=user&action=shop-detail&id=<?php echo $p_id; ?>">
+                    <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
                       <div class="rounded position-relative my-item">
                         <div class="img-item">
                           <img
-                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $listImg['product_image'] ?>"
+                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $img['product_image'] ?>"
                             class="img-fluid w-100 rounded-top"
                             alt="" />
                         </div>
                         <div
                           class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                           style="top: 10px; left: 10px">
-                          <?php echo $listProd[$i]['category_name'] ?>
+                          <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4 class = "text-center"><?php echo $listProd[$i]['p_name'] ?></h4>
-                          <p class = "text-center">
+                          <h4><?php echo $value['p_name'] ?></h4>
+                          <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
                           </p>
-                          <p >
-                            <span style="text-decoration: line-through"><?php echo number_format($listSize['price'], 0, ',', '.'); ?></span>
-                            <span style="font-weight: bold; color: black"><?php echo number_format($listSize['price'] * 80 / 100, 0, ',', '.') . " VNĐ"; ?></span>
+                          <p>
+                            <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
                           </p>
                           <div class="d-flex justify-content-between flex-lg-wrap">
                             <a
@@ -548,7 +544,7 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
                     </a>
                   </div>
                 <?php
-                endfor;
+                endforeach;
                 ?>
               </div>
             </div>
@@ -565,34 +561,32 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                for ($i = 0; $i < 4; $i++):
-                  $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.product_id = products.p_id WHERE product_image.product_id ='" . $listProd[$i]['p_id'] . "'");
-                  $listSize = oneRaw("SELECT * FROM product_size WHERE product_id = '" . $listProd[$i]['p_id'] . "'");
-                  $p_id = isset($listProd[$i]['p_id']) ? $listProd[$i]['p_id'] : '';
+                $listBS = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isBestSelling = 1");
+                foreach ($listBS as $key => $value):
+                  $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
-                    <a href="?module=user&action=shop-detail&id=<?php echo $p_id; ?>">
+                    <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
                       <div class="rounded position-relative my-item">
                         <div class="img-item">
                           <img
-                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $listImg['product_image'] ?>"
+                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $img['product_image'] ?>"
                             class="img-fluid w-100 rounded-top"
                             alt="" />
                         </div>
                         <div
                           class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                           style="top: 10px; left: 10px">
-                          <?php echo $listProd[$i]['category_name'] ?>
+                          <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4 class = "text-center"><?php echo $listProd[$i]['p_name'] ?></h4>
-                          <p class = "text-center">
+                          <h4><?php echo $value['p_name'] ?></h4>
+                          <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
                           </p>
-                          <p >
-                            <span style="text-decoration: line-through"><?php echo number_format($listSize['price'], 0, ',', '.'); ?></span>
-                            <span style="font-weight: bold; color: black"><?php echo number_format($listSize['price'] * 80 / 100, 0, ',', '.') . " VNĐ"; ?></span>
+                          <p>
+                            <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
                           </p>
                           <div class="d-flex justify-content-between flex-lg-wrap">
                             <a
@@ -618,7 +612,7 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
                     </a>
                   </div>
                 <?php
-                endfor;
+                endforeach;
                 ?>
               </div>
             </div>
@@ -635,34 +629,32 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                for ($i = 0; $i < 4; $i++):
-                  $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.product_id = products.p_id WHERE product_image.product_id ='" . $listProd[$i]['p_id'] . "'");
-                  $listSize = oneRaw("SELECT * FROM product_size WHERE product_id = '" . $listProd[$i]['p_id'] . "'");
-                  $p_id = isset($listProd[$i]['p_id']) ? $listProd[$i]['p_id'] : '';
+                $listBS = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isBestSelling = 1");
+                foreach ($listBS as $key => $value):
+                  $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
-                    <a href="?module=user&action=shop-detail&id=<?php echo $p_id; ?>">
+                    <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
                       <div class="rounded position-relative my-item">
                         <div class="img-item">
                           <img
-                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $listImg['product_image'] ?>"
+                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $img['product_image'] ?>"
                             class="img-fluid w-100 rounded-top"
                             alt="" />
                         </div>
                         <div
                           class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                           style="top: 10px; left: 10px">
-                          <?php echo $listProd[$i]['category_name'] ?>
+                          <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4 class = "text-center"><?php echo $listProd[$i]['p_name'] ?></h4>
-                          <p class = "text-center">
+                          <h4><?php echo $value['p_name'] ?></h4>
+                          <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
                           </p>
-                          <p >
-                            <span style="text-decoration: line-through"><?php echo number_format($listSize['price'], 0, ',', '.'); ?></span>
-                            <span style="font-weight: bold; color: black"><?php echo number_format($listSize['price'] * 80 / 100, 0, ',', '.') . " VNĐ"; ?></span>
+                          <p>
+                            <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
                           </p>
                           <div class="d-flex justify-content-between flex-lg-wrap">
                             <a
@@ -688,7 +680,7 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
                     </a>
                   </div>
                 <?php
-                endfor;
+                endforeach;
                 ?>
               </div>
             </div>
@@ -699,7 +691,7 @@ $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
               class="btn"
               style="color: white; background-color: rgba(0, 0, 0, 0.4)">Xem thêm</a>
           </div>
-        </div>    
+        </div>
       </div>
     </div>
   </div>

@@ -16,7 +16,7 @@ if (!isLogin()) {
 }
 $filterAll = filter();
 $user_id = $filterAll['id'];
-$listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id INNER JOIN product_type ON order_item.product_type_id = product_type.id WHERE customer_id = '$user_id'");
+$listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id WHERE customer_id = '$user_id'");
 
 // echo '<pre>';
 // print_r($listOrder);
@@ -99,20 +99,20 @@ $listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.
                         </span>
                     </a>
                     <div class="dropdown">
-            <a
-              href="#"
-              class="my-auto"
-              id="dropdownMenuButton"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-              <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
-              <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
-            </ul>
-          </div>
+                        <a
+                            href="#"
+                            class="my-auto"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                            <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                            <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -124,32 +124,32 @@ $listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.
 
 <!-- Modal Search Start -->
 <div class="modal fade"
-  id="searchModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
-    <div class="modal-content rounded-0">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tìm kiếm</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"></button>
-      </div>
-      <div class="modal-body d-flex align-items-center">
-        <div class="input-group w-75 mx-auto d-flex">
-          <input
-            type="search"
-            class="form-control p-3"
-            placeholder="Nhập tại đây"
-            aria-describedby="search-icon-1" />
-          <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+    id="searchModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tìm kiếm</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center">
+                <div class="input-group w-75 mx-auto d-flex">
+                    <input
+                        type="search"
+                        class="form-control p-3"
+                        placeholder="Nhập tại đây"
+                        aria-describedby="search-icon-1" />
+                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 <!-- Modal Search End -->
 
@@ -183,7 +183,7 @@ $listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.
                         $count = 0;
                         foreach ($listOrder as $item):
                             $count++;
-                            $productImage = oneRaw("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id INNER JOIN product_type ON order_item.product_type_id = product_type.id INNER JOIN product_image ON product_image.product_type_id = order_item.product_type_id WHERE customer_id = '$user_id'");
+                            $productImage = oneRaw("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id WHERE customer_id = '$user_id'");
                     ?>
                             <tr>
                                 <th scope="row">
