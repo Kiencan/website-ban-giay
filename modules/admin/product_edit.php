@@ -20,8 +20,6 @@ if (!empty($filterAll['p_id'])) {
 
     $productDetail = oneRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id = '$p_id'");
 
-    $sizeDetail = getRaw("SELECT * FROM product_size WHERE product_id = '$p_id' ORDER BY size");
-
     $imageDetail = getRaw("SELECT * FROM product_image WHERE product_id = '$p_id'");
 
     $listCategory = getRaw("SELECT * FROM category");
@@ -56,12 +54,40 @@ if (isPost()) {
             $errors['p_description']['max'] = 'Vui lòng nhập không quá 200 ký tự!';
         }
     }
+    if (empty($filterAll['p_price_min'])) {
+        $errors['p_price_min']['required'] = 'Vui lòng nhập giá min';
+    } else {
+        if ($filterAll['p_price_min'] < 0) {
+            $errors['p_price_min']['negative'] = 'Giá tiền phải lớn hơn 0!';
+        }
+    }
+
+    if (empty($filterAll['p_price_max'])) {
+        $errors['p_price_max']['required'] = 'Vui lòng nhập giá max';
+    } else {
+        if ($filterAll['p_price_max'] < $filterAll['p_price_min']) {
+            $errors['p_price_max']['greater'] = 'Giá max phải lớn hơn giá min!';
+        }
+    }
+    // if (empty($filterAll['size_available'])) {
+    //     $errors['size_available']['required'] = 'Vui lòng nhập size còn';
+    // }
+    // if (empty($filterAll['size_not_available'])) {
+    //     $errors['size_not_available']['required'] = 'Vui lòng nhập size hết';
+    // }
 
     if (empty($errors)) {
         $productUpdate = [
             'p_id' => $filterAll['p_id'],
             'p_name' => $filterAll['p_name'],
             'category_id' => $filterAll['category_id'],
+            'p_description' => $filterAll['p_description'],
+            'p_price_min' => $filterAll['p_price_min'],
+            'p_price_max' => $filterAll['p_price_max'],
+            'size_available' => $filterAll['size_available'],
+            'size_not_available' => $filterAll['size_not_available'],
+            'isBestSelling' => $filterAll['isBestSelling'],
+            'isDiscount' => $filterAll['isDiscount'],
         ];
 
         $updateStatus = update('products', $productUpdate, "p_id = '$p_id'");
@@ -215,50 +241,54 @@ if (!empty($productDetail)) {
                                     echo form_error('p_description', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
-                                <a href="?module=admin&action=product_size_add&p_id=<?php echo $p_id ?>" class="btn btn-success mt-3"><i class="fa-solid fa-plus"></i> Thêm size giày</a>
-                                <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" width="50">STT</th>
-                                            <th scope="col">Size</th>
-                                            <th scope="col">Số lượng</th>
-                                            <th scope="col">Giá</th>
-                                            <th width="5%"> Sửa </th>
-                                            <th width="5%"> Xóa </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-
-                                        if (!empty($sizeDetail)):
-                                            $count = 0;
-                                            foreach ($sizeDetail as $size):
-                                                $count++;
-                                        ?>
-                                                <tr>
-                                                    <td><?php echo $count ?></td>
-                                                    <td><?php echo $size['size'] ?></td>
-                                                    <td><?php echo $size['quantity'] ?></td>
-                                                    <td><?php echo number_format($size['price'], 0, ',', '.') . " VNĐ"; ?></td>
-                                                    <td><a href="<?php echo "?module=admin&action=product_size_edit&p_id=" . $size['product_id'] . "&size_id=" . $size['size_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                                    <td><a href="<?php echo "?module=admin&action=product_size_delete&p_id=" . $size['product_id'] . "&size_id=" . $size['size_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
-                                                            <i class="fa-solid fa-trash"></i></a></td>
-                                                </tr>
-                                            <?php
-                                            endforeach;
-
-                                        else:
-                                            ?>
-                                            <tr>
-                                                <td colspan="7">
-                                                    <div class="alert alert-danger text-center">Không có người dùng nào!</div>
-                                                </td>
-                                            </tr>
-                                        <?php
-                                        endif;
-                                        ?>
-                                    </tbody>
-                                </table>
+                                <div class="form-group mg-form">
+                                    <label for="">Giá sản phẩm</label>
+                                    <div class="d-flex align-items-center">
+                                        <!-- Giá nhỏ nhất -->
+                                        <input class="form-control me-2" type="text" placeholder="Giá nhỏ nhất" name="p_price_min"
+                                            value="<?php echo old('p_price_min', $old) ?>" style="width: 48%;" />
+                                        <span class="mx-1">-</span>
+                                        <!-- Giá lớn nhất -->
+                                        <input class="form-control ms-2" type="text" placeholder="Giá lớn nhất" name="p_price_max"
+                                            value="<?php echo old('p_price_max', $old) ?>" style="width: 48%;" />
+                                    </div>
+                                    <?php
+                                    echo form_error('p_price_min', '<p class="text-danger">', '</p>', $errors);
+                                    echo form_error('p_price_max', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Size còn</label>
+                                    <input class="form-control" type="text" placeholder="Nhập size giày" name="size_available"
+                                        value="<?php echo old('size_available', $old) ?>" />
+                                    <?php
+                                    echo form_error('size_available', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Size hết</label>
+                                    <input class="form-control" type="text" placeholder="Nhập size giày" name="size_not_available"
+                                        value="<?php echo old('size_not_available', $old) ?>" />
+                                    <?php
+                                    echo form_error('size_not_available', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for=""> Bán chạy
+                                    </label>
+                                    <select class="form-control" name="isBestSelling">
+                                        <option value=0 <?php echo (old('isBestSelling', $old) == 0) ? 'selected' : false; ?>>Hết bán chạy</option>
+                                        <option value=1 <?php echo (old('isBestSelling', $old) == 1) ? 'selected' : false; ?>>Đang bán chạy</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for=""> Giảm giá
+                                    </label>
+                                    <select class="form-control" name="isDiscount">
+                                        <option value=0 <?php echo (old('isDiscount', $old) == 0) ? 'selected' : false; ?>>Hết giảm giá</option>
+                                        <option value=1 <?php echo (old('isDiscount', $old) == 1) ? 'selected' : false; ?>>Đang giảm giá</option>
+                                    </select>
+                                </div>
 
                                 <a href="?module=admin&action=product_image_add&p_id=<?php echo $p_id ?>" class="btn btn-success mt-3"><i class="fa-solid fa-plus"></i> Thêm hình ảnh</a>
                                 <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">

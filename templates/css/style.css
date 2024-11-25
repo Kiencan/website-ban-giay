@@ -210,6 +210,10 @@
   color: #4856dd;
 }
 
+.product-actions {
+  display: flex;
+  gap: 5px;
+}
 /*** Bán chạy End ***/
 
 /*** Giảm giá Start ***/

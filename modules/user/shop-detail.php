@@ -15,10 +15,11 @@ if (!isLogin()) {
   redirect('?module=auth&action=login');
 }
 $filterAll = filter();
-$listOrder = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id ='" . $filterAll['id'] . "'");
-$product = oneRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id ='" . $filterAll['id'] . "'");
-$listImage = getRaw("SELECT * FROM product_image WHERE product_id ='" . $filterAll['id'] . "'");
-$price = oneRaw("SELECT * FROM product_size WHERE product_id = '" . $filterAll['id'] . "' ORDER BY price");
+$listOrder = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id = '" . $filterAll['id'] . "'");
+$listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAll['id'] . "'");
+echo '<pre>';
+print_r($listImg);
+echo '</pre>';
 
 ?>
 <!-- Spinner Start -->
@@ -180,21 +181,23 @@ $price = oneRaw("SELECT * FROM product_size WHERE product_id = '" . $filterAll['
               data-bs-ride="carousel">
               <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active rounded">
-                  <img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImage[0]['product_image'] ?>"
+                  <img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImg[0]['product_image'] ?>"
                     class="img-fluid w-100 h-100 bg-secondary rounded"
                     alt="Giày Adidas Duramo"
-                    onclick="openModal('<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImage[0]['product_image'] ?>')"
+                    onclick="openModal('<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImg[0]['product_image'] ?>')"
                     style="cursor: pointer" />
                 </div>
                 <?php
-                for ($i = 1; $i < count($listImage); $i++):
+                if (!empty($listImg)):
+
+                  for ($i = 1; $i < count($listImg); $i++):
                 ?>
                     <div class="carousel-item rounded">
                       <img
-                        src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImage[$i]['product_image'] ?>"
+                        src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImg[$i]['product_image'] ?>"
                         class="img-fluid w-100 h-100 rounded"
                         alt="Second slide"
-                        onclick="openModal(" <?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImage[$i]['product_image'] ?>")"
+                        onclick="openModal(" <?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImg[$i]['product_image'] ?>")"
                         style="cursor: pointer" />
                     </div>
                 <?php

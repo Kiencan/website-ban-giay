@@ -15,17 +15,11 @@ if (!isLogin()) {
   redirect('?module=auth&action=login');
 }
 
+# Lấy userId
+$user_id = getUserIdByToken();
+
 $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
-$listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id ORDER BY create_at DESC");
 
-$listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.product_id = products.p_id WHERE product_image.product_id ='" . $listProd[0]['p_id'] . "'");
-
-$filterAll = filter();
-if (!empty($filterAll['id'])) {
-  $id = getRows("SELECT * FROM order_item WHERE customer_id = " . $filterAll["id"]);
-} else {
-  $id = 0;
-}
 
 ?>
 
@@ -97,12 +91,12 @@ if (!empty($filterAll['id'])) {
             style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
             <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
           </button>
-          <a href="?module=user&action=cart&id=<?php echo $id ?>" class="position-relative me-4 my-auto">
+          <a href="?module=user&action=cart&id=<?php echo $user_id ?>" class="position-relative me-4 my-auto">
             <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
             <span
               class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
-              <?php echo $id ?>
+              <?php echo getRows("SELECT * FROM order_item WHERE customer_id = " . $user_id) ?>
             </span>
           </a>
           <div class="dropdown">
@@ -363,34 +357,32 @@ if (!empty($filterAll['id'])) {
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                for ($i = 0; $i < 4; $i++):
-                  $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.product_id = products.p_id WHERE product_image.product_id ='" . $listProd[$i]['p_id'] . "'");
-                  $listSize = oneRaw("SELECT * FROM product_size WHERE product_id = '" . $listProd[$i]['p_id'] . "'");
-                  $p_id = isset($listProd[$i]['p_id']) ? $listProd[$i]['p_id'] : '';
+                $listBS = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isBestSelling = 1");
+                foreach ($listBS as $key => $value):
+                  $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
-                    <a href="?module=user&action=shop-detail&id=<?php echo $p_id; ?>">
+                    <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
                       <div class="rounded position-relative my-item">
                         <div class="img-item">
                           <img
-                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $listImg['product_image'] ?>"
+                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $img['product_image'] ?>"
                             class="img-fluid w-100 rounded-top"
                             alt="" />
                         </div>
                         <div
                           class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                           style="top: 10px; left: 10px">
-                          <?php echo $listProd[$i]['category_name'] ?>
+                          <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4 class = "text-center"><?php echo $listProd[$i]['p_name'] ?></h4>
-                          <p class = "text-center">
+                          <h4><?php echo $value['p_name'] ?></h4>
+                          <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
                           </p>
-                          <p >
-                            <span style="text-decoration: line-through"><?php echo number_format($listSize['price'], 0, ',', '.'); ?></span>
-                            <span style="font-weight: bold; color: black"><?php echo number_format($listSize['price'] * 80 / 100, 0, ',', '.') . " VNĐ"; ?></span>
+                          <p>
+                            <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
                           </p>
                           <div class="d-flex justify-content-between flex-lg-wrap">
                             <a
@@ -416,7 +408,7 @@ if (!empty($filterAll['id'])) {
                     </a>
                   </div>
                 <?php
-                endfor;
+                endforeach;
                 ?>
               </div>
             </div>
@@ -775,62 +767,55 @@ if (!empty($filterAll['id'])) {
 <div class="container-fluid giamgia py-5">
   <div class="container py-5">
     <h1 class="mb-0">Giảm giá</h1>
-    <div
-      class="owl-carousel vegetable-carousel justify-content-center text-center">
+    <div class="owl-carousel vegetable-carousel justify-content-center text-center">
       <?php
-        for ($i = 0; $i < 4; $i++):
-          $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.product_id = products.p_id WHERE product_image.product_id ='" . $listProd[$i]['p_id'] . "'");
-          $listSize = oneRaw("SELECT * FROM product_size WHERE product_id = '" . $listProd[$i]['p_id'] . "'");
-          $p_id = isset($listProd[$i]['p_id']) ? $listProd[$i]['p_id'] : '';
-        ?>
-        
+      $listD = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isDiscount = 1");
+      foreach ($listD as $key => $value):
+        $imgD = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
+      ?>
         <div class="rounded position-relative giamgia-item">
-          <a href="?module=user&action=shop-detail&id=<?php echo $p_id; ?>">
           <div class="img-item">
             <img
-              src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $listImg['product_image'] ?>"
+              src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $imgD['product_image'] ?>"
               class="img-fluid w-100 rounded-top"
               alt="" />
           </div>
           <div
             class="text-white bg-secondary px-3 py-1 rounded position-absolute"
             style="top: 10px; left: 10px">
-            <?php echo $listProd[$i]['category_name'] ?>
+            <?php echo $value['category_name'] ?>
           </div>
           <div class="p-4 border-top-0 rounded-bottom">
-            <h4 class = "text-center"><?php echo $listProd[$i]['p_name'] ?></h4>
-            <p class = "text-center">
-              Lorem ipsum dolor sit amet consectetur adipisicing
-              elit sed do eiusmod te incididunt
+            <h4><?php echo $value['p_name'] ?></h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+              eiusmod te incididunt
             </p>
-            <p >
-              <span style="text-decoration: line-through"><?php echo number_format($listSize['price'], 0, ',', '.'); ?></span>
-              <span style="font-weight: bold; color: black"><?php echo number_format($listSize['price'] * 80 / 100, 0, ',', '.') . " VNĐ"; ?></span>
+            <p>
+              <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
             </p>
             <div class="d-flex justify-content-between flex-lg-wrap">
               <a
                 href="#"
                 class="btn border border-secondary rounded-circle p-auto me-2"
                 style="
-                background-color: rgb(255, 255, 255);
-                color: white;
-                width: 40px;
-                height: 40px;
-              ">
+                    background-color: rgb(255, 255, 255);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                  ">
                 <i class="fa fa-heart"></i>
                 <!-- Icon trái tim -->
               </a>
               <a
                 href="#"
-                class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào
-                giỏ hàng</a>
+                class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
             </div>
           </div>
-          </a>
-          </div>
+        </div>
       <?php
-        endfor;
-        ?>
+      endforeach;
+      ?>
     </div>
   </div>
 </div>

@@ -11,10 +11,13 @@ $filterAll = filter();
 if (!empty($filterAll['p_id'])) {
     $p_id = $filterAll['p_id'];
     $productDetail = oneRaw("SELECT * FROM products WHERE p_id = '$p_id'");
-    $sizeDetail = getRaw("SELECT * FROM product_size WHERE product_id = '$p_id'");
-    if (!empty($productDetail && $sizeDetail)) {
-        $deleteSize = delete('product_size', "product_id = '$p_id'");
-        if ($deleteSize) {
+    $imgDetail = getRaw("SELECT * FROM product_image WHERE product_id = '$p_id'");
+    if (!empty($productDetail) && !empty($imgDetail)) {
+        foreach ($imgDetail as $key => $value) {
+            $deleteImg = delete('product_image', "image_id = '" . $value['image_id'] . "'");
+            unlink(_WEB_PATH_TEMPLATE . "image/" . $value['product_image']);
+        }
+        if ($deleteImg) {
             $deleteProduct = delete('products', "p_id = '$p_id'");
             if ($deleteProduct) {
                 setFlashData('smg', 'Xóa sản phẩm thành công');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2024 at 06:08 AM
+-- Generation Time: Nov 24, 2024 at 12:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -124,14 +124,6 @@ CREATE TABLE `order_item` (
   `order_status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `order_item`
---
-
-INSERT INTO `order_item` (`order_id`, `customer_id`, `product_id`, `order_quantity`, `order_status`) VALUES
-(5, 11, 'ES1111', 3, 0),
-(6, 14, 'ES1112', 2, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -155,7 +147,13 @@ CREATE TABLE `products` (
   `p_id` varchar(50) NOT NULL,
   `p_name` varchar(50) DEFAULT NULL,
   `p_description` varchar(2000) DEFAULT NULL,
+  `p_price_min` int(11) DEFAULT NULL,
+  `p_price_max` int(11) DEFAULT NULL,
+  `size_available` varchar(50) DEFAULT NULL,
+  `size_not_available` varchar(50) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
+  `isBestSelling` int(1) DEFAULT 0,
+  `isDiscount` int(1) DEFAULT 0,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -164,15 +162,13 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`p_id`, `p_name`, `p_description`, `category_id`, `create_at`, `update_at`) VALUES
-('ADSL-D1', 'Giày Adidas Duramo SL Màu đen', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 10, '2024-11-22 10:12:30', NULL),
-('ADSL-T132', 'Giày Adidas Duramo SL Màu trắng', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 10, '2024-11-22 10:25:36', NULL),
-('ADSL-XD3463', 'Giày Adidas Duramo SL Màu xanh dương', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 10, '2024-11-22 10:27:20', NULL),
-('ES1111', 'Giày Nike E-Series Màu hồng', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.\n\nPhần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 9, '2024-11-22 10:11:55', NULL),
-('ES1112', 'Giày Nike E-Series màu đen', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.\n\nPhần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 9, '2024-11-22 10:11:56', NULL),
-('NCL2-C1', 'Giày Nike Court Low 2 Màu cam', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 9, '2024-11-22 10:11:57', NULL),
-('NCL2-H1', 'Giày Nike Court Low 2 Màu hồng', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 9, '2024-11-22 10:11:58', NULL),
-('NCL2-X1', 'Giày Nike Court Low 2 Màu xanh', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 9, '2024-11-22 10:11:59', NULL);
+INSERT INTO `products` (`p_id`, `p_name`, `p_description`, `p_price_min`, `p_price_max`, `size_available`, `size_not_available`, `category_id`, `isBestSelling`, `isDiscount`, `create_at`, `update_at`) VALUES
+('ADSL-D1', 'Giày Adidas Duramo SL Màu đen', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 1200000, 1499000, '38, 39, 40, 41', '42', 10, 1, 1, '2024-11-22 10:12:30', NULL),
+('ADSL-T132', 'Giày Adidas Duramo SL Màu trắng', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 1499000, 1800000, '40, 41', 'Không có', 10, 1, 1, '2024-11-22 10:25:36', NULL),
+('ADSL-XD3463', 'Giày Adidas Duramo SL Màu xanh dương', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 1399000, 1500000, '38, 39, 40', '41, 42, 43, 44.5', 10, 0, 1, '2024-11-22 10:27:20', NULL),
+('NCL2-C1', 'Giày Nike Court Low 2 Màu cam', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 2000000, 2500000, 'Không có', '40, 41,41.5, 42.5', 9, 0, 0, '2024-11-22 10:11:57', NULL),
+('NCL2-H1', 'Giày Nike Court Low 2 Màu hồng', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 2000000, 2500000, '36, 37, 38', '40.5, 41, 42', 9, 0, 0, '2024-11-22 10:11:58', NULL),
+('NCL2-X1', 'Giày Nike Court Low 2 Màu xanh', 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 1400000, 1900000, '35, 36, 36.5, 28, 40', 'Không có', 9, 1, 0, '2024-11-24 14:43:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -191,24 +187,11 @@ CREATE TABLE `product_image` (
 --
 
 INSERT INTO `product_image` (`image_id`, `product_id`, `product_image`) VALUES
-(1, 'ES1111', 'giayhong1.jpg'),
-(2, 'ES1111', 'giayhong2.jpg'),
-(3, 'ES1111', 'giayhong3.jpg'),
-(4, 'ES1111', 'giayhong4.jpg'),
-(5, 'ES1112', 'giayden1.jpg'),
-(6, 'ES1112', 'giayden2.jpg'),
-(7, 'ES1112', 'giayden3.jpg'),
-(8, 'ES1112', 'giayden4.jpg'),
 (14, 'NCL2-H1', 'NCL2_hong1.jpg'),
 (15, 'NCL2-H1', 'NCL2_hong2.jpg'),
 (16, 'NCL2-H1', 'NCL2_hong3.jpg'),
 (17, 'NCL2-H1', 'NCL2_hong4.jpg'),
 (18, 'NCL2-H1', 'NCL2_hong5.jpg'),
-(19, 'NCL2-X1', 'NCL2_xanh1.jpg'),
-(20, 'NCL2-X1', 'NCL2_xanh2.jpg'),
-(21, 'NCL2-X1', 'NCL2_xanh3.jpg'),
-(22, 'NCL2-X1', 'NCL2_xanh4.jpg'),
-(23, 'NCL2-X1', 'NCL2_xanh5.jpg'),
 (24, 'NCL2-C1', 'NCL2_cam1.jpg'),
 (25, 'NCL2-C1', 'NCL2_cam2.jpg'),
 (26, 'NCL2-C1', 'NCL2_cam3.jpg'),
@@ -228,83 +211,12 @@ INSERT INTO `product_image` (`image_id`, `product_id`, `product_image`) VALUES
 (40, 'ADSL-XD3463', 'ADSLxanh2.jpg'),
 (41, 'ADSL-XD3463', 'ADSLxanh3.jpg'),
 (42, 'ADSL-XD3463', 'ADSLxanh4.jpg'),
-(43, 'ADSL-XD3463', 'ADSLxanh5.jpg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `product_size`
---
-
-CREATE TABLE `product_size` (
-  `size_id` int(11) NOT NULL,
-  `size` float DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
-  `product_id` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `product_size`
---
-
-INSERT INTO `product_size` (`size_id`, `size`, `quantity`, `price`, `product_id`) VALUES
-(2, 37, 37, 3700000, 'ES1111'),
-(3, 38, 38, 3800000, 'ES1111'),
-(4, 39, 39, 3900000, 'ES1111'),
-(5, 40, 40, 4000000, 'ES1111'),
-(6, 41, 41, 4100000, 'ES1111'),
-(7, 42, 42, 4200000, 'ES1111'),
-(8, 43, 43, 4300000, 'ES1111'),
-(9, 44, 44, 4400000, 'ES1111'),
-(10, 45, 45, 4500000, 'ES1111'),
-(11, 36, 26, 2600000, 'ES1112'),
-(12, 37, 27, 2700000, 'ES1112'),
-(13, 38, 28, 2800000, 'ES1112'),
-(14, 39, 29, 2900000, 'ES1112'),
-(15, 40, 30, 3000000, 'ES1112'),
-(16, 41, 31, 3100000, 'ES1112'),
-(17, 42, 32, 3200000, 'ES1112'),
-(18, 43, 33, 3300000, 'ES1112'),
-(19, 44, 34, 3400000, 'ES1112'),
-(20, 45, 35, 3500000, 'ES1112'),
-(34, 36, 40, 3600000, 'ES1111'),
-(36, 36, 100, 1400000, 'NCL2-H1'),
-(37, 37, 100, 1400000, 'NCL2-H1'),
-(38, 38, 100, 1400000, 'NCL2-H1'),
-(39, 40, 100, 1200000, 'NCL2-H1'),
-(40, 41, 100, 1200000, 'NCL2-H1'),
-(41, 41.5, 100, 1200000, 'NCL2-H1'),
-(42, 42.5, 100, 1200000, 'NCL2-H1'),
-(43, 35, 100, 1480000, 'NCL2-X1'),
-(44, 36, 100, 1800000, 'NCL2-X1'),
-(45, 37.5, 100, 1800000, 'NCL2-X1'),
-(46, 38, 100, 1800000, 'NCL2-X1'),
-(47, 40, 100, 1800000, 'NCL2-X1'),
-(48, 41, 100, 2000000, 'NCL2-X1'),
-(49, 41.5, 100, 2000000, 'NCL2-X1'),
-(50, 42, 100, 2000000, 'NCL2-X1'),
-(51, 36, 100, 1400000, 'NCL2-C1'),
-(52, 37, 100, 1400000, 'NCL2-C1'),
-(53, 38, 100, 1400000, 'NCL2-C1'),
-(54, 40, 100, 1200000, 'NCL2-C1'),
-(55, 41, 100, 1200000, 'NCL2-C1'),
-(56, 41.5, 100, 1200000, 'NCL2-C1'),
-(57, 42.5, 100, 1200000, 'NCL2-C1'),
-(58, 38, 100, 1555000, 'ADSL-D1'),
-(59, 39, 100, 1555000, 'ADSL-D1'),
-(60, 40, 100, 1555000, 'ADSL-D1'),
-(61, 41, 100, 1555000, 'ADSL-D1'),
-(62, 42, 100, 1900000, 'ADSL-D1'),
-(63, 40, 100, 4200000, 'ADSL-T132'),
-(64, 41, 100, 4200000, 'ADSL-T132'),
-(65, 38, 100, 1765000, 'ADSL-XD3463'),
-(66, 39, 100, 1765000, 'ADSL-XD3463'),
-(67, 40, 100, 1765000, 'ADSL-XD3463'),
-(68, 41, 100, 1876000, 'ADSL-XD3463'),
-(69, 42, 100, 1876000, 'ADSL-XD3463'),
-(70, 43, 100, 1876000, 'ADSL-XD3463'),
-(71, 44.5, 100, 1876000, 'ADSL-XD3463');
+(43, 'ADSL-XD3463', 'ADSLxanh5.jpg'),
+(54, 'NCL2-X1', 'NCL2_xanh1.jpg'),
+(55, 'NCL2-X1', 'NCL2_xanh2.jpg'),
+(56, 'NCL2-X1', 'NCL2_xanh3.jpg'),
+(62, 'NCL2-X1', 'NCL2_xanh4.jpg'),
+(63, 'NCL2-X1', 'NCL2_xanh5.jpg');
 
 -- --------------------------------------------------------
 
@@ -319,13 +231,6 @@ CREATE TABLE `token_login` (
   `create_at` datetime DEFAULT NULL,
   `last_active` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `token_login`
---
-
-INSERT INTO `token_login` (`id`, `user_id`, `token`, `create_at`, `last_active`) VALUES
-(55, 13, 'd2280de2cd60d61ceb942bb9a89efef6041c2e9e', '2024-11-21 09:55:56', NULL);
 
 --
 -- Indexes for dumped tables
@@ -387,13 +292,6 @@ ALTER TABLE `product_image`
   ADD KEY `product_id` (`product_id`);
 
 --
--- Indexes for table `product_size`
---
-ALTER TABLE `product_size`
-  ADD PRIMARY KEY (`size_id`),
-  ADD KEY `product_id` (`product_id`);
-
---
 -- Indexes for table `token_login`
 --
 ALTER TABLE `token_login`
@@ -444,19 +342,13 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `product_image`
 --
 ALTER TABLE `product_image`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
-
---
--- AUTO_INCREMENT for table `product_size`
---
-ALTER TABLE `product_size`
-  MODIFY `size_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `token_login`
 --
 ALTER TABLE `token_login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- Constraints for dumped tables
@@ -493,12 +385,6 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_image`
   ADD CONSTRAINT `product_image_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`p_id`);
-
---
--- Constraints for table `product_size`
---
-ALTER TABLE `product_size`
-  ADD CONSTRAINT `product_size_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`p_id`);
 
 --
 -- Constraints for table `token_login`

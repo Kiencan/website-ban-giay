@@ -221,3 +221,20 @@ function isAdmin()
     }
     return $checkAdmin;
 }
+
+function getUserIdByToken()
+{
+    $userId = null;
+    if (getSession('token_login')) {
+        $tokenLogin = getSession('token_login');
+
+        // Lấy user_id từ token_login trong database
+        $queryToken = oneRaw("SELECT user_id FROM token_login WHERE token = '$tokenLogin'");
+        if (!empty($queryToken)) {
+            $userId = $queryToken['user_id'];
+        } else {
+            removeSession('token_login');
+        }
+    }
+    return $userId;
+}

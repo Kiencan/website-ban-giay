@@ -65,7 +65,7 @@ if (isPost()) {
             if (move_uploaded_file($imageTemp, $targetFilePath)) {
                 setFlashData('smg', 'Thêm hình ảnh sản phẩm thành công!');
                 setFlashData('smg_types', 'success');
-                redirect('?module=admin&action=product_image_add&p_id=' . $p_id);
+                redirect('?module=admin&action=product_edit&p_id=' . $p_id);
             } else {
                 setFlashData('smg', 'Upload ảnh không thành công!');
                 setFlashData('smg_types', 'danger');
