@@ -11,9 +11,9 @@ layouts('header', $title);
 
 // Kiểm tra trạng thái đăng nhập
 
-if (!isLogin()) {
-  redirect('?module=auth&action=login');
-}
+// if (!isLogin()) {
+//   redirect('?module=auth&action=login');
+// }
 
 # Lấy userId
 $user_id = getUserIdByToken();
@@ -96,24 +96,43 @@ $listProd = getRaw("SELECT * FROM products")
             <span
               class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
-              <?php echo getRows("SELECT * FROM order_item WHERE customer_id = " . $user_id) ?>
+              <?php
+              if (empty($user_id)) {
+                echo 0;
+              } else {
+                echo getRows("SELECT * FROM order_item WHERE customer_id = " . $user_id);
+              }
+              ?>
             </span>
           </a>
-          <div class="dropdown">
-            <a
-              href="#"
-              class="my-auto"
-              id="dropdownMenuButton"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-              <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
-              <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
-            </ul>
-          </div>
+          <?php
+          if (empty($user_id)):
+          ?>
+            <div class="d-flex flex-column gap-1 " style="width: 130px;">
+              <a type="button" class="btn btn-dark" href="?module=auth&action=login">Đăng nhập</a>
+              <a type="button" class="btn btn-dark" href="?module=auth&action=register">Đăng kí</a>
+            </div>
+          <?php
+          else:
+          ?>
+            <div class="dropdown">
+              <a
+                href="#"
+                class="my-auto"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
+              </ul>
+            </div>
+          <?php
+          endif
+          ?>
         </div>
       </div>
     </nav>
