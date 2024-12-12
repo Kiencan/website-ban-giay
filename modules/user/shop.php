@@ -408,7 +408,10 @@ $user_id = getUserIdByToken();
                   </div>
                 </div>
                 <?php
+                $totalShoes = 54;
                 $numberShoes = 9;
+                $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $totalPages = ceil($totalShoes / $numberShoes);
                 for ($i = 1; $i < $numberShoes; $i++):
                 ?>
                   <div class="col-md-6 col-lg-6 col-xl-4">
@@ -422,18 +425,11 @@ $user_id = getUserIdByToken();
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
                           <p>
-                            <span style="text-decoration: line-through">2.500.00đ</span>
+                            <span style="text-decoration: line-through">2.500.000đ</span>
                             <span style="font-weight: bold; color: black">1.499.000đ</span>
                           </p>
                           <div class="product-actions">
-                            <a
-                              href="#"
-                              class="btn border border-secondary rounded-circle p-auto me-2"
-                              style="
-                                          background-color: rgb(255, 255, 255);
-                                          color: #4856dd;
-                                          width: 40px;
-                                          height: 40px;">
+                            <a href="#" class="btn border border-secondary rounded-circle p-auto me-2" style="background-color: rgb(255, 255, 255); color: #4856dd; width: 40px; height: 40px;">
                               <i class="fa fa-heart"></i>
                             </a>
                             <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
@@ -445,14 +441,15 @@ $user_id = getUserIdByToken();
                 <?php endfor; ?>
                 <div class="col-12">
                   <div class="pagination d-flex justify-content-center mt-5">
-                    <a href="#" class="rounded">&laquo;</a>
-                    <a href="#" class="active rounded">1</a>
-                    <a href="#" class="rounded">2</a>
-                    <a href="#" class="rounded">3</a>
-                    <a href="#" class="rounded">4</a>
-                    <a href="#" class="rounded">5</a>
-                    <a href="#" class="rounded">6</a>
-                    <a href="#" class="rounded">&raquo;</a>
+                    <a href="?module=user&action=shop&id=<?php echo $id ?>&page=<?php echo max(1, $currentPage - 1); ?>" class="btn rounded <?php echo ($currentPage == 1) ? 'disabled' : ''; ?>">&laquo;</a>
+                    <?php
+                    for ($i = 1; $i <= $totalPages; $i++):
+                    ?>
+                      <a href="?module=user&action=shop&id=<?php echo $id ?>&page=<?php echo $i ?>" class="btn rounded <?php echo $i == $currentPage ? 'active' : '' ?>"><?php echo $i ?></a>
+                    <?php
+                    endfor;
+                    ?>
+                    <a href="?module=user&action=shop&id=<?php echo $id ?>&page=<?php echo min($totalPages, $currentPage + 1); ?>" class="btn rounded <?php echo ($currentPage == $totalPages) ? 'disabled' : ''; ?>">&raquo;</a>
                   </div>
                 </div>
               </div>
