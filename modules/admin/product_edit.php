@@ -237,21 +237,6 @@ if (!empty($productDetail)) {
                                     echo form_error('p_color', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
-
-                                <div class="form-group mg-form">
-                                    <label for=""> Danh mục
-                                    </label>
-                                    <select class="form-control" name="category_id">
-                                        <?php
-                                        $listCategory = getRaw("SELECT * FROM category");
-                                        foreach ($listCategory as $category):
-                                        ?>
-                                            <option value=<?= $category['category_id'] ?> <?php echo (old('category_id', $old) == $category['category_id']) ? 'selected' : false; ?>><?= $category['category_name'] ?></option>
-                                        <?php
-                                        endforeach;
-                                        ?>
-                                    </select>
-                                </div>
                                 <div class="form-group mg-form">
                                     <label for="">Mô tả sản phẩm</label>
                                     <textarea class="form-control" id="p_description" placeholder="Mô tả" name="p_description" rows="3"><?php echo old('p_description', $old) ?></textarea>

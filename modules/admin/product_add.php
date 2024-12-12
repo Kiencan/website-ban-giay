@@ -23,13 +23,8 @@ if (isPost()) {
     if (empty($filterAll['p_id'])) {
         $errors['p_id']['required'] = 'Vui lòng mã sản phẩm';
     }
-
-    if (empty($filterAll['p_name'])) {
-        $errors['p_name']['required'] = 'Vui lòng nhập tên sản phẩm';
-    } else {
-        if (strlen($filterAll['p_name']) < 5) {
-            $errors['p_name']['min'] = 'Tên sản phẩm quá ngắn';
-        }
+    if (empty($filterAll['p_color'])) {
+        $errors['p_color']['required'] = 'Vui lòng màu sắc sản phẩm';
     }
 
     if (empty($filterAll['p_description'])) {
@@ -73,8 +68,8 @@ if (isPost()) {
     if (empty($errors)) {
         $productInsert = [
             'p_id' => $filterAll['p_id'],
-            'p_name' => $filterAll['p_name'],
-            'category_id' => $filterAll['category_id'],
+            'collection_id' => $filterAll['collection_id'],
+            'p_color' => $filterAll['p_color'],
             'p_description' => $filterAll['p_description'],
             'p_price_min' => $filterAll['p_price_min'],
             'p_price_max' => $filterAll['p_price_max'],
@@ -210,26 +205,26 @@ $old = getFlashData('old');
                                     ?>
                                 </div>
                                 <div class="form-group mg-form">
-                                    <label for="">Tên sản phẩm</label>
-                                    <input class="form-control" type="text" placeholder="Tên sản phẩm" name="collection_name"
-                                        value="<?php echo old('collection_name', $old) ?>" />
-                                    <?php
-                                    echo form_error('collection_name', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
-                                </div>
-                                <div class="form-group mg-form">
-                                    <label for=""> Danh mục
+                                    <label for=""> Tên sản phẩm
                                     </label>
-                                    <select class="form-control" name="category_id">
+                                    <select class="form-control" name="collection_id">
                                         <?php
-                                        $listCategory = getRaw("SELECT * FROM category");
+                                        $listCategory = getRaw("SELECT * FROM collection");
                                         foreach ($listCategory as $category):
                                         ?>
-                                            <option value=<?= $category['category_id'] ?> <?php echo (old('category_id', $old) == $category['category_id']) ? 'selected' : false; ?>><?= $category['category_name'] ?></option>
+                                            <option value=<?= $category['collection_id'] ?> <?php echo (old('collection_id', $old) == $category['collection_id']) ? 'selected' : false; ?>><?= $category['collection_name'] ?></option>
                                         <?php
                                         endforeach;
                                         ?>
                                     </select>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Màu sắc</label>
+                                    <input class="form-control" type="text" placeholder="Màu sản phẩm" name="p_color"
+                                        value="<?php echo old('p_color', $old) ?>" />
+                                    <?php
+                                    echo form_error('p_color', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
                                 </div>
                                 <div class="form-group mg-form">
                                     <label for="">Mô tả sản phẩm</label>
