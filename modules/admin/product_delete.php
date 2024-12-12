@@ -11,7 +11,7 @@ $filterAll = filter();
 if (!empty($filterAll['p_id'])) {
     $p_id = $filterAll['p_id'];
     $productDetail = oneRaw("SELECT * FROM products WHERE p_id = '$p_id'");
-    $imgDetail = getRaw("SELECT * FROM product_image WHERE product_id = '$p_id'");
+    $imgDetail = getRaw("SELECT * FROM product_image WHERE p_id = '$p_id'");
     if (!empty($productDetail) && !empty($imgDetail)) {
         foreach ($imgDetail as $key => $value) {
             $deleteImg = delete('product_image', "image_id = '" . $value['image_id'] . "'");

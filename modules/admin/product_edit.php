@@ -38,12 +38,8 @@ if (isPost()) {
 
     $errors = []; // mảng chứa lỗi
 
-    if (empty($filterAll['p_name'])) {
-        $errors['p_name']['required'] = 'Vui lòng nhập tên sản phẩm';
-    } else {
-        if (strlen($filterAll['p_name']) < 5) {
-            $errors['p_name']['min'] = 'Tên sản phẩm quá ngắn';
-        }
+    if (empty($filterAll['p_color'])) {
+        $errors['p_color']['required'] = 'Vui lòng màu sắc sản phẩm';
     }
 
     if (empty($filterAll['p_description'])) {
@@ -78,8 +74,8 @@ if (isPost()) {
     if (empty($errors)) {
         $productUpdate = [
             'p_id' => $filterAll['p_id'],
-            'p_name' => $filterAll['p_name'],
-            'category_id' => $filterAll['category_id'],
+            'p_color' => $filterAll['p_color'],
+            'collection_id' => $filterAll['collection_id'],
             'p_description' => $filterAll['p_description'],
             'p_price_min' => $filterAll['p_price_min'],
             'p_price_max' => $filterAll['p_price_max'],
