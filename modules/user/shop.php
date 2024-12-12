@@ -407,254 +407,42 @@ $user_id = getUserIdByToken();
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-4">
-                  <div class="rounded position-relative my-item">
-                    <div class="img-item">
-                      <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
-                    <div class="p-4 border-top-0 rounded-bottom">
-                      <h4>Giày Adidas Duramo</h4>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                      <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p>
-                          <span style="text-decoration: line-through">2.500.00đ</span>
-                          <span style="font-weight: bold; color: black">1.499.000đ</span>
-                        </p>
-                        <div class="product-actions">
-                          <a
-                            href="#"
-                            class="btn border border-secondary rounded-circle p-auto me-2"
-                            style="
+                <?php
+                $numberShoes = 9;
+                for ($i = 1; $i < $numberShoes; $i++):
+                ?>
+                  <div class="col-md-6 col-lg-6 col-xl-4">
+                    <div class="rounded position-relative my-item">
+                      <div class="img-item">
+                        <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                      </div>
+                      <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
+                      <div class="p-4 border-top-0 rounded-bottom">
+                        <h4>Giày Adidas Duramo</h4>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                        <div class="d-flex justify-content-between flex-lg-wrap">
+                          <p>
+                            <span style="text-decoration: line-through">2.500.00đ</span>
+                            <span style="font-weight: bold; color: black">1.499.000đ</span>
+                          </p>
+                          <div class="product-actions">
+                            <a
+                              href="#"
+                              class="btn border border-secondary rounded-circle p-auto me-2"
+                              style="
                                           background-color: rgb(255, 255, 255);
                                           color: #4856dd;
                                           width: 40px;
                                           height: 40px;">
-                            <i class="fa fa-heart"></i>
-                          </a>
-                          <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                              <i class="fa fa-heart"></i>
+                            </a>
+                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-4">
-                  <div class="rounded position-relative my-item">
-                    <div class="img-item">
-                      <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
-                    <div class="p-4 border-top-0 rounded-bottom">
-                      <h4>Giày Adidas Duramo</h4>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                      <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p>
-                          <span style="text-decoration: line-through">2.500.00đ</span>
-                          <span style="font-weight: bold; color: black">1.499.000đ</span>
-                        </p>
-                        <div class="product-actions">
-                          <a
-                            href="#"
-                            class="btn border border-secondary rounded-circle p-auto me-2"
-                            style="
-                                          background-color: rgb(255, 255, 255);
-                                          color: #4856dd;
-                                          width: 40px;
-                                          height: 40px;">
-                            <i class="fa fa-heart"></i>
-                          </a>
-                          <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-4">
-                  <div class="rounded position-relative my-item">
-                    <div class="img-item">
-                      <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
-                    <div class="p-4 border-top-0 rounded-bottom">
-                      <h4>Giày Adidas Duramo</h4>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                      <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p>
-                          <span style="text-decoration: line-through">2.500.00đ</span>
-                          <span style="font-weight: bold; color: black">1.499.000đ</span>
-                        </p>
-                        <div class="product-actions">
-                          <a
-                            href="#"
-                            class="btn border border-secondary rounded-circle p-auto me-2"
-                            style="
-                                          background-color: rgb(255, 255, 255);
-                                          color: #4856dd;
-                                          width: 40px;
-                                          height: 40px;">
-                            <i class="fa fa-heart"></i>
-                          </a>
-                          <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-4">
-                  <div class="rounded position-relative my-item">
-                    <div class="img-item">
-                      <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
-                    <div class="p-4 border-top-0 rounded-bottom">
-                      <h4>Giày Adidas Duramo</h4>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                      <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p>
-                          <span style="text-decoration: line-through">2.500.00đ</span>
-                          <span style="font-weight: bold; color: black">1.499.000đ</span>
-                        </p>
-                        <div class="product-actions">
-                          <a
-                            href="#"
-                            class="btn border border-secondary rounded-circle p-auto me-2"
-                            style="
-                                          background-color: rgb(255, 255, 255);
-                                          color: #4856dd;
-                                          width: 40px;
-                                          height: 40px;">
-                            <i class="fa fa-heart"></i>
-                          </a>
-                          <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-4">
-                  <div class="rounded position-relative my-item">
-                    <div class="img-item">
-                      <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
-                    <div class="p-4 border-top-0 rounded-bottom">
-                      <h4>Giày Adidas Duramo</h4>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                      <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p>
-                          <span style="text-decoration: line-through">2.500.00đ</span>
-                          <span style="font-weight: bold; color: black">1.499.000đ</span>
-                        </p>
-                        <div class="product-actions">
-                          <a
-                            href="#"
-                            class="btn border border-secondary rounded-circle p-auto me-2"
-                            style="
-                                          background-color: rgb(255, 255, 255);
-                                          color: #4856dd;
-                                          width: 40px;
-                                          height: 40px;">
-                            <i class="fa fa-heart"></i>
-                          </a>
-                          <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-4">
-                  <div class="rounded position-relative my-item">
-                    <div class="img-item">
-                      <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
-                    <div class="p-4 border-top-0 rounded-bottom">
-                      <h4>Giày Adidas Duramo</h4>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                      <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p>
-                          <span style="text-decoration: line-through">2.500.00đ</span>
-                          <span style="font-weight: bold; color: black">1.499.000đ</span>
-                        </p>
-                        <div class="product-actions">
-                          <a
-                            href="#"
-                            class="btn border border-secondary rounded-circle p-auto me-2"
-                            style="
-                                          background-color: rgb(255, 255, 255);
-                                          color: #4856dd;
-                                          width: 40px;
-                                          height: 40px;">
-                            <i class="fa fa-heart"></i>
-                          </a>
-                          <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-4">
-                  <div class="rounded position-relative my-item">
-                    <div class="img-item">
-                      <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
-                    <div class="p-4 border-top-0 rounded-bottom">
-                      <h4>Giày Adidas Duramo</h4>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                      <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p>
-                          <span style="text-decoration: line-through">2.500.00đ</span>
-                          <span style="font-weight: bold; color: black">1.499.000đ</span>
-                        </p>
-                        <div class="product-actions">
-                          <a
-                            href="#"
-                            class="btn border border-secondary rounded-circle p-auto me-2"
-                            style="
-                                          background-color: rgb(255, 255, 255);
-                                          color: #4856dd;
-                                          width: 40px;
-                                          height: 40px;">
-                            <i class="fa fa-heart"></i>
-                          </a>
-                          <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-4">
-                  <div class="rounded position-relative my-item">
-                    <div class="img-item">
-                      <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
-                    <div class="p-4 border-top-0 rounded-bottom">
-                      <h4>Giày Adidas Duramo</h4>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                      <div class="d-flex justify-content-between flex-lg-wrap">
-                        <p>
-                          <span style="text-decoration: line-through">2.500.00đ</span>
-                          <span style="font-weight: bold; color: black">1.499.000đ</span>
-                        </p>
-                        <div class="product-actions">
-                          <a
-                            href="#"
-                            class="btn border border-secondary rounded-circle p-auto me-2"
-                            style="
-                                          background-color: rgb(255, 255, 255);
-                                          color: #4856dd;
-                                          width: 40px;
-                                          height: 40px;">
-                            <i class="fa fa-heart"></i>
-                          </a>
-                          <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <?php endfor; ?>
                 <div class="col-12">
                   <div class="pagination d-flex justify-content-center mt-5">
                     <a href="#" class="rounded">&laquo;</a>

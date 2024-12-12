@@ -378,7 +378,7 @@ $listProd = getRaw("SELECT * FROM products")
                 <?php
                 $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
-                  $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
+                  $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
                     <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">
@@ -446,7 +446,7 @@ $listProd = getRaw("SELECT * FROM products")
                 <?php
                 $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
-                  $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
+                  $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
                     <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
@@ -514,7 +514,7 @@ $listProd = getRaw("SELECT * FROM products")
                 <?php
                 $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
-                  $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
+                  $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
                     <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
@@ -582,7 +582,7 @@ $listProd = getRaw("SELECT * FROM products")
                 <?php
                 $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
-                  $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
+                  $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
                     <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
@@ -650,7 +650,7 @@ $listProd = getRaw("SELECT * FROM products")
                 <?php
                 $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
-                  $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
+                  $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
                     <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
@@ -748,7 +748,7 @@ $listProd = getRaw("SELECT * FROM products")
       <?php
       $listD = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE discount = 1");
       foreach ($listD as $key => $value):
-        $imgD = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
+        $imgD = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
       ?>
         <div class="rounded position-relative giamgia-item">
           <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">

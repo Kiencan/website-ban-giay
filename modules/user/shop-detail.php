@@ -4,7 +4,7 @@ if (!defined('_CODE')) {
 }
 
 $title = [
-  'pageTitle' => 'Item deail'
+  'pageTitle' => 'Item detail'
 ];
 
 layouts('header', $title);
@@ -17,12 +17,12 @@ layouts('header', $title);
 $user_id = getUserIdByToken();
 $filterAll = filter();
 $product = oneRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE p_id = '" . $filterAll['p_id'] . "'");
-$listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAll['p_id'] . "'");
+$listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_id'] . "'");
 
 
 
 // echo '<pre>';
-// print_r($listImage);
+// print_r($product);
 // echo '</pre>';
 ?>
 <!-- Spinner Start -->
@@ -286,22 +286,32 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
             </h4>
             <p class="mb-3">Phân loại: <?php echo $product['category_name'] ?></p>
             <h5 class="fw-bold mb-3">
-              <span
-                style="
+              <?php if ($product['discount'] > 0):
+              ?>
+                <span
+                  style="
                       text-decoration: line-through;
                       font-family: 'Open Sans', sans-serif;
                       font-size: 15px;
                     "><?php
 
-                      echo number_format($product['p_price_min'] * $product['discount'] / 100, 0, ',', '.') . " - " . number_format($product['p_price_max'] * $product['discount'] / 100, 0, ',', '.');
+                      echo number_format($product['p_price_min'] * (100 - $product['discount']) / 100, 0, ',', '.') . " - " . number_format($product['p_price_max'] * (100 - $product['discount']) / 100, 0, ',', '.');
 
                       ?></span>
-              <span
-                style="
+                <span
+                  style="
                       font-weight: bold;
                       color: black;
                       font-family: 'Open Sans', sans-serif;
                     "><?php echo number_format($product['p_price_min'], 0, ',', '.') . " - " . number_format($product['p_price_max'], 0, ',', '.'); ?> VNĐ</span>
+              <?php else: ?>
+                <span
+                  style="
+                        font-weight: bold;
+                        color: black;
+                        font-family: 'Open Sans', sans-serif;
+                      "><?php echo number_format($product['p_price_min'], 0, ',', '.') . " - " . number_format($product['p_price_max'], 0, ',', '.'); ?> VNĐ</span>
+              <?php endif; ?>
             </h5>
             <div class="d-flex mb-4">
               <i class="fa fa-star text-secondary"></i>
@@ -321,7 +331,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
                 <?php
                 $listColor = getRaw("SELECT p_id, p_color FROM products WHERE collection_id = " . $product["collection_id"]);
                 foreach ($listColor as $color):
-                  $image = oneRaw("SELECT product_image FROM product_image WHERE product_id = '" . $color["p_id"] . "'");
+                  $image = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $color["p_id"] . "'");
 
                 ?>
                   <div class="product">
@@ -341,12 +351,27 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
             <div class="chon-size">
               <span class="select-size mt-3">Kích thước</span>
               <div class="container-product d-flex justify-content-start p-3">
-                <button class="size" value="0">0</button>
-                <button class="size" value="0">0</button>
-                <button class="size" value="0">0</button>
-                <button class="size" value="0">0</button>
-                <button class="size" value="0">0</button>
-                <button class="size" value="0">0</button>
+                <?php
+                $sizeAvailable = explode(", ", $product['size_available']);
+                $sizeNotAvailable = explode(", ", $product['size_not_available']);
+
+                $size = array_merge($sizeAvailable, $sizeNotAvailable);
+                sort($size);
+                for ($i = 0; $i < count($size); $i++):
+                  if ($size[$i] == ""):
+                    continue;
+                  endif;
+                  if (in_array($size[$i], $sizeNotAvailable)):
+                ?>
+                    <button type="button" class="size" value="<?php echo $size[$i] ?>" disabled><?php echo $size[$i] ?></button>
+                  <?php
+                  else:
+                  ?>
+                    <button type="button" class="size" value="<?php echo $size[$i] ?>"><?php echo $size[$i] ?></button>
+                <?php
+                  endif;
+                endfor;
+                ?>
 
               </div>
               <span class="select-quantity pt-3 mt-3">Số lượng</span>
