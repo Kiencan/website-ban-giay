@@ -12,20 +12,15 @@ if (!empty($filterAll['p_id'])) {
     $p_id = $filterAll['p_id'];
     $productDetail = oneRaw("SELECT * FROM products WHERE p_id = '$p_id'");
     $imgDetail = getRaw("SELECT * FROM product_image WHERE p_id = '$p_id'");
-    if (!empty($productDetail) && !empty($imgDetail)) {
+    if (!empty($productDetail)) {
         foreach ($imgDetail as $key => $value) {
             $deleteImg = delete('product_image', "image_id = '" . $value['image_id'] . "'");
             unlink(_WEB_PATH_TEMPLATE . "image/" . $value['product_image']);
         }
-        if ($deleteImg) {
-            $deleteProduct = delete('products', "p_id = '$p_id'");
-            if ($deleteProduct) {
-                setFlashData('smg', 'Xóa sản phẩm thành công');
-                setFlashData('smg_types', 'success');
-            } else {
-                setFlashData('smg', 'Lỗi hệ thống');
-                setFlashData('smg_types', 'danger');
-            }
+        $deleteProduct = delete('products', "p_id = '$p_id'");
+        if ($deleteProduct) {
+            setFlashData('smg', 'Xóa sản phẩm thành công');
+            setFlashData('smg_types', 'success');
         } else {
             setFlashData('smg', 'Lỗi hệ thống');
             setFlashData('smg_types', 'danger');
