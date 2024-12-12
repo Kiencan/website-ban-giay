@@ -193,13 +193,23 @@ function old($fileName, $oldData, $default = null)
 function isLogin()
 {
     $checkLogin = false;
-    if (getSession('token_login')) {
-        $tokenLogin = getSession('token_login');
+    $tokenLogin = getSession('token_login');
+    if ($tokenLogin) {
 
         // Kiểm tra token có giống trong database hay không
-        $queryToken = oneRaw("SELECT user_id FROM token_login WHERE token = '$tokenLogin'");
+        $queryToken = oneRaw("SELECT user_id, create_at FROM token_login WHERE token = '$tokenLogin'");
         if (!empty($queryToken)) {
-            $checkLogin = true;
+            $currentTime = time();
+
+            $tokenTime = strtotime($queryToken['create_at']);
+            if (($currentTime - $tokenTime) <= 7200) {
+                $checkLogin = true;
+            } else {
+                $deleteToken = delete('token_login', "token = '$tokenLogin'");
+                if ($deleteToken) {
+                    removeSession('token_login');
+                }
+            }
         } else {
             removeSession('token_login');
         }
@@ -214,7 +224,7 @@ function isAdmin()
         $tokenLogin = getSession('token_login');
 
         // Kiểm tra token có giống trong database hay không
-        $checkAdmin = oneRaw("SELECT admin FROM token_login JOIN customer ON token_login.user_id = customer.id WHERE token = '$tokenLogin' AND admin = 1");
+        $checkAdmin = oneRaw("SELECT isAdmin FROM token_login JOIN user ON token_login.user_id = user.user_id WHERE token = '$tokenLogin' AND isAdmin = 1");
         if (!empty($checkAdmin)) {
             $checkAdmin = true;
         }

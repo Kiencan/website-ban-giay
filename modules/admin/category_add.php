@@ -108,6 +108,9 @@ $old = getFlashData('old');
                     href="?module=admin&action=category_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
+                    href="?module=admin&action=collection_management"
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
+                <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
                 <a

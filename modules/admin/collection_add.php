@@ -1,16 +1,13 @@
+<!-- Đăng ký tài khoản -->
 <?php
 if (!defined('_CODE')) {
     die('Access denied');
 }
-
-$title = [
-    'pageTitle' => 'Quản lý bình luận'
-];
+$title = ['pageTitle' => 'Thêm bộ sưu tập'];
 
 layouts('header-admin', $title);
 
-// Kiểm tra trạng thái đăng nhập
-
+// Kiểm tra trạng thái admin
 if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
@@ -18,11 +15,52 @@ if (!isLogin()) {
 if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
-$listComment = getRaw("SELECT * FROM comments INNER JOIN products ON comments.p_id = products.p_id INNER JOIN user ON comments.user_id = user.user_id");
+
+if (isPost()) {
+    $filterAll = filter();
+
+    $errors = []; // mảng chứa lỗi\
+
+    // Kiểm tra họ và tên: bắt buộc phải nhập, nhập ít nhất 5 ký tự
+    if (empty($filterAll['collection_name'])) {
+        $errors['collection_name']['required'] = 'Vui lòng nhập tên bộ sưu tập';
+    } else {
+        $collection_name = $filterAll['collection_name'];
+        $sql = "SELECT * FROM collection WHERE collection_name = '$collection_name'";
+        if (getRows($sql) > 0) {
+            $errors['collection_name']['unique'] = 'Danh mục đã tồn tại';
+        }
+    }
+
+
+    if (empty($errors)) {
+        $dataInsert = [
+            'collection_name' => $filterAll['collection_name'],
+            'category_id' => $filterAll['category_id'],
+        ];
+        $insertStatus = insert('collection', $dataInsert);
+        if ($insertStatus) {
+            setFlashData('smg', 'Thêm bộ sưu tập thành công!');
+            setFlashData('smg_types', 'success');
+            redirect('?module=admin&action=collection_management');
+        } else {
+            setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
+            setFlashData('smg_types', 'danger');
+            redirect('?module=admin&action=collection_add');
+        }
+    } else {
+        setFlashData('smg', 'Vui lòng kiểm tra lại thông tin');
+        setFlashData('smg_types', 'danger');
+        setFlashData('errors', $errors);
+        setFlashData('old', $filterAll);
+        redirect('?module=admin&action=collection_add');
+    }
+}
 
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
-
+$errors = getFlashData('errors');
+$old = getFlashData('old');
 ?>
 
 <body>
@@ -72,7 +110,7 @@ $smg_types = getFlashData('smg_types');
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
                     href="?module=admin&action=collection_management"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fas fa-chart-line me-2"></i>Quản lý bộ sưu tập</a>
                 <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
@@ -81,7 +119,7 @@ $smg_types = getFlashData('smg_types');
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-regular fa-newspaper me-2"></i>Quản lý đơn hàng</a>
                 <a
                     href="?module=admin&action=comment_management"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fas fa-comment-dots me-2"></i>Quản lý bình luận</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-comment-dots me-2"></i>Quản lý bình luận</a>
                 <a
                     href="?module=admin&action=setting"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
@@ -97,66 +135,55 @@ $smg_types = getFlashData('smg_types');
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
-                    <li class="breadcrumb-item"><a href="#" style="text-decoration: none">Quản lý bình luận</a></li>
-                    <li class="breadcrumb-item active"> Danh sách bình luận </li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=user_management" style="text-decoration: none">Quản lý bộ sưu tập</a></li>
+                    <li class="breadcrumb-item active"> Thêm bộ sưu tập </li>
                 </ul>
             </div>
 
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Danh sách bình luận</h1>
+                <h1 class="mt-4">Thêm bộ sưu tập</h1>
             </div>
 
-            <div class="container-fluid px-4">
-
-                <div class="row my-5">
-
-                    <div class="col overflow-auto">
-                        <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">
-                            <thead>
-                                <tr>
-                                    <th scope="col" width="50">ID</th>
-                                    <th scope="col">Sản phẩm</th>
-                                    <th scope="col">Họ và tên</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Thời gian bình luận</th>
-                                    <th scope="col">Nội dung bình luận</th>
-                                    <th width="5%"> Xóa </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                if (!empty($listComment)):
-                                    $count = 0;
-                                    foreach ($listComment as $item):
-                                        $count++;
-                                ?>
-                                        <tr>
-                                            <td><?php echo $item['comment_id'] ?></td>
-                                            <td><?php echo $item['p_name'] ?></td>
-                                            <td><?php echo $item['fullname'] ?></td>
-                                            <td><?php echo $item['email'] ?></td>
-                                            <td><?php echo $item['comment_time'] ?></td>
-                                            <td><?php echo $item['comment_content'] ?></td>
-                                            <td><a href="<?php echo "?module=admin&action=comment_delete&id=" . $item['comment_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
-                                                    <i class="fa-solid fa-trash"></i></a></td>
-                                        </tr>
+            <div class="container px-4">
+                <div class="row" style="margin: 50px auto">
+                    <?php
+                    if (!empty($smg)) {
+                        getSmg($smg, $smg_types);
+                    }
+                    ?>
+                    <form action="" method="post">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group mg-form">
+                                    <label for="">Tên bộ sưu tập</label>
+                                    <input class="form-control" type="text" placeholder="Tên bộ sưu tập" name="collection_name"
+                                        value="<?php echo old('collection_name', $old) ?>" />
                                     <?php
-                                    endforeach;
-
-                                else:
+                                    echo form_error('collection_name', '<p class="text-danger">', '</p>', $errors);
                                     ?>
-                                    <tr>
-                                        <td colspan="7">
-                                            <div class="alert alert-danger text-center">Không có bình luận nào!</div>
-                                        </td>
-                                    </tr>
-                                <?php
-                                endif;
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for=""> Danh mục
+                                    </label>
+                                    <select class="form-control" name="category_id">
+                                        <?php
+                                        $listCategory = getRaw("SELECT * FROM category");
+                                        foreach ($listCategory as $category):
+                                        ?>
+                                            <option value=<?= $category['category_id'] ?> <?php echo (old('category_id', $old) == $category['category_id']) ? 'selected' : false; ?>><?= $category['category_name'] ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                 </div>
+                <div class="row d-grid gap-2 justify-content-center">
+                    <button class="btn btn-primary" type="submit">Thêm bộ sưu tập</button>
+                    <a href="?module=admin&action=collection_management" class="btn btn-success" type="submit">Quay lại</a>
+                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -164,7 +191,6 @@ $smg_types = getFlashData('smg_types');
     </div>
 </body>
 
-</html>
 
 <?php
 layouts('footer-admin');

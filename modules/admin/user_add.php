@@ -37,7 +37,7 @@ if (isPost()) {
             $errors['username']['min'] = 'Username phải lớn hơn 5 ký tự';
         } else {
             $username = $filterAll['username'];
-            $sql = "SELECT * FROM customer WHERE username = '$username'";
+            $sql = "SELECT * FROM user WHERE username = '$username'";
             if (getRows($sql) > 0) {
                 $errors['username']['unique'] = 'Username đã đăng ký';
             }
@@ -49,7 +49,7 @@ if (isPost()) {
         $errors['email']['required'] = 'Vui lòng nhập email';
     } else {
         $email = $filterAll['email'];
-        $sql = "SELECT * FROM customer WHERE email = '$email'";
+        $sql = "SELECT * FROM user WHERE email = '$email'";
         if (getRows($sql) > 0) {
             $errors['email']['unique'] = 'Email đã đăng ký';
         }
@@ -82,10 +82,10 @@ if (isPost()) {
             // 'password' => password_hash($filterAll['password'], PASSWORD_DEFAULT),
             'password' => $filterAll['password'],
             'status' => $filterAll['status'],
-            'admin' => $filterAll['admin'],
+            'isAdmin' => $filterAll['isAdmin'],
             'create_at' => date('Y-m-d H:i:s')
         ];
-        $insertStatus = insert('customer', $dataInsert);
+        $insertStatus = insert('user', $dataInsert);
         if ($insertStatus) {
             setFlashData('smg', 'Thêm người dùng thành công!');
             setFlashData('smg_types', 'success');
@@ -156,6 +156,9 @@ $old = getFlashData('old');
                     href="?module=admin&action=category_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
+                    href="?module=admin&action=collection_management"
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
+                <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
                 <a
@@ -225,9 +228,9 @@ $old = getFlashData('old');
                                 <div class="form-group mg-form">
                                     <label for=""> Quyền
                                     </label>
-                                    <select class="form-control" name="admin">
-                                        <option value=0 <?php echo (old('admin', $old) == 0) ? 'selected' : false; ?>>Customer</option>
-                                        <option value=1 <?php echo (old('admin', $old) == 1) ? 'selected' : false; ?>>Admin</option>
+                                    <select class="form-control" name="isAdmin">
+                                        <option value=0 <?php echo (old('isAdmin', $old) == 0) ? 'selected' : false; ?>>Customer</option>
+                                        <option value=1 <?php echo (old('isAdmin', $old) == 1) ? 'selected' : false; ?>>Admin</option>
                                     </select>
                                 </div>
                             </div>

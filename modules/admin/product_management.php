@@ -19,7 +19,7 @@ if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
 
-$listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id ORDER BY create_at");
+$listProd = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id ORDER BY create_at");
 // echo '<pre>';
 // print_r($listSize);
 // echo '</pre>';
@@ -73,6 +73,9 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                     href="?module=admin&action=category_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
+                    href="?module=admin&action=collection_management"
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
+                <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
                 <a
@@ -115,6 +118,7 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                                 <tr>
                                     <th scope="col" width="50">ID</th>
                                     <th scope="col">Tên sản phẩm</th>
+                                    <th scope="col">Màu sắc</th>
                                     <th scope="col">Ảnh sản phẩm</th>
                                     <th scope="col">Danh mục</th>
                                     <th scope="col">Giá</th>
@@ -135,9 +139,10 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                                 ?>
                                         <tr>
                                             <td><?php echo $product['p_id'] ?></td>
-                                            <td><?php echo $product['p_name'] ?></td>
+                                            <td><?php echo $product['collection_name'] ?></td>
+                                            <td><?php echo $product['p_color'] ?></td>
                                             <td><?php
-                                                $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.product_id = products.p_id WHERE product_image.product_id = '$product[p_id]'");
+                                                $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.p_id = products.p_id WHERE product_image.p_id = '$product[p_id]'");
                                                 if (!empty($listImg)) {
                                                     echo '<img src="' . _WEB_HOST_TEMPLATE . '/image/' . $listImg['product_image'] . '" width="100px" alt="">';
                                                 } else {
@@ -152,7 +157,7 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN category ON products.categ
                                             <td><?php echo $product['size_not_available'] ?></td>
                                             <td><?php echo $product['isBestSelling'] == 1 ? '<button class="btn btn-success"> Đang bán chạy </button>' :
                                                     '<button class="btn btn-danger"> Hết bán chạy </button>'; ?></td>
-                                            <td><?php echo $product['isDiscount'] == 1 ? '<button class="btn btn-success"> Đang giảm giá </button>' :
+                                            <td><?php echo $product['discount'] > 0 ? '<button class="btn btn-success"> Đang giảm giá </button>' :
                                                     '<button class="btn btn-danger"> Hết giảm giá </button>'; ?></td>
                                             <td><a href="<?php echo "?module=admin&action=product_edit&p_id=" . $product['p_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                             <td><a href="<?php echo "?module=admin&action=product_delete&p_id=" . $product['p_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">

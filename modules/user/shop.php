@@ -2,18 +2,46 @@
 if (!defined('_CODE')) {
   die('Access denied');
 }
+$filterAll = filter();
+
+if (!empty($filterAll['id'])) {
+  $id = $filterAll['id'];
+  if ($id == 'bestSelling') {
+    $categoryId = 15;
+  } else if ($id == 'discount') {
+    $categoryId = 16;
+  } else if ($id == 'giayAdidas') {
+    $categoryId = 10;
+  } else if ($id == 'giayNike') {
+    $categoryId = 9;
+  } else if ($id == 'giayPuma') {
+    $categoryId = 17;
+  } else if ($id == 'giayLining') {
+    $categoryId = 18;
+  } else if ($id == 'giayAnta') {
+    $categoryId = 19;
+  } else if ($id == 'quanao') {
+    $categoryId = 20;
+  } else if ($id == 'phukien') {
+    $categoryId = 21;
+  } else if ($id == 'sandal') {
+    $categoryId = 22;
+  }
+}
+
+$category = oneRaw("SELECT * FROM category WHERE category_id = $categoryId");
 
 $title = [
-  'pageTitle' => 'Trang shop'
+  'pageTitle' => 'Trang ' . $category['category_name']
 ];
 
 layouts('header', $title);
-
+$user_id = getUserIdByToken();
 // Kiểm tra trạng thái đăng nhập
 
-if (!isLogin()) {
-  redirect('?module=auth&action=login');
-}
+// if (!isLogin()) {
+//   redirect('?module=auth&action=login');
+// }
 ?>
 <!-- Spinner Start -->
 <div
@@ -55,24 +83,24 @@ if (!isLogin()) {
       <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
         <div class="navbar-nav mx-auto">
           <a href="?module=user&action=trangchu" class="nav-item nav-link">Trang chủ</a>
-          <a href="?module=user&action=shop" class="nav-item nav-link">Bán chạy</a>
-          <a href="?module=user&action=shop" class="nav-item nav-link">Giảm giá</a>
+          <a href="?module=user&action=shop&id=bestSelling" class="nav-item nav-link">Bán chạy</a>
+          <a href="?module=user&action=shop&id=discount" class="nav-item nav-link">Giảm giá</a>
           <div class="nav-item dropdown">
             <a
               href="#"
               class="nav-link dropdown-toggle"
               data-bs-toggle="dropdown">Sneaker</a>
             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-              <a href="?module=user&action=giayAdidas" class="dropdown-item">Giày Adidas</a>
-              <a href="?module=user&action=giayNike" class="dropdown-item">Giày Nike</a>
-              <a href="??module=user&action=giayPuma" class="dropdown-item">Giày Puma</a>
-              <a href="?module=user&action=giayLining" class="dropdown-item">Giày Lining</a>
-              <a href="?module=user&action=giayAnta" class="dropdown-item">Giày Anta</a>
+              <a href="?module=user&action=shop&id=giayAdidas" class="dropdown-item">Giày Adidas</a>
+              <a href="?module=user&action=shop&id=giayNike" class="dropdown-item">Giày Nike</a>
+              <a href="??module=user&action=shop&id=giayPuma" class="dropdown-item">Giày Puma</a>
+              <a href="?module=user&action=shop&id=giayLining" class="dropdown-item">Giày Lining</a>
+              <a href="?module=user&action=shop&id=giayAnta" class="dropdown-item">Giày Anta</a>
             </div>
           </div>
-          <a href="?module=user&action=quanao" class="nav-item nav-link">Quần áo</a>
-          <a href="?module=user&action=phukien" class="nav-item nav-link">Phụ kiện</a>
-          <a href="?module=user&action=sandal" class="nav-item nav-link">Sandal</a>
+          <a href="?module=user&action=shop&id=quanao" class="nav-item nav-link">Quần áo</a>
+          <a href="?module=user&action=shop&id=phukien" class="nav-item nav-link">Phụ kiện</a>
+          <a href="?module=user&action=shop&id=sandal" class="nav-item nav-link">Sandal</a>
         </div>
 
         <div class="d-flex m-3 me-0">
@@ -83,29 +111,48 @@ if (!isLogin()) {
             style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
             <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
           </button>
-          <a href="?module=user&action=cart" class="position-relative me-4 my-auto">
+          <a href="?module=user&action=cart&id=<?php echo $user_id ?>" class="position-relative me-4 my-auto">
             <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
             <span
               class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
-              3
+              <?php
+              if (empty($user_id)) {
+                echo 0;
+              } else {
+                echo getRows("SELECT * FROM cart WHERE user_id = " . $user_id);
+              }
+              ?>
             </span>
           </a>
-          <div class="dropdown">
-            <a
-              href="#"
-              class="my-auto"
-              id="dropdownMenuButton"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-              <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
-              <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
-            </ul>
-          </div>
+          <?php
+          if (empty($user_id)):
+          ?>
+            <div class="d-flex flex-column gap-1" style="width: 130px;">
+              <a type="button" class="btn btn-dark btn-sm" href="?module=auth&action=login">Đăng nhập</a>
+              <a type="button" class="btn btn-dark btn-sm" href="?module=auth&action=register">Đăng kí</a>
+            </div>
+          <?php
+          else:
+          ?>
+            <div class="dropdown">
+              <a
+                href="#"
+                class="my-auto"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
+              </ul>
+            </div>
+          <?php
+          endif
+          ?>
         </div>
       </div>
     </nav>
@@ -146,11 +193,11 @@ if (!isLogin()) {
 
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
-  <h1 class="text-center text-white display-6">Giày New Balance</h1>
+  <h1 class="text-center text-white display-6"><?php echo $category['category_name'] ?></h1>
   <ol class="breadcrumb justify-content-center mb-0">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item"><a href="#">Pages</a></li>
-    <li class="breadcrumb-item active text-white">Giày New Balance</li>
+    <li class="breadcrumb-item active text-white"><?php echo $category['category_name'] ?></li>
   </ol>
 </div>
 <!-- Single Page Header End -->
@@ -158,7 +205,7 @@ if (!isLogin()) {
 <!-- Fruits Shop Start-->
 <div class="container-fluid item py-5">
   <div class="container py-5">
-    <h1 class="mb-4">Giày New Balance</h1>
+    <h1 class="mb-4"><?php echo $category['category_name'] ?></h1>
     <div class="row g-4">
       <div class="col-lg-12">
         <div class="row g-4">
@@ -257,7 +304,7 @@ if (!isLogin()) {
                 <h4 class="mb-3">Featured products</h4>
                 <div class="d-flex align-items-center justify-content-start">
                   <div class="rounded me-4" style="width: 100px; height: 100px;">
-                    <img src="img/featur-1.jpg" class="img-fluid rounded" alt="">
+                    <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-1.jpg" class="img-fluid rounded" alt="">
                   </div>
                   <div>
                     <h6 class="mb-2">Sneaker</h6>
@@ -276,7 +323,7 @@ if (!isLogin()) {
                 </div>
                 <div class="d-flex align-items-center justify-content-start">
                   <div class="rounded me-4" style="width: 100px; height: 100px;">
-                    <img src="img/featur-2.jpg" class="img-fluid rounded" alt="">
+                    <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-2.jpg" class="img-fluid rounded" alt="">
                   </div>
                   <div>
                     <h6 class="mb-2">Sneaker</h6>
@@ -295,7 +342,7 @@ if (!isLogin()) {
                 </div>
                 <div class="d-flex align-items-center justify-content-start">
                   <div class="rounded me-4" style="width: 100px; height: 100px;">
-                    <img src="img/featur-3.jpg" class="img-fluid rounded" alt="">
+                    <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-3.jpg" class="img-fluid rounded" alt="">
                   </div>
                   <div>
                     <h6 class="mb-2">Sneaker</h6>
@@ -318,7 +365,7 @@ if (!isLogin()) {
               </div>
               <div class="col-lg-12">
                 <div class="position-relative">
-                  <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
+                  <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
                   <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
                     <h3 class="text-secondary fw-bold">Adidas <br> Nike <br> Lining</h3>
                   </div>
@@ -332,7 +379,7 @@ if (!isLogin()) {
                 <div class="col-md-6 col-lg-6 col-xl-4">
                   <div class="rounded position-relative my-item">
                     <div class="img-item">
-                      <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                      <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
                     </div>
                     <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
                     <div class="p-4 border-top-0 rounded-bottom">

@@ -15,7 +15,7 @@ if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
 
-$listUser = getRaw("SELECT * FROM customer ORDER BY update_at");
+$listUser = getRaw("SELECT * FROM user ORDER BY update_at");
 // echo '<pre>';
 // print_r($listUser);
 // echo '</pre>';
@@ -69,6 +69,9 @@ $smg_types = getFlashData('smg_types');
                 <a
                     href="?module=admin&action=category_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
+                <a
+                    href="?module=admin&action=collection_management"
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
                 <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
@@ -137,16 +140,16 @@ $smg_types = getFlashData('smg_types');
                                                 $count++;
                                         ?>
                                                 <tr>
-                                                    <td><?php echo $item['id'] ?></td>
+                                                    <td><?php echo $item['user_id'] ?></td>
                                                     <td><?php echo $item['fullname'] ?></td>
                                                     <td><?php echo $item['email'] ?></td>
                                                     <td><?php echo $item['phone'] ?></td>
                                                     <td><?php echo $item['status'] == 1 ? '<button class="btn btn-success"> Đã kích hoạt </button>' :
                                                             '<button class="btn btn-danger"> Chưa kích hoạt </button>'; ?></td>
-                                                    <td><?php echo $item['admin'] == 1 ? '<button class="btn btn-success"> Admin </button>' :
+                                                    <td><?php echo $item['isAdmin'] == 1 ? '<button class="btn btn-success"> Admin </button>' :
                                                             '<button class="btn btn-danger"> Customer </button>'; ?></td>
-                                                    <td><a href="<?php echo "?module=admin&action=user_edit&id=" . $item['id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                                    <td><a href="<?php echo "?module=admin&action=user_delete&id=" . $item['id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
+                                                    <td><a href="<?php echo "?module=admin&action=user_edit&id=" . $item['user_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                    <td><a href="<?php echo "?module=admin&action=user_delete&id=" . $item['user_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
                                                             <i class="fa-solid fa-trash"></i></a></td>
                                                 </tr>
                                             <?php

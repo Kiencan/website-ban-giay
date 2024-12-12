@@ -18,7 +18,7 @@ if (!isLogin()) {
 if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
-$listOrder = getRaw("SELECT * FROM order_item INNER JOIN products ON order_item.product_id = products.p_id INNER JOIN product_type ON products.p_id = product_type.product_id INNER JOIN customer ON order_item.customer_id = customer.id ORDER BY order_item.customer_id");
+$listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN user ON cart.user_id = user.user_id ORDER BY cart.user_id");
 // echo '<pre>';
 // print_r($listOrder);
 // echo '</pre>';
@@ -73,10 +73,13 @@ $smg_types = getFlashData('smg_types');
                     href="?module=admin&action=category_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
+                    href="?module=admin&action=collection_management"
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
+                <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
                 <a
-                    href=""
+                    href="?module=admin&action=order_item_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-regular fa-newspaper me-2"></i>Quản lý đơn hàng</a>
                 <a
                     href="?module=admin&action=comment_management"
@@ -119,8 +122,7 @@ $smg_types = getFlashData('smg_types');
                                     <th scope="col">Số điện thoại</th>
                                     <th scope="col">Sản phẩm</th>
                                     <th scope="col">Tổng tiền</th>
-                                    <th scope="col">Trạng thái</th>
-                                    <th scope="col">Xử lý</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,19 +133,14 @@ $smg_types = getFlashData('smg_types');
                                         $count++;
                                 ?>
                                         <tr>
-                                            <td><?php echo $item['order_id'] ?></td>
+                                            <td><?php echo $item['cart_id'] ?></td>
                                             <td><?php echo $item['fullname'] ?></td>
                                             <td><?php echo $item['email'] ?></td>
                                             <td><?php echo $item['address'] ?></td>
                                             <td><?php echo $item['phone'] ?></td>
-                                            <td><?php echo $item['p_name'] ?></td>
-                                            <td><?php echo $item['product_price'] ?></td>
-                                            <td><?php echo $item['order_status'] == 1 ? '<button class="btn btn-success"> Đã xử lý </button>' :
-                                                    '<button class="btn btn-danger"> Chưa xử lý </button>'; ?></td>
-                                            <td>
-                                                <?php echo $item['order_status'] == 1 ? '' :
-                                                    '<a class="btn btn-warning" href="?module=admin&action=order_item_edit&id=' . $item['order_id'] . '"><i class="fa-solid fa-clipboard-check"></i></a>'; ?></td>
-                                            </td>
+                                            <td><?php echo $item['collection_name'] ?></td>
+                                            <td><?php echo $item['p_price_min'] ?></td>
+
                                         </tr>
                                     <?php
                                     endforeach;
@@ -152,7 +149,7 @@ $smg_types = getFlashData('smg_types');
                                     ?>
                                     <tr>
                                         <td colspan="7">
-                                            <div class="alert alert-danger text-center">Không có người dùng nào!</div>
+                                            <div class="alert alert-danger text-center">Không có đơn hàng nào!</div>
                                         </td>
                                     </tr>
                                 <?php

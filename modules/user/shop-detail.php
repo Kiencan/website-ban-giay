@@ -11,13 +11,19 @@ layouts('header', $title);
 
 // Kiểm tra trạng thái đăng nhập
 
-if (!isLogin()) {
-  redirect('?module=auth&action=login');
-}
+// if (!isLogin()) {
+//   redirect('?module=auth&action=login');
+// }
+$user_id = getUserIdByToken();
 $filterAll = filter();
-$product = oneRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id = '" . $filterAll['id'] . "'");
-$listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAll['id'] . "'");
+$product = oneRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE p_id = '" . $filterAll['p_id'] . "'");
+$listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAll['p_id'] . "'");
 
+
+
+// echo '<pre>';
+// print_r($listImage);
+// echo '</pre>';
 ?>
 <!-- Spinner Start -->
 <div
@@ -30,7 +36,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
 <!-- Navbar start -->
 <div class="container-fluid fixed-top">
   <div
-    class="container topbar d-none d-lg-block"
+    class="container topbar d-none d-lg-block mb-3"
     style="background-color: #4856dd">
     <div class="d-flex justify-content-between">
       <div class="top-info ps-2">
@@ -60,59 +66,77 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
       <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
         <div class="navbar-nav mx-auto">
           <a href="?module=user&action=trangchu" class="nav-item nav-link">Trang chủ</a>
-          <a href="?module=user&action=shop" class="nav-item nav-link">Bán chạy</a>
-          <a href="?module=user&action=shop" class="nav-item nav-link">Giảm giá</a>
+          <a href="?module=user&action=shop&id=bestSelling" class="nav-item nav-link">Bán chạy</a>
+          <a href="?module=user&action=shop&id=discount" class="nav-item nav-link">Giảm giá</a>
           <div class="nav-item dropdown">
             <a
               href="#"
               class="nav-link dropdown-toggle"
               data-bs-toggle="dropdown">Sneaker</a>
             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-              <a href="?module=user&action=giayAdidas" class="dropdown-item">Giày Adidas</a>
-              <a href="?module=user&action=giayNike" class="dropdown-item">Giày Nike</a>
-              <a href="??module=user&action=giayPuma" class="dropdown-item">Giày Puma</a>
-              <a href="?module=user&action=giayLining" class="dropdown-item">Giày Lining</a>
-              <a href="?module=user&action=giayAnta" class="dropdown-item">Giày Anta</a>
+              <a href="?module=user&action=shop&id=giayAdidas" class="dropdown-item">Giày Adidas</a>
+              <a href="?module=user&action=shop&id=giayNike" class="dropdown-item">Giày Nike</a>
+              <a href="??module=user&action=shop&id=giayPuma" class="dropdown-item">Giày Puma</a>
+              <a href="?module=user&action=shop&id=giayLining" class="dropdown-item">Giày Lining</a>
+              <a href="?module=user&action=shop&id=giayAnta" class="dropdown-item">Giày Anta</a>
             </div>
           </div>
-          <a href="?module=user&action=quanao" class="nav-item nav-link">Quần áo</a>
-          <a href="?module=user&action=phukien" class="nav-item nav-link">Phụ kiện</a>
-          <a href="?module=user&action=sandal" class="nav-item nav-link">Sandal</a>
+          <a href="?module=user&action=shop&id=quanao" class="nav-item nav-link">Quần áo</a>
+          <a href="?module=user&action=shop&id=phukien" class="nav-item nav-link">Phụ kiện</a>
+          <a href="?module=user&action=shop&id=sandal" class="nav-item nav-link">Sandal</a>
         </div>
 
         <div class="d-flex m-3 me-0">
           <button
-            class="btn-search btn border border-secondary rounded-circle bg-white me-4"
+            class="btn-search btn border border-secondary rounded-circle bg-white me-4 my-auto"
             data-bs-toggle="modal"
             data-bs-target="#searchModal"
             style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
             <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
           </button>
-          <a href="?module=user&action=cart" class="position-relative me-4 my-auto">
+          <a href="?module=user&action=cart&id=<?php echo $user_id ?>" class="position-relative me-4 my-auto">
             <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
             <span
               class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
-              3
+              <?php
+              if (empty($user_id)) {
+                echo 0;
+              } else {
+                echo getRows("SELECT * FROM cart WHERE user_id = " . $user_id);
+              }
+              ?>
             </span>
           </a>
-          <div class="dropdown">
-            <a
-              href="#"
-              class="my-auto"
-              id="dropdownMenuButton"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-              <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
-              <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
-            </ul>
-          </div>
+          <?php
+          if (empty($user_id)):
+          ?>
+            <div class="d-flex flex-column gap-1 " style="width: 130px;">
+              <a type="button" class="btn btn-dark btn-sm" href="?module=auth&action=login">Đăng nhập</a>
+              <a type="button" class="btn btn-dark btn-sm" href="?module=auth&action=register">Đăng kí</a>
+            </div>
+          <?php
+          else:
+          ?>
+            <div class="dropdown">
+              <a
+                href="#"
+                class="my-auto"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
+              </ul>
+            </div>
+          <?php
+          endif
+          ?>
         </div>
-
       </div>
     </nav>
   </div>
@@ -120,8 +144,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
 <!-- Navbar End -->
 
 <!-- Modal Search Start -->
-<div
-  class="modal fade"
+<div class="modal fade"
   id="searchModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
@@ -179,9 +202,9 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
               <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active rounded">
                   <img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImg[0]['product_image'] ?>"
-                    class="img-fluid w-100 h-100 bg-secondary rounded"
-                    alt="Giày Adidas Duramo"
-                    onclick="openModal('<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImg[0]['product_image'] ?>')"
+                    class="img-fluid bg-secondary rounded"
+                    alt="Ảnh 1"
+
                     style="cursor: pointer" />
                 </div>
                 <?php
@@ -192,9 +215,9 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
                     <div class="carousel-item rounded">
                       <img
                         src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImg[$i]['product_image'] ?>"
-                        class="img-fluid w-100 h-100 rounded"
-                        alt="Second slide"
-                        onclick="openModal(" <?php echo _WEB_HOST_TEMPLATE . '/image/' . $listImg[$i]['product_image'] ?>")"
+                        class="img-fluid rounded"
+                        alt="Ảnh <?= $i + 1 ?>"
+
                         style="cursor: pointer" />
                     </div>
                 <?php
@@ -225,7 +248,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
                 <span class="visually-hidden">Next</span>
               </button>
             </div>
-            <p class="mb-3">Mã sản phẩm: <?php echo $filterAll['id']; ?></p>
+            <p class="mb-3">Mã sản phẩm: <?php echo $filterAll['p_id']; ?></p>
 
           </div>
 
@@ -259,7 +282,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
 
           <div class="col-lg-6">
             <h4 class="fw-bold mb-3" id="imageModalLabel">
-              <?php echo $product['p_name'] ?>
+              <?php echo $product['collection_name'] . " " . $product['p_color']; ?>
             </h4>
             <p class="mb-3">Phân loại: <?php echo $product['category_name'] ?></p>
             <h5 class="fw-bold mb-3">
@@ -270,7 +293,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
                       font-size: 15px;
                     "><?php
 
-                      echo number_format($product['p_price_max'] * 1.5, 0, ',', '.');
+                      echo number_format($product['p_price_min'] * $product['discount'] / 100, 0, ',', '.') . " - " . number_format($product['p_price_max'] * $product['discount'] / 100, 0, ',', '.');
 
                       ?></span>
               <span
@@ -295,14 +318,23 @@ $listImg = getRaw("SELECT * FROM product_image WHERE product_id = '" . $filterAl
             <div class="type-giay">
               <span class="select-color mt-3">Màu sắc</span>
               <div class="container-product d-flex justify-content-start">
-                <div class="product" onclick="updateCarousel('hong')">
-                  <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giayhong2.jpg" alt="Product" class="product-image" style="width: 60px">
-                  <p class="product-name">Hồng</p>
-                </div>
-                <div class="product" onclick="updateCarousel('den')">
-                  <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg" alt="Product" class="product-image" style="width: 60px">
-                  <p class="product-name">Đen</p>
-                </div>
+                <?php
+                $listColor = getRaw("SELECT p_id, p_color FROM products WHERE collection_id = " . $product["collection_id"]);
+                foreach ($listColor as $color):
+                  $image = oneRaw("SELECT product_image FROM product_image WHERE product_id = '" . $color["p_id"] . "'");
+
+                ?>
+                  <div class="product">
+                    <a href="?module=user&action=shop-detail&p_id=<?php echo $color['p_id'] ?>">
+                      <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $image["product_image"] ?>" alt="Product" class="product-image" style="width: 60px">
+                      <p class="product-name"><?php echo $color["p_color"] ?></p>
+                    </a>
+                  </div>
+
+                <?php
+                endforeach;
+                ?>
+
               </div>
             </div>
 

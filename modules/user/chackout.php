@@ -8,7 +8,7 @@ $title = [
 ];
 
 layouts('header', $title);
-
+$user_id = getUserIdByToken();
 // Kiểm tra trạng thái đăng nhập
 
 if (!isLogin()) {
@@ -26,7 +26,7 @@ if (!isLogin()) {
 <!-- Navbar start -->
 <div class="container-fluid fixed-top">
     <div
-        class="container topbar d-none d-lg-block"
+        class="container topbar d-none d-lg-block mb-3"
         style="background-color: #4856dd">
         <div class="d-flex justify-content-between">
             <div class="top-info ps-2">
@@ -56,44 +56,76 @@ if (!isLogin()) {
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
                     <a href="?module=user&action=trangchu" class="nav-item nav-link">Trang chủ</a>
-                    <a href="?module=user&action=shop" class="nav-item nav-link">Bán chạy</a>
-                    <a href="?module=user&action=shop" class="nav-item nav-link">Giảm giá</a>
+                    <a href="?module=user&action=shop&id=bestSelling" class="nav-item nav-link">Bán chạy</a>
+                    <a href="?module=user&action=shop&id=discount" class="nav-item nav-link">Giảm giá</a>
                     <div class="nav-item dropdown">
                         <a
                             href="#"
                             class="nav-link dropdown-toggle"
                             data-bs-toggle="dropdown">Sneaker</a>
                         <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                            <a href="?module=user&action=giayAdidas" class="dropdown-item">Giày Adidas</a>
-                            <a href="?module=user&action=giayNike" class="dropdown-item">Giày Nike</a>
-                            <a href="??module=user&action=giayPuma" class="dropdown-item">Giày Puma</a>
-                            <a href="?module=user&action=giayLining" class="dropdown-item">Giày Lining</a>
-                            <a href="?module=user&action=giayAnta" class="dropdown-item">Giày Anta</a>
+                            <a href="?module=user&action=shop&id=giayAdidas" class="dropdown-item">Giày Adidas</a>
+                            <a href="?module=user&action=shop&id=giayNike" class="dropdown-item">Giày Nike</a>
+                            <a href="??module=user&action=shop&id=giayPuma" class="dropdown-item">Giày Puma</a>
+                            <a href="?module=user&action=shop&id=giayLining" class="dropdown-item">Giày Lining</a>
+                            <a href="?module=user&action=shop&id=giayAnta" class="dropdown-item">Giày Anta</a>
                         </div>
                     </div>
-                    <a href="?module=user&action=quanao" class="nav-item nav-link">Quần áo</a>
-                    <a href="?module=user&action=phukien" class="nav-item nav-link">Phụ kiện</a>
-                    <a href="?module=user&action=sandal" class="nav-item nav-link">Sandal</a>
+                    <a href="?module=user&action=shop&id=quanao" class="nav-item nav-link">Quần áo</a>
+                    <a href="?module=user&action=shop&id=phukien" class="nav-item nav-link">Phụ kiện</a>
+                    <a href="?module=user&action=shop&id=sandal" class="nav-item nav-link">Sandal</a>
                 </div>
+
                 <div class="d-flex m-3 me-0">
                     <button
-                        class="btn-search btn border border-secondary rounded-circle bg-white me-4"
+                        class="btn-search btn border border-secondary rounded-circle bg-white me-4 my-auto"
                         data-bs-toggle="modal"
                         data-bs-target="#searchModal"
                         style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
                         <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
                     </button>
-                    <a href="?module=user&action=cart" class="position-relative me-4 my-auto">
+                    <a href="?module=user&action=cart&id=<?php echo $user_id ?>" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
                         <span
                             class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                             style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
-                            3
+                            <?php
+                            if (empty($user_id)) {
+                                echo 0;
+                            } else {
+                                echo getRows("SELECT * FROM order_item WHERE customer_id = " . $user_id);
+                            }
+                            ?>
                         </span>
                     </a>
-                    <a href="#" class="my-auto">
-                        <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
-                    </a>
+                    <?php
+                    if (empty($user_id)):
+                    ?>
+                        <div class="d-flex flex-column gap-1 " style="width: 130px;">
+                            <a type="button" class="btn btn-dark" href="?module=auth&action=login">Đăng nhập</a>
+                            <a type="button" class="btn btn-dark" href="?module=auth&action=register">Đăng kí</a>
+                        </div>
+                    <?php
+                    else:
+                    ?>
+                        <div class="dropdown">
+                            <a
+                                href="#"
+                                class="my-auto"
+                                id="dropdownMenuButton"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                                <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                                <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    <?php
+                    endif
+                    ?>
                 </div>
             </div>
         </nav>
@@ -101,18 +133,29 @@ if (!isLogin()) {
 </div>
 <!-- Navbar End -->
 
-
 <!-- Modal Search Start -->
-<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade"
+    id="searchModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content rounded-0">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">Tìm kiếm</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex align-items-center">
                 <div class="input-group w-75 mx-auto d-flex">
-                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                    <input
+                        type="search"
+                        class="form-control p-3"
+                        placeholder="Nhập tại đây"
+                        aria-describedby="search-icon-1" />
                     <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                 </div>
             </div>

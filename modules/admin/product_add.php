@@ -13,12 +13,16 @@ if (!isAdmin()) {
 }
 
 layouts('header-admin', $title);
-$listCategory = getRaw("SELECT * FROM category");
+
 
 if (isPost()) {
     $filterAll = filter();
 
     $errors = []; // mảng chứa lỗi
+
+    if (empty($filterAll['p_id'])) {
+        $errors['p_id']['required'] = 'Vui lòng mã sản phẩm';
+    }
 
     if (empty($filterAll['p_name'])) {
         $errors['p_name']['required'] = 'Vui lòng nhập tên sản phẩm';
@@ -36,7 +40,7 @@ if (isPost()) {
         }
     }
     if (empty($filterAll['p_price_min'])) {
-        $errors['p_price_min']['required'] = 'Vui lòng giá';
+        $errors['p_price_min']['required'] = 'Vui lòng nhập giá';
     } else {
         if ($filterAll['p_price_min'] < 0) {
             $errors['p_price_min']['negative'] = 'Giá tiền phải lớn hơn 0!';
@@ -44,7 +48,7 @@ if (isPost()) {
     }
 
     if (empty($filterAll['p_price_max'])) {
-        $errors['p_price_max']['required'] = 'Vui lòng giá';
+        $errors['p_price_max']['required'] = 'Vui lòng nhập giá';
     } else {
         if ($filterAll['p_price_max'] < $filterAll['p_price_min']) {
             $errors['p_price_max']['greater'] = 'Giá max phải lớn hơn giá min!';
@@ -56,6 +60,15 @@ if (isPost()) {
     // if (empty($filterAll['size_not_available'])) {
     //     $errors['size_not_available']['required'] = 'Vui lòng nhập size hết';
     // }
+    if (empty($filterAll['discount'])) {
+        $errors['discount']['required'] = 'Vui lòng nhập % giảm giá';
+    } else {
+        if ($filterAll['discount'] < 0) {
+            $errors['discount']['negative'] = '% giảm giá phải lớn hơn 0!';
+        } else if ($filterAll['discount'] > 100) {
+            $errors['discount']['greater'] = '% giảm giá phải nhỏ hơn 100!';
+        }
+    }
 
     if (empty($errors)) {
         $productInsert = [
@@ -68,7 +81,7 @@ if (isPost()) {
             'size_available' => $filterAll['size_available'],
             'size_not_available' => $filterAll['size_not_available'],
             'isBestSelling' => $filterAll['isBestSelling'],
-            'isDiscount' => $filterAll['isDiscount'],
+            'discount' => $filterAll['discount'],
             'create_at' => date('Y-m-d H:i:s'),
         ];
 
@@ -143,6 +156,9 @@ $old = getFlashData('old');
                     href="?module=admin&action=category_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
+                    href="?module=admin&action=collection_management"
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
+                <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
                 <a
@@ -195,10 +211,10 @@ $old = getFlashData('old');
                                 </div>
                                 <div class="form-group mg-form">
                                     <label for="">Tên sản phẩm</label>
-                                    <input class="form-control" type="text" placeholder="Tên sản phẩm" name="p_name"
-                                        value="<?php echo old('p_name', $old) ?>" />
+                                    <input class="form-control" type="text" placeholder="Tên sản phẩm" name="collection_name"
+                                        value="<?php echo old('collection_name', $old) ?>" />
                                     <?php
-                                    echo form_error('p_name', '<p class="text-danger">', '</p>', $errors);
+                                    echo form_error('collection_name', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
                                 <div class="form-group mg-form">
@@ -206,6 +222,7 @@ $old = getFlashData('old');
                                     </label>
                                     <select class="form-control" name="category_id">
                                         <?php
+                                        $listCategory = getRaw("SELECT * FROM category");
                                         foreach ($listCategory as $category):
                                         ?>
                                             <option value=<?= $category['category_id'] ?> <?php echo (old('category_id', $old) == $category['category_id']) ? 'selected' : false; ?>><?= $category['category_name'] ?></option>
@@ -262,12 +279,13 @@ $old = getFlashData('old');
                                     </select>
                                 </div>
                                 <div class="form-group mg-form">
-                                    <label for=""> Giảm giá
-                                    </label>
-                                    <select class="form-control" name="isDiscount">
-                                        <option value=0 <?php echo (old('isDiscount', $old) == 0) ? 'selected' : false; ?>>Hết giảm giá</option>
-                                        <option value=1 <?php echo (old('isDiscount', $old) == 1) ? 'selected' : false; ?>>Đang giảm giá</option>
-                                    </select>
+                                    <label for="">Giảm giá</label>
+                                    <input class="form-control" type="number" placeholder="Nhập % giảm giá" name="discount"
+                                        value="<?php echo old('discount', $old) ?>" />
+
+                                    <?php
+                                    echo form_error('discount', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
                                 </div>
                             </div>
                         </div>

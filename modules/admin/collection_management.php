@@ -4,7 +4,7 @@ if (!defined('_CODE')) {
 }
 
 $title = [
-    'pageTitle' => 'Quản lý bình luận'
+    'pageTitle' => 'Quản lý bộ sưu tập'
 ];
 
 layouts('header-admin', $title);
@@ -18,11 +18,10 @@ if (!isLogin()) {
 if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
-$listComment = getRaw("SELECT * FROM comments INNER JOIN products ON comments.p_id = products.p_id INNER JOIN user ON comments.user_id = user.user_id");
+$listCate = getRaw("SELECT * FROM collection INNER JOIN category ON collection.category_id = category.category_id");
 
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
-
 ?>
 
 <body>
@@ -30,7 +29,7 @@ $smg_types = getFlashData('smg_types');
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
             <div class="d-flex align-items-center">
                 <i class="fas fa-align-left text-light fs-4 me-5" id="menu-toggle"></i>
-                <a href="?module=user&action=trangchu"><img src="<?php echo _WEB_HOST_TEMPLATE; ?>/image/logo.jpg" width="100px"></a>
+                <a href="#"><img src="<?php echo _WEB_HOST_TEMPLATE; ?>/image/logo.jpg" width="100px"></a>
             </div>
 
 
@@ -72,7 +71,7 @@ $smg_types = getFlashData('smg_types');
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
                     href="?module=admin&action=collection_management"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
                 <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
@@ -81,7 +80,7 @@ $smg_types = getFlashData('smg_types');
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-regular fa-newspaper me-2"></i>Quản lý đơn hàng</a>
                 <a
                     href="?module=admin&action=comment_management"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fas fa-comment-dots me-2"></i>Quản lý bình luận</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-comment-dots me-2"></i>Quản lý bình luận</a>
                 <a
                     href="?module=admin&action=setting"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
@@ -97,13 +96,12 @@ $smg_types = getFlashData('smg_types');
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
-                    <li class="breadcrumb-item"><a href="#" style="text-decoration: none">Quản lý bình luận</a></li>
-                    <li class="breadcrumb-item active"> Danh sách bình luận </li>
+                    <li class="breadcrumb-item active"> Quản lý bộ sưu tập </li>
                 </ul>
             </div>
 
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Danh sách bình luận</h1>
+                <h1 class="mt-4">Danh sách bộ sưu tập</h1>
             </div>
 
             <div class="container-fluid px-4">
@@ -111,33 +109,45 @@ $smg_types = getFlashData('smg_types');
                 <div class="row my-5">
 
                     <div class="col overflow-auto">
+                        <a href="?module=admin&action=collection_add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Thêm bộ sưu tập</a>
                         <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">
                             <thead>
                                 <tr>
                                     <th scope="col" width="50">ID</th>
-                                    <th scope="col">Sản phẩm</th>
-                                    <th scope="col">Họ và tên</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Thời gian bình luận</th>
-                                    <th scope="col">Nội dung bình luận</th>
+                                    <th scope="col">Ảnh mẫu</th>
+                                    <th scope="col">Tên bộ sưu tập</th>
+                                    <th scope="col">Danh mục </th>
+                                    <th width="5%"> Sửa </th>
                                     <th width="5%"> Xóa </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                if (!empty($listComment)):
+                                if (!empty($listCate)):
                                     $count = 0;
-                                    foreach ($listComment as $item):
+                                    foreach ($listCate as $item):
+                                        $p_id = oneRaw("SELECT p_id FROM products WHERE collection_id = {$item['collection_id']}");
+                                        if (empty($p_id)):
+                                            $p_id['p_id'] = -1;
+                                        endif;
+                                        $image = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $p_id['p_id'] . "'");
                                         $count++;
                                 ?>
                                         <tr>
-                                            <td><?php echo $item['comment_id'] ?></td>
-                                            <td><?php echo $item['p_name'] ?></td>
-                                            <td><?php echo $item['fullname'] ?></td>
-                                            <td><?php echo $item['email'] ?></td>
-                                            <td><?php echo $item['comment_time'] ?></td>
-                                            <td><?php echo $item['comment_content'] ?></td>
-                                            <td><a href="<?php echo "?module=admin&action=comment_delete&id=" . $item['comment_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
+                                            <td><?php echo $item['collection_id'] ?></td>
+                                            <td>
+                                                <?php
+                                                if (empty($image)):
+                                                    echo "Chưa có ảnh";
+                                                else:
+                                                ?>
+                                                    <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $image['product_image']; ?>" width="100px">
+                                                <?php endif; ?>
+                                            </td>
+                                            <td><?php echo $item['collection_name'] ?></td>
+                                            <td><?php echo $item['category_name'] ?></td>
+                                            <td><a href="<?php echo "?module=admin&action=collection_edit&collection_id=" . $item['collection_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                            <td><a href="<?php echo "?module=admin&action=collection_delete&collection_id=" . $item['collection_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
                                                     <i class="fa-solid fa-trash"></i></a></td>
                                         </tr>
                                     <?php
@@ -147,7 +157,7 @@ $smg_types = getFlashData('smg_types');
                                     ?>
                                     <tr>
                                         <td colspan="7">
-                                            <div class="alert alert-danger text-center">Không có bình luận nào!</div>
+                                            <div class="alert alert-danger text-center">Không có người dùng nào!</div>
                                         </td>
                                     </tr>
                                 <?php

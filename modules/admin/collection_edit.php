@@ -1,8 +1,8 @@
+<!-- Đăng ký tài khoản -->
 <?php
 if (!defined('_CODE')) {
     die('Access denied');
 }
-$title = ['pageTitle' => 'Thêm sản phẩm'];
 
 if (!isLogin()) {
     redirect('?module=auth&action=login');
@@ -11,80 +11,74 @@ if (!isLogin()) {
 if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
+$title = ['pageTitle' => 'Sửa bộ sưu tập'];
 
 layouts('header-admin', $title);
+$filterAll = filter();
+
+if (!empty($filterAll['collection_id'])) {
+    $collectionId = $filterAll['collection_id'];
+
+    $collectionDetail = oneRaw("SELECT * FROM collection WHERE collection_id = $collectionId");
+    // echo '<pre>';
+    // print_r($collectionDetail);
+    // echo '</pre>';
+    if (!empty($collectionDetail)) {
+        // Tồn tại
+        setFlashData('collection-detail', $collectionDetail);
+    } else {
+        redirect('?module=admin&action=collection_management');
+    }
+}
+
 
 if (isPost()) {
     $filterAll = filter();
 
-    $errors = []; // mảng chứa lỗi
+    $errors = []; // mảng chứa lỗi\
 
-    if (empty($_FILES['banner']['name'])) {
-        $errors['banner']['required'] = 'Vui lòng upload ảnh.';
+    // Kiểm tra họ và tên: bắt buộc phải nhập, nhập ít nhất 5 ký tự
+    if (empty($filterAll['collection_name'])) {
+        $errors['collection_name']['required'] = 'Vui lòng nhập tên bộ sưu tập';
     } else {
-        // Get file information
-        $imageName = basename($_FILES['banner']['name']);
-        $imageSize = $_FILES['banner']['size'];
-        $imageTemp = $_FILES['banner']['tmp_name'];
-        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif']; // Allowed file types
-        $fileExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
-
-        // Set target directory
-        $targetDir = _WEB_PATH_TEMPLATE . 'image/';
-        $targetFilePath = $targetDir . $imageName;
-
-        // Validate file type
-        if (!in_array($fileExtension, $allowedTypes)) {
-            $errors['banner']['type'] = 'Chỉ chấp nhận các định dạng ảnh: JPG, JPEG, PNG, GIF.';
-        }
-
-        // Validate file size (e.g., 5MB maximum)
-        if ($imageSize > 5 * 1024 * 1024) {
-            $errors['banner']['size'] = 'Dung lượng ảnh không được vượt quá 5MB.';
-        }
-
-        // Check if file already exists
-        if (file_exists($targetFilePath)) {
-            $errors['banner']['exists'] = 'File này đã tồn tại. Vui lòng chọn một ảnh khác hoặc đổi tên file.';
+        $collection_name = $filterAll['collection_name'];
+        $sql = "SELECT * FROM collection WHERE collection_name = '$collection_name'";
+        if (getRows($sql) > 0) {
+            $errors['collection_name']['unique'] = 'Bộ sưu tập đã tồn tại';
         }
     }
 
 
     if (empty($errors)) {
-        $dataInsert = [
-            'banner_name' => 'banner_tren',
-            'banner' => $imageName,
+        $dataUpdate = [
+            'collection_name' => $filterAll['collection_name'],
         ];
 
-        $insertStatus = insert('banner', $dataInsert);
-        if ($insertStatus) {
-            if (move_uploaded_file($imageTemp, $targetFilePath)) {
-                setFlashData('smg', 'Thêm banner thành công!');
-                setFlashData('smg_types', 'success');
-                redirect('?module=admin&action=setting_banner');
-            } else {
-                setFlashData('smg', 'Upload banner không thành công!');
-                setFlashData('smg_types', 'danger');
-                redirect('?module=admin&action=setting_banner_add');
-            }
+        $updateStatus = update('collection', $dataUpdate, "collection_id = '$collectionId'");
+        if ($updateStatus) {
+            setFlashData('smg', 'Chỉnh sửa thông tin bộ sưu tập thành công!');
+            setFlashData('smg_types', 'success');
         } else {
             setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
             setFlashData('smg_types', 'danger');
-            redirect('?module=admin&action=setting_banner_add');
         }
     } else {
         setFlashData('smg', 'Vui lòng kiểm tra lại thông tin');
         setFlashData('smg_types', 'danger');
         setFlashData('errors', $errors);
         setFlashData('old', $filterAll);
-        redirect('?module=admin&action=setting_banner_add');
     }
+    redirect('?module=admin&action=collection_edit&collection_id=' . $collectionId);
 }
 
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
+$collectionDetail = getFlashData('collection-detail');
+if (!empty($collectionDetail)) {
+    $old = $collectionDetail;
+}
 ?>
 
 <body>
@@ -131,7 +125,7 @@ $old = getFlashData('old');
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-regular fa-user me-2"></i>Quản lý thành viên</a>
                 <a
                     href="?module=admin&action=category_management"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
                     href="?module=admin&action=collection_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
@@ -146,7 +140,7 @@ $old = getFlashData('old');
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-comment-dots me-2"></i>Quản lý bình luận</a>
                 <a
                     href="?module=admin&action=setting"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
                 <a
                     href="?module=auth&action=logout"
                     class="list-group-item list-group-item-action px-4 py-3 text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
@@ -159,38 +153,54 @@ $old = getFlashData('old');
             <div class="container-fluid px-4 pt-3 border">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
-                    <li class="breadcrumb-item"><a href="?module=admin&action=product_management" style="text-decoration: none">Danh sách Banner</a></li>
-                    <li class="breadcrumb-item active"> Thêm Banner </li>
+                    <li class="breadcrumb-item"><a href="?module=admin&action=collection_management" style="text-decoration: none">Quản lý bộ sưu tập</a></li>
+                    <li class="breadcrumb-item active"> Sửa bộ sưu tập </li>
                 </ul>
             </div>
 
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Thêm Banner</h1>
+                <h1 class="mt-4">Sửa bộ sưu tập</h1>
             </div>
 
-            <div class="container-fluid px-4">
+            <div class="container px-4">
                 <div class="row" style="margin: 50px auto">
                     <?php
                     if (!empty($smg)) {
                         getSmg($smg, $smg_types);
                     }
                     ?>
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="" method="post">
                         <div class="row">
                             <div class="col">
                                 <div class="form-group mg-form">
-                                    <label for="">Ảnh banner</label>
-                                    <input class="form-control" type="file" name="banner" />
+                                    <label for="">Tên bộ sưu tập</label>
+                                    <input class="form-control" type="text" placeholder="Tên bộ sưu tập" name="collection_name"
+                                        value="<?php echo old('collection_name', $old) ?>" />
                                     <?php
-                                    echo form_error('banner', '<p class="text-danger">', '</p>', $errors);
+                                    echo form_error('collection_name', '<p class="text-danger">', '</p>', $errors);
                                     ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for=""> Tên danh mục
+                                    </label>
+                                    <select class="form-control" name="category_id">
+                                        <?php
+                                        $listCategory = getRaw("SELECT * FROM category");
+                                        foreach ($listCategory as $category):
+                                        ?>
+                                            <option value=<?= $category['category_id'] ?> <?php echo (old('category_id', $old) == $category['category_id']) ? 'selected' : false; ?>><?= $category['category_name'] ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                 </div>
                 <div class="row d-grid gap-2 justify-content-center">
-                    <button class="btn btn-primary" type="submit">Thêm Banner</button>
-                    <a href="?module=admin&action=setting_banner" class="btn btn-success" type="button">Quay lại</a>
+                    <input type="hidden" name="collection_id" value="<?php echo $collectionId ?>" />
+                    <button class="btn btn-primary" type="submit">Cập nhật bộ sưu tập</button>
+                    <a href="?module=admin&action=collection_management" class="btn btn-success" type="submit">Quay lại</a>
                 </div>
                 </form>
             </div>

@@ -19,12 +19,12 @@ if (isPost()) {
         $username = $filterAll['username'];
         $password = $filterAll['password'];
         // truy vấn lấy thông tin users theo email
-        $userQuery = oneRaw("SELECT password, id, admin FROM customer WHERE username = '$username'");
+        $userQuery = oneRaw("SELECT password, user_id, isAdmin FROM user WHERE username = '$username'");
         if (!empty($userQuery)) {
             $passwordHash = $userQuery['password'];
-            $userId = $userQuery['id'];
+            $userId = $userQuery['user_id'];
             // if (password_verify($password, $passwordHash)) {
-            if ($password == $passwordHash && $userQuery['admin'] == 1) {
+            if ($password == $passwordHash && $userQuery['isAdmin'] == 1) {
 
                 // Kiểm tra xem tài khoản đã login chưa
                 $userLogin = oneRaw("SELECT * FROM token_login WHERE user_id = $userId");

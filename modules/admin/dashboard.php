@@ -19,10 +19,10 @@ if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
 
-$listUser = getRaw("SELECT * FROM customer WHERE admin = 1 ORDER BY update_at");
+$listUser = getRaw("SELECT * FROM user WHERE isAdmin = 1 ORDER BY update_at");
 $listProd = getRaw("SELECT * FROM products ORDER BY update_at");
 $listCate = getRaw("SELECT * FROM category");
-$listComment = getRaw("SELECT * FROM comment");
+$listComment = getRaw("SELECT * FROM comments");
 
 ?>
 
@@ -71,6 +71,9 @@ $listComment = getRaw("SELECT * FROM comment");
                 <a
                     href="?module=admin&action=category_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
+                <a
+                    href="?module=admin&action=collection_management"
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
                 <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>

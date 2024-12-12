@@ -18,11 +18,10 @@ $filterAll = filter();
 if (!empty($filterAll['p_id'])) {
     $p_id = $filterAll['p_id'];
 
-    $productDetail = oneRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE p_id = '$p_id'");
+    $productDetail = oneRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE p_id = '$p_id'");
 
-    $imageDetail = getRaw("SELECT * FROM product_image WHERE product_id = '$p_id'");
+    $imageDetail = getRaw("SELECT * FROM product_image WHERE p_id = '$p_id'");
 
-    $listCategory = getRaw("SELECT * FROM category");
     // echo '<pre>';
     // print_r($productDetail);
     // echo '</pre>';
@@ -163,6 +162,9 @@ if (!empty($productDetail)) {
                     href="?module=admin&action=category_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
                 <a
+                    href="?module=admin&action=collection_management"
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
+                <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
                 <a
@@ -214,18 +216,34 @@ if (!empty($productDetail)) {
                                     ?>
                                 </div>
                                 <div class="form-group mg-form">
-                                    <label for="">Tên sản phẩm</label>
-                                    <input class="form-control" type="text" placeholder="Tên sản phẩm" name="p_name"
-                                        value="<?php echo old('p_name', $old) ?>" />
+                                    <label for=""> Tên sản phẩm
+                                    </label>
+                                    <select class="form-control" name="collection_id">
+                                        <?php
+                                        $listCollection = getRaw("SELECT * FROM collection");
+                                        foreach ($listCollection as $collection):
+                                        ?>
+                                            <option value=<?= $collection['collection_id'] ?> <?php echo (old('collection_id', $old) == $collection['collection_id']) ? 'selected' : false; ?>><?= $collection['collection_name'] ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Màu sắc</label>
+                                    <input class="form-control" type="text" placeholder="Màu sản phẩm" name="p_color"
+                                        value="<?php echo old('p_color', $old) ?>" />
                                     <?php
-                                    echo form_error('p_name', '<p class="text-danger">', '</p>', $errors);
+                                    echo form_error('p_color', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
+
                                 <div class="form-group mg-form">
                                     <label for=""> Danh mục
                                     </label>
                                     <select class="form-control" name="category_id">
                                         <?php
+                                        $listCategory = getRaw("SELECT * FROM category");
                                         foreach ($listCategory as $category):
                                         ?>
                                             <option value=<?= $category['category_id'] ?> <?php echo (old('category_id', $old) == $category['category_id']) ? 'selected' : false; ?>><?= $category['category_name'] ?></option>
@@ -282,12 +300,13 @@ if (!empty($productDetail)) {
                                     </select>
                                 </div>
                                 <div class="form-group mg-form">
-                                    <label for=""> Giảm giá
-                                    </label>
-                                    <select class="form-control" name="isDiscount">
-                                        <option value=0 <?php echo (old('isDiscount', $old) == 0) ? 'selected' : false; ?>>Hết giảm giá</option>
-                                        <option value=1 <?php echo (old('isDiscount', $old) == 1) ? 'selected' : false; ?>>Đang giảm giá</option>
-                                    </select>
+                                    <label for="">Giảm giá</label>
+                                    <input class="form-control" type="number" placeholder="Nhập % giảm giá" name="discount"
+                                        value="<?php echo old('discount', $old) ?>" />
+
+                                    <?php
+                                    echo form_error('discount', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
                                 </div>
 
                                 <a href="?module=admin&action=product_image_add&p_id=<?php echo $p_id ?>" class="btn btn-success mt-3"><i class="fa-solid fa-plus"></i> Thêm hình ảnh</a>
@@ -311,8 +330,8 @@ if (!empty($productDetail)) {
                                                 <tr>
                                                     <td><?php echo $count ?></td>
                                                     <td><img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $image['product_image']; ?>" width="100px"></td>
-                                                    <td><a href="<?php echo "?module=admin&action=product_image_edit&p_id=" . $image['product_id'] . "&image_id=" . $image['image_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                                    <td><a href="<?php echo "?module=admin&action=product_image_delete&p_id=" . $image['product_id'] . "&image_id=" . $image['image_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
+                                                    <td><a href="<?php echo "?module=admin&action=product_image_edit&p_id=" . $image['p_id'] . "&image_id=" . $image['image_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                    <td><a href="<?php echo "?module=admin&action=product_image_delete&p_id=" . $image['p_id'] . "&image_id=" . $image['image_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
                                                             <i class="fa-solid fa-trash"></i></a></td>
                                                 </tr>
                                             <?php

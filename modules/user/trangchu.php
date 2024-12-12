@@ -63,24 +63,24 @@ $listProd = getRaw("SELECT * FROM products")
       <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
         <div class="navbar-nav mx-auto">
           <a href="?module=user&action=trangchu" class="nav-item nav-link">Trang chủ</a>
-          <a href="?module=user&action=shop" class="nav-item nav-link">Bán chạy</a>
-          <a href="?module=user&action=shop" class="nav-item nav-link">Giảm giá</a>
+          <a href="?module=user&action=shop&id=bestSelling" class="nav-item nav-link">Bán chạy</a>
+          <a href="?module=user&action=shop&id=discount" class="nav-item nav-link">Giảm giá</a>
           <div class="nav-item dropdown">
             <a
               href="#"
               class="nav-link dropdown-toggle"
               data-bs-toggle="dropdown">Sneaker</a>
             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-              <a href="?module=user&action=giayAdidas" class="dropdown-item">Giày Adidas</a>
-              <a href="?module=user&action=giayNike" class="dropdown-item">Giày Nike</a>
-              <a href="??module=user&action=giayPuma" class="dropdown-item">Giày Puma</a>
-              <a href="?module=user&action=giayLining" class="dropdown-item">Giày Lining</a>
-              <a href="?module=user&action=giayAnta" class="dropdown-item">Giày Anta</a>
+              <a href="?module=user&action=shop&id=giayAdidas" class="dropdown-item">Giày Adidas</a>
+              <a href="?module=user&action=shop&id=giayNike" class="dropdown-item">Giày Nike</a>
+              <a href="??module=user&action=shop&id=giayPuma" class="dropdown-item">Giày Puma</a>
+              <a href="?module=user&action=shop&id=giayLining" class="dropdown-item">Giày Lining</a>
+              <a href="?module=user&action=shop&id=giayAnta" class="dropdown-item">Giày Anta</a>
             </div>
           </div>
-          <a href="?module=user&action=quanao" class="nav-item nav-link">Quần áo</a>
-          <a href="?module=user&action=phukien" class="nav-item nav-link">Phụ kiện</a>
-          <a href="?module=user&action=sandal" class="nav-item nav-link">Sandal</a>
+          <a href="?module=user&action=shop&id=quanao" class="nav-item nav-link">Quần áo</a>
+          <a href="?module=user&action=shop&id=phukien" class="nav-item nav-link">Phụ kiện</a>
+          <a href="?module=user&action=shop&id=sandal" class="nav-item nav-link">Sandal</a>
         </div>
 
         <div class="d-flex m-3 me-0">
@@ -100,7 +100,7 @@ $listProd = getRaw("SELECT * FROM products")
               if (empty($user_id)) {
                 echo 0;
               } else {
-                echo getRows("SELECT * FROM order_item WHERE customer_id = " . $user_id);
+                echo getRows("SELECT * FROM cart WHERE user_id = " . $user_id);
               }
               ?>
             </span>
@@ -109,8 +109,8 @@ $listProd = getRaw("SELECT * FROM products")
           if (empty($user_id)):
           ?>
             <div class="d-flex flex-column gap-1 " style="width: 130px;">
-              <a type="button" class="btn btn-dark" href="?module=auth&action=login">Đăng nhập</a>
-              <a type="button" class="btn btn-dark" href="?module=auth&action=register">Đăng kí</a>
+              <a type="button" class="btn btn-dark btn-sm" href="?module=auth&action=login">Đăng nhập</a>
+              <a type="button" class="btn btn-dark btn-sm" href="?module=auth&action=register">Đăng kí</a>
             </div>
           <?php
           else:
@@ -376,12 +376,12 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isBestSelling = 1");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
-                    <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
+                    <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">
                       <div class="rounded position-relative my-item">
                         <div class="img-item">
                           <img
@@ -395,7 +395,7 @@ $listProd = getRaw("SELECT * FROM products")
                           <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['p_name'] ?></h4>
+                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
                           <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
@@ -444,7 +444,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isBestSelling = 1");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
                 ?>
@@ -463,7 +463,7 @@ $listProd = getRaw("SELECT * FROM products")
                           <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['p_name'] ?></h4>
+                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
                           <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
@@ -512,7 +512,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isBestSelling = 1");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
                 ?>
@@ -531,7 +531,7 @@ $listProd = getRaw("SELECT * FROM products")
                           <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['p_name'] ?></h4>
+                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
                           <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
@@ -580,7 +580,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isBestSelling = 1");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
                 ?>
@@ -599,7 +599,7 @@ $listProd = getRaw("SELECT * FROM products")
                           <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['p_name'] ?></h4>
+                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
                           <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
@@ -648,7 +648,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isBestSelling = 1");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
                 ?>
@@ -667,7 +667,7 @@ $listProd = getRaw("SELECT * FROM products")
                           <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['p_name'] ?></h4>
+                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
                           <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
@@ -721,54 +721,20 @@ $listProd = getRaw("SELECT * FROM products")
 <div class="container-fluid service py-5">
   <div class="container">
     <div class="row g-4 justify-content-center">
-      <div class="col-6 col-sm-4 col-md-3 col-lg-2 brand">
-        <a href="link_to_your_product_1" class="img-link">
-          <img
-            src="https://cdn.shopify.com/s/files/1/0456/5070/6581/files/LP_D10_SAU_E.png?v=1727839574&width=1400"
-            class="img-fluid"
-            alt="Brand Logo" />
-        </a>
-      </div>
-      <div class="col-6 col-sm-4 col-md-3 col-lg-2 brand">
-        <a href="link_to_your_product_2" class="img-link">
-          <img
-            src="https://cdn.shopify.com/s/files/1/0456/5070/6581/files/LP_D10_SAU_E.png?v=1727839574&width=1400"
-            class="img-fluid"
-            alt="Brand Logo" />
-        </a>
-      </div>
-      <div class="col-6 col-sm-4 col-md-3 col-lg-2 brand">
-        <a href="link_to_your_product_3" class="img-link">
-          <img
-            src="https://cdn.shopify.com/s/files/1/0456/5070/6581/files/LP_D10_SAU_E.png?v=1727839574&width=1400"
-            class="img-fluid"
-            alt="Brand Logo" />
-        </a>
-      </div>
-      <div class="col-6 col-sm-4 col-md-3 col-lg-2 brand">
-        <a href="link_to_your_product_4" class="img-link">
-          <img
-            src="https://cdn.shopify.com/s/files/1/0456/5070/6581/files/LP_D10_SAU_E.png?v=1727839574&width=1400"
-            class="img-fluid"
-            alt="Brand Logo" />
-        </a>
-      </div>
-      <div class="col-6 col-sm-4 col-md-3 col-lg-2 brand">
-        <a href="link_to_your_product_5" class="img-link">
-          <img
-            src="https://cdn.shopify.com/s/files/1/0456/5070/6581/files/LP_D10_SAU_E.png?v=1727839574&width=1400"
-            class="img-fluid"
-            alt="Brand Logo" />
-        </a>
-      </div>
-      <div class="col-6 col-sm-4 col-md-3 col-lg-2 brand">
-        <a href="link_to_your_product_6" class="img-link">
-          <img
-            src="https://cdn.shopify.com/s/files/1/0456/5070/6581/files/LP_D10_SAU_E.png?v=1727839574&width=1400"
-            class="img-fluid"
-            alt="Brand Logo" />
-        </a>
-      </div>
+      <?php
+      for ($i = 0; $i < 6; $i++):
+      ?>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 brand">
+          <a href="link_to_your_product_1" class="img-link">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0456/5070/6581/files/LP_D10_SAU_E.png?v=1727839574&width=1400"
+              class="img-fluid"
+              alt="Brand Logo" />
+          </a>
+        </div>
+      <?php
+      endfor;
+      ?>
     </div>
   </div>
 </div>
@@ -780,49 +746,51 @@ $listProd = getRaw("SELECT * FROM products")
     <h1 class="mb-0">Giảm giá</h1>
     <div class="owl-carousel vegetable-carousel justify-content-center text-center">
       <?php
-      $listD = getRaw("SELECT * FROM products INNER JOIN category ON products.category_id = category.category_id WHERE isDiscount = 1");
+      $listD = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE discount = 1");
       foreach ($listD as $key => $value):
         $imgD = oneRaw("SELECT * FROM product_image WHERE product_id = '" . $value['p_id'] . "'");
       ?>
         <div class="rounded position-relative giamgia-item">
-          <div class="img-item">
-            <img
-              src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $imgD['product_image'] ?>"
-              class="img-fluid w-100 rounded-top"
-              alt="" />
-          </div>
-          <div
-            class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-            style="top: 10px; left: 10px">
-            <?php echo $value['category_name'] ?>
-          </div>
-          <div class="p-4 border-top-0 rounded-bottom">
-            <h4><?php echo $value['p_name'] ?></h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmod te incididunt
-            </p>
-            <p>
-              <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
-            </p>
-            <div class="d-flex justify-content-between flex-lg-wrap">
-              <a
-                href="#"
-                class="btn border border-secondary rounded-circle p-auto me-2"
-                style="
+          <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">
+            <div class="img-item">
+              <img
+                src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $imgD['product_image'] ?>"
+                class="img-fluid w-100 rounded-top"
+                alt="" />
+            </div>
+            <div
+              class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+              style="top: 10px; left: 10px">
+              <?php echo $value['category_name'] ?>
+            </div>
+            <div class="p-4 border-top-0 rounded-bottom">
+              <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+                eiusmod te incididunt
+              </p>
+              <p>
+                <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
+              </p>
+              <div class="d-flex justify-content-between flex-lg-wrap">
+                <a
+                  href="#"
+                  class="btn border border-secondary rounded-circle p-auto me-2"
+                  style="
                     background-color: rgb(255, 255, 255);
                     color: white;
                     width: 40px;
                     height: 40px;
                   ">
-                <i class="fa fa-heart"></i>
-                <!-- Icon trái tim -->
-              </a>
-              <a
-                href="#"
-                class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
+                  <i class="fa fa-heart"></i>
+                  <!-- Icon trái tim -->
+                </a>
+                <a
+                  href="#"
+                  class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       <?php
       endforeach;
@@ -881,9 +849,7 @@ $listProd = getRaw("SELECT * FROM products")
           <div class="counter bg-white rounded p-5">
             <i class="fa fa-users"></i>
             <h4>Khách hàng hài lòng</h4>
-            <h1 style="
-                      font-family: 'Open Sans', sans-serif
-                    ">1963</h1>
+            <h1 style="font-family: 'Open Sans', sans-serif">1963</h1>
           </div>
         </div>
         <div class="col-md-6 col-lg-6 col-xl-3">

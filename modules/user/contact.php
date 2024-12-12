@@ -10,7 +10,7 @@ $title = [
 layouts('header', $title);
 
 // Kiểm tra trạng thái đăng nhập
-
+$user_id = getUserIdByToken();
 if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
@@ -25,52 +25,107 @@ if (!isLogin()) {
 
 <!-- Navbar start -->
 <div class="container-fluid fixed-top">
-    <div class="container topbar bg-primary d-none d-lg-block">
+    <div
+        class="container topbar d-none d-lg-block mb-3"
+        style="background-color: #4856dd">
         <div class="d-flex justify-content-between">
             <div class="top-info ps-2">
-                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small>
-                <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
+                <a href="#" class="text-white"><small class="text-white mx-2">Về chúng tôi</small>/</a>
+                <a href="#" class="text-white"><small class="text-white mx-2">Liên hệ</small>/</a>
+                <a href="#" class="text-white"><small class="text-white ms-2">Trở thành đối tác </small>/</a>
+                <a href="#" class="text-white"><small class="text-white ms-2">Chương trình</small></a>
             </div>
             <div class="top-link pe-2">
-                <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-                <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                <a href="#" class="text-white"><small class="text-white mx-2">Hỗ trợ</small>/</a>
+                <a href="#" class="text-white"><small class="text-white ms-2">Thông báo</small></a>
             </div>
         </div>
     </div>
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" class="navbar-brand">
-                <h1 class="text-primary display-6">Fruitables</h1>
+            <a href="?module=user&action=trangchu" class="navbar-brand">
+                <h1 class="display-6" style="color: #4856dd">3H1A Store</h1>
             </a>
-            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars text-primary"></span>
+            <button
+                class="navbar-toggler py-2 px-3"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars" style="color: #4856dd"></span>
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
-                    <a href="shop.html" class="nav-item nav-link">Shop</a>
-                    <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+                    <a href="?module=user&action=trangchu" class="nav-item nav-link">Trang chủ</a>
+                    <a href="?module=user&action=shop&id=bestSelling" class="nav-item nav-link">Bán chạy</a>
+                    <a href="?module=user&action=shop&id=discount" class="nav-item nav-link">Giảm giá</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <a
+                            href="#"
+                            class="nav-link dropdown-toggle"
+                            data-bs-toggle="dropdown">Sneaker</a>
                         <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                            <a href="cart.html" class="dropdown-item">Cart</a>
-                            <a href="chackout.html" class="dropdown-item">Chackout</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
+                            <a href="?module=user&action=shop&id=giayAdidas" class="dropdown-item">Giày Adidas</a>
+                            <a href="?module=user&action=shop&id=giayNike" class="dropdown-item">Giày Nike</a>
+                            <a href="??module=user&action=shop&id=giayPuma" class="dropdown-item">Giày Puma</a>
+                            <a href="?module=user&action=shop&id=giayLining" class="dropdown-item">Giày Lining</a>
+                            <a href="?module=user&action=shop&id=giayAnta" class="dropdown-item">Giày Anta</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                    <a href="?module=user&action=shop&id=quanao" class="nav-item nav-link">Quần áo</a>
+                    <a href="?module=user&action=shop&id=phukien" class="nav-item nav-link">Phụ kiện</a>
+                    <a href="?module=user&action=shop&id=sandal" class="nav-item nav-link">Sandal</a>
                 </div>
+
                 <div class="d-flex m-3 me-0">
-                    <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
-                    <a href="#" class="position-relative me-4 my-auto">
-                        <i class="fa fa-shopping-bag fa-2x"></i>
-                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                    <button
+                        class="btn-search btn border border-secondary rounded-circle bg-white me-4 my-auto"
+                        data-bs-toggle="modal"
+                        data-bs-target="#searchModal"
+                        style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
+                    </button>
+                    <a href="?module=user&action=cart&id=<?php echo $user_id ?>" class="position-relative me-4 my-auto">
+                        <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
+                        <span
+                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
+                            <?php
+                            if (empty($user_id)) {
+                                echo 0;
+                            } else {
+                                echo getRows("SELECT * FROM order_item WHERE customer_id = " . $user_id);
+                            }
+                            ?>
+                        </span>
                     </a>
-                    <a href="#" class="my-auto">
-                        <i class="fas fa-user fa-2x"></i>
-                    </a>
+                    <?php
+                    if (empty($user_id)):
+                    ?>
+                        <div class="d-flex flex-column gap-1 " style="width: 130px;">
+                            <a type="button" class="btn btn-dark" href="?module=auth&action=login">Đăng nhập</a>
+                            <a type="button" class="btn btn-dark" href="?module=auth&action=register">Đăng kí</a>
+                        </div>
+                    <?php
+                    else:
+                    ?>
+                        <div class="dropdown">
+                            <a
+                                href="#"
+                                class="my-auto"
+                                id="dropdownMenuButton"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                                <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                                <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    <?php
+                    endif
+                    ?>
                 </div>
             </div>
         </nav>
@@ -78,18 +133,29 @@ if (!isLogin()) {
 </div>
 <!-- Navbar End -->
 
-
 <!-- Modal Search Start -->
-<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade"
+    id="searchModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content rounded-0">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">Tìm kiếm</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex align-items-center">
                 <div class="input-group w-75 mx-auto d-flex">
-                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                    <input
+                        type="search"
+                        class="form-control p-3"
+                        placeholder="Nhập tại đây"
+                        aria-describedby="search-icon-1" />
                     <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                 </div>
             </div>

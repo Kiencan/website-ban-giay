@@ -58,7 +58,7 @@ if (isPost()) {
         $targetFilePath = $targetDir . basename($image);
 
         $dataInsert['product_image'] = basename($image);
-        $dataInsert['product_id'] = $p_id;
+        $dataInsert['p_id'] = $p_id;
 
         $insertStatus = insert('product_image', $dataInsert);
         if ($insertStatus) {
@@ -136,6 +136,9 @@ $old = getFlashData('old');
                 <a
                     href="?module=admin&action=category_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-chart-line me-2"></i>Quản lý danh mục</a>
+                <a
+                    href="?module=admin&action=collection_management"
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
                 <a
                     href="?module=admin&action=product_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý hình ảnh sản phẩm</a>

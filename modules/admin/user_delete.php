@@ -9,11 +9,11 @@ $filterAll = filter();
 
 if (!empty($filterAll['id'])) {
     $userId = $filterAll['id'];
-    $userDetail = oneRaw("SELECT * FROM customer WHERE id = $userId");
+    $userDetail = oneRaw("SELECT * FROM user WHERE user_id = $userId");
     if ($userDetail > 0) {
         $deleteToken = delete('token_login', "user_id = '$userId'");
         if ($deleteToken) {
-            $deleteUser = delete('customer', "id = '$userId'");
+            $deleteUser = delete('user', "user_id = '$userId'");
             if ($deleteUser) {
                 setFlashData('smg', 'Xóa người dùng thành công');
                 setFlashData('smg_types', 'success');
