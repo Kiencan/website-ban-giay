@@ -45,7 +45,7 @@ if (isPost()) {
     if (empty($filterAll['p_description'])) {
         $errors['p_description']['required'] = 'Vui lòng nhập mô tả sản phẩm';
     } else {
-        if (strlen($filterAll['category_title']) > 200) {
+        if (strlen($filterAll['p_description']) > 200) {
             $errors['p_description']['max'] = 'Vui lòng nhập không quá 200 ký tự!';
         }
     }
@@ -82,7 +82,7 @@ if (isPost()) {
             'size_available' => $filterAll['size_available'],
             'size_not_available' => $filterAll['size_not_available'],
             'isBestSelling' => $filterAll['isBestSelling'],
-            'isDiscount' => $filterAll['isDiscount'],
+            'discount' => $filterAll['discount'],
         ];
 
         $updateStatus = update('products', $productUpdate, "p_id = '$p_id'");
