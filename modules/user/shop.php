@@ -233,50 +233,6 @@ $user_id = getUserIdByToken();
             <div class="row g-4">
               <div class="col-lg-12">
                 <div class="mb-3">
-                  <h4>Collection</h4>
-                  <ul class="list-unstyled item-categorie">
-                    <li>
-                      <div class="d-flex justify-content-between item-name">
-                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Giày 1</a>
-                        <span>(3)</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex justify-content-between item-name">
-                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Giày 1</a>
-                        <span>(5)</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex justify-content-between item-name">
-                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Giày 1</a>
-                        <span>(2)</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex justify-content-between item-name">
-                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Giày 1</a>
-                        <span>(8)</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex justify-content-between item-name">
-                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Giày 1</a>
-                        <span>(5)</span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="mb-3">
-                  <h4 class="mb-2">Giá</h4>
-                  <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                  <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="mb-3">
                   <h4>Additional</h4>
                   <div class="mb-2">
                     <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
@@ -300,6 +256,14 @@ $user_id = getUserIdByToken();
                   </div>
                 </div>
               </div>
+              <div class="col-lg-12">
+                <div class="mb-3">
+                  <h4 class="mb-2">Giá</h4>
+                  <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
+                  <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+                </div>
+              </div>
+
               <div class="col-lg-12">
                 <h4 class="mb-3">Featured products</h4>
                 <div class="d-flex align-items-center justify-content-start">
