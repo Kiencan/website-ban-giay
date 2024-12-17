@@ -157,14 +157,20 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
                     data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
-            <div class="modal-body d-flex align-items-center">
-                <div class="input-group w-75 mx-auto d-flex">
+            <div class="modal-body align-items-center">
+                <div class="input-group w-75 mx-auto" id="form-search">
                     <input
                         type="search"
                         class="form-control p-3"
                         placeholder="Nhập tại đây"
-                        aria-describedby="search-icon-1" />
-                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                        aria-describedby="search-icon-1"
+                        id="search" />
+                    <span id="search-icon-1" class="input-group-text p-3">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+                <div class="live-search-result">
+                    <ul class="search-result" id="search-results"></ul>
                 </div>
             </div>
         </div>

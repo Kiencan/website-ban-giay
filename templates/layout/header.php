@@ -4,11 +4,11 @@ if (!defined('_CODE')) {
 }
 
 ?>
- 
-<!DOCTYPE html> 
+
+<!DOCTYPE html>
 <html lang="vi">
 
-<head> 
+<head>
   <meta charset="utf-8" />
   <title><?php echo !empty($title['pageTitle']) ? $title['pageTitle'] : '3H1A Store'; ?></title>
   <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_TEMPLATE ?>/image/favicon-96x96.png" sizes="96x96">
@@ -39,6 +39,7 @@ if (!defined('_CODE')) {
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/bootstrap.min.css" rel="stylesheet" />
 
   <!-- Template Stylesheet -->
+  <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/search.css" rel="stylesheet" />
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/style.css" rel="stylesheet" />
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/header.css" rel="stylesheet" />
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/shop-detail.css" rel="stylesheet" />

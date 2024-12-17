@@ -16,7 +16,7 @@ layouts('header', $title);
 // }
 $user_id = getUserIdByToken();
 $filterAll = filter();
-$product = oneRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE p_id = '" . $filterAll['p_id'] . "'");
+$product = oneRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE p_id = '" . $filterAll['p_id'] . "'");
 $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_id'] . "'");
 
 
@@ -159,14 +159,20 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
           data-bs-dismiss="modal"
           aria-label="Close"></button>
       </div>
-      <div class="modal-body d-flex align-items-center">
-        <div class="input-group w-75 mx-auto d-flex">
+      <div class="modal-body align-items-center">
+        <div class="input-group w-75 mx-auto" id="form-search">
           <input
             type="search"
             class="form-control p-3"
             placeholder="Nhập tại đây"
-            aria-describedby="search-icon-1" />
-          <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+            aria-describedby="search-icon-1"
+            id="search" />
+          <span id="search-icon-1" class="input-group-text p-3">
+            <i class="fa fa-search"></i>
+          </span>
+        </div>
+        <div class="live-search-result">
+          <ul class="search-result" id="search-results"></ul>
         </div>
       </div>
     </div>
@@ -314,11 +320,20 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
               <?php endif; ?>
             </h5>
             <div class="d-flex mb-4">
-              <i class="fa fa-star text-secondary"></i>
-              <i class="fa fa-star text-secondary"></i>
-              <i class="fa fa-star text-secondary"></i>
-              <i class="fa fa-star text-secondary"></i>
-              <i class="fa fa-star"></i>
+              <?php
+
+              $full_stars = floor($product['p_rate']);
+
+              $empty_stars = 5 - $full_stars;
+
+              for ($i = 0; $i < $full_stars; $i++) {
+                echo '<i class="fa fa-star text-secondary"></i>';
+              }
+              // Hiển thị sao trống
+              for ($i = 0; $i < $empty_stars; $i++) {
+                echo '<i class="fa fa-star"></i>';
+              }
+              ?>
             </div>
             <!-- <p class="mb-4">
                   The generated Lorem Ipsum is therefore always free from
@@ -329,7 +344,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
               <span class="select-color mt-3">Màu sắc</span>
               <div class="container-product d-flex justify-content-start">
                 <?php
-                $listColor = getRaw("SELECT p_id, p_color FROM products WHERE collection_id = " . $product["collection_id"]);
+                $listColor = getRaw("SELECT p_id, p_color FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id WHERE collection_id = " . $product["collection_id"]);
                 foreach ($listColor as $color):
                   $image = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $color["p_id"] . "'");
 

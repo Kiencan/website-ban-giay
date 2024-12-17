@@ -156,14 +156,20 @@ $listProd = getRaw("SELECT * FROM products")
           data-bs-dismiss="modal"
           aria-label="Close"></button>
       </div>
-      <div class="modal-body d-flex align-items-center">
-        <div class="input-group w-75 mx-auto d-flex">
+      <div class="modal-body align-items-center">
+        <div class="input-group w-75 mx-auto" id="form-search">
           <input
             type="search"
             class="form-control p-3"
             placeholder="Nhập tại đây"
-            aria-describedby="search-icon-1" />
-          <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+            aria-describedby="search-icon-1"
+            id="search" />
+          <span id="search-icon-1" class="input-group-text p-3">
+            <i class="fa fa-search"></i>
+          </span>
+        </div>
+        <div class="live-search-result">
+          <ul class="search-result" id="search-results"></ul>
         </div>
       </div>
     </div>
@@ -376,7 +382,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
@@ -444,7 +450,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
@@ -512,7 +518,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
@@ -580,7 +586,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
@@ -648,7 +654,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
@@ -746,7 +752,7 @@ $listProd = getRaw("SELECT * FROM products")
     <h1 class="mb-0">Giảm giá</h1>
     <div class="owl-carousel vegetable-carousel justify-content-center text-center">
       <?php
-      $listD = getRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE discount = 1");
+      $listD = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE discount = 1");
       foreach ($listD as $key => $value):
         $imgD = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
       ?>
