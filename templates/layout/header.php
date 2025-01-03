@@ -43,6 +43,22 @@ if (!defined('_CODE')) {
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/style.css" rel="stylesheet" />
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/header.css" rel="stylesheet" />
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/shop-detail.css" rel="stylesheet" />
+  <style>
+    .form-check {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .form-check-input:disabled+.form-check-label {
+      color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .form-check-input:checked+.form-check-label {
+      font-weight: bold;
+      color: #007bff;
+    }
+  </style>
 </head>
 
 <body>

@@ -91,9 +91,10 @@ $listProd = getRaw("SELECT * FROM products")
             style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
             <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
           </button>
-          <a href="?module=user&action=cart&id=<?php echo $user_id ?>" class="position-relative me-4 my-auto">
+          <a href="?module=user&action=cart" class="position-relative me-4 my-auto">
             <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
             <span
+              id="cart-count"
               class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
               <?php
@@ -422,11 +423,24 @@ $listProd = getRaw("SELECT * FROM products")
                               <i class="fa fa-heart"></i>
                               <!-- Icon trái tim -->
                             </a>
-
-                            <a
-                              href="#"
-                              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào
-                              giỏ hàng</a>
+                            <?php
+                            if (!empty($user_id)):
+                            ?>
+                              <form action="" method="POST" class="form-submit">
+                                <input type="hidden" class="p_id" value="<?php echo $value['p_id'] ?>">
+                                <input type="hidden" class="user_id" value="<?php echo $user_id ?>">
+                                <input type="hidden" class="p_price_min" value="<?php echo $value['p_price_min'] ?>">
+                                <button type="button" class="btn border border-secondary rounded-pill px-3 addItemBtn">
+                                  <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                                </button>
+                              </form>
+                            <?php
+                            else:
+                            ?>
+                              <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
+                                <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                              </a>
+                            <?php endif; ?>
                           </div>
                         </div>
                       </div>
@@ -491,10 +505,21 @@ $listProd = getRaw("SELECT * FROM products")
                               <!-- Icon trái tim -->
                             </a>
 
-                            <a
-                              href="#"
-                              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào
-                              giỏ hàng</a>
+                            <?php
+                            if (!empty($user_id)):
+                            ?>
+                              <form action="" method="POST" class="form-submit">
+                                <input type="hidden" class="p_id" value="<?php echo $value['p_id'] ?>">
+                                <input type="hidden" class="user_id" value="<?php echo $user_id ?>">
+                                <button type="button" class="btn border border-secondary rounded-pill px-3 addItemBtn">
+                                  <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                                </button>
+                              </form>
+                            <?php else: ?>
+                              <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
+                                <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                              </a>
+                            <?php endif; ?>
                           </div>
                         </div>
                       </div>
@@ -559,10 +584,21 @@ $listProd = getRaw("SELECT * FROM products")
                               <!-- Icon trái tim -->
                             </a>
 
-                            <a
-                              href="#"
-                              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào
-                              giỏ hàng</a>
+                            <?php
+                            if (!empty($user_id)):
+                            ?>
+                              <form action="" method="POST" class="form-submit">
+                                <input type="hidden" class="p_id" value="<?php echo $value['p_id'] ?>">
+                                <input type="hidden" class="user_id" value="<?php echo $user_id ?>">
+                                <button type="button" class="btn border border-secondary rounded-pill px-3 addItemBtn">
+                                  <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                                </button>
+                              </form>
+                            <?php else: ?>
+                              <a href=href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
+                                <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                              </a>
+                            <?php endif; ?>
                           </div>
                         </div>
                       </div>
@@ -627,10 +663,22 @@ $listProd = getRaw("SELECT * FROM products")
                               <!-- Icon trái tim -->
                             </a>
 
-                            <a
-                              href="#"
-                              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào
-                              giỏ hàng</a>
+                            <?php
+                            if (!empty($user_id)):
+                            ?>
+                              <form action="" method="POST" class="form-submit">
+                                <input type="hidden" class="p_id" value="<?php echo $value['p_id'] ?>">
+                                <input type="hidden" class="user_id" value="<?php echo $user_id ?>">
+
+                                <button type="button" class="btn border border-secondary rounded-pill px-3 addItemBtn">
+                                  <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                                </button>
+                              </form>
+                            <?php else: ?>
+                              <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
+                                <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                              </a>
+                            <?php endif; ?>
                           </div>
                         </div>
                       </div>
@@ -791,9 +839,22 @@ $listProd = getRaw("SELECT * FROM products")
                   <i class="fa fa-heart"></i>
                   <!-- Icon trái tim -->
                 </a>
-                <a
-                  href="#"
-                  class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
+
+                <?php
+                if (!empty($user_id)):
+                ?>
+                  <form action="" method="POST" class="form-submit">
+                    <input type="hidden" class="p_id" value="<?php echo $value['p_id'] ?>">
+                    <input type="hidden" class="user_id" value="<?php echo $user_id ?>">
+                    <button type="button" class="btn border border-secondary rounded-pill px-3 addItemBtn">
+                      <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                    </button>
+                  </form>
+                <?php else: ?>
+                  <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
+                    <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                  </a>
+                <?php endif; ?>
               </div>
             </div>
           </a>
@@ -1140,6 +1201,7 @@ $listProd = getRaw("SELECT * FROM products")
     </div>
   </div>
 </div>
+<!-- Side-right container -->
 
 <!-- Copyright Start -->
 <div class="container-fluid copyright bg-dark py-4">

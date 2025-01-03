@@ -3,24 +3,41 @@ if (!defined('_CODE')) {
     die('Access denied');
 }
 
-$filterAll = filter();
+// $filterAll = filter();
 
-if (!empty($filterAll['order_id'])) {
-    $orderId = $filterAll['order_id'];
-    $ordertDetail = oneRaw("SELECT * FROM order_item WHERE order_id = $orderId");
-    if (!empty($ordertDetail)) {
-        $deleteOrder = delete('order_item', "order_id = '$orderId'");
-        if ($deleteOrder) {
-            setFlashData('smg', 'Xóa đơn hàng thành công');
-            setFlashData('smg_types', 'success');
+// if (!empty($filterAll['cart_id'])) {
+//     $cartId = $filterAll['cart_id'];
+//     $carttDetail = oneRaw("SELECT * FROM cart WHERE cart_id = $cartId");
+//     if (!empty($carttDetail)) {
+//         $deleteOrder = delete('cart', "cart_id = '$cartId'");
+//         if ($deleteOrder) {
+//             echo 'success';
+//         } else {
+//             echo 'error';
+//         }
+//     }
+// } else {
+//     echo 'error';
+// }
+
+// redirect('?module=user&action=cart&id=' . $filterAll["id"]);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $cart_id = $_POST['cart_id'] ?? null;
+    $user_id = $_POST['user_id'] ?? null;
+
+    if ($cart_id && $user_id) {
+        // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+        $result = delete('cart', "cart_id = '$cart_id'");
+
+        if ($result) {
+            echo json_encode(['status' => 'success', 'message' => 'Xóa sản phẩm thành công.']);
         } else {
-            setFlashData('smg', 'Lỗi hệ thống');
-            setFlashData('smg_types', 'danger');
+            echo json_encode(['status' => 'error', 'message' => 'Không thể xóa sản phẩm khỏi giỏ hàng.']);
         }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Dữ liệu không hợp lệ.']);
     }
 } else {
-    setFlashData('smg', 'Liên kết không tồn tại');
-    setFlashData('smg_types', 'danger');
+    echo json_encode(['status' => 'error', 'message' => 'Phương thức không được hỗ trợ.']);
 }
-
-redirect('?module=user&action=cart&id=' . $filterAll["id"]);

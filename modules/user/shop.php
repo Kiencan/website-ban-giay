@@ -114,6 +114,7 @@ $user_id = getUserIdByToken();
           <a href="?module=user&action=cart&id=<?php echo $user_id ?>" class="position-relative me-4 my-auto">
             <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
             <span
+              id="cart-count"
               class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
               <?php
@@ -348,19 +349,26 @@ $user_id = getUserIdByToken();
               <div class="row g-4 justify-content-center">
                 <?php
                 $totalShoes = 54;
-                $numberShoes = 9;
-                $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-                $totalPages = ceil($totalShoes / $numberShoes);
-                for ($i = 1; $i < $numberShoes; $i++):
+                $limit = 9;
+                $total_links = ceil($totalShoes / $limit);
+
+                $page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
+
+                // Ensure page does not exceed total pages
+                $page = max(1, min($page, $total_links));
+                $start = ($page - 1) * $limit;
+
+                // Display items logic
+                for ($i = 1; $i <= $limit; $i++) :
                 ?>
                   <div class="col-md-6 col-lg-6 col-xl-4">
                     <div class="rounded position-relative my-item">
                       <div class="img-item">
                         <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
                       </div>
-                      <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Giày Adidas</div>
+                      <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;"><?php echo $category['category_name'] ?></div>
                       <div class="p-4 border-top-0 rounded-bottom">
-                        <h4>Giày Adidas Duramo</h4>
+                        <h4>Giày Adidas Duramo <?php echo $i + $start; ?></h4>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
                           <p>
@@ -371,26 +379,73 @@ $user_id = getUserIdByToken();
                             <a href="#" class="btn border border-secondary rounded-circle p-auto me-2" style="background-color: rgb(255, 255, 255); color: #4856dd; width: 40px; height: 40px;">
                               <i class="fa fa-heart"></i>
                             </a>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
+                              <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                            </a>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                <?php endfor; ?>
-                <div class="col-12">
-                  <div class="pagination d-flex justify-content-center mt-5">
-                    <a href="?module=user&action=shop&id=<?php echo $id ?>&page=<?php echo max(1, $currentPage - 1); ?>" class="btn rounded <?php echo ($currentPage == 1) ? 'disabled' : ''; ?>">&laquo;</a>
-                    <?php
-                    for ($i = 1; $i <= $totalPages; $i++):
-                    ?>
-                      <a href="?module=user&action=shop&id=<?php echo $id ?>&page=<?php echo $i ?>" class="btn rounded <?php echo $i == $currentPage ? 'active' : '' ?>"><?php echo $i ?></a>
-                    <?php
-                    endfor;
-                    ?>
-                    <a href="?module=user&action=shop&id=<?php echo $id ?>&page=<?php echo min($totalPages, $currentPage + 1); ?>" class="btn rounded <?php echo ($currentPage == $totalPages) ? 'disabled' : ''; ?>">&raquo;</a>
-                  </div>
-                </div>
+                <?php
+                endfor;
+                // Pagination logic
+                $output = '<div class="col-12"><div class="pagination d-flex justify-content-center mt-5">';
+                $previous_link = '';
+                $next_link = '';
+                $page_link = [];
+                $page_array = [];
+
+                if ($total_links > 7) {
+                  if ($page < 7) {
+                    $page_array = range(1, min(5, $total_links));
+                    if ($total_links > 5) $page_array[] = '...';
+                    if ($total_links > 5) $page_array[] = $total_links;
+                  } else {
+                    if ($page <= $total_links - 4) {
+                      $page_array = [1, '...'];
+                      $page_array = array_merge($page_array, range($page - 1, $page + 1));
+                      $page_array[] = '...';
+                      $page_array[] = $total_links;
+                    } else {
+                      $page_array = [1, '...'];
+                      $page_array = array_merge($page_array, range($total_links - 4, $total_links));
+                    }
+                  }
+                } else {
+                  $page_array = range(1, $total_links);
+                }
+
+                foreach ($page_array as $page_num) {
+                  if ($page_num === '...') {
+                    $page_link[] = '<a href="#" class="btn rounded disabled">...</a>';
+                  } elseif ($page_num == $page) {
+                    $page_link[] = '<a href="" class="btn rounded active">' . $page_num . '</a>';
+                  } else {
+                    $page_link[] = '<a href="?module=user&action=shop&id=' . $id . '&page=' . $page_num . '" class="btn rounded">' . $page_num . '</a>';
+                  }
+                }
+
+                // Previous link
+                if ($page > 1) {
+                  $previous_link = '<a href="?module=user&action=shop&id=' . $id . '&page=' . ($page - 1) . '" class="btn rounded">&laquo;</a>';
+                } else {
+                  $previous_link = '<a href="#" class="btn rounded disabled">&laquo;</a>';
+                }
+
+                // Next link
+                if ($page < $total_links) {
+                  $next_link = '<a href="?module=user&action=shop&id=' . $id . '&page=' . ($page + 1) . '" class="btn rounded">&raquo;</a>';
+                } else {
+                  $next_link = '<a href="#" class="btn rounded disabled">&raquo;</a>';
+                }
+
+                $output .= $previous_link . implode('', $page_link) . $next_link;
+                $output .= '</div></div>';
+
+                echo $output;
+                ?>
+
               </div>
             </div>
           </div>

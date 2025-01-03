@@ -97,6 +97,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
           <a href="?module=user&action=cart&id=<?php echo $user_id ?>" class="position-relative me-4 my-auto">
             <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
             <span
+              id="cart-count"
               class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
               <?php
@@ -335,11 +336,6 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
               }
               ?>
             </div>
-            <!-- <p class="mb-4">
-                  The generated Lorem Ipsum is therefore always free from
-                  repetition injected humour, or non-characteristic words etc.
-                </p> -->
-
             <div class="type-giay">
               <span class="select-color mt-3">Màu sắc</span>
               <div class="container-product d-flex justify-content-start">
@@ -378,22 +374,44 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
                   endif;
                   if (in_array($size[$i], $sizeNotAvailable)):
                 ?>
-                    <button type="button" class="size" value="<?php echo $size[$i] ?>" disabled><?php echo $size[$i] ?></button>
+                    <div class="form-check me-3">
+                      <input
+                        type="radio"
+                        id="size-<?php echo $size[$i] ?>"
+                        name="size"
+                        value="<?php echo $size[$i] ?>"
+                        disabled
+                        class="form-check-input">
+                      <label
+                        for="size-<?php echo $size[$i] ?>"
+                        class="form-check-label text-muted">
+                        <?php echo $size[$i] ?>
+                      </label>
+                    </div>
                   <?php
                   else:
                   ?>
-                    <button type="button" class="size" value="<?php echo $size[$i] ?>"><?php echo $size[$i] ?></button>
+                    <div class="form-check me-3">
+                      <input
+                        type="radio"
+                        id="size-<?php echo $size[$i] ?>"
+                        name="size"
+                        value="<?php echo $size[$i] ?>"
+                        class="form-check-input">
+                      <label
+                        for="size-<?php echo $size[$i] ?>"
+                        class="form-check-label">
+                        <?php echo $size[$i] ?>
+                      </label>
+                    </div>
                 <?php
                   endif;
                 endfor;
                 ?>
-
               </div>
               <span class="select-quantity pt-3 mt-3">Số lượng</span>
             </div>
-
-            <div
-              class="input-group quantity mb-3 mt-3"
+            <div class="input-group quantity mb-3 mt-3"
               style="width: 100px">
               <div class="input-group-btn">
                 <button
@@ -402,8 +420,8 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
                 </button>
               </div>
               <input
-                type="number"
-                class="form-control form-control-sm text-center border-0"
+                type="text"
+                class="form-control form-control-sm text-center border-0 itemQty"
                 value="1" />
               <div class="input-group-btn">
                 <button
@@ -412,15 +430,33 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
                 </button>
               </div>
             </div>
-            <a
-              href="#"
-              class="btn border border-secondary rounded-pill px-4 py-2 mb-4"
-              style="color: #4856dd"><i class="fa fa-shopping-bag me-2" style="color: #4856dd"></i> Thêm vào giỏ hàng</a>
-            <a
-              href="#"
-              class="btn border border-secondary rounded-pill px-4 py-2 mb-4"
-              style="color: #4856dd"><i class="fa fa-phone me-2" style="color: #4856dd"></i>Tư vấn:
-              0383083743</a>
+            <div class="d-flex gap-3">
+              <?php
+              if (!empty($user_id)):
+              ?>
+                <form action="" method="POST" class="form-submit">
+                  <input type="hidden" class="p_id" value="<?php echo $product['p_id'] ?>">
+                  <input type="hidden" class="user_id" value="<?php echo $user_id ?>">
+                  <input type="hidden" class="p_price_min" value="<?php echo $product['p_price_min'] ?>">
+                  <input type="hidden" class="quantity" value="1">
+
+                  <button type="button" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 addItemBtn" style="color: #4856dd">
+                    <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                  </button>
+                </form>
+              <?php else: ?>
+                <a href="?module=user&action=login"
+                  class="btn border border-secondary rounded-pill px-4 py-2 mb-4"
+                  style="color: #4856dd">
+                  <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                </a>
+              <?php endif; ?>
+              <a
+                href="#"
+                class="btn border border-secondary rounded-pill px-4 py-2 mb-4"
+                style="color: #4856dd"><i class="fa fa-phone me-2" style="color: #4856dd"></i>Tư vấn:
+                0383083743</a>
+            </div>
           </div>
           <div class="col-lg-12">
             <nav>
@@ -456,15 +492,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
                 role="tabpanel"
                 aria-labelledby="nav-about-tab">
                 <p>
-                  The generated Lorem Ipsum is therefore always free from
-                  repetition injected humour, or non-characteristic words
-                  etc. Susp endisse ultricies nisi vel quam suscipit
-                </p>
-                <p>
-                  Sabertooth peacock flounder; chain pickerel hatchetfish,
-                  pencilfish snailfish filefish Antarctic icefish goldeye
-                  aholehole trumpetfish pilot fish airbreathing catfish,
-                  electric ray sweeper.
+                  <?php echo $product['p_description'] ?>
                 </p>
                 <div class="px-2">
                   <div class="row g-4">
@@ -525,7 +553,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
                 aria-labelledby="nav-mission-tab">
                 <div class="d-flex">
                   <img
-                    src="img/avatar.jpg"
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/avatar.jpg"
                     class="img-fluid rounded-circle p-3"
                     style="width: 100px; height: 100px"
                     alt="" />
@@ -553,7 +581,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
                 </div>
                 <div class="d-flex">
                   <img
-                    src="img/avatar.jpg"
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/avatar.jpg"
                     class="img-fluid rounded-circle p-3"
                     style="width: 100px; height: 100px"
                     alt="" />

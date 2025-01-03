@@ -4,7 +4,7 @@ if (!defined('_CODE')) {
 }
 
 $title = [
-    'pageTitle' => 'Trang shop'
+    'pageTitle' => 'Trang giỏ hàng'
 ];
 
 layouts('header', $title);
@@ -15,9 +15,8 @@ if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
 $user_id = getUserIdByToken();
-$filterAll = filter();
-$user_id = $filterAll['id'];
-$listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id WHERE user_id = '$user_id'");
+
+$listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id WHERE user_id = '$user_id'");
 
 // echo '<pre>';
 // print_r($listOrder);
@@ -95,6 +94,7 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
                     <a href="?module=user&action=cart&id=<?php echo $user_id ?>" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
                         <span
+                            id="cart-count"
                             class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                             style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
                             <?php
@@ -182,7 +182,11 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
     <h1 class="text-center text-white display-6">Giỏ hàng</h1>
-
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+        <li class="breadcrumb-item active text-white">Giỏ hàng</li>
+    </ol>
 </div>
 <!-- Single Page Header End -->
 
@@ -196,6 +200,7 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
                     <tr>
                         <th scope="col">Sản phẩm</th>
                         <th scope="col">Tên</th>
+                        <th scope="col">Size</th>
                         <th scope="col">Giá</th>
                         <th scope="col">Số lượng</th>
                         <th scope="col">Tổng tiền</th>
@@ -206,22 +211,32 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
                     <?php
                     if (!empty($listOrder)):
                         $count = 0;
+                        $total = 0;
                         foreach ($listOrder as $item):
                             $count++;
-                            $productImage = oneRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id WHERE user_id = '$user_id'");
+                            $productImage = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $item["p_id"] . "'");
+                            $total += ($item['p_price_min'] + $item['p_price_max']) / 2 * $item["p_quantity"] * (100 - $item['discount']) / 100;
                     ?>
                             <tr>
                                 <th scope="row">
                                     <div class="d-flex align-items-center">
-                                        <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $productImage["product_image"]; ?> " class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+                                        <a href="?module=user&action=shop-detail&p_id=<?php echo $item["p_id"]; ?>">
+                                            <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $productImage["product_image"]; ?> " class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+                                        </a>
                                     </div>
                                 </th>
                                 <td>
-                                    <p class="mb-0 mt-4"><?php echo $item["p_name"]; ?></p>
+                                    <p class="mb-0 mt-4"><?php echo $item["p_name"] . " " . $item["p_color"]; ?></p>
                                 </td>
                                 <td>
-                                    <p class="mb-0 mt-4"><?php echo $item["product_price"] . " VNĐ"; ?></p>
+                                    <p class="mb-0 mt-4"><?php echo is_int((float)$item['p_size']) ? (int)$item['p_size'] : (float)$item['p_size']; ?></p>
                                 </td>
+                                <td>
+                                    <p class="mb-0 mt-4"><?php echo number_format($item['p_price_min'] * (100 - $item['discount']) / 100, 0, ',', '.') . " - " . number_format($item['p_price_max'] * (100 - $item['discount']) / 100, 0, ',', '.'); ?></p>
+                                </td>
+                                <input type="hidden" class="cart_id" value="<?php echo $item['cart_id']; ?>">
+                                <input type="hidden" class="p_price_min" value="<?php echo $item['p_price_min']; ?>">
+                                <input type="hidden" class="p_price_max" value="<?php echo $item['p_price_max']; ?>">
                                 <td>
                                     <div class="input-group quantity mt-4" style="width: 100px;">
                                         <div class="input-group-btn">
@@ -229,7 +244,7 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
                                                 <i class="fa fa-minus"></i>
                                             </button>
                                         </div>
-                                        <input type="text" class="form-control form-control-sm text-center border-0" value="<?php echo $item["order_quantity"]; ?>">
+                                        <input type="text" class="form-control form-control-sm text-center border-0 itemQty" value="<?php echo $item["p_quantity"]; ?>">
                                         <div class="input-group-btn">
                                             <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                                                 <i class="fa fa-plus"></i>
@@ -238,16 +253,21 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="mb-0 mt-4"><?php echo $item["product_price"] * $item["order_quantity"] . " VNĐ"; ?></p>
+                                    <p class="mb-0 mt-4 total-price"><?php echo number_format($item['total_price'], 0, ',', '.'); ?></p>
                                 </td>
+
                                 <td>
-                                    <a href="<?php echo "?module=user&action=cart_delete&id=" . $item['customer_id'] . "&order_id=" . $item['order_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-md rounded-circle bg-light border mt-4">
-                                        <i class="fa fa-times text-danger"></i></a>
+                                    <form action="" class="form-submit1">
+                                        <input type="hidden" class="cart_id" value="<?php echo $item['cart_id']; ?>">
+                                        <input type="hidden" class="user_id" value="<?php echo $user_id; ?>">
+                                        <button class="btn btn-md rounded-circle bg-light border mt-4 deleteItemBtn">
+                                            <i class="fa fa-times text-danger text-primary"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php
                         endforeach;
-
                     else:
                         ?>
                         <tr>
@@ -258,13 +278,8 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
                     <?php
                     endif;
                     ?>
-
                 </tbody>
             </table>
-        </div>
-        <div class="mt-5">
-            <input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Nhập mã giảm giá">
-            <button class="btn border-secondary rounded-pill px-4 py-3 text-primary" type="button">Mã giảm giá</button>
         </div>
         <div class="row g-4 justify-content-end">
             <div class="col-8"></div>
@@ -274,7 +289,7 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
                         <h1 class="display-6 mb-4">Hóa đơn <span class="fw-normal">thanh toán</span></h1>
                         <div class="d-flex justify-content-between mb-4">
                             <h5 class="mb-0 me-4">Thành tiền:</h5>
-                            <p class="mb-0">9.000.000</p>
+                            <p class="mb-0"><?php echo number_format($total, 0, ',', '.'); ?></p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h5 class="mb-0 me-4">Phí vận chuyển</h5>
@@ -397,6 +412,45 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
 </div>
 <!-- Footer End -->
 
+<!-- Side-right container -->
+<div class="container">
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <div class="side-right position-fixed">
+                <div class="echbay-sms-messenger">
+                    <div class="phonering-alo-alo">
+                        <a
+                            href="tel:0387440192"
+                            rel="nofollow"
+                            class="echbay-phonering-alo-event"></a>
+                    </div>
+                    <div class="phonering-alo-sms">
+                        <a
+                            href="sms:0387440192"
+                            rel="nofollow"
+                            class="echbay-phonering-sms-event"></a>
+                    </div>
+                    <div class="phonering-alo-zalo">
+                        <a
+                            href="https://zalo.me/0387440192"
+                            target="_blank"
+                            rel="nofollow"
+                            class="echbay-phonering-zalo-event"></a>
+                    </div>
+                    <div class="phonering-alo-messenger">
+                        <a
+                            href="https://www.facebook.com/3h1a.store"
+                            target="_blank"
+                            rel="nofollow"
+                            class="echbay-phonering-messenger-event"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Side-right container -->
+
 <!-- Copyright Start -->
 <div class="container-fluid copyright bg-dark py-4">
     <div class="container">
@@ -426,3 +480,136 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
 <?php
 layouts('footer');
 ?>
+<script>
+    $(document).ready(function() {
+        $(".itemQty").on("change", function() {
+            var $el = $(this).closest("tr");
+
+            var cart_id = $el.find(".cart_id").val();
+            var p_quantity = $(this).val();
+            var p_price_min = $el.find(".p_price_min").val();
+            var p_price_max = $el.find(".p_price_max").val();
+
+            // Gửi AJAX để cập nhật số lượng và tính lại tổng giá
+            $.ajax({
+                url: "?module=user&action=update_total_price",
+                method: "POST",
+                cache: false,
+                data: {
+                    cart_id: cart_id,
+                    p_quantity: p_quantity,
+                    p_price_min: p_price_min,
+                    p_price_max: p_price_max
+                },
+                success: function(response) {
+                    var data = JSON.parse(response);
+
+
+                    let total_price = data.total_price.toLocaleString('vi-VN');
+                    console.log(total_price);
+                    $el.find(".total-price").text(total_price);
+
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Lỗi",
+                        text: "Không thể cập nhật số lượng, vui lòng thử lại!",
+                        showConfirmButton: true
+                    });
+                }
+            });
+        });
+
+        // Xử lý sự kiện tăng/giảm số lượng
+        $(".btn-minus, .btn-plus").on("click", function(e) {
+            e.preventDefault();
+            var $input = $(this).closest(".input-group").find(".itemQty");
+            var currentValue = parseInt($input.val()) || 0;
+            if ($(this).hasClass("btn-minus") && currentValue > 0) {
+                $input.val(currentValue).trigger("change");
+            } else if ($(this).hasClass("btn-plus")) {
+                $input.val(currentValue).trigger("change");
+            }
+        });
+
+        $(".deleteItemBtn").click(function(e) {
+            e.preventDefault();
+
+            const form = $(this).closest(".form-submit1");
+            const cart_id = form.find(".cart_id").val();
+            const user_id = form.find(".user_id").val();
+
+            // Thêm hộp thoại xác nhận trước khi xóa
+            Swal.fire({
+                title: "Bạn có chắc chắn muốn xóa sản phẩm này?",
+                text: "Thao tác này không thể hoàn tác!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Đồng ý",
+                cancelButtonText: "Hủy"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Nếu người dùng xác nhận, thực hiện xóa
+                    $.ajax({
+                        url: "?module=user&action=cart_delete", // File PHP xử lý thêm vào giỏ hàng
+                        method: "POST",
+                        dataType: "json",
+                        data: {
+                            cart_id: cart_id,
+                            user_id: user_id
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Thành công!",
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // Xóa dòng sản phẩm trên giao diện
+                            form.closest("tr").remove();
+
+                            // Kiểm tra nếu giỏ hàng trống, hiển thị thông báo
+                            if ($("table tbody tr").length === 0) {
+                                $("table tbody").html(`
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="alert alert-danger text-center">Không có đơn hàng nào!</div>
+                                    </td>
+                                </tr>
+                            `);
+                            }
+                            updateCartCount(user_id);
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Lỗi",
+                                text: "Đã xảy ra lỗi, vui lòng thử lại!",
+                                showConfirmButton: true
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        // Hàm cập nhật số lượng sản phẩm trong giỏ hàng
+        function updateCartCount(user_id) {
+            $.ajax({
+                url: "?module=user&action=cart_count", // File PHP trả về số lượng sản phẩm
+                method: "POST",
+                data: {
+                    user_id: user_id
+                },
+                success: function(response) {
+                    $("#cart-count").text(response); // Cập nhật số lượng sản phẩm
+                }
+            });
+        }
+    });
+</script>

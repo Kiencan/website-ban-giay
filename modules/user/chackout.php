@@ -9,11 +9,16 @@ $title = [
 
 layouts('header', $title);
 $user_id = getUserIdByToken();
-// Kiểm tra trạng thái đăng nhập
 
 if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
+
+$listOrders = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id WHERE user_id = '$user_id'");
+$productImage = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $listOrders[0]["p_id"] . "'");
+echo '<pre>';
+print_r($productImage);
+echo '</pre>';
 ?>
 
 <!-- Spinner Start -->
@@ -87,13 +92,14 @@ if (!isLogin()) {
                     <a href="?module=user&action=cart&id=<?php echo $user_id ?>" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
                         <span
+                            id="cart-count"
                             class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                             style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
                             <?php
                             if (empty($user_id)) {
                                 echo 0;
                             } else {
-                                echo getRows("SELECT * FROM order_item WHERE customer_id = " . $user_id);
+                                echo getRows("SELECT * FROM cart WHERE user_id = " . $user_id);
                             }
                             ?>
                         </span>
@@ -250,96 +256,55 @@ if (!isLogin()) {
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Products</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Total</th>
+                                    <th scope="col">Sản phẩm</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Giá</th>
+                                    <th scope="col" width="20%">Số lượng</th>
+                                    <th scope="col">Tổng giá</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        <div class="d-flex align-items-center mt-2">
-                                            <img src="img/vegetable-item-2.jpg" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
-                                        </div>
-                                    </th>
-                                    <td class="py-5">Awesome Brocoli</td>
-                                    <td class="py-5">$69.00</td>
-                                    <td class="py-5">2</td>
-                                    <td class="py-5">$138.00</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <div class="d-flex align-items-center mt-2">
-                                            <img src="img/vegetable-item-5.jpg" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
-                                        </div>
-                                    </th>
-                                    <td class="py-5">Potatoes</td>
-                                    <td class="py-5">$69.00</td>
-                                    <td class="py-5">2</td>
-                                    <td class="py-5">$138.00</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <div class="d-flex align-items-center mt-2">
-                                            <img src="img/vegetable-item-3.png" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
-                                        </div>
-                                    </th>
-                                    <td class="py-5">Big Banana</td>
-                                    <td class="py-5">$69.00</td>
-                                    <td class="py-5">2</td>
-                                    <td class="py-5">$138.00</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                    </th>
-                                    <td class="py-5"></td>
-                                    <td class="py-5"></td>
-                                    <td class="py-5">
-                                        <p class="mb-0 text-dark py-3">Subtotal</p>
-                                    </td>
-                                    <td class="py-5">
-                                        <div class="py-3 border-bottom border-top">
-                                            <p class="mb-0 text-dark">$414.00</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                    </th>
-                                    <td class="py-5">
-                                        <p class="mb-0 text-dark py-4">Shipping</p>
-                                    </td>
-                                    <td colspan="3" class="py-5">
-                                        <div class="form-check text-start">
-                                            <input type="checkbox" class="form-check-input bg-primary border-0" id="Shipping-1" name="Shipping-1" value="Shipping">
-                                            <label class="form-check-label" for="Shipping-1">Free Shipping</label>
-                                        </div>
-                                        <div class="form-check text-start">
-                                            <input type="checkbox" class="form-check-input bg-primary border-0" id="Shipping-2" name="Shipping-1" value="Shipping">
-                                            <label class="form-check-label" for="Shipping-2">Flat rate: $15.00</label>
-                                        </div>
-                                        <div class="form-check text-start">
-                                            <input type="checkbox" class="form-check-input bg-primary border-0" id="Shipping-3" name="Shipping-1" value="Shipping">
-                                            <label class="form-check-label" for="Shipping-3">Local Pickup: $8.00</label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                    </th>
-                                    <td class="py-5">
-                                        <p class="mb-0 text-dark text-uppercase py-3">TOTAL</p>
-                                    </td>
-                                    <td class="py-5"></td>
-                                    <td class="py-5"></td>
-                                    <td class="py-5">
-                                        <div class="py-3 border-bottom border-top">
-                                            <p class="mb-0 text-dark">$135.00</p>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <?php
+                                $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id WHERE user_id = '$user_id'");
+                                if (!empty($listOrder)):
+                                    $count = 0;
+                                    $total = 0;
+                                    foreach ($listOrder as $item):
+                                        $count++;
+                                        $total += ($item['p_price_min'] + $item['p_price_max']) / 2 * $item["p_quantity"] * (100 - $item['discount']) / 100;
+                                        $productImage = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $item["p_id"] . "'");
+                                ?>
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="d-flex align-items-center mt-2">
+                                                    <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $productImage["product_image"]; ?> " class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+                                                </div>
+                                            </th>
+                                            <td class="py-5"><?php echo $item["p_name"] . " " . $item["p_color"]; ?></td>
+                                            <td class="py-5"><?php echo number_format(($item['p_price_min'] + $item['p_price_max']) / 2 * (100 - $item['discount']) / 100, 0, ',', '.') ?></td>
+                                            <td class="py-5"><?php echo $item["p_quantity"] ?></td>
+                                            <td class="py-5"><?php echo number_format(($item['p_price_min'] + $item['p_price_max']) / 2 * $item["p_quantity"] * (100 - $item['discount']) / 100, 0, ',', '.') ?></td>
+                                        </tr>
+                                    <?php endforeach;
+                                    ?>
+                                    <tr>
+                                        <th scope="row">
+                                        </th>
+                                        <td class="py-5">
+                                            <p class="mb-0 text-dark text-uppercase py-3">Tổng tiền</p>
+                                        </td>
+                                        <td class="py-5"></td>
+                                        <td class="py-5"></td>
+                                        <td class="py-5">
+                                            <div class="py-3 border-bottom border-top">
+                                                <p class="mb-0 text-dark"><?php echo number_format($total, 0, ',', '.') ?></p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php
+                                endif;
+                                ?>
+
                             </tbody>
                         </table>
                     </div>
