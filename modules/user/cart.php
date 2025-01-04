@@ -17,9 +17,10 @@ if (!isLogin()) {
 $user_id = getUserIdByToken();
 
 $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id WHERE user_id = '$user_id'");
-
+$ship_fee = 30000;
+// $total = oneRaw("SELECT sum(total_price) FROM cart WHERE user_id = '$user_id'");
 // echo '<pre>';
-// print_r($listOrder);
+// print_r($total);
 // echo '</pre>';
 ?>
 
@@ -215,7 +216,8 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
                         foreach ($listOrder as $item):
                             $count++;
                             $productImage = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $item["p_id"] . "'");
-                            $total += ($item['p_price_min'] + $item['p_price_max']) / 2 * $item["p_quantity"] * (100 - $item['discount']) / 100;
+                            $total += $item["total_price"];
+                            $grand_total = $total + $ship_fee;
                     ?>
                             <tr>
                                 <th scope="row">
@@ -286,24 +288,23 @@ $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = produ
             <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
                 <div class="bg-light rounded">
                     <div class="p-4">
-                        <h1 class="display-6 mb-4">Hóa đơn <span class="fw-normal">thanh toán</span></h1>
+                        <h2 class="display-7 mb-4">Hóa đơn thanh toán</h2>
                         <div class="d-flex justify-content-between mb-4">
                             <h5 class="mb-0 me-4">Thành tiền:</h5>
-                            <p class="mb-0"><?php echo number_format($total, 0, ',', '.'); ?></p>
+                            <p class="mb-0 thanh_tien"><?php echo number_format($total, 0, ',', '.'); ?> VNĐ</p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h5 class="mb-0 me-4">Phí vận chuyển</h5>
                             <div class="">
-                                <p class="mb-0">Mức giá: 30.000</p>
+                                <p class="mb-0"><?php echo number_format($ship_fee, 0, ',', '.'); ?> VNĐ</p>
                             </div>
                         </div>
-                        <p class="mb-0 text-end">Vận chuyển đến: </p>
                     </div>
                     <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                         <h5 class="mb-0 ps-4 me-4">Tổng thanh toán</h5>
-                        <p class="mb-0 pe-4">9.030.000</p>
+                        <p class="mb-0 pe-4 tong_thanh_toan"><?php echo number_format($grand_total, 0, ',', '.'); ?> VNĐ</p>
                     </div>
-                    <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Xử lý thanh toán</button>
+                    <a href="?module=user&action=chackout" class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Xử lý thanh toán</a>
                 </div>
             </div>
         </div>
@@ -503,12 +504,14 @@ layouts('footer');
                 },
                 success: function(response) {
                     var data = JSON.parse(response);
-
-
                     let total_price = data.total_price.toLocaleString('vi-VN');
-                    console.log(total_price);
                     $el.find(".total-price").text(total_price);
-
+                    let total = data.total;
+                    console.log(total);
+                    $(".thanh_tien").text(total + " VNĐ");
+                    let grand_total = data.grand_total;
+                    console.log(grand_total);
+                    $(".tong_thanh_toan").text(grand_total + " VNĐ");
                 },
                 error: function() {
                     Swal.fire({
