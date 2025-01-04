@@ -561,8 +561,7 @@ layouts('footer');
                         method: "POST",
                         dataType: "json",
                         data: {
-                            cart_id: cart_id,
-                            user_id: user_id
+                            cart_id: cart_id
                         },
                         success: function(response) {
                             Swal.fire({
@@ -572,6 +571,11 @@ layouts('footer');
                                 showConfirmButton: false,
                                 timer: 1500
                             });
+
+                            let total = response.total;
+                            $(".thanh_tien").text(total + " VNĐ");
+                            let grand_total = response.grand_total;
+                            $(".tong_thanh_toan").text(grand_total + " VNĐ");
 
                             // Xóa dòng sản phẩm trên giao diện
                             form.closest("tr").remove();
