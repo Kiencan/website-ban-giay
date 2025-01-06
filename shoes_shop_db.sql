@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2024 at 12:17 PM
+-- Generation Time: Jan 06, 2025 at 11:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,8 +52,21 @@ CREATE TABLE `cart` (
   `cart_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `p_id` varchar(50) DEFAULT NULL,
+  `p_size` decimal(3,1) DEFAULT NULL,
+  `total_price` int(11) DEFAULT NULL,
   `p_quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `user_id`, `p_id`, `p_size`, `total_price`, `p_quantity`) VALUES
+(34, 13, 'ADSL-D1', NULL, 1200000, 1),
+(35, 13, 'ADSL-T132', NULL, 1499000, 1),
+(36, 13, 'NCL2-X1', NULL, 1400000, 1),
+(38, 13, 'ADSL-XD3463', 39.0, 2798000, 2),
+(39, 14, 'ADSL-XD3463', 39.0, 2798000, 2);
 
 -- --------------------------------------------------------
 
@@ -75,7 +88,13 @@ INSERT INTO `category` (`category_id`, `category_name`) VALUES
 (10, 'Giày Adidas'),
 (11, 'Giày New Balance'),
 (15, 'Bán chạy'),
-(16, 'Giảm giá');
+(16, 'Giảm giá'),
+(17, 'Giày Puma'),
+(18, 'Giày Lining'),
+(19, 'Giày Anta'),
+(20, 'Quần áo'),
+(21, 'Phụ kiện'),
+(22, 'Sandal');
 
 -- --------------------------------------------------------
 
@@ -248,7 +267,7 @@ CREATE TABLE `token_login` (
 --
 
 INSERT INTO `token_login` (`id`, `user_id`, `token`, `create_at`, `last_active`) VALUES
-(75, 13, '9f2d61f43dd674d729033052abb9df6216f849de', '2024-12-13 01:43:06', NULL);
+(95, 13, '43e9c12e7125289ee85523ab1247c571e320003d', '2025-01-03 23:36:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -378,13 +397,13 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `collection`
@@ -420,7 +439,7 @@ ALTER TABLE `product_name`
 -- AUTO_INCREMENT for table `token_login`
 --
 ALTER TABLE `token_login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `user`
