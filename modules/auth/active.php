@@ -9,15 +9,15 @@ layouts('header-login', ['pageTitle' => 'Active']);
 $token = filter()['token'];
 if (!empty($token)) {
     // Truy vấn để kiểm tra token tồn tại trong database
-    $tokenQuery = oneRaw("SELECT id FROM customer WHERE activeToken = '$token'");
+    $tokenQuery = oneRaw("SELECT user_id FROM user WHERE activeToken = '$token'");
     if (!empty($tokenQuery)) {
-        $userId = $tokenQuery['id'];
-        // Insert vào bảng customers
+        $userId = $tokenQuery['user_id'];
+        // Insert vào bảng users
         $dataUpdate = [
             'status' => 1,
             'activeToken' => null,
         ];
-        $updateStatus = update('customer', $dataUpdate, "id=$userId");
+        $updateStatus = update('user', $dataUpdate, "user_id=$userId");
         if ($updateStatus) {
             setFlashData('smg', 'Kích hoạt tài khoản thành công, bạn có thể đăng nhập ngay bây giờ');
             setFlashData('smg_types', 'success');

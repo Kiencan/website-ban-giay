@@ -20,7 +20,7 @@ if (isPost()) {
             $errors['username']['min'] = 'Username phải lớn hơn 5 ký tự';
         } else {
             $username = $filterAll['username'];
-            $sql = "SELECT * FROM customer WHERE username = '$username'";
+            $sql = "SELECT * FROM user WHERE username = '$username'";
             if (getRows($sql) > 0) {
                 $errors['username']['unique'] = 'Username đã đăng ký';
             }
@@ -32,7 +32,7 @@ if (isPost()) {
         $errors['email']['required'] = 'Vui lòng nhập email';
     } else {
         $email = $filterAll['email'];
-        $sql = "SELECT * FROM customer WHERE email = '$email'";
+        $sql = "SELECT * FROM user WHERE email = '$email'";
         if (getRows($sql) > 0) {
             $errors['email']['unique'] = 'Email đã đăng ký';
         }
@@ -66,7 +66,7 @@ if (isPost()) {
             'activeToken' => $activeToken,
             'create_at' => date('Y-m-d H:i:s')
         ];
-        $insertStatus = insert('customer', $dataInsert);
+        $insertStatus = insert('user', $dataInsert);
         if ($insertStatus) {
             // Tạo link kích hoạt
             $linkActive = _WEB_HOST . '?module=auth&action=active&token=' . $activeToken;

@@ -26,9 +26,10 @@ if (isPost()) {
         $errors['collection_name']['required'] = 'Vui lòng nhập tên bộ sưu tập';
     } else {
         $collection_name = $filterAll['collection_name'];
-        $sql = "SELECT * FROM collection WHERE collection_name = '$collection_name'";
+        $category_id = $filterAll['category_id'];
+        $sql = "SELECT * FROM collection WHERE collection_name = '$collection_name' AND category_id = '$category_id'";
         if (getRows($sql) > 0) {
-            $errors['collection_name']['unique'] = 'Danh mục đã tồn tại';
+            $errors['collection_name']['unique'] = 'Bộ sưu tập đã tồn tại';
         }
     }
 

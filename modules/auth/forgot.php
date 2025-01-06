@@ -18,16 +18,16 @@ if (isPost()) {
         $email = $filterAll['Email'];
         echo $email;
 
-        $queryUser = oneRaw("SELECT id FROM customer WHERE email = '$email'");
+        $queryUser = oneRaw("SELECT user_id FROM user WHERE email = '$email'");
         if (!empty($queryUser)) {
-            $userId = $queryUser['id'];
+            $userId = $queryUser['user_id'];
             $forgotToken = sha1(uniqid() . time());
 
             $dataUpdate = [
                 'forgotToken' => $forgotToken
             ];
 
-            $updateStatus = update('customer', $dataUpdate, "id=$userId");
+            $updateStatus = update('user', $dataUpdate, "user_id=$userId");
             if ($updateStatus) {
                 // Tạo link khôi phục mật khẩu
                 $linkForgot = _WEB_HOST . '?module=auth&action=reset&token=' . $forgotToken;

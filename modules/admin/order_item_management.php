@@ -18,7 +18,7 @@ if (!isLogin()) {
 if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
-$listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN user ON cart.user_id = user.user_id ORDER BY cart.user_id");
+$listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id INNER JOIN product_name ON products.p_name_id = products.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN user ON cart.user_id = user.user_id ORDER BY cart.user_id");
 // echo '<pre>';
 // print_r($listOrder);
 // echo '</pre>';
@@ -122,7 +122,6 @@ $smg_types = getFlashData('smg_types');
                                     <th scope="col">Số điện thoại</th>
                                     <th scope="col">Sản phẩm</th>
                                     <th scope="col">Tổng tiền</th>
-
                                 </tr>
                             </thead>
                             <tbody>

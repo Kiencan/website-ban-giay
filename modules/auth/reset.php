@@ -10,9 +10,9 @@ layouts('header-login', $title);
 $token = filter()['token'];
 if (!empty($token)) {
     // Truy vấn database kiểm tra token
-    $tokenQuery = oneRaw("SELECT id, username, email FROM customer WHERE forgotToken = '$token'");
+    $tokenQuery = oneRaw("SELECT user_id, username, email FROM user WHERE forgotToken = '$token'");
     if (!empty($tokenQuery)) {
-        $userId = $tokenQuery['id'];
+        $userId = $tokenQuery['user_id'];
         if (isPost()) {
             $filterAll = filter();
             $errors = []; // mảng chứa lỗi
@@ -46,7 +46,7 @@ if (!empty($token)) {
                     'forgotToken' => null,
                     'update_at' => date('Y-m-d H:i:s')
                 ];
-                $updateStatus = update('customer', $dataUpdate, "id = '$userId'");
+                $updateStatus = update('user', $dataUpdate, "user_id = '$userId'");
                 if ($updateStatus) {
                     setFlashData('smg', 'Thay đổi mật khẩu thành công');
                     setFlashData('smg_types', 'success');

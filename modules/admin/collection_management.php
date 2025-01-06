@@ -19,6 +19,9 @@ if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
 $listCate = getRaw("SELECT * FROM collection INNER JOIN category ON collection.category_id = category.category_id");
+// echo '<pre>';
+// print_r($listCate);
+// echo '</pre>';
 
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
@@ -126,7 +129,11 @@ $smg_types = getFlashData('smg_types');
                                 if (!empty($listCate)):
                                     $count = 0;
                                     foreach ($listCate as $item):
-                                        $p_id = oneRaw("SELECT p_id FROM products WHERE collection_id = {$item['collection_id']}");
+                                        $p_name_id = oneRaw("SELECT * FROM product_name WHERE product_name.collection_id = " . $item['collection_id']);
+                                        if (empty($p_name_id)):
+                                            $p_name_id['p_name_id'] = -1;
+                                        endif;
+                                        $p_id = oneRaw("SELECT * FROM products INNER JOIN product_name WHERE products.p_name_id = " . $p_name_id['p_name_id']);
                                         if (empty($p_id)):
                                             $p_id['p_id'] = -1;
                                         endif;
