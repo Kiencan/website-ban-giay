@@ -30,7 +30,7 @@ if (isPost()) {
     if (empty($filterAll['p_description'])) {
         $errors['p_description']['required'] = 'Vui lòng nhập mô tả sản phẩm';
     } else {
-        if (strlen($filterAll['category_title']) > 200) {
+        if (strlen($filterAll['p_description']) > 2000) {
             $errors['p_description']['max'] = 'Vui lòng nhập không quá 200 ký tự!';
         }
     }
@@ -68,7 +68,7 @@ if (isPost()) {
     if (empty($errors)) {
         $productInsert = [
             'p_id' => $filterAll['p_id'],
-            'collection_id' => $filterAll['collection_id'],
+            'p_name_id' => $filterAll['collection_id'],
             'p_color' => $filterAll['p_color'],
             'p_description' => $filterAll['p_description'],
             'p_price_min' => $filterAll['p_price_min'],
@@ -224,6 +224,14 @@ $old = getFlashData('old');
                                         value="<?php echo old('p_color', $old) ?>" />
                                     <?php
                                     echo form_error('p_color', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Đánh giá</label>
+                                    <input class="form-control" type="number" placeholder="Số sao" name="p_rate"
+                                        value="<?php echo old('p_rate', $old) ?>" />
+                                    <?php
+                                    echo form_error('p_rate', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
                                 <div class="form-group mg-form">

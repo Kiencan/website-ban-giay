@@ -26,7 +26,6 @@ if (!empty($filterAll['image_id'])) {
     if (!empty($imageDetail)) {
         // Tồn tại
         setFlashData('image-detail', $imageDetail);
-        echo $imageDetail['product_image'];
     } else {
         redirect('?module=admin&action=product_edit&p_id=' . $p_id);
     }
@@ -210,29 +209,32 @@ if (!empty($imageDetail)) {
                         <div class="col">
                             <div class="form-group mg-form">
                                 <label for="">Ảnh sản phẩm</label>
-                                <input class="form-control" type="file" name="product_image" />
-                                <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . old('product_image', $old) ?>" alt="" width="100px">
+                                <input id="productImage" class="form-control" type="file" name="product_image" accept="image/*" onchange="previewImage(event)" />
+                                <!-- Ảnh cũ hoặc ảnh xem trước -->
+                                <img id="preview"
+                                    src="<?php echo !empty(old('product_image', $old)) ? _WEB_HOST_TEMPLATE . '/image/' . old('product_image', $old) : '#' ?>"
+                                    style="display: <?php echo !empty(old('product_image', $old)) ? 'block' : 'none'; ?>; max-width: 300px; margin-top: 20px;"
+                                    alt="Xem trước ảnh" />
                                 <?php
                                 echo form_error('product_image', '<p class="text-danger">', '</p>', $errors);
                                 ?>
                             </div>
                         </div>
                     </div>
+                    <div class="row d-grid gap-2 justify-content-center">
+                        <input type="hidden" name="p_id" value="<?php echo $p_id ?>" />
+                        <input type="hidden" name="image_id" value="<?php echo $image_id ?>" />
+                        <input type="hidden" name="product_image" value="<?php echo old('product_image', $old) ?>" />
+                        <button class="btn btn-primary" type="submit">Cập nhật hình ảnh sản phẩm</button>
+                        <a href="javascript:history.back()" class="btn btn-success" type="button">Quay lại</a>
+                    </div>
+                </form>
             </div>
-            <div class="row d-grid gap-2 justify-content-center">
-                <input type="hidden" name="p_id" value="<?php echo $p_id ?>" />
-                <input type="hidden" name="image_id" value="<?php echo $image_id ?>" />
-                <input type="hidden" name="product_image" value="<?php echo old('product_image', $old) ?>" />
-                <button class="btn btn-primary" type="submit">Cập nhật hình ảnh sản phẩm</button>
-                <a href="javascript:history.back()" class="btn btn-success" type="button">Quay lại</a>
-            </div>
-            </form>
         </div>
     </div>
 </div>
 <!-- /#page-content-wrapper -->
 </div>
-
 
 
 <?php

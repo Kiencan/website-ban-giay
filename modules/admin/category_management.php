@@ -133,7 +133,7 @@ $smg_types = getFlashData('smg_types');
                                             <td><?php echo $item['category_id'] ?></td>
                                             <td><?php echo $item['category_name'] ?></td>
                                             <td><a href="<?php echo "?module=admin&action=category_edit&category_id=" . $item['category_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                            <td><a href="<?php echo "?module=admin&action=category_delete&category_id=" . $item['category_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
+                                            <td><a href="<?php echo "?module=admin&action=category_delete&category_id=" . $item['category_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không? Nếu xóa danh mục, bạn sẽ xóa hết tất cả các sản phẩm thuộc danh mục đó!')" class="btn btn-danger btn-sm">
                                                     <i class="fa-solid fa-trash"></i></a></td>
                                         </tr>
                                     <?php

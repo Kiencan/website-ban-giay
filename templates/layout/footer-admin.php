@@ -39,3 +39,24 @@ if (!defined('_CODE')) {
         el.classList.toggle("toggled");
     };
 </script>
+
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('preview');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result; // Gán đường dẫn ảnh vào thuộc tính src
+                preview.style.display = 'block'; // Hiển thị ảnh
+            };
+
+            reader.readAsDataURL(input.files[0]); // Đọc tệp ảnh
+        } else {
+            preview.src = "#";
+            preview.style.display = 'none';
+        }
+    }
+</script>

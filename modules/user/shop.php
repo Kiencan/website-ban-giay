@@ -8,6 +8,7 @@ if (!empty($filterAll['id'])) {
   $id = $filterAll['id'];
   if ($id == 'bestSelling') {
     $categoryId = 15;
+    $totalShoes = getRows("SELECT * FROM products WHERE isBestSelling = 1");
   } else if ($id == 'discount') {
     $categoryId = 16;
   } else if ($id == 'giayAdidas') {
@@ -30,6 +31,9 @@ if (!empty($filterAll['id'])) {
 }
 
 $category = oneRaw("SELECT * FROM category WHERE category_id = $categoryId");
+// echo '<pre>';
+// print_r($category);
+// echo '</pre>';
 
 $title = [
   'pageTitle' => 'Trang ' . $category['category_name']
@@ -348,7 +352,6 @@ $user_id = getUserIdByToken();
             <div class="tab-content">
               <div class="row g-4 justify-content-center">
                 <?php
-                $totalShoes = 54;
                 $limit = 9;
                 $total_links = ceil($totalShoes / $limit);
 
@@ -397,7 +400,7 @@ $user_id = getUserIdByToken();
                 $page_array = [];
 
                 if ($total_links > 7) {
-                  if ($page < 7) {
+                  if ($page < 5) {
                     $page_array = range(1, min(5, $total_links));
                     if ($total_links > 5) $page_array[] = '...';
                     if ($total_links > 5) $page_array[] = $total_links;

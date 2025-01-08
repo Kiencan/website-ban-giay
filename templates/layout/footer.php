@@ -30,11 +30,11 @@ if (!defined('_CODE')) {
 
             const p_size = $(".chon-size .form-check-input:checked").val();
             const p_quantity = $(".itemQty").val();
-            console.log(p_id);
-            console.log(user_id);
-            console.log(p_price_min);
-            console.log(p_size);
-            console.log(p_quantity);
+            // console.log(p_id);
+            // console.log(user_id);
+            // console.log(p_price_min);
+            // console.log(p_size);
+            // console.log(p_quantity);
 
             // Kiểm tra các giá trị trước khi gửi AJAX
             if (!p_id || !user_id || !p_price_min || !p_size || !p_quantity) {
