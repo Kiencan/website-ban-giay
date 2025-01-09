@@ -9,6 +9,10 @@ if (!empty($filterAll['collection_id'])) {
     $collectionId = $filterAll['collection_id'];
     $collectionDetail = oneRaw("SELECT * FROM collection WHERE collection_id = $collectionId");
     if ($collectionDetail > 0) {
+        $productNameDetail = getRaw("SELECT * FROM product_name WHERE collection_id = $collectionId");
+        if ($productNameDetail > 0) {
+            $productsDetail = getRaw("SELECT * FROM product WHERE collection_id = $collectionId");
+        }
         $deletecollection = delete('collection', "collection_id = '$collectionId'");
         if ($deletecollection) {
             setFlashData('smg', 'Xóa danh mục thành công');
