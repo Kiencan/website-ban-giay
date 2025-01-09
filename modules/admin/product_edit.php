@@ -18,7 +18,7 @@ $filterAll = filter();
 if (!empty($filterAll['p_id'])) {
     $p_id = $filterAll['p_id'];
 
-    $productDetail = oneRaw("SELECT * FROM products INNER JOIN collection ON products.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE p_id = '$p_id'");
+    $productDetail = oneRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE p_id = '$p_id'");
 
     $imageDetail = getRaw("SELECT * FROM product_image WHERE p_id = '$p_id'");
 
@@ -45,8 +45,8 @@ if (isPost()) {
     if (empty($filterAll['p_description'])) {
         $errors['p_description']['required'] = 'Vui lòng nhập mô tả sản phẩm';
     } else {
-        if (strlen($filterAll['p_description']) > 200) {
-            $errors['p_description']['max'] = 'Vui lòng nhập không quá 200 ký tự!';
+        if (strlen($filterAll['p_description']) > 2000) {
+            $errors['p_description']['max'] = 'Vui lòng nhập không quá 2000 ký tự!';
         }
     }
     if (empty($filterAll['p_price_min'])) {
@@ -75,7 +75,8 @@ if (isPost()) {
         $productUpdate = [
             'p_id' => $filterAll['p_id'],
             'p_color' => $filterAll['p_color'],
-            'collection_id' => $filterAll['collection_id'],
+            'p_name_id' => $filterAll['collection_id'],
+            'p_rate' => $filterAll['p_rate'],
             'p_description' => $filterAll['p_description'],
             'p_price_min' => $filterAll['p_price_min'],
             'p_price_max' => $filterAll['p_price_max'],
@@ -231,6 +232,14 @@ if (!empty($productDetail)) {
                                         value="<?php echo old('p_color', $old) ?>" />
                                     <?php
                                     echo form_error('p_color', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Đánh giá</label>
+                                    <input class="form-control" type="number" placeholder="Số sao" name="p_rate"
+                                        value="<?php echo old('p_rate', $old) ?>" />
+                                    <?php
+                                    echo form_error('p_rate', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
                                 <div class="form-group mg-form">

@@ -154,7 +154,7 @@ $smg_types = getFlashData('smg_types');
                                             <td><?php echo $item['collection_name'] ?></td>
                                             <td><?php echo $item['category_name'] ?></td>
                                             <td><a href="<?php echo "?module=admin&action=collection_edit&collection_id=" . $item['collection_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                            <td><a href="<?php echo "?module=admin&action=collection_delete&collection_id=" . $item['collection_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
+                                            <td><a href="<?php echo "?module=admin&action=collection_delete&collection_id=" . $item['collection_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không? Nếu xóa, tất cả sản phẩm trong bộ sưu tập sẽ bị xóa!')" class="btn btn-danger btn-sm">
                                                     <i class="fa-solid fa-trash"></i></a></td>
                                         </tr>
                                     <?php

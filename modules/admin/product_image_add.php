@@ -184,27 +184,32 @@ $old = getFlashData('old');
                             <div class="col">
                                 <div class="form-group mg-form">
                                     <label for="">Ảnh sản phẩm</label>
-                                    <input class="form-control" type="file" name="product_image" />
+                                    <input id="productImage" class="form-control" type="file" name="product_image" accept="image/*" onchange="previewImage(event)" />
                                     <?php
                                     echo form_error('product_image', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
                             </div>
                         </div>
+                        <!-- Phần hiển thị ảnh xem trước -->
+                        <div class="row">
+                            <div class="col text-center">
+                                <img id="preview" src="#" alt="Xem trước ảnh" style="display: none; max-width: 300px; margin-top: 20px;" />
+                            </div>
+                        </div>
+                        <div class="row d-grid gap-2 justify-content-center mt-3">
+                            <input type="hidden" name="p_id" value="<?php echo $p_id ?>" />
+                            <button class="btn btn-primary" type="submit">Thêm hình ảnh sản phẩm</button>
+                            <a href="?module=admin&action=product_edit&p_id=<?php echo $p_id ?>" class="btn btn-success" type="button">Quay lại</a>
+                        </div>
+                    </form>
                 </div>
-                <div class="row d-grid gap-2 justify-content-center">
-                    <input type="hidden" name="p_id" value="<?php echo $p_id ?>" />
-                    <button class="btn btn-primary" type="submit">Thêm hình ảnh sản phẩm</button>
-                    <a href="?module=admin&action=product_edit&p_id=<?php echo $p_id ?>" class="btn btn-success" type="button">Quay lại</a>
-                </div>
-                </form>
             </div>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
     </div>
 </body>
-
 
 <?php
 layouts('footer-admin');
