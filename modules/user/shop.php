@@ -213,7 +213,7 @@ $user_id = getUserIdByToken();
 </div>
 <!-- Single Page Header End -->
 
-<!-- Fruits Shop Start-->
+<!-- Shoes Shop Start-->
 <div class="container-fluid item py-5">
   <div class="container py-5">
     <h1 class="mb-4"><?php echo $category['category_name'] ?></h1>
@@ -263,7 +263,7 @@ $user_id = getUserIdByToken();
                   </div>
                   <div class="mb-2">
                     <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                    <label for="Categories-5"> Alta</label>
+                    <label for="Categories-5"> Anta</label>
                   </div>
                 </div>
               </div>

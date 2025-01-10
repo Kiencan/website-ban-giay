@@ -378,72 +378,76 @@ $listProd = getRaw("SELECT * FROM products")
         </div>
       </div>
       <div class="tab-content">
-        <div id="tab-1" class="tab-pane fade show p-0 active">
-          <div class="row g-4">
-            <div class="col-lg-12">
-              <div class="row g-4">
-                <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
-                foreach ($listBS as $key => $value):
-                  $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
-                ?>
-                  <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
-                    <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">
-                      <div class="rounded position-relative my-item">
-                        <div class="img-item">
-                          <img
-                            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $img['product_image'] ?>"
-                            class="img-fluid w-100 rounded-top"
-                            alt="" />
-                        </div>
-                        <div
-                          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                          style="top: 10px; left: 10px">
-                          <?php echo $value['category_name'] ?>
-                        </div>
-                        <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
-                          <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit sed do eiusmod te incididunt
-                          </p>
-                          <p>
-                            <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
-                          </p>
-                          <div class="d-flex justify-content-between flex-lg-wrap">
-                            <a
-                              href="#"
-                              class="btn border border-secondary rounded-circle p-auto me-2"
-                              style="
-                              background-color: rgb(255, 255, 255);
-                              color: white;
-                              width: 40px;
-                              height: 40px;
-                            ">
-                              <i class="fa fa-heart"></i>
-                              <!-- Icon trái tim -->
-                            </a>
-                            <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
-                              <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
-                            </a>
-                          </div>
-                        </div>
+      <div id="tab-1" class="tab-pane fade show p-0 active">
+        <div class="row g-4">
+          <div class="col-lg-12">
+            <div class="row g-4">
+              <?php
+              $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1");
+              foreach ($listBS as $key => $value):
+                $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
+              ?>
+              <div class="col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center" style="cursor: pointer;">
+                <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">
+                  <div class="rounded position-relative my-item">
+                    <div class="img-item">
+                      <img
+                        src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $img['product_image'] ?>"
+                        class="img-fluid w-100 rounded-top"
+                        alt="" />
+                    </div>
+                    <div
+                      class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                      style="top: 10px; left: 10px;">
+                      <?php echo $value['category_name'] ?>
+                    </div>
+                    <div class="p-4 border-top-0 rounded-bottom">
+                      <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
+                      <p style = "color: grey">
+                        Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit sed do eiusmod te incididunt
+                      </p>
+                      <span style="font-weight: bold; color: black">
+                        <?php 
+                          echo number_format($value['p_price_min'], 0, ',', '.') . ' VNĐ - ' . number_format($value['p_price_max'], 0, ',', '.') . ' VNĐ'; 
+                        ?>
+                      </span>
+                      <div class="d-flex justify-content-center flex-wrap">
+                        <a
+                          href="#"
+                          class="btn border border-secondary rounded-circle p-auto me-2"
+                          style="
+                          background-color: rgb(255, 255, 255);
+                          color: white;
+                          width: 40px;
+                          height: 40px;
+                        ">
+                          <i class="fa fa-heart"></i>
+                          <!-- Icon trái tim -->
+                        </a>
+                        <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
+                          <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                        </a>
                       </div>
-                    </a>
+                    </div>
                   </div>
-                <?php
-                endforeach;
-                ?>
+                </a>
               </div>
+              <?php
+              endforeach;
+              ?>
             </div>
           </div>
-          <div class="text-end mt-3">
-            <a
-              href="?module=user&action=shop"
-              class="btn"
-              style="color: white; background-color: rgba(0, 0, 0, 0.4)">Xem thêm</a>
-          </div>
         </div>
+        <div class="text-end mt-3">
+          <a
+            href="?module=user&action=shop"
+            class="btn"
+            style="color: white; background-color: rgba(0, 0, 0, 0.4); text-align: center;">Xem thêm
+          </a>
+        </div>
+      </div>
+
         <div id="tab-2" class="tab-pane fade show p-0">
           <div class="row g-4">
             <div class="col-lg-12">
@@ -474,7 +478,11 @@ $listProd = getRaw("SELECT * FROM products")
                             elit sed do eiusmod te incididunt
                           </p>
                           <p>
-                            <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
+                          <span style="font-weight: bold; color: black">
+                            <?php 
+                              echo number_format($value['p_price_min'], 0, ',', '.') . ' VNĐ - ' . number_format($value['p_price_max'], 0, ',', '.') . ' VNĐ'; 
+                            ?>
+                          </span>                          
                           </p>
                           <div class="d-flex justify-content-between flex-lg-wrap">
                             <a
@@ -541,7 +549,11 @@ $listProd = getRaw("SELECT * FROM products")
                             elit sed do eiusmod te incididunt
                           </p>
                           <p>
-                            <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
+                          <span style="font-weight: bold; color: black">
+                            <?php 
+                              echo number_format($value['p_price_min'], 0, ',', '.') . 'VNĐ - ' . number_format($value['p_price_max'], 0, ',', '.') . ' VNĐ'; 
+                            ?>
+                          </span>                           
                           </p>
                           <div class="d-flex justify-content-between flex-lg-wrap">
                             <a
@@ -608,7 +620,11 @@ $listProd = getRaw("SELECT * FROM products")
                             elit sed do eiusmod te incididunt
                           </p>
                           <p>
-                            <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
+                          <span style="font-weight: bold; color: black">
+                            <?php 
+                              echo number_format($value['p_price_min'], 0, ',', '.') . ' VNĐ - ' . number_format($value['p_price_max'], 0, ',', '.') . ' VNĐ'; 
+                            ?>
+                          </span>                           
                           </p>
                           <div class="d-flex justify-content-between flex-lg-wrap">
                             <a
@@ -675,7 +691,11 @@ $listProd = getRaw("SELECT * FROM products")
                             elit sed do eiusmod te incididunt
                           </p>
                           <p>
-                            <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
+                          <span style="font-weight: bold; color: black">
+                            <?php 
+                              echo number_format($value['p_price_min'], 0, ',', '.') . ' VNĐ- ' . number_format($value['p_price_max'], 0, ',', '.') . ' VNĐ'; 
+                            ?>
+                          </span> 
                           </p>
                           <div class="d-flex justify-content-between flex-lg-wrap">
                             <a
@@ -741,9 +761,10 @@ $listProd = getRaw("SELECT * FROM products")
 </div>
 <!-- Featurs End -->
 
-<!-- Giảm giá Start-->
+<!-- Giảm giá Start -->
+<!-- Giảm giá Start -->
 <div class="container-fluid giamgia py-5">
-  <div class="container py-5">
+  <div class="container py-5 position-relative">
     <h1 class="mb-0">Giảm giá</h1>
     <div class="owl-carousel vegetable-carousel justify-content-center text-center">
       <?php
@@ -751,55 +772,66 @@ $listProd = getRaw("SELECT * FROM products")
       foreach ($listD as $key => $value):
         $imgD = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
       ?>
-        <div class="rounded position-relative giamgia-item">
-          <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">
-            <div class="img-item">
-              <img
-                src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $imgD['product_image'] ?>"
-                class="img-fluid w-100 rounded-top"
-                alt="" />
-            </div>
-            <div
-              class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-              style="top: 10px; left: 10px">
-              <?php echo $value['category_name'] ?>
-            </div>
-            <div class="p-4 border-top-0 rounded-bottom">
-              <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-                eiusmod te incididunt
-              </p>
-              <p>
-                <span style="font-weight: bold; color: black"><?php echo $value['p_price_min'] . ' - ' . $value['p_price_max'] ?></span>
-              </p>
-              <div class="d-flex justify-content-between flex-lg-wrap">
-                <a
-                  href="#"
-                  class="btn border border-secondary rounded-circle p-auto me-2"
-                  style="
-                    background-color: rgb(255, 255, 255);
-                    color: white;
-                    width: 40px;
-                    height: 40px;
-                  ">
-                  <i class="fa fa-heart"></i>
-                  <!-- Icon trái tim -->
-                </a>
+      <div class="rounded position-relative giamgia-item">
+        <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">
+          <div class="img-item">
+            <img
+              src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $imgD['product_image'] ?>"
+              class="img-fluid w-100 rounded-top"
+              alt="" />
+          </div>
+          <div
+            class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+            style="top: 10px; left: 10px">
+            <?php echo $value['category_name'] ?>
+          </div>
+          <div class="p-4 border-top-0 rounded-bottom">
+            <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+              eiusmod te incididunt
+            </p>
+            <p>
+              <span style="font-weight: bold; color: black">
+                <?php 
+                  echo number_format($value['p_price_min'], 0, ',', '.') . ' VNĐ - ' . number_format($value['p_price_max'], 0, ',', '.') . ' VNĐ'; 
+                ?>
+              </span>
+            </p>
+            <div class="d-flex justify-content-between flex-lg-wrap">
+              <a
+                href="#"
+                class="btn border border-secondary rounded-circle p-auto me-2"
+                style="
+                  background-color: rgb(255, 255, 255);
+                  color: white;
+                  width: 40px;
+                  height: 40px;
+                ">
+                <i class="fa fa-heart"></i>
+                <!-- Icon trái tim -->
+              </a>
 
-                <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
-                  <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
-                </a>
-              </div>
+              <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
+                <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+              </a>
             </div>
-          </a>
-        </div>
+          </div>
+        </a>
+      </div>
       <?php
       endforeach;
       ?>
     </div>
+    <div class="text-end mt-3">
+      <a
+        href="?module=user&action=shop"
+        class="btn"
+        style="color: white; background-color: rgba(0, 0, 0, 0.4);">Xem thêm</a>
+    </div>
   </div>
 </div>
+
 <!-- Giảm giá End -->
 
 <!-- Banner Section Start-->
@@ -1060,7 +1092,8 @@ $listProd = getRaw("SELECT * FROM products")
           <a
             href=""
             class="btn border-secondary py-2 px-4 rounded-pill"
-            style="color: aliceblue">Xem thêm</a>
+            style="color: aliceblue">Xem thêm
+          </a>
         </div>
       </div>
       <div class="col-lg-3 col-md-6">
