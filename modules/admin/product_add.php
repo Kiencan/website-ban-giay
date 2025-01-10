@@ -13,7 +13,7 @@ if (!isAdmin()) {
 }
 
 layouts('header-admin', $title);
-
+$randomNumber = random_int(1, 999999999);
 
 if (isPost()) {
     $filterAll = filter();
@@ -66,29 +66,37 @@ if (isPost()) {
     }
 
     if (empty($errors)) {
-        $productInsert = [
-            'p_id' => $filterAll['p_id'],
-            'p_name_id' => $filterAll['collection_id'],
-            'p_color' => $filterAll['p_color'],
-            'p_description' => $filterAll['p_description'],
-            'p_price_min' => $filterAll['p_price_min'],
-            'p_price_max' => $filterAll['p_price_max'],
-            'size_available' => $filterAll['size_available'],
-            'size_not_available' => $filterAll['size_not_available'],
-            'isBestSelling' => $filterAll['isBestSelling'],
-            'discount' => $filterAll['discount'],
-            'create_at' => date('Y-m-d H:i:s'),
+        $productNameInsert = [
+            'p_name_id' => $randomNumber,
+            'p_name' => $filterAll['p_name'],
+            'collection_id' => $filterAll['collection_id'],
         ];
-
-        $insertStatus = insert('products', $productInsert);
-        if ($insertStatus) {
-            setFlashData('smg', 'Thêm sản phẩm thành công!');
-            setFlashData('smg_types', 'success');
-            redirect('?module=admin&action=product_management');
-        } else {
-            setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
-            setFlashData('smg_types', 'danger');
-            redirect('?module=admin&action=product_add');
+        $insertNameStatus = insert('product_name', $productNameInsert);
+        if ($insertNameStatus) {
+            $productInsert = [
+                'p_id' => $filterAll['p_id'],
+                'p_name_id' => $randomNumber,
+                'p_color' => $filterAll['p_color'],
+                'p_rate' => $filterAll['p_rate'],
+                'p_description' => $filterAll['p_description'],
+                'p_price_min' => $filterAll['p_price_min'],
+                'p_price_max' => $filterAll['p_price_max'],
+                'size_available' => $filterAll['size_available'],
+                'size_not_available' => $filterAll['size_not_available'],
+                'isBestSelling' => $filterAll['isBestSelling'],
+                'discount' => $filterAll['discount'],
+                'create_at' => date('Y-m-d H:i:s'),
+            ];
+            $insertStatus = insert('products', $productInsert);
+            if ($insertStatus) {
+                setFlashData('smg', 'Thêm sản phẩm thành công!');
+                setFlashData('smg_types', 'success');
+                redirect('?module=admin&action=product_management');
+            } else {
+                setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
+                setFlashData('smg_types', 'danger');
+                redirect('?module=admin&action=product_add');
+            }
         }
     } else {
         setFlashData('smg', 'Vui lòng kiểm tra lại thông tin');
@@ -205,7 +213,7 @@ $old = getFlashData('old');
                                     ?>
                                 </div>
                                 <div class="form-group mg-form">
-                                    <label for=""> Tên sản phẩm
+                                    <label for=""> Bộ sưu tập
                                     </label>
                                     <select class="form-control" name="collection_id">
                                         <?php
@@ -217,6 +225,15 @@ $old = getFlashData('old');
                                         endforeach;
                                         ?>
                                     </select>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for=""> Tên sản phẩm
+                                    </label>
+                                    <input class="form-control" type="text" placeholder="Mã sản phẩm" name="p_name"
+                                        value="<?php echo old('p_name', $old) ?>" />
+                                    <?php
+                                    echo form_error('p_name', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
                                 </div>
                                 <div class="form-group mg-form">
                                     <label for="">Màu sắc</label>

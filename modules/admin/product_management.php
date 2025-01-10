@@ -139,7 +139,7 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p
                                 ?>
                                         <tr>
                                             <td><?php echo $product['p_id'] ?></td>
-                                            <td><?php echo $product['collection_name'] ?></td>
+                                            <td><?php echo $product['p_name'] ?></td>
                                             <td><?php echo $product['p_color'] ?></td>
                                             <td><?php
                                                 $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.p_id = products.p_id WHERE product_image.p_id = '$product[p_id]'");
