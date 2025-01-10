@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 06, 2025 at 11:54 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th1 10, 2025 lúc 05:23 PM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `shoes_shop_db`
+-- Cơ sở dữ liệu: `shoes_shop_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `banner`
+-- Cấu trúc bảng cho bảng `banner`
 --
 
 CREATE TABLE `banner` (
@@ -34,7 +34,7 @@ CREATE TABLE `banner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `banner`
+-- Đang đổ dữ liệu cho bảng `banner`
 --
 
 INSERT INTO `banner` (`id`, `banner_name`, `banner`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `banner` (`id`, `banner_name`, `banner`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
+-- Cấu trúc bảng cho bảng `cart`
 --
 
 CREATE TABLE `cart` (
@@ -57,21 +57,10 @@ CREATE TABLE `cart` (
   `p_quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`cart_id`, `user_id`, `p_id`, `p_size`, `total_price`, `p_quantity`) VALUES
-(34, 13, 'ADSL-D1', NULL, 1200000, 1),
-(35, 13, 'ADSL-T132', NULL, 1499000, 1),
-(36, 13, 'NCL2-X1', NULL, 1400000, 1),
-(38, 13, 'ADSL-XD3463', 39.0, 2798000, 2),
-(39, 14, 'ADSL-XD3463', 39.0, 2798000, 2);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Cấu trúc bảng cho bảng `category`
 --
 
 CREATE TABLE `category` (
@@ -80,7 +69,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `category`
+-- Đang đổ dữ liệu cho bảng `category`
 --
 
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
@@ -99,7 +88,7 @@ INSERT INTO `category` (`category_id`, `category_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `collection`
+-- Cấu trúc bảng cho bảng `collection`
 --
 
 CREATE TABLE `collection` (
@@ -109,17 +98,18 @@ CREATE TABLE `collection` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `collection`
+-- Đang đổ dữ liệu cho bảng `collection`
 --
 
 INSERT INTO `collection` (`collection_id`, `collection_name`, `category_id`) VALUES
-(1, 'AdidasSLL', 10),
-(2, 'NikeCL', 9);
+(8, 'Nike Dunk', 9),
+(9, 'Nike SB', 9),
+(10, 'Jordan 1 Low', 9);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Cấu trúc bảng cho bảng `comments`
 --
 
 CREATE TABLE `comments` (
@@ -133,7 +123,7 @@ CREATE TABLE `comments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Cấu trúc bảng cho bảng `orders`
 --
 
 CREATE TABLE `orders` (
@@ -149,7 +139,7 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Cấu trúc bảng cho bảng `products`
 --
 
 CREATE TABLE `products` (
@@ -169,21 +159,23 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `products`
+-- Đang đổ dữ liệu cho bảng `products`
 --
 
 INSERT INTO `products` (`p_id`, `p_name_id`, `p_color`, `p_rate`, `p_description`, `p_price_min`, `p_price_max`, `size_available`, `size_not_available`, `isBestSelling`, `discount`, `create_at`, `update_at`) VALUES
-('ADSL-D1', 1, 'Đen', 4, 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 1200000, 1499000, '38, 39, 40, 41', '42', 1, 1, '2024-11-22 10:12:30', NULL),
-('ADSL-T132', 1, 'Trắng', 5, 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 1499000, 1800000, '40, 41', '', 1, 1, '2024-11-22 10:25:36', NULL),
-('ADSL-XD3463', 1, 'Xanh dương', 5, 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 1399000, 1500000, '38, 39, 40', '41, 42, 43, 44.5', 0, 1, '2024-11-22 10:27:20', NULL),
-('NCL2-C1', 2, 'Cam', 4, 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 2000000, 2500000, '', '40, 41, 41.5, 42.5', 0, 0, '2024-11-22 10:11:57', NULL),
-('NCL2-H1', 2, 'Hồng', 3, 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 2000000, 2500000, '36, 37, 38', '40.5, 41, 42', 0, 0, '2024-11-22 10:11:58', NULL),
-('NCL2-X1', 2, 'Xanh', 2, 'Giày Nike E-Series 1.0 mẫu giày thời trang được Nike vừa ra mắt. Với thiết kế đơn giản nhưng sang trọng và có tính ứng dụng rất cao trong mọi hoạt động hàng ngày. Đây là mẫu giày hứa hẹn sẽ làm mưa làm gió của Nike trong năm nay.&#13;&#10;&#13;&#10;Phần upper được làm từ chất liệu chất liệu đặc biệt có mềm êm thoáng khí, phần đế giữa chất liệu froam êm ái, đế ngoài chất liệu cao su bền chắc. Một mẫu giày hột tụ đủ các yếu tố cao cấp từ chất liệu, công nghệ và thiết kế.', 1400000, 1900000, '35, 36, 36.5, 28, 40', '', 1, 0, '2024-11-24 14:43:55', NULL);
+('553558-132', 834891231, 'White Black', 5, 'Jordan Air Jordan 1 Low &#34;White Black&#34;- Cổ điển vượt thời gian, phong cách bất diệt&#34;&#13;&#10;&#13;&#10;Jordan Air Jordan 1 Low &#34;White Black&#34; là một biểu tượng của làng sneaker, mang đến vẻ đẹp vượt thời gian. Đôi giày sở hữu thiết kế đơn giản nhưng không kém phần tinh tế với gam màu trắng đen chủ đạo, tạo nên sự tương phản ấn tượng. Chất liệu da cao cấp mang đến cảm giác thoải mái, êm ái khi vận động. Đế giày được thiết kế chắc chắn, tạo độ bám tốt, giúp bạn tự tin di chuyển trên mọi địa hình.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và bền bỉ.&#13;&#10;Phối màu đơn giản nhưng tinh tế: Sự kết hợp giữa trắng và đen tạo nên vẻ đẹp thời thượng.&#13;&#10;Đế giày bền bỉ: Đế giày được thiết kế chắc chắn, tăng độ bám, giúp bạn di chuyển an toàn.&#13;&#10;Jordan Air Jordan 1 Low &#34;White Black&#34; - là sự lựa chọn hoàn hảo cho những ai yêu thích phong cách cổ điển, đơn giản nhưng không kém phần thời thượng. Đôi giày sẽ giúp bạn tự tin thể hiện cá tính riêng và thoải mái trong mọi hoạt động.', 2150000, 2650000, '40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45, 46', '', 0, 20, '2025-01-10 17:26:44', NULL),
+('DD1391-100', 371755728, 'Panda Black White', 5, 'Nike Dunk Low - Cổ điển vượt thời gian, phong cách bất tận&#34;&#13;&#10;&#13;&#10;Nike Dunk Low là một biểu tượng của văn hóa sneaker, mang đến vẻ đẹp vượt thời gian. Đôi giày sở hữu thiết kế đơn giản nhưng không kém phần tinh tế với gam màu trắng đen tương phản, tạo nên sự hài hòa và sang trọng. Chất liệu da cao cấp mang đến cảm giác êm ái, thoải mái và tăng thêm độ bền cho sản phẩm. Logo Swoosh đặc trưng của Nike được nhấn nhá bằng màu trắng nổi bật trên nền đen, tạo điểm nhấn ấn tượng.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và sang trọng.&#13;&#10;Phối màu đơn giản: Sự kết hợp giữa trắng và đen tạo nên vẻ đẹp tinh tế, dễ phối đồ.&#13;&#10;Logo Swoosh đặc trưng: Biểu tượng của Nike, tạo điểm nhấn ấn tượng.&#13;&#10;Nike Dunk Low - sự lựa chọn hoàn hảo cho những ai yêu thích phong cách cổ điển và muốn thể hiện sự tinh tế trong từng bước đi.', 2350000, 3155000, '38.5, 39, 40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45', '', 1, 10, '2025-01-10 16:53:27', NULL),
+('DD1503-118', 182949038, 'Rose Whisper Women', 5, '&#34;Nike Dunk Low Rose Whisper Women&#39;s - Hồng hào ngọt ngào, phong cách thời thượng&#34;&#13;&#10;&#13;&#10;Nike Dunk Low Rose Whisper Women&#39;s với tông màu hồng phấn ngọt ngào sẽ khiến trái tim bạn tan chảy. Đôi giày sở hữu thiết kế cổ điển, thanh lịch với phần upper được làm từ chất liệu da cao cấp, mang đến cảm giác êm ái, thoải mái. Gam màu hồng phấn chủ đạo kết hợp cùng màu trắng tinh khôi tạo nên một tổng thể hài hòa, nữ tính. Logo Swoosh đặc trưng của Nike được nhấn nhá bằng màu trắng, tạo điểm nhấn tinh tế. Đế giày màu trắng ngà cùng phần lót giày mềm mại giúp bạn tự tin vận động cả ngày dài.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và sang trọng.&#13;&#10;Phối màu hồng phấn ngọt ngào: Tông màu nữ tính, trẻ trung, phù hợp với nhiều outfit.&#13;&#10;Logo Swoosh tinh tế: Biểu tượng của Nike, tạo điểm nhấn ấn tượng.&#13;&#10;Đế giày êm ái: Đảm bảo sự thoải mái cho đôi chân.&#13;&#10;Nike Dunk Low Rose Whisper Women&#39;s màu hồng phấn - là sự lựa chọn hoàn hảo cho những cô nàng yêu thích phong cách thời trang nhẹ nhàng, nữ tính và muốn thể hiện cá tính riêng.', 1990000, 3350000, '36, 36.5, 37.5, 38, 38.5, 39, 40, 40.5, 41, 42, 42', '', 1, 5, '2025-01-10 17:00:29', NULL),
+('DZ2768-651', 87417065, 'Pastel Purple Women&', 5, '&#34;JORDAN 1 Low Pastel Purple Women&#39;s - Ước mơ ngọt ngào trên đôi chân&#34;&#13;&#10;&#13;&#10;JORDAN 1 Low Pastel Purple Women&#39;s là một tác phẩm nghệ thuật dành cho những tín đồ sneaker yêu thích sự nhẹ nhàng, ngọt ngào. Đôi giày sở hữu thiết kế cổ điển với phần upper được làm từ chất liệu da cao cấp, mang đến cảm giác êm ái, thoải mái. Gam màu pastel tím, hồng và trắng tạo nên một bức tranh tuyệt đẹp, vừa nữ tính lại vừa hiện đại. Logo Swoosh đặc trưng của Nike được nhấn nhá bằng màu trắng, tạo điểm nhấn tinh tế. Đế giày màu kem cùng phần lót giày mềm mại giúp bạn tự tin vận động cả ngày dài.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và sang trọng.&#13;&#10;Phối màu pastel ngọt ngào: Sự kết hợp hài hòa giữa tím, hồng và trắng tạo nên vẻ đẹp mơ màng.&#13;&#10;Logo Swoosh tinh tế: Biểu tượng của Nike, tạo điểm nhấn ấn tượng.&#13;&#10;Đế giày êm ái: Đảm bảo sự thoải mái cho đôi chân.&#13;&#10;JORDAN 1 Low Pastel Purple Women&#39;s&#13;&#10; - là sự lựa chọn hoàn hảo cho những ai muốn thể hiện phong cách thời trang nhẹ nhàng, nữ tính và không kém phần cá tính.', 1990000, 2350000, '36,36.5,37.5,38,38.5,39,40,40.5,41,42,42.5', '', 1, 50, '2025-01-10 17:10:44', NULL),
+('FQ7637-001', 318090249, 'Light Smoke Burgundy', 4, 'Nike Sb Force 58 &#39;Light Smoke Burgundy&#39; - Phong cách đường phố, cá tính nổi bật&#34;&#13;&#10;&#13;&#10;Nike Sb Force 58 &#39;Light Smoke Burgundy là một lựa chọn hoàn hảo cho những ai yêu thích phong cách thể thao, năng động. Đôi giày sở hữu thiết kế hiện đại với gam màu xám chủ đạo, kết hợp cùng các chi tiết đỏ đô tạo nên sự tương phản ấn tượng. Chất liệu da lộn cao cấp và vải lưới thoáng khí mang đến cảm giác thoải mái, êm ái khi vận động. Đế giày được thiết kế với các rãnh sâu, tăng độ bám, giúp bạn tự tin di chuyển trên mọi địa hình.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế trẻ trung: Kiểu dáng thể thao, năng động, phù hợp với nhiều phong cách thời trang.&#13;&#10;Chất liệu cao cấp: Da lộn và vải lưới mang đến cảm giác thoải mái và bền bỉ.&#13;&#10;Phối màu ấn tượng: Sự kết hợp giữa xám và đỏ tạo nên vẻ ngoài cá tính, nổi bật.&#13;&#10;Đế giày bền bỉ: Đế giày được thiết kế với các rãnh sâu, tăng độ bám, giúp bạn di chuyển an toàn.&#13;&#10;Nike Sb Force 58 &#39;Light Smoke Burgund  - sự lựa chọn hoàn hảo cho những ai muốn thể hiện phong cách đường phố và luôn năng động.', 1720000, 1890000, '38.5, 39, 40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45', '', 0, 20, '2025-01-10 17:07:18', NULL),
+('HJ9093-030', 303371563, 'Light Iron Ore Gym R', 5, '&#34;Nike Dunk Low Light Iron Ore Gym Red - Vẻ đẹp cổ điển, điểm nhấn cá tính&#34;&#13;&#10;&#13;&#10;Nike Dunk Low Light Iron Ore Gym Red là một biểu tượng của văn hóa sneaker, mang đến vẻ đẹp vượt thời gian. Đôi giày sở hữu thiết kế đơn giản nhưng không kém phần tinh tế với gam màu trắng xám chủ đạo, kết hợp cùng các chi tiết đỏ nổi bật tạo nên sự tương phản ấn tượng. Chất liệu da cao cấp mang đến cảm giác êm ái, thoải mái và tăng thêm độ bền cho sản phẩm. Logo Swoosh đặc trưng của Nike được nhấn nhá bằng màu đỏ tươi, tạo điểm nhấn nổi bật.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và sang trọng.&#13;&#10;Phối màu độc đáo: Sự kết hợp giữa trắng xám và đỏ tạo nên vẻ đẹp cổ điển nhưng không kém phần hiện đại.&#13;&#10;Logo Swoosh nổi bật: Biểu tượng của Nike, tạo điểm nhấn ấn tượng.&#13;&#10;Nike Dunk Low Light Iron Ore Gym Red - là sự lựa chọn hoàn hảo cho những ai yêu thích phong cách thời trang đơn giản nhưng không kém phần cá tính. Đôi giày sẽ giúp bạn nổi bật giữa đám đông mà vẫn giữ được sự tinh tế.', 1990000, 2050000, '38.5, 39, 40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45', '', 1, 10, '2025-01-10 16:57:01', NULL),
+('HM3711-144', 818620375, 'Armory Navy', 5, 'Air Jordan 1 Low SE &#34;Armory Navy&#34; - Bước đi trên biển, phong cách thời thượng&#34;&#13;&#10;&#13;&#10;Air Jordan 1 Low SE &#34;Armory Navy phiên bản này mang đến một làn gió mới mẻ với sự kết hợp hài hòa giữa màu xanh dương tươi mát, trắng tinh khôi và những điểm nhấn màu cam đất. Đôi giày sở hữu thiết kế cổ điển, thanh lịch với phần upper được làm từ chất liệu da cao cấp, mang đến cảm giác êm ái, thoải mái. Gam màu xanh dương chủ đạo gợi lên hình ảnh bầu trời và đại dương, tạo nên vẻ ngoài tươi trẻ và năng động, trong khi đó, màu trắng và cam tạo điểm nhấn nổi bật. Logo Swoosh đặc trưng của Nike được nhấn nhá bằng màu đen, tạo sự tương phản ấn tượng. Đế giày màu trắng ngà cùng phần lót giày mềm mại giúp bạn tự tin vận động cả ngày dài.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và sang trọng.&#13;&#10;Phối màu độc đáo: Sự kết hợp giữa xanh dương, trắng và cam tạo nên vẻ đẹp tươi trẻ, năng động.&#13;&#10;Logo Swoosh nổi bật: Biểu tượng của Nike, tạo điểm nhấn ấn tượng.&#13;&#10;Đế giày êm ái: Đảm bảo sự thoải mái cho đôi chân.&#13;&#10;Air Jordan 1 Low SE &#34;Armory Navy&#34; phiên bản này là sự lựa chọn hoàn hảo cho những ai yêu thích phong cách thể thao, năng động và muốn thể hiện sự cá tính riêng.', 2210000, 2250000, '37.5, 38.5, 39, 40, 40.5, 41, 42, 42.5, 43, 44', '', 0, 50, '2025-01-10 17:13:45', NULL),
+('y728923', 862294063, 'Hồng', 5, 'Anh bé béo', 2150000, 3350000, '36', '', 1, 50, '2025-01-10 17:30:12', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_image`
+-- Cấu trúc bảng cho bảng `product_image`
 --
 
 CREATE TABLE `product_image` (
@@ -193,45 +185,44 @@ CREATE TABLE `product_image` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `product_image`
+-- Đang đổ dữ liệu cho bảng `product_image`
 --
 
 INSERT INTO `product_image` (`image_id`, `p_id`, `product_image`) VALUES
-(14, 'NCL2-H1', 'NCL2_hong1.jpg'),
-(15, 'NCL2-H1', 'NCL2_hong2.jpg'),
-(16, 'NCL2-H1', 'NCL2_hong3.jpg'),
-(17, 'NCL2-H1', 'NCL2_hong4.jpg'),
-(18, 'NCL2-H1', 'NCL2_hong5.jpg'),
-(24, 'NCL2-C1', 'NCL2_cam1.jpg'),
-(25, 'NCL2-C1', 'NCL2_cam2.jpg'),
-(26, 'NCL2-C1', 'NCL2_cam3.jpg'),
-(27, 'NCL2-C1', 'NCL2_cam4.jpg'),
-(28, 'NCL2-C1', 'NCL2_cam5.jpg'),
-(29, 'NCL2-C1', 'NCL2_cam6.jpg'),
-(30, 'ADSL-D1', 'ADSLden1.jpg'),
-(31, 'ADSL-D1', 'ADSLden2.jpg'),
-(32, 'ADSL-D1', 'ADSLden3.jpg'),
-(33, 'ADSL-D1', 'ADSLden4.jpg'),
-(34, 'ADSL-T132', 'ADSLtrang1.jpg'),
-(35, 'ADSL-T132', 'ADSLtrang2.jpg'),
-(36, 'ADSL-T132', 'ADSLtrang3.jpg'),
-(37, 'ADSL-T132', 'ADSLtrang4.jpg'),
-(38, 'ADSL-T132', 'ADSLtrang5.jpg'),
-(39, 'ADSL-XD3463', 'ADSLxanh1.jpg'),
-(40, 'ADSL-XD3463', 'ADSLxanh2.jpg'),
-(41, 'ADSL-XD3463', 'ADSLxanh3.jpg'),
-(42, 'ADSL-XD3463', 'ADSLxanh4.jpg'),
-(43, 'ADSL-XD3463', 'ADSLxanh5.jpg'),
-(54, 'NCL2-X1', 'NCL2_xanh1.jpg'),
-(55, 'NCL2-X1', 'NCL2_xanh2.jpg'),
-(56, 'NCL2-X1', 'NCL2_xanh3.jpg'),
-(62, 'NCL2-X1', 'NCL2_xanh4.jpg'),
-(63, 'NCL2-X1', 'NCL2_xanh5.jpg');
+(65, 'DD1391-100', 'DD1391-100_1.jpg'),
+(66, 'DD1391-100', 'DD1391-100_2.jpg'),
+(67, 'DD1391-100', 'DD1391-100_3.jpg'),
+(68, 'DD1391-100', 'DD1391-100_4.jpg'),
+(69, 'DD1391-100', 'DD1391-100_5.jpg'),
+(70, 'DD1503-118', 'DD1503-118_02.jpg'),
+(71, 'DD1503-118', 'DD1503-118_01.jpg'),
+(72, 'DD1503-118', 'DD1503-118_03.jpg'),
+(73, 'DD1503-118', 'DD1503-118_04.jpg'),
+(74, 'DZ2768-651', 'DZ2768-651_02.jpg'),
+(75, 'DZ2768-651', 'DZ2768-651_01.jpg'),
+(76, 'DZ2768-651', 'DZ2768-651_03.jpg'),
+(77, 'DZ2768-651', 'DZ2768-651_05.jpg'),
+(78, 'DZ2768-651', 'DZ2768-651_04.jpg'),
+(79, 'HM3711-144', 'HM3711-144_02.jpg'),
+(80, 'HM3711-144', 'HM3711-144_01.jpg'),
+(81, 'HM3711-144', 'HM3711-144_03.jpg'),
+(82, 'HM3711-144', 'HM3711-144_04.jpg'),
+(83, 'HM3711-144', 'HM3711-144_05.jpg'),
+(84, 'FQ7637-001', 'FQ7637-001_02.jpg'),
+(85, 'FQ7637-001', 'FQ7637-001_01.jpg'),
+(86, 'FQ7637-001', 'FQ7637-001_03.jpg'),
+(87, 'FQ7637-001', 'FQ7637-001_04.jpg'),
+(88, 'FQ7637-001', 'FQ7637-001_05.jpg'),
+(89, 'HJ9093-030', 'HJ9093-030_1.jpg'),
+(90, 'HJ9093-030', 'HJ9093-030_2.jpg'),
+(91, 'HJ9093-030', 'HJ9093-030_3.jpg'),
+(92, 'HJ9093-030', 'HJ9093-030_4.jpg'),
+(93, 'HJ9093-030', 'HJ9093-030_5.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_name`
+-- Cấu trúc bảng cho bảng `product_name`
 --
 
 CREATE TABLE `product_name` (
@@ -241,17 +232,23 @@ CREATE TABLE `product_name` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `product_name`
+-- Đang đổ dữ liệu cho bảng `product_name`
 --
 
 INSERT INTO `product_name` (`p_name_id`, `p_name`, `collection_id`) VALUES
-(1, 'AdidasSL V1', 1),
-(2, 'NikeCL V1', 2);
+(87417065, 'Jordan 1 Low', 10),
+(182949038, 'Nike Dunk Low ', 8),
+(303371563, 'Nike Dunk Low ', 8),
+(318090249, 'Force 58 ', 9),
+(371755728, 'Nike Dunk Low ', 8),
+(818620375, 'Air Jordan 1 Low SE', 10),
+(834891231, 'Jordan Air Jordan 1 Low', 10),
+(862294063, 'Nike Dunk SB ', 8);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `token_login`
+-- Cấu trúc bảng cho bảng `token_login`
 --
 
 CREATE TABLE `token_login` (
@@ -263,16 +260,16 @@ CREATE TABLE `token_login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `token_login`
+-- Đang đổ dữ liệu cho bảng `token_login`
 --
 
 INSERT INTO `token_login` (`id`, `user_id`, `token`, `create_at`, `last_active`) VALUES
-(95, 13, '43e9c12e7125289ee85523ab1247c571e320003d', '2025-01-03 23:36:06', NULL);
+(109, 13, '859161ae74ef7bac4836926ee3f879f2b202842d', '2025-01-10 16:48:28', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Cấu trúc bảng cho bảng `user`
 --
 
 CREATE TABLE `user` (
@@ -292,7 +289,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `user`
+-- Đang đổ dữ liệu cho bảng `user`
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `fullname`, `address`, `phone`, `email`, `forgotToken`, `activeToken`, `status`, `isAdmin`, `create_at`, `update_at`) VALUES
@@ -304,17 +301,17 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `fullname`, `address`, `p
 (16, 'kiendz123', '123456789', 'Lê Trung', NULL, '0123456789', 'letrungkien9_t66@hus.edu.vn', NULL, NULL, 1, 1, '2024-12-11 10:30:07', NULL);
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `banner`
+-- Chỉ mục cho bảng `banner`
 --
 ALTER TABLE `banner`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cart`
+-- Chỉ mục cho bảng `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`cart_id`),
@@ -322,20 +319,20 @@ ALTER TABLE `cart`
   ADD KEY `product_id` (`p_id`);
 
 --
--- Indexes for table `category`
+-- Chỉ mục cho bảng `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Indexes for table `collection`
+-- Chỉ mục cho bảng `collection`
 --
 ALTER TABLE `collection`
   ADD PRIMARY KEY (`collection_id`),
   ADD KEY `category_id` (`category_id`);
 
 --
--- Indexes for table `comments`
+-- Chỉ mục cho bảng `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`comment_id`),
@@ -343,160 +340,160 @@ ALTER TABLE `comments`
   ADD KEY `p_id` (`p_id`);
 
 --
--- Indexes for table `orders`
+-- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`payment_id`),
   ADD KEY `payment_ibfk_1` (`cart_id`);
 
 --
--- Indexes for table `products`
+-- Chỉ mục cho bảng `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`p_id`),
   ADD KEY `p_name_id` (`p_name_id`);
 
 --
--- Indexes for table `product_image`
+-- Chỉ mục cho bảng `product_image`
 --
 ALTER TABLE `product_image`
   ADD PRIMARY KEY (`image_id`),
   ADD KEY `product_id` (`p_id`);
 
 --
--- Indexes for table `product_name`
+-- Chỉ mục cho bảng `product_name`
 --
 ALTER TABLE `product_name`
   ADD PRIMARY KEY (`p_name_id`),
   ADD KEY `collection_id` (`collection_id`);
 
 --
--- Indexes for table `token_login`
+-- Chỉ mục cho bảng `token_login`
 --
 ALTER TABLE `token_login`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `user`
+-- Chỉ mục cho bảng `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `banner`
+-- AUTO_INCREMENT cho bảng `banner`
 --
 ALTER TABLE `banner`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `cart`
+-- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
   MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT for table `collection`
+-- AUTO_INCREMENT cho bảng `collection`
 --
 ALTER TABLE `collection`
-  MODIFY `collection_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `collection_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `comments`
+-- AUTO_INCREMENT cho bảng `comments`
 --
 ALTER TABLE `comments`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `product_image`
+-- AUTO_INCREMENT cho bảng `product_image`
 --
 ALTER TABLE `product_image`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
--- AUTO_INCREMENT for table `product_name`
+-- AUTO_INCREMENT cho bảng `product_name`
 --
 ALTER TABLE `product_name`
-  MODIFY `p_name_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `p_name_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=862294064;
 
 --
--- AUTO_INCREMENT for table `token_login`
+-- AUTO_INCREMENT cho bảng `token_login`
 --
 ALTER TABLE `token_login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `cart`
+-- Các ràng buộc cho bảng `cart`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`p_id`) REFERENCES `products` (`p_id`);
 
 --
--- Constraints for table `collection`
+-- Các ràng buộc cho bảng `collection`
 --
 ALTER TABLE `collection`
   ADD CONSTRAINT `collection_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`);
 
 --
--- Constraints for table `comments`
+-- Các ràng buộc cho bảng `comments`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   ADD CONSTRAINT `comments_ibfk_3` FOREIGN KEY (`p_id`) REFERENCES `products` (`p_id`);
 
 --
--- Constraints for table `orders`
+-- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`);
 
 --
--- Constraints for table `products`
+-- Các ràng buộc cho bảng `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`p_name_id`) REFERENCES `product_name` (`p_name_id`);
 
 --
--- Constraints for table `product_image`
+-- Các ràng buộc cho bảng `product_image`
 --
 ALTER TABLE `product_image`
   ADD CONSTRAINT `product_image_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `products` (`p_id`);
 
 --
--- Constraints for table `product_name`
+-- Các ràng buộc cho bảng `product_name`
 --
 ALTER TABLE `product_name`
   ADD CONSTRAINT `product_name_ibfk_1` FOREIGN KEY (`collection_id`) REFERENCES `collection` (`collection_id`);
 
 --
--- Constraints for table `token_login`
+-- Các ràng buộc cho bảng `token_login`
 --
 ALTER TABLE `token_login`
   ADD CONSTRAINT `token_login_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
