@@ -18,7 +18,7 @@ if (!isLogin()) {
 if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
-$listCate = getRaw("SELECT * FROM collection INNER JOIN category ON collection.category_id = category.category_id");
+
 // echo '<pre>';
 // print_r($listCate);
 // echo '</pre>';
@@ -108,16 +108,13 @@ $smg_types = getFlashData('smg_types');
             </div>
 
             <div class="container-fluid px-4">
-
                 <div class="row my-5">
-
                     <div class="col overflow-auto">
                         <a href="?module=admin&action=collection_add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Thêm bộ sưu tập</a>
                         <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="50">ID</th>
-                                    <th scope="col">Ảnh mẫu</th>
+                                    <th scope="col" width="50">STT</th>
                                     <th scope="col">Tên bộ sưu tập</th>
                                     <th scope="col">Danh mục </th>
                                     <th width="5%"> Sửa </th>
@@ -126,14 +123,61 @@ $smg_types = getFlashData('smg_types');
                             </thead>
                             <tbody>
                                 <?php
+                                $listCate = getRaw("SELECT * FROM collection INNER JOIN category ON collection.category_id = category.category_id");
                                 if (!empty($listCate)):
                                     $count = 0;
                                     foreach ($listCate as $item):
-                                        $p_name_id = oneRaw("SELECT * FROM product_name WHERE product_name.collection_id = " . $item['collection_id']);
-                                        if (empty($p_name_id)):
-                                            $p_name_id['p_name_id'] = -1;
-                                        endif;
-                                        $p_id = oneRaw("SELECT * FROM products INNER JOIN product_name WHERE products.p_name_id = " . $p_name_id['p_name_id']);
+                                        $count++;
+                                ?>
+                                        <tr>
+                                            <td><?php echo $count ?></td>
+                                            <td><?php echo $item['collection_name'] ?></td>
+                                            <td><?php echo $item['category_name'] ?></td>
+                                            <td><a href="<?php echo "?module=admin&action=collection_edit&collection_id=" . $item['collection_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                            <td><a href="<?php echo "?module=admin&action=collection_delete&collection_id=" . $item['collection_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không? Nếu xóa, tất cả sản phẩm trong bộ sưu tập sẽ bị xóa!')" class="btn btn-danger btn-sm">
+                                                    <i class="fa-solid fa-trash"></i></a></td>
+                                        </tr>
+                                    <?php
+                                    endforeach;
+
+                                else:
+                                    ?>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="alert alert-danger text-center">Không có người dùng nào!</div>
+                                        </td>
+                                    </tr>
+                                <?php
+                                endif;
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid px-4">
+                <div class="row my-5">
+                    <div class="col overflow-auto">
+                        <a href="?module=admin&action=product_name_add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Thêm tên sản phẩm lớn</a>
+                        <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable1">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50">STT</th>
+                                    <th scope="col">Ảnh mẫu</th>
+                                    <th scope="col">Tên sản phẩm</th>
+                                    <th scope="col">Bộ sưu tập </th>
+                                    <th width="5%"> Sửa </th>
+                                    <th width="5%"> Xóa </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $listProdName = getRaw("SELECT * FROM product_name INNER JOIN collection ON product_name.collection_id = collection.collection_id");
+                                if (!empty($listProdName)):
+                                    $count = 0;
+                                    foreach ($listProdName as $item):
+                                        $p_id = oneRaw("SELECT * FROM products INNER JOIN product_name WHERE products.p_name_id = " . $item['p_name_id']);
                                         if (empty($p_id)):
                                             $p_id['p_id'] = -1;
                                         endif;
@@ -141,7 +185,7 @@ $smg_types = getFlashData('smg_types');
                                         $count++;
                                 ?>
                                         <tr>
-                                            <td><?php echo $item['collection_id'] ?></td>
+                                            <td><?php echo $count; ?></td>
                                             <td>
                                                 <?php
                                                 if (empty($image)):
@@ -151,10 +195,10 @@ $smg_types = getFlashData('smg_types');
                                                     <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $image['product_image']; ?>" width="100px">
                                                 <?php endif; ?>
                                             </td>
+                                            <td><?php echo $item['p_name'] ?></td>
                                             <td><?php echo $item['collection_name'] ?></td>
-                                            <td><?php echo $item['category_name'] ?></td>
-                                            <td><a href="<?php echo "?module=admin&action=collection_edit&collection_id=" . $item['collection_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                            <td><a href="<?php echo "?module=admin&action=collection_delete&collection_id=" . $item['collection_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không? Nếu xóa, tất cả sản phẩm trong bộ sưu tập sẽ bị xóa!')" class="btn btn-danger btn-sm">
+                                            <td><a href="<?php echo "?module=admin&action=product_name_edit&p_name_id=" . $item['p_name_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                            <td><a href="<?php echo "?module=admin&action=product_name_delete&p_name_id=" . $item['p_name_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không? Nếu xóa, tất cả sản phẩm sẽ bị xóa!')" class="btn btn-danger btn-sm">
                                                     <i class="fa-solid fa-trash"></i></a></td>
                                         </tr>
                                     <?php

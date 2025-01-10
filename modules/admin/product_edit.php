@@ -72,16 +72,9 @@ if (isPost()) {
     // }
 
     if (empty($errors)) {
-        if ($filterAll['p_name'] != $productDetail['p_name'] || $filterAll['collection_id'] != $productDetail['collection_id']) {
-            $productNameUpdate = [
-                'p_name' => $filterAll['p_name'],
-                'collection_id' => $filterAll['collection_id'],
-            ];
-            $updateNameStatus = update('product_name', $productNameUpdate, "p_name_id = '$productDetail[p_name_id]'");
-        }
-
         $productUpdate = [
             'p_id' => $filterAll['p_id'],
+            'p_name_id' => $filterAll['p_name_id'],
             'p_color' => $filterAll['p_color'],
             'p_rate' => $filterAll['p_rate'],
             'p_description' => $filterAll['p_description'],
@@ -235,11 +228,16 @@ if (!empty($productDetail)) {
                                 </div>
                                 <div class="form-group mg-form">
                                     <label for="">Tên sản phẩm</label>
-                                    <input class="form-control" type="text" placeholder="Tên sản phẩm" name="p_name"
-                                        value="<?php echo old('p_name', $old) ?>" />
-                                    <?php
-                                    echo form_error('p_name', '<p class="text-danger">', '</p>', $errors);
-                                    ?>
+                                    <select class="form-control" name="p_name_id">
+                                        <?php
+                                        $listProdName = getRaw("SELECT * FROM product_name");
+                                        foreach ($listProdName as $prodName):
+                                        ?>
+                                            <option value=<?= $prodName['p_name_id'] ?> <?php echo (old('p_name_id', $old) == $prodName['p_name_id']) ? 'selected' : false; ?>><?= $prodName['p_name'] ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
                                 </div>
                                 <div class="form-group mg-form">
                                     <label for="">Màu sắc</label>

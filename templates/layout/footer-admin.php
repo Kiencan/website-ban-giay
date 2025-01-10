@@ -32,6 +32,28 @@ if (!defined('_CODE')) {
     });
 </script>
 <script>
+    var table = $('#datatable1').DataTable({
+        layout: {
+            topStart: {
+                pageLength: {
+                    menu: [5, 25, 50, 100]
+                }
+            }, // góc trái trên
+            // topEnd: null, // góc pháp trên
+            // bottomEnd: {
+            //     paging: {
+            //         type: 'simple_numbers' // chỉ có một nút next
+            //     }
+            // },  // góc phải dưới
+            // bottomStart: {
+            //     pageLength: {
+            //         menu: [5, 25, 50, 100]
+            //     }
+            // } // góc trái dưới
+        },
+    });
+</script>
+<script>
     var el = document.getElementById("wrapper");
     var toggleButton = document.getElementById("menu-toggle");
 

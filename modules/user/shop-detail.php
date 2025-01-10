@@ -300,24 +300,20 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
                       text-decoration: line-through;
                       font-family: 'Open Sans', sans-serif;
                       font-size: 15px;
-                    "><?php
-
-                      echo number_format($product['p_price_min'] * (100 - $product['discount']) / 100, 0, ',', '.') . " - " . number_format($product['p_price_max'] * (100 - $product['discount']) / 100, 0, ',', '.');
-
-                      ?></span>
+                    "><?php echo number_format($product['p_price_min'], 0, ',', '.') . " - " . number_format($product['p_price_max'], 0, ',', '.'); ?></span>
                 <span
                   style="
                       font-weight: bold;
                       color: black;
                       font-family: 'Open Sans', sans-serif;
-                    "><?php echo number_format($product['p_price_min'], 0, ',', '.') . " - " . number_format($product['p_price_max'], 0, ',', '.'); ?> VNĐ</span>
+                    "><?php echo number_format($product['p_price_min'] * (100 - $product['discount']) / 100, 0, ',', '.') . " - " . number_format($product['p_price_max'] * (100 - $product['discount']) / 100, 0, ',', '.'); ?> VNĐ</span>
               <?php else: ?>
                 <span
                   style="
                         font-weight: bold;
                         color: black;
                         font-family: 'Open Sans', sans-serif;
-                      "><?php echo number_format($product['p_price_min'], 0, ',', '.') . " - " . number_format($product['p_price_max'], 0, ',', '.'); ?> VNĐ</span>
+                      "><?php echo number_format($product['p_price_min'] * (100 - $product['discount']) / 100, 0, ',', '.') . " - " . number_format($product['p_price_max'] * (100 - $product['discount']) / 100, 0, ',', '.'); ?> VNĐ</span>
               <?php endif; ?>
             </h5>
             <div class="d-flex mb-4">
