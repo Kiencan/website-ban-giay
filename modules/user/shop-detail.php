@@ -289,7 +289,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
 
           <div class="col-lg-6">
             <h4 class="fw-bold mb-3" id="imageModalLabel">
-              <?php echo $product['collection_name'] . " " . $product['p_color']; ?>
+              <?php echo $product['p_name'] . " " . $product['p_color']; ?>
             </h4>
             <p class="mb-3">Phân loại: <?php echo $product['category_name'] ?></p>
             <h5 class="fw-bold mb-3">
@@ -340,7 +340,7 @@ $listImg = getRaw("SELECT * FROM product_image WHERE p_id = '" . $filterAll['p_i
               <span class="select-color mt-3">Màu sắc</span>
               <div class="container-product d-flex justify-content-start">
                 <?php
-                $listColor = getRaw("SELECT p_id, p_color FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id WHERE collection_id = " . $product["collection_id"]);
+                $listColor = getRaw("SELECT p_id, p_color FROM products where p_name_id = " . $product["p_name_id"]);
                 foreach ($listColor as $color):
                   $image = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $color["p_id"] . "'");
 
