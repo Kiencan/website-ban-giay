@@ -101,3 +101,26 @@ function getRows($sql)
         return $result->rowCount();
     }
 }
+
+// Hàm insert vào database và trả về ID của bản ghi vừa được thêm
+function insertAndGetId($table, $data)
+{
+    $key = array_keys($data);
+    $field = implode(',', $key);
+    $valuetb = ":" . implode(',:', $key);
+
+    
+    $sql = 'INSERT INTO ' . $table . '(' . $field . ')' . ' VALUES' . '(' . $valuetb . ')';
+    
+    // Thực thi câu lệnh insert
+    $result = query($sql, $data);
+
+    // Nếu câu lệnh thành công, lấy ID của bản ghi vừa thêm
+    if ($result) {
+        global $conn;
+        return $conn->lastInsertId();
+    }
+    
+    return false;  // Trả về false nếu không thành công
+}
+
