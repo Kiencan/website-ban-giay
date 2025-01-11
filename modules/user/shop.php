@@ -8,25 +8,44 @@ if (!empty($filterAll['id'])) {
   $id = $filterAll['id'];
   if ($id == 'bestSelling') {
     $categoryId = 15;
-    $totalShoes = getRows("SELECT * FROM products WHERE isBestSelling = 1");
+    $condition = "WHERE isBestSelling = 1";
+    $totalShoes = getRows("SELECT * FROM products " . $condition);
   } else if ($id == 'discount') {
     $categoryId = 16;
+    $condition = "WHERE discount > 0";
+    $totalShoes = getRows("SELECT * FROM products " . $condition);
   } else if ($id == 'giayAdidas') {
     $categoryId = 10;
+    $condition = " WHERE category.category_id = $categoryId";
+    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'giayNike') {
     $categoryId = 9;
+    $condition = " WHERE category.category_id = $categoryId";
+    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'giayPuma') {
     $categoryId = 17;
+    $condition = " WHERE category.category_id = $categoryId";
+    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'giayLining') {
     $categoryId = 18;
+    $condition = " WHERE category.category_id = $categoryId";
+    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'giayAnta') {
     $categoryId = 19;
+    $condition = " WHERE category.category_id = $categoryId";
+    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'quanao') {
     $categoryId = 20;
+    $condition = " WHERE category.category_id = $categoryId";
+    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'phukien') {
     $categoryId = 21;
+    $condition = " WHERE category.category_id = $categoryId";
+    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'sandal') {
     $categoryId = 22;
+    $condition = " WHERE category.category_id = $categoryId";
+    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   }
 }
 
@@ -206,7 +225,7 @@ $user_id = getUserIdByToken();
 <div class="container-fluid page-header py-5">
   <h1 class="text-center text-white display-6"><?php echo $category['category_name'] ?></h1>
   <ol class="breadcrumb justify-content-center mb-0">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="?module=user&action=trangchu">Home</a></li>
     <li class="breadcrumb-item"><a href="#">Pages</a></li>
     <li class="breadcrumb-item active text-white"><?php echo $category['category_name'] ?></li>
   </ol>
@@ -361,95 +380,112 @@ $user_id = getUserIdByToken();
                 $page = max(1, min($page, $total_links));
                 $start = ($page - 1) * $limit;
 
-                // Display items logic
-                for ($i = 1; $i <= $limit; $i++) :
-                ?>
-                  <div class="col-md-6 col-lg-6 col-xl-4">
-                    <div class="rounded position-relative my-item">
-                      <div class="img-item">
-                        <img src="<?php echo _WEB_HOST_TEMPLATE ?>\image\giay5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                      </div>
-                      <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;"><?php echo $category['category_name'] ?></div>
-                      <div class="p-4 border-top-0 rounded-bottom">
-                        <h4>Giày Adidas Duramo <?php echo $i + $start; ?></h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                          <p>
-                            <span style="text-decoration: line-through">2.500.000đ</span>
-                            <span style="font-weight: bold; color: black">1.499.000đ</span>
-                          </p>
-                          <div class="product-actions">
-                            <a href="#" class="btn border border-secondary rounded-circle p-auto me-2" style="background-color: rgb(255, 255, 255); color: #4856dd; width: 40px; height: 40px;">
-                              <i class="fa fa-heart"></i>
-                            </a>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
-                              <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-                            </a>
+                // Truy vấn danh sách sản phẩm từ cơ sở dữ liệu
+                $listProds = getRaw("SELECT * FROM products 
+                        INNER JOIN product_name ON products.p_name_id = product_name.p_name_id 
+                        INNER JOIN collection ON product_name.collection_id = collection.collection_id 
+                        INNER JOIN category ON collection.category_id = category.category_id " . $condition . " LIMIT $start, $limit");
+
+                if (!empty($listProds) && is_array($listProds)):
+                  foreach ($listProds as $product):
+                    $imgD = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $product['p_id'] . "'"); ?>
+                    <div class="col-md-6 col-lg-6 col-xl-4">
+                      <div class="rounded position-relative my-item">
+                        <div class="img-item">
+                          <img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $imgD['product_image'] ?>" class="img-fluid w-100 rounded-top" alt="">
+                        </div>
+                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+                          <?php echo htmlspecialchars($product['category_name'], ENT_QUOTES, 'UTF-8'); ?>
+                        </div>
+                        <div class="p-4 border-top-0 rounded-bottom">
+                          <h4><?php echo htmlspecialchars($product['p_name'] . ' ' . $product['p_color'], ENT_QUOTES, 'UTF-8'); ?></h4>
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum veritatis deserunt, soluta sequi voluptatem laudantium aperiam facilis? Deleniti, omnis delectus? Numquam doloribus inventore consequatur. Quaerat voluptatem ad dolorem placeat magni?</p>
+                          <div class="d-flex justify-content-between flex-lg-wrap">
+                            <p>
+                              <span style="text-decoration: line-through"><?php echo number_format($product['p_price_min'], 0, ',', '.') . " - " . number_format($product['p_price_max'], 0, ',', '.'); ?></span>
+                              <br>
+                              <span style="font-weight: bold; color: black"><?php echo number_format($product['p_price_min'] * (100 - $product['discount']) / 100, 0, ',', '.') . " - " . number_format($product['p_price_max'] * (100 - $product['discount']) / 100, 0, ',', '.'); ?></span>
+                            </p>
+                            <div class="product-actions">
+                              <a href="#" class="btn border border-secondary rounded-circle p-auto me-2" style="background-color: rgb(255, 255, 255); color: #4856dd; width: 40px; height: 40px;">
+                                <i class="fa fa-heart"></i>
+                              </a>
+                              <a href="?module=user&action=shop-detail&p_id=<?php echo $product['p_id'] ?>" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  <?php endforeach;
+                else: ?>
+                  <div class="col-12">
+                    <p>Không có sản phẩm nào!</p>
                   </div>
-                <?php
-                endfor;
-                // Pagination logic
-                $output = '<div class="col-12"><div class="pagination d-flex justify-content-center mt-5">';
-                $previous_link = '';
-                $next_link = '';
-                $page_link = [];
-                $page_array = [];
+                <?php endif; ?>
 
-                if ($total_links > 7) {
-                  if ($page < 5) {
-                    $page_array = range(1, min(5, $total_links));
-                    if ($total_links > 5) $page_array[] = '...';
-                    if ($total_links > 5) $page_array[] = $total_links;
-                  } else {
-                    if ($page <= $total_links - 4) {
-                      $page_array = [1, '...'];
-                      $page_array = array_merge($page_array, range($page - 1, $page + 1));
-                      $page_array[] = '...';
-                      $page_array[] = $total_links;
+                <?php
+                // Pagination logic
+                if ($total_links > 0) {
+                  $output = '<div class="col-12"><div class="pagination d-flex justify-content-center mt-5">';
+                  $previous_link = '';
+                  $next_link = '';
+                  $page_link = [];
+                  $page_array = [];
+
+                  if ($total_links > 7) {
+                    if ($page < 5) {
+                      $page_array = range(1, min(5, $total_links));
+                      if ($total_links > 5) $page_array[] = '...';
+                      if ($total_links > 5) $page_array[] = $total_links;
                     } else {
-                      $page_array = [1, '...'];
-                      $page_array = array_merge($page_array, range($total_links - 4, $total_links));
+                      if ($page <= $total_links - 4) {
+                        $page_array = [1, '...'];
+                        $page_array = array_merge($page_array, range($page - 1, $page + 1));
+                        $page_array[] = '...';
+                        $page_array[] = $total_links;
+                      } else {
+                        $page_array = [1, '...'];
+                        $page_array = array_merge($page_array, range($total_links - 4, $total_links));
+                      }
+                    }
+                  } else {
+                    $page_array = range(1, $total_links);
+                  }
+
+                  foreach ($page_array as $page_num) {
+                    if ($page_num === '...') {
+                      $page_link[] = '<a href="#" class="btn rounded disabled">...</a>';
+                    } elseif ($page_num == $page) {
+                      $page_link[] = '<a href="" class="btn rounded active">' . $page_num . '</a>';
+                    } else {
+                      $page_link[] = '<a href="?module=user&action=shop&id=' . $id . '&page=' . $page_num . '" class="btn rounded">' . $page_num . '</a>';
                     }
                   }
-                } else {
-                  $page_array = range(1, $total_links);
-                }
 
-                foreach ($page_array as $page_num) {
-                  if ($page_num === '...') {
-                    $page_link[] = '<a href="#" class="btn rounded disabled">...</a>';
-                  } elseif ($page_num == $page) {
-                    $page_link[] = '<a href="" class="btn rounded active">' . $page_num . '</a>';
+                  // Previous link
+                  if ($page > 1) {
+                    $previous_link = '<a href="?module=user&action=shop&id=' . $id . '&page=' . ($page - 1) . '" class="btn rounded">&laquo;</a>';
                   } else {
-                    $page_link[] = '<a href="?module=user&action=shop&id=' . $id . '&page=' . $page_num . '" class="btn rounded">' . $page_num . '</a>';
+                    $previous_link = '<a href="#" class="btn rounded disabled">&laquo;</a>';
                   }
+
+                  // Next link
+                  if ($page < $total_links) {
+                    $next_link = '<a href="?module=user&action=shop&id=' . $id . '&page=' . ($page + 1) . '" class="btn rounded">&raquo;</a>';
+                  } else {
+                    $next_link = '<a href="#" class="btn rounded disabled">&raquo;</a>';
+                  }
+
+                  $output .= $previous_link . implode('', $page_link) . $next_link;
+                  $output .= '</div></div>';
+
+                  echo $output;
                 }
-
-                // Previous link
-                if ($page > 1) {
-                  $previous_link = '<a href="?module=user&action=shop&id=' . $id . '&page=' . ($page - 1) . '" class="btn rounded">&laquo;</a>';
-                } else {
-                  $previous_link = '<a href="#" class="btn rounded disabled">&laquo;</a>';
-                }
-
-                // Next link
-                if ($page < $total_links) {
-                  $next_link = '<a href="?module=user&action=shop&id=' . $id . '&page=' . ($page + 1) . '" class="btn rounded">&raquo;</a>';
-                } else {
-                  $next_link = '<a href="#" class="btn rounded disabled">&raquo;</a>';
-                }
-
-                $output .= $previous_link . implode('', $page_link) . $next_link;
-                $output .= '</div></div>';
-
-                echo $output;
                 ?>
-
               </div>
+
             </div>
           </div>
         </div>

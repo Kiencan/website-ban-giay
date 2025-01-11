@@ -271,6 +271,7 @@ $ship_fee = 30000;
                         <?php
                         endforeach;
                     else:
+                        $total = 0;
                         ?>
                         <tr>
                             <td colspan="7">
@@ -291,18 +292,23 @@ $ship_fee = 30000;
                         <h2 class="display-7 mb-4">Hóa đơn thanh toán</h2>
                         <div class="d-flex justify-content-between mb-4">
                             <h5 class="mb-0 me-4">Thành tiền:</h5>
-                            <p class="mb-0 thanh_tien"><?php echo number_format($total, 0, ',', '.'); ?> VNĐ</p>
+                            <p class="mb-0 thanh_tien"><?php
+                                                        $total > 0 ? $total : $total = 0;
+                                                        echo number_format($total, 0, ',', '.');
+                                                        ?> VNĐ</p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h5 class="mb-0 me-4">Phí vận chuyển</h5>
                             <div class="">
-                                <p class="mb-0"><?php echo number_format($ship_fee, 0, ',', '.'); ?> VNĐ</p>
+                                <p class="mb-0 tien_ship"><?php $total > 0 ? $ship_fee : $ship_fee = 0;
+                                                            echo number_format($ship_fee, 0, ',', '.'); ?> VNĐ</p>
                             </div>
                         </div>
                     </div>
                     <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                         <h5 class="mb-0 ps-4 me-4">Tổng thanh toán</h5>
-                        <p class="mb-0 pe-4 tong_thanh_toan"><?php echo number_format($grand_total, 0, ',', '.'); ?> VNĐ</p>
+                        <p class="mb-0 pe-4 tong_thanh_toan"><?php $total > 0 ? $total + $ship_fee : $total = 0;
+                                                                echo number_format($total + $ship_fee, 0, ',', '.'); ?> VNĐ</p>
                     </div>
                     <a href="?module=user&action=chackout" class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Xử lý thanh toán</a>
                 </div>
@@ -509,6 +515,9 @@ layouts('footer');
                     let total = data.total;
                     console.log(total);
                     $(".thanh_tien").text(total + " VNĐ");
+                    let ship_fee = data.ship_fee;
+                    console.log(ship_fee);
+                    $(".tien_ship").text(ship_fee + " VNĐ");
                     let grand_total = data.grand_total;
                     console.log(grand_total);
                     $(".tong_thanh_toan").text(grand_total + " VNĐ");
@@ -571,9 +580,12 @@ layouts('footer');
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-
+                            console.log(response);
                             let total = response.total;
                             $(".thanh_tien").text(total + " VNĐ");
+                            let ship_fee = response.ship_fee;
+                            console.log(ship_fee);
+                            $(".tien_ship").text(ship_fee + " VNĐ");
                             let grand_total = response.grand_total;
                             $(".tong_thanh_toan").text(grand_total + " VNĐ");
 
