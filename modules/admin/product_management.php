@@ -121,6 +121,7 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p
                                     <th scope="col">Màu sắc</th>
                                     <th scope="col">Ảnh sản phẩm</th>
                                     <th scope="col">Danh mục</th>
+                                    <th scope="col">Bộ sản phẩm</th>
                                     <th scope="col">Giá</th>
                                     <th scope="col">Các size còn</th>
                                     <th scope="col">Các size hết</th>
@@ -139,7 +140,7 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p
                                 ?>
                                         <tr>
                                             <td><?php echo $product['p_id'] ?></td>
-                                            <td><?php echo $product['p_name'] ?></td>
+                                            <td><?php echo $product['p_name_custom'] ?></td>
                                             <td><?php echo $product['p_color'] ?></td>
                                             <td><?php
                                                 $listImg = oneRaw("SELECT * FROM product_image INNER JOIN products ON product_image.p_id = products.p_id WHERE product_image.p_id = '$product[p_id]'");
@@ -152,6 +153,7 @@ $listProd = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p
                                                 ?>
                                             </td>
                                             <td><?php echo $product['category_name'] ?></td>
+                                            <td><?php echo $product['p_name'] ?></td>
                                             <td><?php echo number_format($product['p_price_min'], 0, ',', '.') . ' - ' . number_format($product['p_price_max'], 0, ',', '.') ?></td>
                                             <td><?php echo $product['size_available'] ?></td>
                                             <td><?php echo $product['size_not_available'] ?></td>

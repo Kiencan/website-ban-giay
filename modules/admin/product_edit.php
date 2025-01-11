@@ -37,6 +37,9 @@ if (isPost()) {
     $filterAll = filter();
 
     $errors = []; // mảng chứa lỗi
+    if (empty($filterAll['p_name_custom'])) {
+        $errors['p_name_custom']['required'] = 'Vui lòng màu sắc sản phẩm';
+    }
 
     if (empty($filterAll['p_color'])) {
         $errors['p_color']['required'] = 'Vui lòng màu sắc sản phẩm';
@@ -74,6 +77,7 @@ if (isPost()) {
     if (empty($errors)) {
         $productUpdate = [
             'p_id' => $filterAll['p_id'],
+            'p_name_custom' => $filterAll['p_name_custom'],
             'p_name_id' => $filterAll['p_name_id'],
             'p_color' => $filterAll['p_color'],
             'p_rate' => $filterAll['p_rate'],
@@ -212,22 +216,9 @@ if (!empty($productDetail)) {
                                     echo form_error('p_id', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
+                            
                                 <div class="form-group mg-form">
-                                    <label for=""> Bộ sưu tập
-                                    </label>
-                                    <select class="form-control" name="collection_id">
-                                        <?php
-                                        $listCollection = getRaw("SELECT * FROM collection");
-                                        foreach ($listCollection as $collection):
-                                        ?>
-                                            <option value=<?= $collection['collection_id'] ?> <?php echo (old('collection_id', $old) == $collection['collection_id']) ? 'selected' : false; ?>><?= $collection['collection_name'] ?></option>
-                                        <?php
-                                        endforeach;
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group mg-form">
-                                    <label for="">Tên sản phẩm</label>
+                                    <label for="">Bộ sản phẩm</label>
                                     <select class="form-control" name="p_name_id">
                                         <?php
                                         $listProdName = getRaw("SELECT * FROM product_name");
@@ -238,6 +229,14 @@ if (!empty($productDetail)) {
                                         endforeach;
                                         ?>
                                     </select>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Tên sản phẩm</label>
+                                    <input class="form-control" type="text" placeholder="Tên sản phẩm" name="p_name_custom"
+                                        value="<?php echo old('p_name_custom', $old) ?>" />
+                                    <?php
+                                    echo form_error('p_name_custom', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
                                 </div>
                                 <div class="form-group mg-form">
                                     <label for="">Màu sắc</label>

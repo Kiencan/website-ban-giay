@@ -402,7 +402,7 @@ $listProd = getRaw("SELECT * FROM products")
                           <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
+                          <h4><?php echo $value['p_name_custom'] ?></h4>
                           <p style="color: grey">
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
@@ -472,7 +472,7 @@ $listProd = getRaw("SELECT * FROM products")
                           <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
+                          <h4><?php echo $value['p_name_custom'] ?></h4>
                           <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
@@ -543,7 +543,7 @@ $listProd = getRaw("SELECT * FROM products")
                           <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
+                          <h4><?php echo $value['p_name_custom'] ?></h4>
                           <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
@@ -614,7 +614,7 @@ $listProd = getRaw("SELECT * FROM products")
                           <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
+                          <h4><?php echo $value['p_name_custom'] ?></h4>
                           <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
@@ -685,7 +685,7 @@ $listProd = getRaw("SELECT * FROM products")
                           <?php echo $value['category_name'] ?>
                         </div>
                         <div class="p-4 border-top-0 rounded-bottom">
-                          <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
+                          <h4><?php echo $value['p_name_custom'] ?></h4>
                           <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit sed do eiusmod te incididunt
@@ -785,7 +785,7 @@ $listProd = getRaw("SELECT * FROM products")
               <?php echo $value['category_name'] ?>
             </div>
             <div class="p-4 border-top-0 rounded-bottom">
-              <h4><?php echo $value['collection_name'] . " " . $value['p_color'] ?></h4>
+              <h4><?php echo $value['p_name_custom'] ?></h4>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
                 eiusmod te incididunt

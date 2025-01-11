@@ -39,7 +39,7 @@ if (isPost()) {
 
     // Kiểm tra họ và tên: bắt buộc phải nhập, nhập ít nhất 5 ký tự
     if (empty($filterAll['p_name'])) {
-        $errors['p_name']['required'] = 'Vui lòng nhập tên tên sản phẩm lớn';
+        $errors['p_name']['required'] = 'Vui lòng nhập tên bộ sản phẩm';
     } else {
         $p_name = $filterAll['p_name'];
         $collection_id = $filterAll['collection_id'];
@@ -175,8 +175,8 @@ if (!empty($collectionDetail)) {
                         <div class="row">
                             <div class="col">
                                 <div class="form-group mg-form">
-                                    <label for="">Tên sản phẩm lớn</label>
-                                    <input class="form-control" type="text" placeholder="Tên sản phẩm lớn" name="p_name"
+                                    <label for="">Bộ sản phẩm</label>
+                                    <input class="form-control" type="text" placeholder="Bộ sản phẩm" name="p_name"
                                         value="<?php echo old('p_name', $old) ?>" />
                                     <?php
                                     echo form_error('p_name', '<p class="text-danger">', '</p>', $errors);

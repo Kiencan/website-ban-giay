@@ -3,7 +3,7 @@
 if (!defined('_CODE')) {
     die('Access denied');
 }
-$title = ['pageTitle' => 'Thêm tên sản phẩm lớn'];
+$title = ['pageTitle' => 'Thêm bộ sản phẩm'];
 
 layouts('header-admin', $title);
 
@@ -23,7 +23,7 @@ if (isPost()) {
 
     // Kiểm tra họ và tên: bắt buộc phải nhập, nhập ít nhất 5 ký tự
     if (empty($filterAll['p_name'])) {
-        $errors['p_name']['required'] = 'Vui lòng nhập tên tên sản phẩm lớn';
+        $errors['p_name']['required'] = 'Vui lòng nhập tên bộ sản phẩm';
     } else {
         $p_name = $filterAll['p_name'];
         $collection_id = $filterAll['collection_id'];
@@ -41,7 +41,7 @@ if (isPost()) {
         ];
         $insertStatus = insert('product_name', $dataInsert);
         if ($insertStatus) {
-            setFlashData('smg', 'Thêm tên sản phẩm lớn thành công!');
+            setFlashData('smg', 'Thêm bộ sản phẩm thành công!');
             setFlashData('smg_types', 'success');
             redirect('?module=admin&action=collection_management');
         } else {
@@ -137,12 +137,12 @@ $old = getFlashData('old');
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="?module=admin&action=dashboard" style="text-decoration: none"><i class="fa-solid fa-house"></i></a></li>
                     <li class="breadcrumb-item"><a href="?module=admin&action=user_management" style="text-decoration: none">Quản lý bộ sưu tập</a></li>
-                    <li class="breadcrumb-item active"> Thêm tên sản phẩm lớn </li>
+                    <li class="breadcrumb-item active"> Thêm bộ sản phẩm </li>
                 </ul>
             </div>
 
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Thêm tên sản phẩm lớn</h1>
+                <h1 class="mt-4">Thêm bộ sản phẩm</h1>
             </div>
 
             <div class="container px-4">
@@ -156,8 +156,8 @@ $old = getFlashData('old');
                         <div class="row">
                             <div class="col">
                                 <div class="form-group mg-form">
-                                    <label for="">Tên tên sản phẩm lớn</label>
-                                    <input class="form-control" type="text" placeholder="Tên tên sản phẩm lớn" name="p_name"
+                                    <label for="">Tên bộ sản phẩm</label>
+                                    <input class="form-control" type="text" placeholder="Tên bộ sản phẩm" name="p_name"
                                         value="<?php echo old('p_name', $old) ?>" />
                                     <?php
                                     echo form_error('p_name', '<p class="text-danger">', '</p>', $errors);
@@ -181,7 +181,7 @@ $old = getFlashData('old');
                         </div>
                 </div>
                 <div class="row d-grid gap-2 justify-content-center">
-                    <button class="btn btn-primary" type="submit">Thêm tên sản phẩm lớn</button>
+                    <button class="btn btn-primary" type="submit">Thêm bộ sản phẩm</button>
                     <a href="?module=admin&action=collection_management" class="btn btn-success" type="submit">Quay lại</a>
                 </div>
                 </form>

@@ -65,31 +65,29 @@ if (isPost()) {
     }
 
     if (empty($errors)) {
-        if ($insertNameStatus) {
-            $productInsert = [
-                'p_id' => $filterAll['p_id'],
-                'p_name_id' => $filterAll['p_name_id'],
-                'p_color' => $filterAll['p_color'],
-                'p_rate' => $filterAll['p_rate'],
-                'p_description' => $filterAll['p_description'],
-                'p_price_min' => $filterAll['p_price_min'],
-                'p_price_max' => $filterAll['p_price_max'],
-                'size_available' => $filterAll['size_available'],
-                'size_not_available' => $filterAll['size_not_available'],
-                'isBestSelling' => $filterAll['isBestSelling'],
-                'discount' => $filterAll['discount'],
-                'create_at' => date('Y-m-d H:i:s'),
-            ];
-            $insertStatus = insert('products', $productInsert);
-            if ($insertStatus) {
-                setFlashData('smg', 'Thêm sản phẩm thành công!');
-                setFlashData('smg_types', 'success');
-                redirect('?module=admin&action=product_management');
-            } else {
-                setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
-                setFlashData('smg_types', 'danger');
-                redirect('?module=admin&action=product_add');
-            }
+        $productInsert = [
+            'p_id' => $filterAll['p_id'],
+            'p_name_id' => $filterAll['p_name_id'],
+            'p_color' => $filterAll['p_color'],
+            'p_rate' => $filterAll['p_rate'],
+            'p_description' => $filterAll['p_description'],
+            'p_price_min' => $filterAll['p_price_min'],
+            'p_price_max' => $filterAll['p_price_max'],
+            'size_available' => $filterAll['size_available'],
+            'size_not_available' => $filterAll['size_not_available'],
+            'isBestSelling' => $filterAll['isBestSelling'],
+            'discount' => $filterAll['discount'],
+            'create_at' => date('Y-m-d H:i:s'),
+        ];
+        $insertStatus = insert('products', $productInsert);
+        if ($insertStatus) {
+            setFlashData('smg', 'Thêm sản phẩm thành công!');
+            setFlashData('smg_types', 'success');
+            redirect('?module=admin&action=product_management');
+        } else {
+            setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
+            setFlashData('smg_types', 'danger');
+            redirect('?module=admin&action=product_add');
         }
     } else {
         setFlashData('smg', 'Vui lòng kiểm tra lại thông tin');
@@ -206,21 +204,7 @@ $old = getFlashData('old');
                                     ?>
                                 </div>
                                 <div class="form-group mg-form">
-                                    <label for=""> Bộ sưu tập
-                                    </label>
-                                    <select class="form-control" name="collection_id">
-                                        <?php
-                                        $listCategory = getRaw("SELECT * FROM collection");
-                                        foreach ($listCategory as $category):
-                                        ?>
-                                            <option value=<?= $category['collection_id'] ?> <?php echo (old('collection_id', $old) == $category['collection_id']) ? 'selected' : false; ?>><?= $category['collection_name'] ?></option>
-                                        <?php
-                                        endforeach;
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group mg-form">
-                                    <label for=""> Tên sản phẩm
+                                    <label for=""> Sản phẩm lớn
                                     </label>
                                     <select class="form-control" name="p_name_id">
                                         <?php
@@ -232,6 +216,14 @@ $old = getFlashData('old');
                                         endforeach;
                                         ?>
                                     </select>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Tên sản phẩm </label>
+                                    <input class="form-control" type="text" placeholder="Tên sản phẩm" name="p_name_custom"
+                                        value="<?php echo old('p_name_custom', $old) ?>" />
+                                    <?php
+                                    echo form_error('p_name_custom', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
                                 </div>
                                 <div class="form-group mg-form">
                                     <label for="">Màu sắc</label>
