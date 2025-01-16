@@ -4,7 +4,6 @@ if (!defined('_CODE')) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 

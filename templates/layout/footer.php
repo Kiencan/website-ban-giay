@@ -34,11 +34,6 @@ if (!defined('_CODE')) {
 
             const p_size = $(".chon-size .form-check-input:checked").val();
             const p_quantity = $(".itemQty").val();
-            // console.log(p_id);
-            // console.log(user_id);
-            // console.log(p_price_min);
-            // console.log(p_size);
-            // console.log(p_quantity);
 
             // Kiểm tra các giá trị trước khi gửi AJAX
             if (!p_id || !user_id || !p_price_min || !p_size || !p_quantity) {
@@ -174,6 +169,69 @@ if (!defined('_CODE')) {
             } else {
                 $('#search-results').html(''); // Xóa kết quả nếu input rỗng
             }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#send-button').on('click', function() {
+            let email = $('#email-input').val();
+            console.log(email);
+            // Email validation using regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Vui lòng nhập địa chỉ email hợp lệ.',
+                });
+                return;
+            }
+
+            // Send AJAX request
+            $.ajax({
+                url: '?module=user&action=send_mail', // Replace with your server-side endpoint
+                method: 'POST',
+                data: {
+                    email: email
+                },
+                success: function(response) {
+                    Swal.close();
+                    console.log(response);
+                    if (response && response.status) {
+                        if (response.status === "sended") {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Thành công!",
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Lỗi",
+                                text: response.message,
+                                showConfirmButton: true
+                            });
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Lỗi",
+                            text: "Phản hồi không hợp lệ từ server.",
+                            showConfirmButton: true
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Có lỗi xảy ra: ' + error,
+                    });
+                }
+            });
         });
     });
 </script>
