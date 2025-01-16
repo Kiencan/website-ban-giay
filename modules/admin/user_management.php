@@ -109,68 +109,58 @@ $smg_types = getFlashData('smg_types');
                 <div class="row my-5">
 
                     <div class="col overflow-auto">
-                        <div class="card p-2">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <a href="?module=admin&action=user_add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Thêm thành viên</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="card-body">
-                                <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">
-                                    <thead>
+                        <a href="?module=admin&action=user_add" class="btn btn-success"><i class="fa-solid fa-plus"></i> Thêm thành viên</a>
+                        <table class="table bg-white rounded shadow-sm table-hover mt-3" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50">ID</th>
+                                    <th scope="col">Họ và tên</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Số điện thoại</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Quyền</th>
+                                    <th width="5%"> Sửa </th>
+                                    <th width="5%"> Xóa </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if (!empty($listUser)):
+                                    $count = 0;
+                                    foreach ($listUser as $item):
+                                        $count++;
+                                ?>
                                         <tr>
-                                            <th scope="col" width="50">ID</th>
-                                            <th scope="col">Họ và tên</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Số điện thoại</th>
-                                            <th scope="col">Trạng thái</th>
-                                            <th scope="col">Quyền</th>
-                                            <th width="5%"> Sửa </th>
-                                            <th width="5%"> Xóa </th>
+                                            <td><?php echo $item['user_id'] ?></td>
+                                            <td><?php echo $item['fullname'] ?></td>
+                                            <td><?php echo $item['email'] ?></td>
+                                            <td><?php echo $item['phone'] ?></td>
+                                            <td><?php echo $item['status'] == 1 ? '<button class="btn btn-success"> Đã kích hoạt </button>' :
+                                                    '<button class="btn btn-danger"> Chưa kích hoạt </button>'; ?></td>
+                                            <td><?php echo $item['isAdmin'] == 1 ? '<button class="btn btn-success"> Admin </button>' :
+                                                    '<button class="btn btn-danger"> Customer </button>'; ?></td>
+                                            <td><a href="<?php echo "?module=admin&action=user_edit&id=" . $item['user_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                            <td><a href="<?php echo "?module=admin&action=user_delete&id=" . $item['user_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
+                                                    <i class="fa-solid fa-trash"></i></a></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        if (!empty($listUser)):
-                                            $count = 0;
-                                            foreach ($listUser as $item):
-                                                $count++;
-                                        ?>
-                                                <tr>
-                                                    <td><?php echo $item['user_id'] ?></td>
-                                                    <td><?php echo $item['fullname'] ?></td>
-                                                    <td><?php echo $item['email'] ?></td>
-                                                    <td><?php echo $item['phone'] ?></td>
-                                                    <td><?php echo $item['status'] == 1 ? '<button class="btn btn-success"> Đã kích hoạt </button>' :
-                                                            '<button class="btn btn-danger"> Chưa kích hoạt </button>'; ?></td>
-                                                    <td><?php echo $item['isAdmin'] == 1 ? '<button class="btn btn-success"> Admin </button>' :
-                                                            '<button class="btn btn-danger"> Customer </button>'; ?></td>
-                                                    <td><a href="<?php echo "?module=admin&action=user_edit&id=" . $item['user_id'] ?>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                                    <td><a href="<?php echo "?module=admin&action=user_delete&id=" . $item['user_id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" class="btn btn-danger btn-sm">
-                                                            <i class="fa-solid fa-trash"></i></a></td>
-                                                </tr>
-                                            <?php
-                                            endforeach;
+                                    <?php
+                                    endforeach;
 
-                                        else:
-                                            ?>
-                                            <tr>
-                                                <td colspan="7">
-                                                    <div class="alert alert-danger text-center">Không có người dùng nào!</div>
-                                                </td>
-                                            </tr>
-                                        <?php
-                                        endif;
-                                        ?>
+                                else:
+                                    ?>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="alert alert-danger text-center">Không có người dùng nào!</div>
+                                        </td>
+                                    </tr>
+                                <?php
+                                endif;
+                                ?>
 
-                                    </tbody>
-                                </table>
-                            </div>
+                            </tbody>
+                        </table>
 
-                        </div>
+
                     </div>
                 </div>
             </div>

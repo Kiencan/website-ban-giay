@@ -145,7 +145,6 @@ if (!defined('_CODE')) {
         });
     });
 </script>
-
 <script>
     $(document).ready(function() {
         // Lắng nghe sự kiện nhập vào ô tìm kiếm
@@ -176,7 +175,6 @@ if (!defined('_CODE')) {
     $(document).ready(function() {
         $('#send-button').on('click', function() {
             let email = $('#email-input').val();
-            console.log(email);
             // Email validation using regex
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
@@ -192,34 +190,24 @@ if (!defined('_CODE')) {
             $.ajax({
                 url: '?module=user&action=send_mail', // Replace with your server-side endpoint
                 method: 'POST',
+                dataType: "json",
                 data: {
                     email: email
                 },
                 success: function(response) {
-                    Swal.close();
-                    console.log(response);
-                    if (response && response.status) {
-                        if (response.status === "sended") {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Thành công!",
-                                text: response.message,
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Lỗi",
-                                text: response.message,
-                                showConfirmButton: true
-                            });
-                        }
+                    if (response.status === "success") {
+                        Swal.fire({
+                            icon: "info",
+                            title: "Thông báo!",
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     } else {
                         Swal.fire({
                             icon: "error",
                             title: "Lỗi",
-                            text: "Phản hồi không hợp lệ từ server.",
+                            text: response.message,
                             showConfirmButton: true
                         });
                     }
@@ -231,6 +219,77 @@ if (!defined('_CODE')) {
                         text: 'Có lỗi xảy ra: ' + error,
                     });
                 }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#send-to-admin-button').on('click', function(e) {
+            e.preventDefault();
+
+            // Lấy dữ liệu từ biểu mẫu
+            const name = $('#name').val();
+            const different_email = $('#email').val();
+            const message = $('#message').val();
+            console.log(name);
+            console.log(different_email);
+            console.log(message);
+
+            // Kiểm tra đầu vào
+            if (!name || !different_email || !message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Vui lòng điền đầy đủ thông tin!',
+                });
+                return;
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(different_email)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Vui lòng nhập địa chỉ email hợp lệ.',
+                });
+                return;
+            }
+
+            // AJAX gửi dữ liệu
+            $.ajax({
+                url: '?module=user&action=send_to_admin', // Endpoint xử lý gửi email
+                method: 'POST',
+                dataType: "json",
+                data: {
+                    name: name,
+                    different_email: different_email,
+                    message: message
+                },
+                success: function(response) {
+                    if (response.status === "success") {
+                        Swal.fire({
+                            icon: "info",
+                            title: "Thông báo!",
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Lỗi",
+                            text: response.message,
+                            showConfirmButton: true
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Đã xảy ra lỗi không xác định.',
+                    });
+                },
             });
         });
     });

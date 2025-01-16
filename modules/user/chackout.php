@@ -36,7 +36,7 @@ echo '</pre>';
         <div class="d-flex justify-content-between">
             <div class="top-info ps-2">
                 <a href="#" class="text-white"><small class="text-white mx-2">Về chúng tôi</small>/</a>
-                <a href="#" class="text-white"><small class="text-white mx-2">Liên hệ</small>/</a>
+                <a href="?module=user&action=contact" class="text-white"><small class="text-white mx-2">Liên hệ</small>/</a>
                 <a href="#" class="text-white"><small class="text-white ms-2">Trở thành đối tác </small>/</a>
                 <a href="#" class="text-white"><small class="text-white ms-2">Chương trình</small></a>
             </div>
@@ -196,13 +196,13 @@ echo '</pre>';
         <form action="?module=user&action=success" method="POST">
             <div class="row g-5">
                 <div class="col-md-12 col-lg-6 col-xl-7">
-                <div class="form-item">
+                    <div class="form-item">
                         <label class="form-label my-3">Họ và tên <sup>*</sup></label>
                         <input type="text" class="form-control" name="fullname" required>
                     </div>
                     <div class="form-item">
                         <label class="form-label my-3">Địa chỉ <sup>*</sup></label>
-                        <input type="text" class="form-control"name="address" placeholder="Số nhà, tên đường, xã/phường, quận/huyện, thành phố,..." required>
+                        <input type="text" class="form-control" name="address" placeholder="Số nhà, tên đường, xã/phường, quận/huyện, thành phố,..." required>
                     </div>
                     <div class="form-item">
                         <label class="form-label my-3">Số điện thoại<sup>*</sup></label>
@@ -337,11 +337,13 @@ echo '</pre>';
                 <div class="col-lg-6">
                     <div class="position-relative mx-auto">
                         <input
+                            id="email-input"
                             class="form-control border-0 w-100 py-3 px-4 rounded-pill"
-                            type="number"
+                            type="email"
                             placeholder="Nhập email của bạn" />
                         <button
-                            type="submit"
+                            id="send-button"
+                            type="button"
                             class="btn border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
                             style="top: 0; right: 0; background-color: #4856dd">
                             Gửi ngay
@@ -385,7 +387,7 @@ echo '</pre>';
                 <div class="d-flex flex-column text-start footer-item">
                     <h4 class="text-light mb-3">Thông tin</h4>
                     <a class="btn-link" href="">Về chúng tôi</a>
-                    <a class="btn-link" href="">Liên hệ</a>
+                    <a class="btn-link" href="?module=user&action=contact">Liên hệ</a>
                     <a class="btn-link" href="">Chính sách bảo mật</a>
                     <a class="btn-link" href="">Điều khoản và dịch vụ</a>
                     <a class="btn-link" href="">Chính sách hoàn trả</a>
@@ -416,6 +418,44 @@ echo '</pre>';
     </div>
 </div>
 <!-- Footer End -->
+
+<!-- Side-right container -->
+<div class="container">
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <div class="side-right position-fixed">
+                <div class="echbay-sms-messenger">
+                    <div class="phonering-alo-alo">
+                        <a
+                            href="tel:0387440192"
+                            rel="nofollow"
+                            class="echbay-phonering-alo-event"></a>
+                    </div>
+                    <div class="phonering-alo-sms">
+                        <a
+                            href="sms:0387440192"
+                            rel="nofollow"
+                            class="echbay-phonering-sms-event"></a>
+                    </div>
+                    <div class="phonering-alo-zalo">
+                        <a
+                            href="https://zalo.me/0387440192"
+                            target="_blank"
+                            rel="nofollow"
+                            class="echbay-phonering-zalo-event"></a>
+                    </div>
+                    <div class="phonering-alo-messenger">
+                        <a
+                            href="https://www.facebook.com/3h1a.store"
+                            target="_blank"
+                            rel="nofollow"
+                            class="echbay-phonering-messenger-event"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Copyright Start -->
 <div class="container-fluid copyright bg-dark py-4">

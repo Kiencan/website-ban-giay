@@ -41,7 +41,7 @@ if (!empty($currentPrice)) {
     $query .= " AND p.p_price_min BETWEEN $price[0] AND $price[1]";
 }
 
-$query .= " LIMIT $offset, $limit";
+$query .= " ORDER BY p.create_at DESC LIMIT $offset, $limit";
 
 // SELECT p.*, pn.p_name, c.category_name, 
 // (SELECT product_image FROM product_image WHERE p_id = p.p_id LIMIT 1) as product_image

@@ -7,6 +7,7 @@ const _ACTION = 'trangchu';
 
 // Cấp quyền truy cập cho file
 const _CODE = true;
+const _EMAIL_ADMIN = 'kienbestdaxua@gmail.com';
 
 // Thiết lập host
 define('_WEB_HOST', 'http://' . $_SERVER['HTTP_HOST'] . '/website-ban-giay');

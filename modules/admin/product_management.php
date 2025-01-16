@@ -19,7 +19,7 @@ if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
 
-$listProd = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id ORDER BY create_at");
+$listProd = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id ORDER BY create_at DESC");
 // echo '<pre>';
 // print_r($listSize);
 // echo '</pre>';
