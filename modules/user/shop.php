@@ -53,7 +53,18 @@ $category = oneRaw("SELECT * FROM category WHERE category_id = $categoryId");
 // echo '<pre>';
 // print_r($category);
 // echo '</pre>';
-
+$featuredProducts = getRows("
+  SELECT products.*, product_image.product_image 
+  FROM products
+  INNER JOIN product_name ON products.p_name_id = product_name.p_name_id
+  INNER JOIN collection ON product_name.collection_id = collection.collection_id
+  INNER JOIN category ON collection.category_id = category.category_id
+  LEFT JOIN product_image ON products.p_id = product_image.p_id
+  WHERE category.category_id = $categoryId
+  GROUP BY products.p_id
+  ORDER BY RAND()
+  LIMIT 3
+");
 $title = [
   'pageTitle' => 'Trang ' . $category['category_name']
 ];
@@ -62,7 +73,7 @@ layouts('header', $title);
 $user_id = getUserIdByToken();
 // Kiểm tra trạng thái đăng nhập
 
-// if (!isLogin()) {
+// if (!isLogin()) { 
 //   redirect('?module=auth&action=login');
 // }
 ?>
@@ -288,8 +299,8 @@ $user_id = getUserIdByToken();
                       <label for="Categories-4"> Lining</label>
                     </div>
                     <div class="mb-2">
-                      <input type="radio" class="me-2 brand-filter" id="Categories-5" name="Categories-1" value="Alta">
-                      <label for="Categories-5"> Alta</label>
+                      <input type="radio" class="me-2 brand-filter" id="Categories-5" name="Categories-1" value="Anta">
+                      <label for="Categories-5"> Anta</label>
                     </div>
                   <?php
                   else:
@@ -334,68 +345,36 @@ $user_id = getUserIdByToken();
               </div>
 
               <div class="col-lg-12">
-                <h4 class="mb-3">Featured products</h4>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded me-4" style="width: 100px; height: 100px;">
-                    <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-1.jpg" class="img-fluid rounded" alt="">
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Sneaker</h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
+                <h4 class="mb-3">Sản phẩm nổi bật</h4>
+                <?php
+                if (!empty($featuredProducts)):
+                  foreach ($featuredProducts as $product):
+                ?>
+                  <div class="d-flex align-items-center justify-content-start mb-3">
+                    <div class="rounded me-4" style="width: 100px; height: 100px;">
+                      <img src="<?php echo $product['product_image']; ?>" class="img-fluid rounded" alt="<?php echo $product['p_name_custom']; ?>">
                     </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">2.99 $</h5>
-                      <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded me-4" style="width: 100px; height: 100px;">
-                    <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-2.jpg" class="img-fluid rounded" alt="">
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Sneaker</h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">2.99 $</h5>
-                      <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                    <div>
+                      <h6 class="mb-2"><?php echo $product['p_name_custom']; ?></h6>
+                      <div class="d-flex mb-2">
+                        <h5 class="fw-bold me-2"><?php echo number_format($product['p_price_min'], 0, ',', '.'); ?> đ</h5>
+                        <?php if (!empty($product['p_price_max'])): ?>
+                          <h5 class="text-danger text-decoration-line-through">
+                            <?php echo number_format($product['p_price_max'], 0, ',', '.'); ?> đ
+                          </h5>
+                        <?php endif; ?>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded me-4" style="width: 100px; height: 100px;">
-                    <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/featur-3.jpg" class="img-fluid rounded" alt="">
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Sneaker</h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">2.99 $</h5>
-                      <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center my-4">
-                  <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
-                </div>
+                <?php
+                  endforeach;
+                else:
+                ?>
+                  <p class="text-muted">Không có sản phẩm nào để hiển thị.</p>
+                <?php endif; ?>
               </div>
+
+
               <div class="col-lg-12">
                 <div class="position-relative">
                   <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
