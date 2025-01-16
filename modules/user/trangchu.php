@@ -404,8 +404,7 @@ $listProd = getRaw("SELECT * FROM products")
                         <div class="p-4 border-top-0 rounded-bottom">
                           <h4><?php echo $value['p_name_custom'] ?></h4>
                           <p style="color: grey">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit sed do eiusmod te incididunt
+                            Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%
                           </p>
                           <span style="font-weight: bold; color: black">
                             <?php
