@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 12, 2025 lúc 08:28 AM
+-- Thời gian đã tạo: Th1 16, 2025 lúc 03:01 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -62,7 +62,9 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `user_id`, `p_id`, `p_size`, `total_price`, `p_quantity`) VALUES
-(47, 17, 'DD1503-118', 37.5, 3980000, 2);
+(47, 17, 'DD1503-118', 37.5, 3980000, 2),
+(49, 12, 'DD1391-100', 39.0, 2350000, 1),
+(51, 12, 'FW5188', 40.5, 1290000, 1);
 
 -- --------------------------------------------------------
 
@@ -124,7 +126,8 @@ INSERT INTO `collection` (`collection_id`, `collection_name`, `category_id`) VAL
 (20, 'Adidas Ultrabounce', 10),
 (21, 'Adidas Adizero', 10),
 (22, 'Puma St Runner', 17),
-(23, 'Puma Rebound', 17);
+(23, 'Puma Rebound', 17),
+(26, 'Adidas Duramo', 10);
 
 -- --------------------------------------------------------
 
@@ -155,6 +158,13 @@ CREATE TABLE `orders` (
   `order_create_at` date NOT NULL DEFAULT current_timestamp(),
   `payment_type` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `orders`
+--
+
+INSERT INTO `orders` (`payment_id`, `user_id`, `cart_id`, `total`, `order_status`, `order_create_at`, `payment_type`) VALUES
+(1, 13, NULL, 1818000, 1, '2025-01-12', 0);
 
 -- --------------------------------------------------------
 
@@ -191,6 +201,8 @@ INSERT INTO `products` (`p_id`, `p_name_custom`, `p_name_id`, `p_color`, `p_rate
 ('553558-141', 'Jordan1 Low Wolf Grey Midnight Navy', 87417065, 'Wolf Grey Midnight Navy', 5, 'JORDAN 1 Low Wolf Grey Midnight Navy - Biển cả sâu thẳm, phong cách thời thượng&#34;&#13;&#10;&#13;&#10;JORDAN 1 Low Wolf Grey Midnight Navy phiên bản này mang đến một hơi thở mới mẻ với sự kết hợp hài hòa giữa màu xanh navy đậm, trắng tinh khôi và xám bạc. Đôi giày sở hữu thiết kế cổ điển, thanh lịch với phần upper được làm từ chất liệu da cao cấp, mang đến cảm giác êm ái, thoải mái. Gam màu xanh navy chủ đạo gợi lên hình ảnh biển cả sâu thẳm, tạo nên vẻ ngoài bí ẩn và cuốn hút, trong khi đó, màu trắng và xám tạo điểm nhấn tinh tế. Logo Swoosh đặc trưng của Nike được nhấn nhá bằng màu xám bạc, tạo sự tương phản ấn tượng. Đế giày màu trắng ngà cùng phần lót giày mềm mại giúp bạn tự tin vận động cả ngày dài.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và sang trọng.&#13;&#10;Phối màu độc đáo: Sự kết hợp giữa xanh navy, trắng và xám tạo nên vẻ đẹp thời thượng.&#13;&#10;Logo Swoosh nổi bật: Biểu tượng của Nike, tạo điểm nhấn ấn tượng.&#13;&#10;Đế giày êm ái: Đảm bảo sự thoải mái cho đôi chân.&#13;&#10;JORDAN 1 Low Wolf Grey Midnight Navy phiên bản này là sự lựa chọn hoàn hảo cho những ai yêu thích phong cách thời trang đơn giản, tinh tế và muốn thể hiện sự cá tính riêng.', 1890000, 2450000, '35.5, 36, 36.5, 37.5, 38, 38.5, 39, 40, 40.5, 41, ', '', 1, 30, '2025-01-11 11:15:30', NULL),
 ('553558-152', 'Jordan 1 Low Iron Grey', 87417065, 'Iron Grey', 5, 'Jordan 1 Low Iron Grey - Đơn giản mà thời thượng&#34;&#13;&#10;&#13;&#10;Jordan 1 Low Iron Grey phiên bản này mang đến một hơi thở mới với sự kết hợp tinh tế giữa màu trắng, xám và đen. Đôi giày sở hữu thiết kế cổ điển, thanh lịch với phần upper được làm từ chất liệu da cao cấp, mang đến cảm giác êm ái, thoải mái. Gam màu xám chủ đạo tạo nên vẻ ngoài trầm ổn, lịch lãm, trong khi đó, các chi tiết màu trắng và đen tạo điểm nhấn nổi bật. Logo Swoosh đặc trưng của Nike được nhấn nhá bằng màu đen, tạo sự tương phản ấn tượng. Đế giày màu trắng ngà cùng phần lót giày mềm mại giúp bạn tự tin vận động cả ngày dài.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và sang trọng.&#13;&#10;Phối màu đơn giản nhưng tinh tế: Sự kết hợp giữa trắng, xám và đen tạo nên vẻ đẹp thời thượng.&#13;&#10;Logo Swoosh nổi bật: Biểu tượng của Nike, tạo điểm nhấn ấn tượng.&#13;&#10;Đế giày êm ái: Đảm bảo sự thoải mái cho đôi chân.&#13;&#10;Jordan 1 Low Iron Grey phiên bản này là sự lựa chọn hoàn hảo cho những ai yêu thích phong cách đơn giản, thanh lịch và muốn thể hiện sự tinh tế trong từng bước đi.', 1790000, 2290000, '35.5, 36, 36.5, 37.5, 38, 38.5, 39, 40, 40.5, 41, ', '', 1, 50, '2025-01-12 12:20:43', NULL),
 ('553558-161', 'Jordan 1 Low Bred Toe 2.0', 87417065, 'Bred Toe 2.0', 5, '&#34;Jordan 1 Low Bred Toe 2.0 - Biểu tượng bất hủ, phong cách thời thượng&#34;&#13;&#10;&#13;&#10;Jordan 1 Low Bred Toe 2.0 phiên bản này mang đến một hơi thở mới với sự kết hợp kinh điển giữa màu đỏ, trắng và đen. Đôi giày sở hữu thiết kế cổ điển, thanh lịch với phần upper được làm từ chất liệu da cao cấp, mang đến cảm giác êm ái, thoải mái. Gam màu đỏ nổi bật tạo nên điểm nhấn ấn tượng, trong khi đó, màu trắng và đen tạo nên sự cân bằng hài hòa. Logo Swoosh đặc trưng của Nike được nhấn nhá bằng màu đen, tạo sự tương phản mạnh mẽ. Đế giày màu trắng ngà cùng phần lót giày mềm mại giúp bạn tự tin vận động cả ngày dài.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và sang trọng.&#13;&#10;Phối màu kinh điển: Sự kết hợp giữa đỏ, trắng và đen tạo nên vẻ đẹp bất hủ.&#13;&#10;Logo Swoosh nổi bật: Biểu tượng của Nike, tạo điểm nhấn ấn tượng.&#13;&#10;Đế giày êm ái: Đảm bảo sự thoải mái cho đôi chân.&#13;&#10;Jordan 1 Low Bred Toe 2.0 phiên bản này là sự lựa chọn hoàn hảo cho những ai yêu thích phong cách thể thao, cá tính và muốn thể hiện sự đẳng cấp.', 2350000, 2790000, '40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45, 46', '', 1, 30, '2025-01-12 12:03:22', NULL),
+('789', 'Adidas Spritian Đen', 862294084, 'vàng', 2, 'fvfve', 1350000, 1890000, '35.5, 36, 36.5, 37.5, 38, 38.5, 39, 40, 40.5, 41, ', '36 37 ', 1, 30, '2025-01-12 21:45:11', NULL),
+('D8302', 'Adidas Duramo hihihihihi', 862294083, 'đen', 3, 'fverv', 1990000, 2147483647, '40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45, 46', '', 0, 23, '2025-01-12 21:40:08', NULL),
 ('DD1391-100', 'Nike Dunk Low Panda Black White', 182949038, 'Panda Black White', 5, 'Nike Dunk Low - Cổ điển vượt thời gian, phong cách bất tận&#34;&#13;&#10;&#13;&#10;Nike Dunk Low là một biểu tượng của văn hóa sneaker, mang đến vẻ đẹp vượt thời gian. Đôi giày sở hữu thiết kế đơn giản nhưng không kém phần tinh tế với gam màu trắng đen tương phản, tạo nên sự hài hòa và sang trọng. Chất liệu da cao cấp mang đến cảm giác êm ái, thoải mái và tăng thêm độ bền cho sản phẩm. Logo Swoosh đặc trưng của Nike được nhấn nhá bằng màu trắng nổi bật trên nền đen, tạo điểm nhấn ấn tượng.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và sang trọng.&#13;&#10;Phối màu đơn giản: Sự kết hợp giữa trắng và đen tạo nên vẻ đẹp tinh tế, dễ phối đồ.&#13;&#10;Logo Swoosh đặc trưng: Biểu tượng của Nike, tạo điểm nhấn ấn tượng.&#13;&#10;Nike Dunk Low - sự lựa chọn hoàn hảo cho những ai yêu thích phong cách cổ điển và muốn thể hiện sự tinh tế trong từng bước đi.', 2350000, 3155000, '38.5, 39, 40, 40.5, 41, 42, 42.5, 43, 44, 44.5, 45', '', 1, 10, '2025-01-10 16:53:27', NULL),
 ('DD1503-118', 'Nike Dunk Low Rose Whisper Women&#39;s', 182949038, 'Rose Whisper Women', 5, '&#34;Nike Dunk Low Rose Whisper Women&#39;s - Hồng hào ngọt ngào, phong cách thời thượng&#34;&#13;&#10;&#13;&#10;Nike Dunk Low Rose Whisper Women&#39;s với tông màu hồng phấn ngọt ngào sẽ khiến trái tim bạn tan chảy. Đôi giày sở hữu thiết kế cổ điển, thanh lịch với phần upper được làm từ chất liệu da cao cấp, mang đến cảm giác êm ái, thoải mái. Gam màu hồng phấn chủ đạo kết hợp cùng màu trắng tinh khôi tạo nên một tổng thể hài hòa, nữ tính. Logo Swoosh đặc trưng của Nike được nhấn nhá bằng màu trắng, tạo điểm nhấn tinh tế. Đế giày màu trắng ngà cùng phần lót giày mềm mại giúp bạn tự tin vận động cả ngày dài.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và sang trọng.&#13;&#10;Phối màu hồng phấn ngọt ngào: Tông màu nữ tính, trẻ trung, phù hợp với nhiều outfit.&#13;&#10;Logo Swoosh tinh tế: Biểu tượng của Nike, tạo điểm nhấn ấn tượng.&#13;&#10;Đế giày êm ái: Đảm bảo sự thoải mái cho đôi chân.&#13;&#10;Nike Dunk Low Rose Whisper Women&#39;s màu hồng phấn - là sự lựa chọn hoàn hảo cho những cô nàng yêu thích phong cách thời trang nhẹ nhàng, nữ tính và muốn thể hiện cá tính riêng.', 1990000, 3350000, '36, 36.5, 37.5, 38, 38.5, 39, 40, 40.5, 41, 42, 42', '', 1, 5, '2025-01-10 17:00:29', NULL),
 ('DQ1470-101', 'Nike Blazer Low &#39;77 Jumbo Sneakers', 862294065, 'White Black', 5, '&#34;Nike Blazer Low &#39;77 Jumbo Sneakers - Cổ điển vượt thời gian, phong cách thời thượng&#34;&#13;&#10;&#13;&#10;Nike Blazer Low &#39;77 Jumbo Sneakers là một biểu tượng của làng sneaker, mang đến vẻ đẹp vượt thời gian. Đôi giày sở hữu thiết kế đơn giản nhưng không kém phần tinh tế với gam màu trắng đen chủ đạo, tạo nên sự tương phản ấn tượng. Chất liệu da cao cấp mang đến cảm giác thoải mái, êm ái khi vận động. Đế giày được thiết kế chắc chắn, tạo độ bám tốt, giúp bạn tự tin di chuyển trên mọi địa hình.&#13;&#10;&#13;&#10;Đặc biệt:&#13;&#10;&#13;&#10;Thiết kế cổ điển: Dáng giày thấp cổ tạo nên vẻ ngoài thanh lịch và phù hợp với nhiều phong cách.&#13;&#10;Chất liệu cao cấp: Da thật mang đến cảm giác êm ái và bền bỉ.&#13;&#10;Phối màu đơn giản nhưng tinh tế: Sự kết hợp giữa trắng và đen tạo nên vẻ đẹp thời thượng.&#13;&#10;Đế giày bền bỉ: Đế giày được thiết kế chắc chắn, tăng độ bám, giúp bạn di chuyển an toàn.&#13;&#10;Nike Blazer Low &#39;77 Jumbo Sneakers - là sự lựa chọn hoàn hảo cho những ai yêu thích phong cách cổ điển, đơn giản nhưng không kém phần thời thượng. Đôi giày sẽ giúp bạn tự tin thể hiện cá tính riêng và thoải mái trong mọi hoạt động.', 1450000, 1650000, '35.5, 36, 36.5, 37.5, 38, 38.5, 39, 40, 40.5, 41, ', '', 0, 40, '2025-01-12 12:24:25', NULL),
@@ -431,7 +443,9 @@ INSERT INTO `product_image` (`image_id`, `p_id`, `product_image`) VALUES
 (252, '392328-09', 'PMRBvang2.jpg'),
 (253, '392328-09', 'PMRBvang3.jpg'),
 (254, '392328-09', 'PMRBvang4.jpg'),
-(255, '392328-09', 'PMRBvang5.jpg');
+(255, '392328-09', 'PMRBvang5.jpg'),
+(256, 'D8302', 'PMCRClogoxanh3.jpg'),
+(257, '789', 'PMarmy5.jpg');
 
 -- --------------------------------------------------------
 
@@ -470,7 +484,10 @@ INSERT INTO `product_name` (`p_name_id`, `p_name`, `collection_id`) VALUES
 (862294078, 'Adidas Originals Forum', 19),
 (862294079, 'Puma ST Runner V3', 22),
 (862294080, 'PUMA Rebound Layup Low', 23),
-(862294081, 'PUMA Rebound V6', 23);
+(862294081, 'PUMA Rebound V6', 23),
+(862294082, 'Adidas Duramo Đen 234', 26),
+(862294083, 'Adidas Duramo Đen', 26),
+(862294084, 'Adidas Spriritan Mid', 15);
 
 -- --------------------------------------------------------
 
@@ -491,7 +508,7 @@ CREATE TABLE `token_login` (
 --
 
 INSERT INTO `token_login` (`id`, `user_id`, `token`, `create_at`, `last_active`) VALUES
-(115, 17, '725970d2effcad7c9e6e67169a221d7d47e27992', '2025-01-11 14:32:52', NULL);
+(130, 13, '67eabf133084469954e397eff35b7886a1402dfc', '2025-01-16 20:59:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -522,7 +539,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `username`, `password`, `fullname`, `address`, `phone`, `email`, `forgotToken`, `activeToken`, `status`, `isAdmin`, `create_at`, `update_at`) VALUES
 (9, 'thuycute1412', '12345678', 'Phạm Thu Thủy', NULL, '0353693404', 'letrungkien6_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-16 14:30:51', '2024-12-11 10:27:19'),
 (12, 'thuyoi', '1234567890', 'Lê Trung Kiên đẹp trai', NULL, '0353693404', 'letrungkien1_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-15 09:56:01', NULL),
-(13, 'kiendz1234', '123456789', 'Lê Trung Kiên', NULL, '0353693404', 'kienbestdaxua@gmail.com', NULL, NULL, 1, 1, '2024-10-27 22:28:09', '2024-11-10 13:46:14'),
+(13, 'kiendz1234', '123456789', 'Nguyễn Thu Hà', '89 Phùng Hưng, Phúc La, Hà Đông, Hà Nội', '0886065812', 'thuhathuyloi2003@gmail.com', NULL, NULL, 1, 1, '2024-10-27 22:28:09', '2024-11-10 13:46:14'),
 (14, 'kiendz12', '123456789', 'Lê Trung Kiên', NULL, '0353693404', 'letrungkien2_t66@hus.edu.vn', NULL, NULL, 1, 1, '2024-11-15 11:26:09', NULL),
 (15, 'kiendz1', '123456789', 'Lê Trung Kiên 123', NULL, '0353693404', 'letrungkien3_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-16 00:56:55', NULL),
 (16, 'kiendz123', '123456789', 'Lê Trung', NULL, '0123456789', 'letrungkien9_t66@hus.edu.vn', NULL, NULL, 1, 1, '2024-12-11 10:30:07', NULL),
@@ -623,7 +640,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -635,7 +652,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `collection`
 --
 ALTER TABLE `collection`
-  MODIFY `collection_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `collection_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `comments`
@@ -647,25 +664,25 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `product_image`
 --
 ALTER TABLE `product_image`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=258;
 
 --
 -- AUTO_INCREMENT cho bảng `product_name`
 --
 ALTER TABLE `product_name`
-  MODIFY `p_name_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=862294082;
+  MODIFY `p_name_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=862294085;
 
 --
 -- AUTO_INCREMENT cho bảng `token_login`
 --
 ALTER TABLE `token_login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
