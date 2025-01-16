@@ -127,7 +127,7 @@ $listProd = getRaw("SELECT * FROM products")
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-                <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                <li><a class="dropdown-item" href="?module=user&action=favourite">Mục yêu thích</a></li>
                 <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
               </ul>
             </div>

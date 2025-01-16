@@ -4,7 +4,7 @@ if (!defined('_CODE')) {
 }
 
 $title = [
-    'pageTitle' => 'Trang Mục yêu thích'
+    'pageTitle' => 'Trang mục yêu thích'
 ];
 
 layouts('header', $title);
@@ -17,8 +17,6 @@ if (!isLogin()) {
 $user_id = getUserIdByToken();
 
 $listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id WHERE user_id = '$user_id'");
-$ship_fee = 30000;
-// $total = oneRaw("SELECT sum(total_price) FROM cart WHERE user_id = '$user_id'");
 // echo '<pre>';
 // print_r($total);
 // echo '</pre>';
@@ -128,7 +126,7 @@ $ship_fee = 30000;
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-                                <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                                <li><a class="dropdown-item" href="?module=user&action=favourite">Mục yêu thích</a></li>
                                 <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
                             </ul>
                         </div>
@@ -434,148 +432,3 @@ $ship_fee = 30000;
 <?php
 layouts('footer');
 ?>
-<script>
-    $(document).ready(function() {
-        $(".itemQty").on("change", function() {
-            var $el = $(this).closest("tr");
-
-            var cart_id = $el.find(".cart_id").val();
-            var p_quantity = $(this).val();
-            var p_price_min = $el.find(".p_price_min").val();
-            var p_price_max = $el.find(".p_price_max").val();
-
-            // Gửi AJAX để cập nhật số lượng và tính lại tổng giá
-            $.ajax({
-                url: "?module=user&action=update_total_price",
-                method: "POST",
-                cache: false,
-                data: {
-                    cart_id: cart_id,
-                    p_quantity: p_quantity,
-                    p_price_min: p_price_min,
-                    p_price_max: p_price_max
-                },
-                success: function(response) {
-                    var data = JSON.parse(response);
-                    let total_price = data.total_price.toLocaleString('vi-VN');
-                    $el.find(".total-price").text(total_price);
-                    let total = data.total;
-                    console.log(total);
-                    $(".thanh_tien").text(total + " VNĐ");
-                    let ship_fee = data.ship_fee;
-                    console.log(ship_fee);
-                    $(".tien_ship").text(ship_fee + " VNĐ");
-                    let grand_total = data.grand_total;
-                    console.log(grand_total);
-                    $(".tong_thanh_toan").text(grand_total + " VNĐ");
-                },
-                error: function() {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Lỗi",
-                        text: "Không thể cập nhật số lượng, vui lòng thử lại!",
-                        showConfirmButton: true
-                    });
-                }
-            });
-        });
-
-        // Xử lý sự kiện tăng/giảm số lượng
-        $(".btn-minus, .btn-plus").on("click", function(e) {
-            e.preventDefault();
-            var $input = $(this).closest(".input-group").find(".itemQty");
-            var currentValue = parseInt($input.val()) || 0;
-            if ($(this).hasClass("btn-minus") && currentValue > 0) {
-                $input.val(currentValue).trigger("change");
-            } else if ($(this).hasClass("btn-plus")) {
-                $input.val(currentValue).trigger("change");
-            }
-        });
-
-        $(".deleteItemBtn").click(function(e) {
-            e.preventDefault();
-
-            const form = $(this).closest(".form-submit1");
-            const cart_id = form.find(".cart_id").val();
-            const user_id = form.find(".user_id").val();
-
-            // Thêm hộp thoại xác nhận trước khi xóa
-            Swal.fire({
-                title: "Bạn có chắc chắn muốn xóa sản phẩm này?",
-                text: "Thao tác này không thể hoàn tác!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Đồng ý",
-                cancelButtonText: "Hủy"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Nếu người dùng xác nhận, thực hiện xóa
-                    $.ajax({
-                        url: "?module=user&action=cart_delete", // File PHP xử lý thêm vào giỏ hàng
-                        method: "POST",
-                        dataType: "json",
-                        data: {
-                            cart_id: cart_id
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Thành công!",
-                                text: response.message,
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                            console.log(response);
-                            let total = response.total;
-                            $(".thanh_tien").text(total + " VNĐ");
-                            let ship_fee = response.ship_fee;
-                            console.log(ship_fee);
-                            $(".tien_ship").text(ship_fee + " VNĐ");
-                            let grand_total = response.grand_total;
-                            $(".tong_thanh_toan").text(grand_total + " VNĐ");
-
-                            // Xóa dòng sản phẩm trên giao diện
-                            form.closest("tr").remove();
-
-                            // Kiểm tra nếu giỏ hàng trống, hiển thị thông báo
-                            if ($("table tbody tr").length === 0) {
-                                $("table tbody").html(`
-                                <tr>
-                                    <td colspan="7">
-                                        <div class="alert alert-danger text-center">Không có đơn hàng nào!</div>
-                                    </td>
-                                </tr>
-                            `);
-                            }
-                            updateCartCount(user_id);
-                        },
-                        error: function() {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Lỗi",
-                                text: "Đã xảy ra lỗi, vui lòng thử lại!",
-                                showConfirmButton: true
-                            });
-                        }
-                    });
-                }
-            });
-        });
-
-        // Hàm cập nhật số lượng sản phẩm trong giỏ hàng
-        function updateCartCount(user_id) {
-            $.ajax({
-                url: "?module=user&action=cart_count", // File PHP trả về số lượng sản phẩm
-                method: "POST",
-                data: {
-                    user_id: user_id
-                },
-                success: function(response) {
-                    $("#cart-count").text(response); // Cập nhật số lượng sản phẩm
-                }
-            });
-        }
-    });
-</script>
