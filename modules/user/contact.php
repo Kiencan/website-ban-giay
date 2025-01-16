@@ -283,9 +283,9 @@ if (!isLogin()) {
                 <div class="footer-item">
                     <h4 class="text-light mb-3">Tại sao nên chọn 3H1A?</h4>
                     <p class="mb-4">
-                        typesetting, remaining essentially unchanged. It was popularised
-                        in the 1960s with the like Aldus PageMaker including of Lorem
-                        Ipsum.
+                    Tại 3H1A Store, chúng tôi mang đến những đôi giày chất lượng cao với mẫu mã đa dạng, từ năng động đến thanh lịch. Mỗi sản phẩm đều được chọn lọc kỹ lưỡng, đảm bảo bền bỉ và thoải mái.
+          Giá cả hợp lý kèm nhiều ưu đãi.
+          Dịch vụ tận tâm, giúp bạn tìm được đôi giày ưng ý.
                     </p>
                     <a
                         href=""
@@ -299,7 +299,6 @@ if (!isLogin()) {
                     <h4 class="text-light mb-3">Thông tin</h4>
                     <a class="btn-link" href="">Về chúng tôi</a>
                     <a class="btn-link" href="?module=user&action=contact">Liên hệ</a>
-                    <a class="btn-link" href="">Chính sách bảo mật</a>
                     <a class="btn-link" href="">Điều khoản và dịch vụ</a>
                     <a class="btn-link" href="">Chính sách hoàn trả</a>
                     <a class="btn-link" href="">Hỏi đáp & Trợ giúp</a>
@@ -312,7 +311,6 @@ if (!isLogin()) {
                     <a class="btn-link" href="">Thông tin cửa hàng</a>
                     <a class="btn-link" href="">Giỏ hàng</a>
                     <a class="btn-link" href="">Lịch sử mua hàng</a>
-                    <a class="btn-link" href="">Đơn hàng</a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 16, 2025 lúc 03:01 PM
+-- Thời gian đã tạo: Th1 16, 2025 lúc 06:31 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -62,9 +62,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `user_id`, `p_id`, `p_size`, `total_price`, `p_quantity`) VALUES
-(47, 17, 'DD1503-118', 37.5, 3980000, 2),
-(49, 12, 'DD1391-100', 39.0, 2350000, 1),
-(51, 12, 'FW5188', 40.5, 1290000, 1);
+(47, 17, 'DD1503-118', 37.5, 3980000, 2);
 
 -- --------------------------------------------------------
 
@@ -92,7 +90,8 @@ INSERT INTO `category` (`category_id`, `category_name`) VALUES
 (19, 'Giày Anta'),
 (20, 'Quần áo'),
 (21, 'Phụ kiện'),
-(22, 'Sandal');
+(22, 'Sandal'),
+(23, 'Giày hãng khác');
 
 -- --------------------------------------------------------
 
@@ -164,7 +163,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`payment_id`, `user_id`, `cart_id`, `total`, `order_status`, `order_create_at`, `payment_type`) VALUES
-(1, 13, NULL, 1818000, 1, '2025-01-12', 0);
+(1, 13, NULL, 1818000, 1, '2025-01-12', 0),
+(2, 13, NULL, 640000, 1, '2025-01-16', 0);
 
 -- --------------------------------------------------------
 
@@ -508,7 +508,7 @@ CREATE TABLE `token_login` (
 --
 
 INSERT INTO `token_login` (`id`, `user_id`, `token`, `create_at`, `last_active`) VALUES
-(130, 13, '67eabf133084469954e397eff35b7886a1402dfc', '2025-01-16 20:59:50', NULL);
+(132, 13, '9ed3e6acc11bb95e98bbffc5b1749f50baa6c11a', '2025-01-16 23:29:21', NULL);
 
 -- --------------------------------------------------------
 
@@ -539,7 +539,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `username`, `password`, `fullname`, `address`, `phone`, `email`, `forgotToken`, `activeToken`, `status`, `isAdmin`, `create_at`, `update_at`) VALUES
 (9, 'thuycute1412', '12345678', 'Phạm Thu Thủy', NULL, '0353693404', 'letrungkien6_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-16 14:30:51', '2024-12-11 10:27:19'),
 (12, 'thuyoi', '1234567890', 'Lê Trung Kiên đẹp trai', NULL, '0353693404', 'letrungkien1_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-15 09:56:01', NULL),
-(13, 'kiendz1234', '123456789', 'Nguyễn Thu Hà', '89 Phùng Hưng, Phúc La, Hà Đông, Hà Nội', '0886065812', 'thuhathuyloi2003@gmail.com', NULL, NULL, 1, 1, '2024-10-27 22:28:09', '2024-11-10 13:46:14'),
+(13, 'kiendz1234', '123456789', 'Phạm Thu Thủy', '89 Phùng Hưng, Phúc La, Hà Đông, Hà Nội', '0383083743', 'phamthuthuy_t66@hus.edu.vn', NULL, NULL, 1, 1, '2024-10-27 22:28:09', '2024-11-10 13:46:14'),
 (14, 'kiendz12', '123456789', 'Lê Trung Kiên', NULL, '0353693404', 'letrungkien2_t66@hus.edu.vn', NULL, NULL, 1, 1, '2024-11-15 11:26:09', NULL),
 (15, 'kiendz1', '123456789', 'Lê Trung Kiên 123', NULL, '0353693404', 'letrungkien3_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-16 00:56:55', NULL),
 (16, 'kiendz123', '123456789', 'Lê Trung', NULL, '0123456789', 'letrungkien9_t66@hus.edu.vn', NULL, NULL, 1, 1, '2024-12-11 10:30:07', NULL),
@@ -640,13 +640,13 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT cho bảng `collection`
@@ -664,7 +664,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `product_image`
@@ -682,7 +682,7 @@ ALTER TABLE `product_name`
 -- AUTO_INCREMENT cho bảng `token_login`
 --
 ALTER TABLE `token_login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
