@@ -76,6 +76,7 @@ $listProd = getRaw("SELECT * FROM products")
               <a href="??module=user&action=shop&id=giayPuma" class="dropdown-item">Giày Puma</a>
               <a href="?module=user&action=shop&id=giayLining" class="dropdown-item">Giày Lining</a>
               <a href="?module=user&action=shop&id=giayAnta" class="dropdown-item">Giày Anta</a>
+              <a href="?module=user&action=shop&id=hangkhac" class="dropdown-item">Sản phẩm khác</a>   
             </div>
           </div>
           <a href="?module=user&action=shop&id=quanao" class="nav-item nav-link">Quần áo</a>
@@ -339,7 +340,7 @@ $listProd = getRaw("SELECT * FROM products")
                 class="d-flex m-2 py-2 bg-light rounded-pill active"
                 data-bs-toggle="pill"
                 href="#tab-1">
-                <span class="text-dark" style="width: 130px">Giày Sneaker</span>
+                <span class="text-dark" style="width: 130px">Giày Adidas</span>
               </a>
             </li>
             <li class="nav-item">
@@ -347,7 +348,7 @@ $listProd = getRaw("SELECT * FROM products")
                 class="d-flex py-2 m-2 bg-light rounded-pill"
                 data-bs-toggle="pill"
                 href="#tab-2">
-                <span class="text-dark" style="width: 130px">Quần áo</span>
+                <span class="text-dark" style="width: 130px">Giày Nike</span>
               </a>
             </li>
             <li class="nav-item">
@@ -355,7 +356,7 @@ $listProd = getRaw("SELECT * FROM products")
                 class="d-flex m-2 py-2 bg-light rounded-pill"
                 data-bs-toggle="pill"
                 href="#tab-3">
-                <span class="text-dark" style="width: 130px">Sandal</span>
+                <span class="text-dark" style="width: 130px">Giày Puma</span>
               </a>
             </li>
             <li class="nav-item">
@@ -363,7 +364,7 @@ $listProd = getRaw("SELECT * FROM products")
                 class="d-flex m-2 py-2 bg-light rounded-pill"
                 data-bs-toggle="pill"
                 href="#tab-4">
-                <span class="text-dark" style="width: 130px">Phụ kiện</span>
+                <span class="text-dark" style="width: 130px">Sandal</span>
               </a>
             </li>
             <li class="nav-item">
@@ -371,7 +372,7 @@ $listProd = getRaw("SELECT * FROM products")
                 class="d-flex m-2 py-2 bg-light rounded-pill"
                 data-bs-toggle="pill"
                 href="#tab-5">
-                <span class="text-dark" style="width: 130px">Dép</span>
+                <span class="text-dark" style="width: 130px">Khác</span>
               </a>
             </li>
           </ul>
@@ -383,7 +384,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1 LIMIT 4");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1  AND collection.category_id = 10 LIMIT 4");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
@@ -452,7 +453,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1 LIMIT 4");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1  AND collection.category_id = 9 LIMIT 4");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
@@ -473,8 +474,7 @@ $listProd = getRaw("SELECT * FROM products")
                         <div class="p-4 border-top-0 rounded-bottom">
                           <h4><?php echo $value['p_name_custom'] ?></h4>
                           <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit sed do eiusmod te incididunt
+                          Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%
                           </p>
                           <p>
                             <span style="font-weight: bold; color: black">
@@ -523,7 +523,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1 LIMIT 4");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1  AND collection.category_id = 17 LIMIT 4");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
@@ -544,8 +544,7 @@ $listProd = getRaw("SELECT * FROM products")
                         <div class="p-4 border-top-0 rounded-bottom">
                           <h4><?php echo $value['p_name_custom'] ?></h4>
                           <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit sed do eiusmod te incididunt
+                          Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%
                           </p>
                           <p>
                             <span style="font-weight: bold; color: black">
@@ -594,7 +593,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1 LIMIT 4");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1  AND collection.category_id = 22 LIMIT 4");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
@@ -615,8 +614,7 @@ $listProd = getRaw("SELECT * FROM products")
                         <div class="p-4 border-top-0 rounded-bottom">
                           <h4><?php echo $value['p_name_custom'] ?></h4>
                           <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit sed do eiusmod te incididunt
+                          Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%
                           </p>
                           <p>
                             <span style="font-weight: bold; color: black">
@@ -665,7 +663,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="col-lg-12">
               <div class="row g-4">
                 <?php
-                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1 LIMIT 4");
+                $listBS = getRaw("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id WHERE isBestSelling = 1  AND collection.category_id = 23 LIMIT 4");
                 foreach ($listBS as $key => $value):
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
@@ -686,8 +684,7 @@ $listProd = getRaw("SELECT * FROM products")
                         <div class="p-4 border-top-0 rounded-bottom">
                           <h4><?php echo $value['p_name_custom'] ?></h4>
                           <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit sed do eiusmod te incididunt
+                          Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%
                           </p>
                           <p>
                             <span style="font-weight: bold; color: black">
@@ -786,8 +783,7 @@ $listProd = getRaw("SELECT * FROM products")
             <div class="p-4 border-top-0 rounded-bottom">
               <h4><?php echo $value['p_name_custom'] ?></h4>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-                eiusmod te incididunt
+              Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%
               </p>
               <p>
                 <span style="font-weight: bold; color: black">
@@ -841,8 +837,11 @@ $listProd = getRaw("SELECT * FROM products")
           <h1 class="display-3 text-white">Sneaker Authentic</h1>
           <p class="fw-normal display-3 text-dark mb-4">Đẳng cấp & thời thượng</p>
           <p class="mb-4 text-dark">
-            The generated Lorem Ipsum is therefore always free from
-            repetition injected humour, or non-characteristic words etc.
+          Giảm giá tất cả sản phẩm, bao gồm cả những mẫu mới nhất!
+
+          Đa dạng mẫu mã và size cho cả gia đình thoải mái lựa chọn.
+
+          Áp dụng cho cả cửa hàng và online.
           </p>
           <a
             href="?module=user&action=cart"
@@ -932,20 +931,19 @@ $listProd = getRaw("SELECT * FROM products")
             style="bottom: 30px; right: 0"></i>
           <div class="mb-4 pb-4 border-bottom border-secondary">
             <p class="mb-0">
-              Lorem Ipsum is simply dummy text of the printing Ipsum has
-              been the industry's standard dummy text ever since the 1500s,
+              Sản phẩm tuyệt vời. Tôi đi rất thoải mái. Shop tư vấn nhiệt tình, trách nhiệm. Sẽ ủng hộ lâu dài
             </p>
           </div>
           <div class="d-flex align-items-center flex-nowrap">
             <div class="bg-secondary rounded">
               <img
-                src="<?php echo _WEB_HOST_TEMPLATE ?>/image/testimonial-1.jpg"
+                src="<?php echo _WEB_HOST_TEMPLATE ?>/image/avt.JPG"
                 class="img-fluid rounded"
                 style="width: 100px; height: 100px"
                 alt="" />
             </div>
             <div class="ms-4 d-block">
-              <h4 class="text-dark">Tên khách hàng</h4>
+              <h4 class="text-dark">Thủy Phạm</h4>
               <p class="m-0 pb-3">Nghề nghiệp</p>
               <div class="d-flex pe-5">
                 <i class="fas fa-star text-secondary"></i>
@@ -965,20 +963,19 @@ $listProd = getRaw("SELECT * FROM products")
             style="bottom: 30px; right: 0"></i>
           <div class="mb-4 pb-4 border-bottom border-secondary">
             <p class="mb-0">
-              Lorem Ipsum is simply dummy text of the printing Ipsum has
-              been the industry's standard dummy text ever since the 1500s,
+            Sản phẩm tuyệt vời. Tôi đi rất thoải mái. Shop tư vấn nhiệt tình, trách nhiệm. Sẽ ủng hộ lâu dài
             </p>
           </div>
           <div class="d-flex align-items-center flex-nowrap">
             <div class="bg-secondary rounded">
               <img
-                src="<?php echo _WEB_HOST_TEMPLATE ?>/image/testimonial-1.jpg"
+                src="<?php echo _WEB_HOST_TEMPLATE ?>/image/avt2.JPG"
                 class="img-fluid rounded"
                 style="width: 100px; height: 100px"
                 alt="" />
             </div>
             <div class="ms-4 d-block">
-              <h4 class="text-dark">Tên khách hàng</h4>
+              <h4 class="text-dark">Kiên Béo</h4>
               <p class="m-0 pb-3">Nghề nghiệp</p>
               <div class="d-flex pe-5">
                 <i class="fas fa-star text-secondary"></i>
@@ -998,20 +995,19 @@ $listProd = getRaw("SELECT * FROM products")
             style="bottom: 30px; right: 0"></i>
           <div class="mb-4 pb-4 border-bottom border-secondary">
             <p class="mb-0">
-              Lorem Ipsum is simply dummy text of the printing Ipsum has
-              been the industry's standard dummy text ever since the 1500s,
+            Sản phẩm tuyệt vời. Tôi đi rất thoải mái. Shop tư vấn nhiệt tình, trách nhiệm. Sẽ ủng hộ lâu dài
             </p>
           </div>
           <div class="d-flex align-items-center flex-nowrap">
             <div class="bg-secondary rounded">
               <img
-                src="<?php echo _WEB_HOST_TEMPLATE ?>/image/testimonial-1.jpg"
+                src="<?php echo _WEB_HOST_TEMPLATE ?>/image/avt3.JPG"
                 class="img-fluid rounded"
                 style="width: 100px; height: 100px"
                 alt="" />
             </div>
             <div class="ms-4 d-block">
-              <h4 class="text-dark">Tên khách hàng</h4>
+              <h4 class="text-dark">Nam Ngô</h4>
               <p class="m-0 pb-3">Nghề nghiệp</p>
               <div class="d-flex pe-5">
                 <i class="fas fa-star text-secondary"></i>
@@ -1083,9 +1079,9 @@ $listProd = getRaw("SELECT * FROM products")
         <div class="footer-item">
           <h4 class="text-light mb-3">Tại sao nên chọn 3H1A?</h4>
           <p class="mb-4">
-            typesetting, remaining essentially unchanged. It was popularised
-            in the 1960s with the like Aldus PageMaker including of Lorem
-            Ipsum.
+          Tại 3H1A Store, chúng tôi mang đến những đôi giày chất lượng cao với mẫu mã đa dạng, từ năng động đến thanh lịch. Mỗi sản phẩm đều được chọn lọc kỹ lưỡng, đảm bảo bền bỉ và thoải mái.
+          Giá cả hợp lý kèm nhiều ưu đãi.
+          Dịch vụ tận tâm, giúp bạn tìm được đôi giày ưng ý.
           </p>
           <a
             href=""
@@ -1099,7 +1095,6 @@ $listProd = getRaw("SELECT * FROM products")
           <h4 class="text-light mb-3">Thông tin</h4>
           <a class="btn-link" href="">Về chúng tôi</a>
           <a class="btn-link" href="">Liên hệ</a>
-          <a class="btn-link" href="">Chính sách bảo mật</a>
           <a class="btn-link" href="">Điều khoản và dịch vụ</a>
           <a class="btn-link" href="">Chính sách hoàn trả</a>
           <a class="btn-link" href="">Hỏi đáp & Trợ giúp</a>
@@ -1112,7 +1107,6 @@ $listProd = getRaw("SELECT * FROM products")
           <a class="btn-link" href="">Thông tin cửa hàng</a>
           <a class="btn-link" href="">Giỏ hàng</a>
           <a class="btn-link" href="">Lịch sử mua hàng</a>
-          <a class="btn-link" href="">Đơn hàng</a>
         </div>
       </div>
       <div class="col-lg-3 col-md-6">

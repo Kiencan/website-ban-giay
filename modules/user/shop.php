@@ -8,44 +8,48 @@ if (!empty($filterAll['id'])) {
   $id = $filterAll['id'];
   if ($id == 'bestSelling') {
     $categoryId = 15;
-    $condition = "WHERE isBestSelling = 1";
-    $totalShoes = getRows("SELECT * FROM products " . $condition);
+    // $condition = "WHERE isBestSelling = 1";
+    // $totalShoes = getRows("SELECT * FROM products " . $condition);
   } else if ($id == 'discount') {
     $categoryId = 16;
-    $condition = "WHERE discount > 0";
-    $totalShoes = getRows("SELECT * FROM products " . $condition);
+    // $condition = "WHERE discount > 0";
+    // $totalShoes = getRows("SELECT * FROM products " . $condition);
   } else if ($id == 'giayAdidas') {
     $categoryId = 10;
-    $condition = " WHERE collection.category_id = $categoryId";
-    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id " . $condition);
+    // $condition = " WHERE collection.category_id = $categoryId";
+    // $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id " . $condition);
   } else if ($id == 'giayNike') {
     $categoryId = 9;
-    $condition = " WHERE collection.category_id = $categoryId";
-    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id " . $condition);
+    // $condition = " WHERE collection.category_id = $categoryId";
+    // $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id " . $condition);
   } else if ($id == 'giayPuma') {
     $categoryId = 17;
-    $condition = " WHERE collection.category_id = $categoryId";
-    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id " . $condition);
+    // $condition = " WHERE collection.category_id = $categoryId";
+    // $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id " . $condition);
   } else if ($id == 'giayLining') {
     $categoryId = 18;
-    $condition = " WHERE category.category_id = $categoryId";
-    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
+    // $condition = " WHERE category.category_id = $categoryId";
+    // $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'giayAnta') {
     $categoryId = 19;
-    $condition = " WHERE category.category_id = $categoryId";
-    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
+    // $condition = " WHERE category.category_id = $categoryId";
+    // $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'quanao') {
     $categoryId = 20;
-    $condition = " WHERE category.category_id = $categoryId";
-    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
+    // $condition = " WHERE category.category_id = $categoryId";
+    // $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'phukien') {
-    $categoryId = 21;
-    $condition = " WHERE category.category_id = $categoryId";
-    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
+    // $categoryId = 21;
+    // $condition = " WHERE category.category_id = $categoryId";
+    // $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   } else if ($id == 'sandal') {
     $categoryId = 22;
-    $condition = " WHERE category.category_id = $categoryId";
-    $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
+    // $condition = " WHERE category.category_id = $categoryId";
+    // $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
+  } else if ($id == 'hangkhac') {
+    $categoryId = 23;
+    // $condition = " WHERE category.category_id = $categoryId";
+    // $totalShoes = getRows("SELECT * FROM products INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN category ON collection.category_id = category.category_id " . $condition);
   }
 }
 
@@ -462,9 +466,9 @@ $user_id = getUserIdByToken();
         <div class="footer-item">
           <h4 class="text-light mb-3">Tại sao nên chọn 3H1A?</h4>
           <p class="mb-4">
-            typesetting, remaining essentially unchanged. It was popularised
-            in the 1960s with the like Aldus PageMaker including of Lorem
-            Ipsum.
+          Tại 3H1A Store, chúng tôi mang đến những đôi giày chất lượng cao với mẫu mã đa dạng, từ năng động đến thanh lịch. Mỗi sản phẩm đều được chọn lọc kỹ lưỡng, đảm bảo bền bỉ và thoải mái.
+          Giá cả hợp lý kèm nhiều ưu đãi.
+          Dịch vụ tận tâm, giúp bạn tìm được đôi giày ưng ý.
           </p>
           <a
             href=""
@@ -477,7 +481,6 @@ $user_id = getUserIdByToken();
           <h4 class="text-light mb-3">Thông tin</h4>
           <a class="btn-link" href="">Về chúng tôi</a>
           <a class="btn-link" href="">Liên hệ</a>
-          <a class="btn-link" href="">Chính sách bảo mật</a>
           <a class="btn-link" href="">Điều khoản và dịch vụ</a>
           <a class="btn-link" href="">Chính sách hoàn trả</a>
           <a class="btn-link" href="">Hỏi đáp & Trợ giúp</a>
@@ -490,7 +493,6 @@ $user_id = getUserIdByToken();
           <a class="btn-link" href="">Thông tin cửa hàng</a>
           <a class="btn-link" href="">Giỏ hàng</a>
           <a class="btn-link" href="">Lịch sử mua hàng</a>
-          <a class="btn-link" href="">Đơn hàng</a>
         </div>
       </div>
       <div class="col-lg-3 col-md-6">
