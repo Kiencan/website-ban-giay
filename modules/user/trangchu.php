@@ -38,7 +38,7 @@ $listProd = getRaw("SELECT * FROM products")
     <div class="d-flex justify-content-between">
       <div class="top-info ps-2">
         <a href="#" class="text-white"><small class="text-white mx-2">Về chúng tôi</small>/</a>
-        <a href="#" class="text-white"><small class="text-white mx-2">Liên hệ</small>/</a>
+        <a href="?module=user&action=contact" class="text-white"><small class="text-white mx-2">Liên hệ</small>/</a>
         <a href="#" class="text-white"><small class="text-white ms-2">Trở thành đối tác </small>/</a>
         <a href="#" class="text-white"><small class="text-white ms-2">Chương trình</small></a>
       </div>
@@ -128,7 +128,7 @@ $listProd = getRaw("SELECT * FROM products")
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-                <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                <li><a class="dropdown-item" href="?module=user&action=favourite">Mục yêu thích</a></li>
                 <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
               </ul>
             </div>
@@ -1045,11 +1045,13 @@ $listProd = getRaw("SELECT * FROM products")
         <div class="col-lg-6">
           <div class="position-relative mx-auto">
             <input
+              id="email-input"
               class="form-control border-0 w-100 py-3 px-4 rounded-pill"
-              type="number"
+              type="email"
               placeholder="Nhập email của bạn" />
             <button
-              type="submit"
+              id="send-button"
+              type="button"
               class="btn border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
               style="top: 0; right: 0; background-color: #4856dd">
               Gửi ngay
@@ -1094,7 +1096,8 @@ $listProd = getRaw("SELECT * FROM products")
         <div class="d-flex flex-column text-start footer-item">
           <h4 class="text-light mb-3">Thông tin</h4>
           <a class="btn-link" href="">Về chúng tôi</a>
-          <a class="btn-link" href="">Liên hệ</a>
+          <a class="btn-link" href="?module=user&action=contact">Liên hệ</a>
+          <a class="btn-link" href="">Chính sách bảo mật</a>
           <a class="btn-link" href="">Điều khoản và dịch vụ</a>
           <a class="btn-link" href="">Chính sách hoàn trả</a>
           <a class="btn-link" href="">Hỏi đáp & Trợ giúp</a>

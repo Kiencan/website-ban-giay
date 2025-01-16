@@ -57,18 +57,20 @@ $category = oneRaw("SELECT * FROM category WHERE category_id = $categoryId");
 // echo '<pre>';
 // print_r($category);
 // echo '</pre>';
-$featuredProducts = getRows("
-  SELECT products.*, product_image.product_image 
+$featuredProducts = getRaw("
+  SELECT products.*
   FROM products
   INNER JOIN product_name ON products.p_name_id = product_name.p_name_id
   INNER JOIN collection ON product_name.collection_id = collection.collection_id
   INNER JOIN category ON collection.category_id = category.category_id
-  LEFT JOIN product_image ON products.p_id = product_image.p_id
-  WHERE category.category_id = $categoryId
+  " . $condition . "
   GROUP BY products.p_id
   ORDER BY RAND()
   LIMIT 3
 ");
+// echo '<pre>';
+// print_r($featuredProducts);
+// echo '</pre>';
 $title = [
   'pageTitle' => 'Trang ' . $category['category_name']
 ];
@@ -96,7 +98,7 @@ $user_id = getUserIdByToken();
     <div class="d-flex justify-content-between">
       <div class="top-info ps-2">
         <a href="#" class="text-white"><small class="text-white mx-2">Về chúng tôi</small>/</a>
-        <a href="#" class="text-white"><small class="text-white mx-2">Liên hệ</small>/</a>
+        <a href="?module=user&action=contact" class="text-white"><small class="text-white mx-2">Liên hệ</small>/</a>
         <a href="#" class="text-white"><small class="text-white ms-2">Trở thành đối tác </small>/</a>
         <a href="#" class="text-white"><small class="text-white ms-2">Chương trình</small></a>
       </div>
@@ -185,7 +187,7 @@ $user_id = getUserIdByToken();
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-                <li><a class="dropdown-item" href="#">Mục yêu thích</a></li>
+                <li><a class="dropdown-item" href="?module=user&action=favourite">Mục yêu thích</a></li>
                 <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
               </ul>
             </div>
@@ -353,27 +355,28 @@ $user_id = getUserIdByToken();
                 <?php
                 if (!empty($featuredProducts)):
                   foreach ($featuredProducts as $product):
+                    $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $product['p_id'] . "'");
                 ?>
-                  <div class="d-flex align-items-center justify-content-start mb-3">
-                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                      <img src="<?php echo $product['product_image']; ?>" class="img-fluid rounded" alt="<?php echo $product['p_name_custom']; ?>">
-                    </div>
-                    <div>
-                      <h6 class="mb-2"><?php echo $product['p_name_custom']; ?></h6>
-                      <div class="d-flex mb-2">
-                        <h5 class="fw-bold me-2"><?php echo number_format($product['p_price_min'], 0, ',', '.'); ?> đ</h5>
-                        <?php if (!empty($product['p_price_max'])): ?>
-                          <h5 class="text-danger text-decoration-line-through">
-                            <?php echo number_format($product['p_price_max'], 0, ',', '.'); ?> đ
-                          </h5>
-                        <?php endif; ?>
+                    <div class="d-flex align-items-center justify-content-start mb-3">
+                      <div class="rounded me-4" style="width: 100px; height: 100px;">
+                        <img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $img['product_image'] ?>" class="img-fluid rounded" alt="<?php echo $product['p_name_custom']; ?>">
+                      </div>
+                      <div>
+                        <h6 class="mb-2"><?php echo $product['p_name_custom']; ?></h6>
+                        <div class="d-flex mb-2">
+                          <h5 class="fw-bold me-2"><?php echo number_format($product['p_price_min'], 0, ',', '.'); ?> đ</h5>
+                          <?php if (!empty($product['p_price_max'])): ?>
+                            <h5 class="text-danger text-decoration-line-through">
+                              <?php echo number_format($product['p_price_max'], 0, ',', '.'); ?> đ
+                            </h5>
+                          <?php endif; ?>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                <?php
+                  <?php
                   endforeach;
                 else:
-                ?>
+                  ?>
                   <p class="text-muted">Không có sản phẩm nào để hiển thị.</p>
                 <?php endif; ?>
               </div>
@@ -480,7 +483,8 @@ $user_id = getUserIdByToken();
         <div class="d-flex flex-column text-start footer-item">
           <h4 class="text-light mb-3">Thông tin</h4>
           <a class="btn-link" href="">Về chúng tôi</a>
-          <a class="btn-link" href="">Liên hệ</a>
+          <a class="btn-link" href="?module=user&action=contact">Liên hệ</a>
+          <a class="btn-link" href="">Chính sách bảo mật</a>
           <a class="btn-link" href="">Điều khoản và dịch vụ</a>
           <a class="btn-link" href="">Chính sách hoàn trả</a>
           <a class="btn-link" href="">Hỏi đáp & Trợ giúp</a>

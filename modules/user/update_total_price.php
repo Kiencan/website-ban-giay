@@ -12,8 +12,6 @@ if (isset($_POST['p_quantity'])) {
     $p_price_max = $_POST['p_price_max'];
     $total_price = $p_price_min * $p_quantity;
 
-
-
     $updateQuantity = update('cart', ['p_quantity' => $p_quantity, 'total_price' => $total_price], "cart_id = '$cart_id'");
     $total = oneRaw("SELECT sum(total_price) FROM cart WHERE user_id = '$userId'");
     $grand_total = $total['sum(total_price)'] + $ship_fee;
