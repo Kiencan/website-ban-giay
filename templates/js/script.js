@@ -2,14 +2,14 @@ let currentPage = 1;
 let currentBrand = "";
 let totalPages = 1;
 let currentPrice = 0;
+let orderByPrice = 0;
 let categoryId = $("#Categories-all").data("brand");
-let currentCollection = 0;
 // Load sản phẩm
 function loadProducts(page = 1, brand = "") {
   $.ajax({
     url: "?module=user&action=filter",
     method: "POST",
-    data: { page, brand, categoryId, currentPrice, currentCollection },
+    data: { page, brand, categoryId, currentPrice, orderByPrice },
     dataType: "json",
     success: function (data) {
       const productContainer = $("#product-container");
@@ -19,52 +19,32 @@ function loadProducts(page = 1, brand = "") {
       // console.log(data.products);
       data.products.forEach((product) => {
         productContainer.append(`
-                <div class="col-md-6 col-lg-3 col-xl-4" style="cursor: pointer;">
-                  <a href="?module=user&action=shop-detail&p_id=${
-                    product.p_id
-                  }">
-                    <div class="rounded position-relative my-item">
-                      <div class="img-item">
-                        <img src="${BASE_URL}/image/${product.product_image}" 
-                        class="img-fluid w-100 rounded-top" 
-                        alt="">
-                      </div>
-                      <div 
-                        class="text-white bg-secondary px-3 py-1 rounded position-absolute" 
-                        style="top: 10px; left: 10px;">
-                        ${product.category_name}
-                      </div>
-                      <div class="p-4 border-top-0 rounded-bottom">
-                        <h4>${product.p_name_custom}</h4>
-                        <p>Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%</p>
+                <div class="col-md-6 col-lg-6 col-xl-4">
+                <a href="?module=user&action=shop-detail&p_id=${product.p_id}">
+                  <div class="rounded position-relative my-item">
+                    <div class="img-item">
+                      <img src="${BASE_URL}/image/${product.product_image}" class="img-fluid w-100 rounded-top" alt="">
+                    </div>
+                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${product.category_name}</div>
+                    <div class="p-4 border-top-0 rounded-bottom">
+                      <h4>${product.p_name_custom}</h4>
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                      <div class="d-flex justify-content-between flex-lg-wrap">
                         <p>
-                            <span style="text-decoration: line-through">${Number(
-                              (product.p_price_max * product.discount) / 100
-                            ).toLocaleString("vi-VN")}</span>
-                            <span style="font-weight: bold; color: black">${Number(
-                              product.p_price_min
-                            ).toLocaleString("vi-VN")}VNĐ</span>
+                          <span style="text-decoration: line-through">${product.p_price_max}đ</span>
+                          <span style="font-weight: bold; color: black">${product.p_price_min}đ</span>
                         </p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                          <a 
-                            href="#" 
-                            class="btn border border-secondary rounded-circle p-auto me-2" 
-                            style="
-                            background-color: rgb(255, 255, 255); 
-                            color: #4856dd; 
-                            width: 40px; 
-                            height: 40px;
-                          ">
+                        <div class="product-actions">
+                          <a href="#" class="btn border border-secondary rounded-circle p-auto me-2" style="background-color: rgb(255, 255, 255); color: #4856dd; width: 40px; height: 40px;">
                             <i class="fa fa-heart"></i>
                           </a>
-                          <a href="?module=user&action=shop-detail&p_id=${
-                            product.p_id
-                          }" class="btn border border-secondary rounded-pill px-3">
-                            <i class="fa fa-shopping-bag me-2"></i> Thêm vào giỏ hàng
+                          <a href="?module=user&action=shop-detail&p_id=${product.p_id}" class="btn border border-secondary rounded-pill px-3 text-primary">
+                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm vào giỏ hàng
                           </a>
                         </div>
                       </div>
                     </div>
+                  </div>
                   </a>
                 </div>
                 `);
@@ -212,19 +192,23 @@ $(document).on("click", "#next-page", function (e) {
 $(document).on("change", ".brand-filter", function () {
   currentBrand = $(this).val();
   currentPage = 1;
-  console.log(currentBrand);
-  currentCollection = $(this).data("collection");
-  console.log(currentCollection);
   loadProducts(currentPage, currentBrand);
 });
 
 // Xử lý khi bấm vào nút lọc giá
 $(document).on("change", ".price-filter", function () {
   currentPrice = $(this).val();
-  console.log(currentPrice);
+  // console.log(currentPrice);
   currentPage = 1;
   loadProducts(currentPage, currentBrand);
 });
 
+// Xử lý khi bấm dropDown theo giá
+$(document).on("change", ".oderby-price", function () {
+  orderByPrice = $(this).val();
+  console.log(orderByPrice);
+  currentPage = 1;
+  loadProducts(currentPage, currentBrand);
+});
 // Tải sản phẩm lần đầu
 loadProducts();

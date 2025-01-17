@@ -95,7 +95,7 @@ layouts('header', $title);
           <div class="col-xl-3">
             <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
               <label for="fruits">Lọc theo giá:</label>
-              <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
+              <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3 oderby-price" form="fruitform">
                 <option value="normal">Normal</option>
                 <option value="increase">Từ cao đến thấp</option>
                 <option value="decrease">Từ thấp đến cao</option>
