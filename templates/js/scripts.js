@@ -3,12 +3,13 @@ let currentBrand = "";
 let totalPages = 1;
 let currentPrice = 0;
 let categoryId = $("#Categories-all").data("brand");
+let currentCollection = 0;
 // Load sản phẩm
 function loadProducts(page = 1, brand = "") {
   $.ajax({
     url: "?module=user&action=filter",
     method: "POST",
-    data: { page, brand, categoryId, currentPrice },
+    data: { page, brand, categoryId, currentPrice, currentCollection },
     dataType: "json",
     success: function (data) {
       const productContainer = $("#product-container");
@@ -191,6 +192,9 @@ $(document).on("click", "#next-page", function (e) {
 $(document).on("change", ".brand-filter", function () {
   currentBrand = $(this).val();
   currentPage = 1;
+  console.log(currentBrand);
+  currentCollection = $(this).data("collection");
+  console.log(currentCollection);
   loadProducts(currentPage, currentBrand);
 });
 

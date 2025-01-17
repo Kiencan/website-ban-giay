@@ -110,7 +110,7 @@ layouts('header', $title);
                 <div class="mb-3 brand-filters">
                   <h4>Additional</h4>
                   <?php
-                  if ($categoryId == 15 || $categoryId == 16):
+                  if ($categoryId == 15 || $categoryId == 16 || $categoryId == 18 || $categoryId == 19 || $categoryId == 23):
                   ?>
                     <div class="mb-2">
                       <input type="radio" class="me-2 brand-filter active" id="Categories-all" name="Categories-1" value="" data-brand="<?php echo $categoryId ?>" checked>
@@ -145,10 +145,12 @@ layouts('header', $title);
                     </div>
                     <?php
                     $randCollection = getRaw("SELECT * FROM collection WHERE category_id = $categoryId ORDER BY RAND() LIMIT 4");
+                    $count = 0;
                     foreach ($randCollection as $rand):
+                      $count += 1;
                     ?>
                       <div class="mb-2">
-                        <input type="radio" class="me-2 brand-filter" id="Categories-1" name="Categories-1" value="<?php echo $rand['collection_name'] ?> ">
+                        <input type="radio" class="me-2 brand-filter" id="Categories-<?= $count ?>" name="Categories-1" value="" data-collection="<?php echo $rand['collection_name'] ?>">
                         <label for="Categories-1"> <?php echo $rand['collection_name'] ?></label>
                       </div>
                   <?php

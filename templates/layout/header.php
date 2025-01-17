@@ -3,6 +3,7 @@ if (!defined('_CODE')) {
   die('Access denied');
 }
 
+$user_id = getUserIdByToken();
 ?>
 <!DOCTYPE html>
 <html lang="vi">

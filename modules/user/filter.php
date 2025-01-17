@@ -12,6 +12,7 @@ $page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
 $brand = isset($_POST['brand']) ? $connect->real_escape_string($_POST['brand']) : '';
 $categoryId = isset($_POST['categoryId']) ? (int)$_POST['categoryId'] : '';
 $currentPrice = isset($_POST['currentPrice']) ? (string)$_POST['currentPrice'] : '';
+$currentCollection = isset($_POST['currentCollection']) ? (string)$_POST['currentCollection'] : '';
 $price = explode("-", $currentPrice);
 $price[0] = isset($price[0]) ? (int)$price[0] : 0;
 $price[1] = isset($price[1]) ? (int)$price[1] : 0;
@@ -21,7 +22,7 @@ $offset = ($page - 1) * $limit;
 
 
 // Câu truy vấn chính
-$query = "SELECT p.*, pn.p_name, c.category_name, 
+$query = "SELECT p.*, pn.p_name, col.collection_name, c.category_name, 
 (SELECT product_image FROM product_image WHERE p_id = p.p_id LIMIT 1) as product_image
 FROM products p
 JOIN product_name pn ON p.p_name_id = pn.p_name_id
@@ -36,6 +37,9 @@ if ($categoryId == 15) {
 }
 if (!empty($brand)) {
     $query .= " AND c.category_name LIKE '%$brand'";
+}
+if (!empty($currentCollection)) {
+    $query .= " AND col.collection_name LIKE '%$currentCollection'";
 }
 if (!empty($currentPrice)) {
     $query .= " AND p.p_price_min BETWEEN $price[0] AND $price[1]";
@@ -78,6 +82,9 @@ if ($categoryId == 15) {
 }
 if (!empty($brand)) {
     $total_query .= " AND c.category_name LIKE '%$brand'";
+}
+if (!empty($currentCollection)) {
+    $total_query .= " AND col.collection_name LIKE '%$currentCollection'";
 }
 if (!empty($currentPrice)) {
     $total_query .= " AND p.p_price_min BETWEEN $price[0] AND $price[1]";

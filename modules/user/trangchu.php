@@ -13,7 +13,6 @@ $user_id = getUserIdByToken();
 $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
 $listProd = getRaw("SELECT * FROM products");
 
-
 layouts('header', $title);
 ?>
 
