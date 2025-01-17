@@ -283,11 +283,14 @@
 
 /*** Giảm giá Start ***/
 .giamgia-item {
-  height: 350px; /* Cố định chiều cao tổng thể cho thẻ */
+  height: 500px; /* Cố định chiều cao tổng thể cho thẻ */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden; /* Tránh nội dung bị tràn */
+}
+.giamgia-item i {
+  color: #4856dd;
 }
 
 .img-item img {
