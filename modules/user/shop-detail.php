@@ -557,150 +557,44 @@ layouts('header', $title);
           </div>
           <div class="col-lg-12">
             <h4 class="mb-4">Sản phẩm nổi bật</h4>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                  class="img-fluid rounded"
-                  alt="Image" />
-              </div>
-              <div>
-                <h6 class="mb-2">Giày Adidas Duramo </h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
+            <?php
+            $sql = "SELECT p.*, pi.product_image, pn.p_name, c.category_name 
+                    FROM products p
+                    INNER JOIN product_image pi ON p.p_id = pi.p_id 
+                    INNER JOIN product_name pn ON p.p_name_id = pn.p_name_id
+                    INNER JOIN collection col ON pn.collection_id = col.collection_id
+                    INNER JOIN category c ON col.category_id = c.category_id
+                    WHERE c.category_name = '". $product['category_name'] ."'
+                    GROUP BY p.p_id
+                    ORDER BY RAND() 
+                    LIMIT 5";
+            
+            $listProducts = getRaw($sql);
+
+            foreach ($listProducts as $listProduct):?>
+              <div class="d-flex align-items-center justify-content-start">
+                <div class="rounded" style="width: 100px; height: 100px">
+                  <img
+                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/<?php echo $listProduct['product_image']; ?>"
+                    class="img-fluid rounded"
+                    alt="Image" />
                 </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">1.500.000đ</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    2.000.000đ
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                  class="img-fluid rounded"
-                  alt="Image" />
-              </div>
-              <div>
-                <h6 class="mb-2">Giày Adidas Duramo </h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">1.500.000đ</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    2.000.000đ
-                  </h5>
+                <div>
+                  <h6 class="mb-2"><?php echo $listProduct['p_name'] ." ". $listProduct['p_color']; ?> </h6>
+                  <div class="d-flex mb-2">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                      <i class="fa fa-star <?php echo $i <= $listProduct['p_rate'] ? 'text-warning' : 'text-secondary'; ?>"></i>
+                    <?php endfor; ?>
+                  </div>
+                  <div class="d-flex mb-2">
+                    <h5 class="fw-bold me-2"><?php echo number_format($product['p_price_min'], 0, ',', '.'); ?></h5>
+                    <h5 class="text-danger text-decoration-line-through">
+                      <?php echo number_format($product['p_price_max'], 0, ',', '.'); ?>
+                    </h5>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                  class="img-fluid rounded"
-                  alt="Image" />
-              </div>
-              <div>
-                <h6 class="mb-2">Giày Adidas Duramo </h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">1.500.000đ</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    2.000.000đ
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                  class="img-fluid rounded"
-                  alt="Image" />
-              </div>
-              <div>
-                <h6 class="mb-2">Giày Adidas Duramo </h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">1.500.000đ</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    2.000.000đ
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                  class="img-fluid rounded"
-                  alt="Image" />
-              </div>
-              <div>
-                <h6 class="mb-2">Giày Adidas Duramo </h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">1.500.000đ</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    2.000.000đ
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-start">
-              <div class="rounded" style="width: 100px; height: 100px">
-                <img
-                  src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay4.jpg"
-                  class="img-fluid rounded"
-                  alt="Image" />
-              </div>
-              <div>
-                <h6 class="mb-2">Giày Adidas Duramo </h6>
-                <div class="d-flex mb-2">
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star text-secondary"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="d-flex mb-2">
-                  <h5 class="fw-bold me-2">1.500.000đ</h5>
-                  <h5 class="text-danger text-decoration-line-through">
-                    2.000.000đ
-                  </h5>
-                </div>
-              </div>
-            </div>
+            <?php endforeach; ?>  
             <div class="d-flex justify-content-center my-4">
               <a
                 href="#"
@@ -730,334 +624,60 @@ layouts('header', $title);
     <h1 class="mb-5">Sản phẩm liên quan</h1>
     <div
       class="owl-carousel vegetable-carousel justify-content-center text-center">
-      <div class="rounded position-relative giamgia-item">
-        <div class="img-item">
-          <img
-            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
-            class="img-fluid w-100 rounded-top"
-            alt="" />
-        </div>
-        <div
-          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-          style="top: 10px; left: 10px">
-          Giày sneaker
-        </div>
-        <div class="p-4 border-top-0 rounded-bottom">
-          <h4>Giày Adidas Duramo</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-            eiusmod te incididunt
-          </p>
-          <p>
-            <span style="text-decoration: line-through">2.500.00đ</span>
-            <span style="font-weight: bold; color: black">1.499.000đ</span>
-          </p>
-          <div class="d-flex justify-content-between flex-lg-wrap">
-            <a
-              href="#"
-              class="btn border border-secondary rounded-circle p-auto me-2"
-              style="
-                    background-color: rgb(255, 255, 255);
-                    color: white;
-                    width: 40px;
-                    height: 40px;
-                  ">
-              <i class="fa fa-heart"></i>
-              <!-- Icon trái tim -->
-            </a>
-            <a
-              href="#"
-              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
+      <?php
+        $sanphamlq = getRaw("SELECT p.*, pi.product_image, pn.p_name, c.category_name,col.collection_name 
+          FROM products p
+          INNER JOIN product_image pi ON p.p_id = pi.p_id 
+          INNER JOIN product_name pn ON p.p_name_id = pn.p_name_id
+          INNER JOIN collection col ON pn.collection_id = col.collection_id
+          INNER JOIN category c ON col.category_id = c.category_id
+          WHERE col.collection_name = '". $product['collection_name'] ."'
+          GROUP BY p.p_id
+          ORDER BY RAND() 
+          LIMIT 8");  
+      foreach ($sanphamlq as $lq) : ?>
+        <div class="rounded position-relative giamgia-item">
+          <div class="img-item">
+            <img
+              src="<?php echo _WEB_HOST_TEMPLATE ?>/image/<?php echo $lq['product_image']; ?>"
+              class="img-fluid w-100 rounded-top"
+              alt="" />
+          </div>
+          <div
+            class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+            style="top: 10px; left: 10px">
+            <?php echo $lq['category_name']; ?>
+          </div>
+          <div class="p-4 border-top-0 rounded-bottom">
+            <h4><?php echo $lq['p_name']; ?></h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+              eiusmod te incididunt
+            </p>
+            <p>
+              <span style="text-decoration: line-through"><?php echo number_format($lq['p_price_max'], 0, ',', '.'); ?></span>
+              <span style="font-weight: bold; color: black"><?php echo number_format($lq['p_price_min'], 0, ',', '.'); ?></span>
+            </p>
+            <div class="d-flex justify-content-between flex-lg-wrap">
+              <a
+                href="#"
+                class="btn border border-secondary rounded-circle p-auto me-2"
+                style="
+                      background-color: rgb(255, 255, 255);
+                      color: white;
+                      width: 40px;
+                      height: 40px;
+                    ">
+                <i class="fa fa-heart"></i>
+                <!-- Icon trái tim -->
+              </a>
+              <a
+                href="#"
+                class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="rounded position-relative giamgia-item">
-        <div class="img-item">
-          <img
-            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
-            class="img-fluid w-100 rounded-top"
-            alt="" />
-        </div>
-        <div
-          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-          style="top: 10px; left: 10px">
-          Giày sneaker
-        </div>
-        <div class="p-4 border-top-0 rounded-bottom">
-          <h4>Giày Adidas Duramo</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-            eiusmod te incididunt
-          </p>
-          <p>
-            <span style="text-decoration: line-through">2.500.00đ</span>
-            <span style="font-weight: bold; color: black">1.499.000đ</span>
-          </p>
-          <div class="d-flex justify-content-between flex-lg-wrap">
-            <a
-              href="#"
-              class="btn border border-secondary rounded-circle p-auto me-2"
-              style="
-                    background-color: rgb(255, 255, 255);
-                    color: white;
-                    width: 40px;
-                    height: 40px;
-                  ">
-              <i class="fa fa-heart"></i>
-              <!-- Icon trái tim -->
-            </a>
-            <a
-              href="#"
-              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
-          </div>
-        </div>
-      </div>
-      <div class="rounded position-relative giamgia-item">
-        <div class="img-item">
-          <img
-            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
-            class="img-fluid w-100 rounded-top"
-            alt="" />
-        </div>
-        <div
-          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-          style="top: 10px; left: 10px">
-          Giày sneaker
-        </div>
-        <div class="p-4 border-top-0 rounded-bottom">
-          <h4>Giày Adidas Duramo</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-            eiusmod te incididunt
-          </p>
-          <p>
-            <span style="text-decoration: line-through">2.500.00đ</span>
-            <span style="font-weight: bold; color: black">1.499.000đ</span>
-          </p>
-          <div class="d-flex justify-content-between flex-lg-wrap">
-            <a
-              href="#"
-              class="btn border border-secondary rounded-circle p-auto me-2"
-              style="
-                    background-color: rgb(255, 255, 255);
-                    color: white;
-                    width: 40px;
-                    height: 40px;
-                  ">
-              <i class="fa fa-heart"></i>
-              <!-- Icon trái tim -->
-            </a>
-            <a
-              href="#"
-              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
-          </div>
-        </div>
-      </div>
-      <div class="rounded position-relative giamgia-item">
-        <div class="img-item">
-          <img
-            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
-            class="img-fluid w-100 rounded-top"
-            alt="" />
-        </div>
-        <div
-          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-          style="top: 10px; left: 10px">
-          Giày sneaker
-        </div>
-        <div class="p-4 border-top-0 rounded-bottom">
-          <h4>Giày Adidas Duramo</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-            eiusmod te incididunt
-          </p>
-          <p>
-            <span style="text-decoration: line-through">2.500.00đ</span>
-            <span style="font-weight: bold; color: black">1.499.000đ</span>
-          </p>
-          <div class="d-flex justify-content-between flex-lg-wrap">
-            <a
-              href="#"
-              class="btn border border-secondary rounded-circle p-auto me-2"
-              style="
-                    background-color: rgb(255, 255, 255);
-                    color: white;
-                    width: 40px;
-                    height: 40px;
-                  ">
-              <i class="fa fa-heart"></i>
-              <!-- Icon trái tim -->
-            </a>
-            <a
-              href="#"
-              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
-          </div>
-        </div>
-      </div>
-      <div class="rounded position-relative giamgia-item">
-        <div class="img-item">
-          <img
-            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
-            class="img-fluid w-100 rounded-top"
-            alt="" />
-        </div>
-        <div
-          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-          style="top: 10px; left: 10px">
-          Giày sneaker
-        </div>
-        <div class="p-4 border-top-0 rounded-bottom">
-          <h4>Giày Adidas Duramo</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-            eiusmod te incididunt
-          </p>
-          <p>
-            <span style="text-decoration: line-through">2.500.00đ</span>
-            <span style="font-weight: bold; color: black">1.499.000đ</span>
-          </p>
-          <div class="d-flex justify-content-between flex-lg-wrap">
-            <a
-              href="#"
-              class="btn border border-secondary rounded-circle p-auto me-2"
-              style="
-                    background-color: rgb(255, 255, 255);
-                    color: white;
-                    width: 40px;
-                    height: 40px;
-                  ">
-              <i class="fa fa-heart"></i>
-              <!-- Icon trái tim -->
-            </a>
-            <a
-              href="#"
-              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
-          </div>
-        </div>
-      </div>
-      <div class="rounded position-relative giamgia-item">
-        <div class="img-item">
-          <img
-            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
-            class="img-fluid w-100 rounded-top"
-            alt="" />
-        </div>
-        <div
-          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-          style="top: 10px; left: 10px">
-          Giày sneaker
-        </div>
-        <div class="p-4 border-top-0 rounded-bottom">
-          <h4>Giày Adidas Duramo</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-            eiusmod te incididunt
-          </p>
-          <p>
-            <span style="text-decoration: line-through">2.500.00đ</span>
-            <span style="font-weight: bold; color: black">1.499.000đ</span>
-          </p>
-          <div class="d-flex justify-content-between flex-lg-wrap">
-            <a
-              href="#"
-              class="btn border border-secondary rounded-circle p-auto me-2"
-              style="
-                    background-color: rgb(255, 255, 255);
-                    color: white;
-                    width: 40px;
-                    height: 40px;
-                  ">
-              <i class="fa fa-heart"></i>
-              <!-- Icon trái tim -->
-            </a>
-            <a
-              href="#"
-              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
-          </div>
-        </div>
-      </div>
-      <div class="rounded position-relative giamgia-item">
-        <div class="img-item">
-          <img
-            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
-            class="img-fluid w-100 rounded-top"
-            alt="" />
-        </div>
-        <div
-          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-          style="top: 10px; left: 10px">
-          Giày sneaker
-        </div>
-        <div class="p-4 border-top-0 rounded-bottom">
-          <h4>Giày Adidas Duramo</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-            eiusmod te incididunt
-          </p>
-          <p>
-            <span style="text-decoration: line-through">2.500.00đ</span>
-            <span style="font-weight: bold; color: black">1.499.000đ</span>
-          </p>
-          <div class="d-flex justify-content-between flex-lg-wrap">
-            <a
-              href="#"
-              class="btn border border-secondary rounded-circle p-auto me-2"
-              style="
-                    background-color: rgb(255, 255, 255);
-                    color: white;
-                    width: 40px;
-                    height: 40px;
-                  ">
-              <i class="fa fa-heart"></i>
-              <!-- Icon trái tim -->
-            </a>
-            <a
-              href="#"
-              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
-          </div>
-        </div>
-      </div>
-      <div class="rounded position-relative giamgia-item">
-        <div class="img-item">
-          <img
-            src="<?php echo _WEB_HOST_TEMPLATE ?>/image/giay3.jpg"
-            class="img-fluid w-100 rounded-top"
-            alt="" />
-        </div>
-        <div
-          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-          style="top: 10px; left: 10px">
-          Giày sneaker
-        </div>
-        <div class="p-4 border-top-0 rounded-bottom">
-          <h4>Giày Adidas Duramo</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-            eiusmod te incididunt
-          </p>
-          <p>
-            <span style="text-decoration: line-through">2.500.00đ</span>
-            <span style="font-weight: bold; color: black">1.499.000đ</span>
-          </p>
-          <div class="d-flex justify-content-between flex-lg-wrap">
-            <a
-              href="#"
-              class="btn border border-secondary rounded-circle p-auto me-2"
-              style="
-                    background-color: rgb(255, 255, 255);
-                    color: white;
-                    width: 40px;
-                    height: 40px;
-                  ">
-              <i class="fa fa-heart"></i>
-              <!-- Icon trái tim -->
-            </a>
-            <a
-              href="#"
-              class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
-          </div>
-        </div>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </div>
