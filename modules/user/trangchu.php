@@ -255,11 +255,11 @@ layouts('header', $title);
                               href="#"
                               class="btn border border-secondary rounded-circle p-auto me-2"
                               style="
-                          background-color: rgb(255, 255, 255);
-                          color: white;
-                          width: 40px;
-                          height: 40px;
-                        ">
+                              background-color: rgb(255, 255, 255);
+                              color: white;
+                              width: 40px;
+                              height: 40px;
+                            ">
                               <i class="fa fa-heart"></i>
                               <!-- Icon trái tim -->
                             </a>
@@ -638,14 +638,13 @@ layouts('header', $title);
                   background-color: rgb(255, 255, 255);
                   color: white;
                   width: 40px;
-                  height: 40px;
-                ">
-                  <i class="fa fa-heart"></i>
+                  height: 40px;">
+                  <i class="fa fa-heart heart-icon"></i>
                   <!-- Icon trái tim -->
                 </a>
 
-                <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
-                  <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3 add-cart">
+                  <i class="fa fa-shopping-bag me-2 bag-icon"></i>Thêm vào giỏ hàng
                 </a>
               </div>
             </div>
