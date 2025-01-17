@@ -295,7 +295,7 @@ layouts('header', $title);
                   $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
                 ?>
                   <div class="col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
-                    <a href="?module=user&action=shop-detail&id=<?php echo $value['p_id'] ?>">
+                    <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">
                       <div class="rounded position-relative my-item">
                         <div class="img-item">
                           <img
