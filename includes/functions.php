@@ -14,6 +14,12 @@ function layouts($layoutName = 'header', $title = [])
         require_once(_WEB_PATH_TEMPLATE . '/layout/' . $layoutName . '.php');
     }
 }
+function loadPages($layoutName = 'header_page')
+{
+    if (file_exists(_WEB_PATH_TEMPLATE . '/layout/' . $layoutName . '.php')) {
+        require_once(_WEB_PATH_TEMPLATE . '/layout/' . $layoutName . '.php');
+    }
+}
 
 function sendMail($to, $subject, $content, $from = 'kienbestdaxua@gmail.com')
 {

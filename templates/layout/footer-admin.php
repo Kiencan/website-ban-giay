@@ -61,7 +61,6 @@ if (!defined('_CODE')) {
         el.classList.toggle("toggled");
     };
 </script>
-
 <script>
     function previewImage(event) {
         const input = event.target;

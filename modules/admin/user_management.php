@@ -7,19 +7,18 @@ $title = [
     'pageTitle' => 'Quản lý thành viên'
 ];
 
-layouts('header-admin', $title);
-
 // Kiểm tra trạng thái đăng nhập
 
 if (!isLogin()) {
     redirect('?module=auth&action=login');
 }
 
+
 $listUser = getRaw("SELECT * FROM user ORDER BY update_at");
 // echo '<pre>';
 // print_r($listUser);
 // echo '</pre>';
-
+layouts('header-admin', $title);
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
 ?>
