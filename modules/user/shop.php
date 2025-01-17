@@ -90,20 +90,15 @@ layouts('header', $title);
       <div class="col-lg-12">
         <div class="row g-4">
           <div class="col-xl-3">
-            <div class="input-group w-100 mx-auto d-flex">
-              <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-              <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-            </div>
           </div>
           <div class="col-6"></div>
           <div class="col-xl-3">
             <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-              <label for="fruits">Bán chạy:</label>
+              <label for="fruits">Lọc theo giá:</label>
               <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                <option value="volvo">Sale up 25%</option>
-                <option value="saab">Sale up 50%</option>
-                <option value="opel">Sale up 75%</option>
-                <option value="audi">Sale up 100%</option>
+                <option value="normal">Normal</option>
+                <option value="increase">Từ cao đến thấp</option>
+                <option value="decrease">Từ thấp đến cao</option>
               </select>
             </div>
           </div>
@@ -153,7 +148,7 @@ layouts('header', $title);
                     foreach ($randCollection as $rand):
                     ?>
                       <div class="mb-2">
-                        <input type="radio" class="me-2 brand-filter" id="Categories-1" name="Categories-1" value="<?php echo $rand['collection_name'] ?>">
+                        <input type="radio" class="me-2 brand-filter" id="Categories-1" name="Categories-1" value="<?php echo $rand['collection_name'] ?> ">
                         <label for="Categories-1"> <?php echo $rand['collection_name'] ?></label>
                       </div>
                   <?php
