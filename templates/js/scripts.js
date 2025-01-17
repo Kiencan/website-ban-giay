@@ -39,11 +39,11 @@ function loadProducts(page = 1, brand = "") {
                         <p>Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%</p>
                         <p>
                             <span style="text-decoration: line-through">${Number(
-                              product.p_price_max
+                              (product.p_price_max * product.discount) / 100
                             ).toLocaleString("vi-VN")}</span>
                             <span style="font-weight: bold; color: black">${Number(
                               product.p_price_min
-                            ).toLocaleString("vi-VN")} VNĐ</span>
+                            ).toLocaleString("vi-VN")}VNĐ</span>
                         </p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
                           <a 
