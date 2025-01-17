@@ -26,7 +26,7 @@ function loadProducts(page = 1, brand = "") {
                     </div>
                     <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${product.category_name}</div>
                     <div class="p-4 border-top-0 rounded-bottom">
-                      <h4>Giày ${product.p_name_custom}</h4>
+                      <h4>${product.p_name_custom}</h4>
                       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
                       <div class="d-flex justify-content-between flex-lg-wrap">
                         <p>
