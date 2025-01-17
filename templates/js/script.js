@@ -2,13 +2,14 @@ let currentPage = 1;
 let currentBrand = "";
 let totalPages = 1;
 let currentPrice = 0;
+let orderByPrice = 0;
 let categoryId = $("#Categories-all").data("brand");
 // Load sản phẩm
 function loadProducts(page = 1, brand = "") {
   $.ajax({
     url: "?module=user&action=filter",
     method: "POST",
-    data: { page, brand, categoryId, currentPrice },
+    data: { page, brand, categoryId, currentPrice, orderByPrice},
     dataType: "json",
     success: function (data) {
       const productContainer = $("#product-container");
@@ -197,10 +198,17 @@ $(document).on("change", ".brand-filter", function () {
 // Xử lý khi bấm vào nút lọc giá
 $(document).on("change", ".price-filter", function () {
   currentPrice = $(this).val();
-  console.log(currentPrice);
+  // console.log(currentPrice);
   currentPage = 1;
   loadProducts(currentPage, currentBrand);
 });
 
+// Xử lý khi bấm dropDown theo giá
+$(document).on("change",".oderby-price", function () {
+  orderByPrice = $(this).val();
+  console.log(orderByPrice);
+  currentPage = 1;
+  loadProducts(currentPage,currentBrand);
+});
 // Tải sản phẩm lần đầu
 loadProducts();

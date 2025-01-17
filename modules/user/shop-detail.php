@@ -587,9 +587,9 @@ layouts('header', $title);
                     <?php endfor; ?>
                   </div>
                   <div class="d-flex mb-2">
-                    <h5 class="fw-bold me-2"><?php echo number_format($product['p_price_min'], 0, ',', '.'); ?></h5>
+                    <h5 class="fw-bold me-2"><?php echo number_format($listProduct['p_price_min'] * (100 - $listProduct['discount']) / 100, 0, ',', '.'); ?></h5>
                     <h5 class="text-danger text-decoration-line-through">
-                      <?php echo number_format($product['p_price_max'], 0, ',', '.'); ?>
+                      <?php echo number_format($listProduct['p_price_max'] * (100 - $listProduct['discount']) / 100, 0, ',', '.'); ?>
                     </h5>
                   </div>
                 </div>
@@ -649,14 +649,14 @@ layouts('header', $title);
             <?php echo $lq['category_name']; ?>
           </div>
           <div class="p-4 border-top-0 rounded-bottom">
-            <h4><?php echo $lq['p_name']; ?></h4>
+            <h4><?php echo $lq['p_name_custom']; ?></h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
               eiusmod te incididunt
             </p>
             <p>
-              <span style="text-decoration: line-through"><?php echo number_format($lq['p_price_max'], 0, ',', '.'); ?></span>
-              <span style="font-weight: bold; color: black"><?php echo number_format($lq['p_price_min'], 0, ',', '.'); ?></span>
+              <span style="text-decoration: line-through"><?php echo number_format($lq['p_price_max'] * (100 - $lq['discount']) / 100, 0, ',', '.'); ?></span>
+              <span style="font-weight: bold; color: black"><?php echo number_format($lq['p_price_min'] * (100 - $lq['discount']) / 100, 0, ',', '.'); ?></span>
             </p>
             <div class="d-flex justify-content-between flex-lg-wrap">
               <a

@@ -16,6 +16,7 @@ $price = explode("-", $currentPrice);
 $price[0] = isset($price[0]) ? (int)$price[0] : 0;
 $price[1] = isset($price[1]) ? (int)$price[1] : 0;
 
+$order = isset($_POST['orderByPrice']) ? (string)$_POST['orderByPrice'] : 'normal';
 $limit = 9; // Số sản phẩm mỗi trang
 $offset = ($page - 1) * $limit;
 
@@ -40,8 +41,16 @@ if (!empty($brand)) {
 if (!empty($currentPrice)) {
     $query .= " AND p.p_price_min BETWEEN $price[0] AND $price[1]";
 }
-
-$query .= " ORDER BY p.create_at DESC LIMIT $offset, $limit";
+if ($order === 'normal') {
+    $query .= " ORDER BY p.create_at DESC";
+}
+if ($order === 'increase') {
+    $query .= " ORDER BY p.p_price_min DESC";
+}
+if ($order === 'decrease') {
+    $query .= " ORDER BY p.p_price_min ASC";
+}
+$query .= " LIMIT $offset, $limit";
 
 // SELECT p.*, pn.p_name, c.category_name, 
 // (SELECT product_image FROM product_image WHERE p_id = p.p_id LIMIT 1) as product_image
