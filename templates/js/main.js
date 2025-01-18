@@ -574,3 +574,41 @@ $(document).ready(function () {
     });
   }
 });
+
+//Star rating
+document.addEventListener("DOMContentLoaded", () => {
+  const stars = document.querySelectorAll(".star");
+  const ratingDisplay = document.getElementById("rating");
+  let currentRating = 0;
+
+  stars.forEach((star) => {
+    // Khi di chuột qua một ngôi sao
+    star.addEventListener("mouseover", () => {
+      const value = star.dataset.value;
+      highlightStars(value);
+    });
+
+    // Khi nhấn vào một ngôi sao
+    star.addEventListener("click", () => {
+      currentRating = star.dataset.value;
+      ratingDisplay.textContent = currentRating;
+      highlightStars(currentRating);
+    });
+
+    // Khi di chuột ra khỏi ngôi sao
+    star.addEventListener("mouseout", () => {
+      highlightStars(currentRating);
+    });
+  });
+
+  // Hàm làm sáng các ngôi sao từ 1 đến giá trị cụ thể
+  function highlightStars(value) {
+    stars.forEach((star) => {
+      if (star.dataset.value <= value) {
+        star.classList.add("selected");
+      } else {
+        star.classList.remove("selected");
+      }
+    });
+  }
+});
