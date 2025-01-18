@@ -108,7 +108,7 @@ layouts('header', $title);
             <div class="row g-4">
               <div class="col-lg-12">
                 <div class="mb-3 brand-filters">
-                  <h4>Additional</h4>
+                  <h4>Phân loại</h4>
                   <?php
                   if ($categoryId == 15 || $categoryId == 16 || $categoryId == 18 || $categoryId == 19 || $categoryId == 23):
                   ?>

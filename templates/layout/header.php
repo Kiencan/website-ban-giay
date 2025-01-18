@@ -43,6 +43,8 @@ $user_id = getUserIdByToken();
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/style.css" rel="stylesheet" />
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/header.css" rel="stylesheet" />
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/shop-detail.css" rel="stylesheet" />
+  <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/about.css" rel="stylesheet" />
+  <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/profile.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -60,7 +62,7 @@ $user_id = getUserIdByToken();
       style="background-color: #4856dd">
       <div class="d-flex justify-content-between">
         <div class="top-info ps-2">
-          <a href="#" class="text-white"><small class="text-white mx-2">Về chúng tôi</small>/</a>
+          <a href="?module=user&action=about" class="text-white"><small class="text-white mx-2">Về chúng tôi</small>/</a>
           <a href="?module=user&action=contact" class="text-white"><small class="text-white mx-2">Liên hệ</small>/</a>
           <a href="#" class="text-white"><small class="text-white ms-2">Trở thành đối tác </small>/</a>
           <a href="#" class="text-white"><small class="text-white ms-2">Chương trình</small></a>
@@ -150,7 +152,7 @@ $user_id = getUserIdByToken();
                   <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                  <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                  <li><a class="dropdown-item" href="?module=user&action=profile">Trang cá nhân</a></li>
                   <li><a class="dropdown-item" href="?module=user&action=favourite">Mục yêu thích</a></li>
                   <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
                 </ul>

@@ -42,13 +42,13 @@ if (!defined('_CODE')) {
                             href=""><i class="fab fa-twitter"></i></a>
                         <a
                             class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
-                            href=""><i class="fab fa-facebook-f"></i></a>
+                            href="https://www.facebook.com/3h1a.store"><i class="fab fa-facebook-f"></i></a>
                         <a
                             class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
                             href=""><i class="fab fa-tiktok"></i></a>
                         <a
                             class="btn btn-outline-secondary btn-md-square rounded-circle"
-                            href=""><i class="fa fa-phone"></i></a>
+                            href="https://www.facebook.com/3h1a.store"><i class="fa fa-phone"></i></a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@ if (!defined('_CODE')) {
             <div class="col-lg-3 col-md-6">
                 <div class="d-flex flex-column text-start footer-item">
                     <h4 class="text-light mb-3">Thông tin</h4>
-                    <a class="btn-link" href="">Về chúng tôi</a>
+                    <a class="btn-link" href="?module=user&action=about">Về chúng tôi</a>
                     <a class="btn-link" href="?module=user&action=contact">Liên hệ</a>
                     <a class="btn-link" href="">Chính sách bảo mật</a>
                     <a class="btn-link" href="">Điều khoản và dịch vụ</a>
@@ -83,8 +83,8 @@ if (!defined('_CODE')) {
             <div class="col-lg-3 col-md-6">
                 <div class="d-flex flex-column text-start footer-item">
                     <h4 class="text-light mb-3">Tài khoản</h4>
-                    <a class="btn-link" href="">Tài khoản của bạn</a>
-                    <a class="btn-link" href="">Thông tin cửa hàng</a>
+                    <a class="btn-link" href="?module=user&action=profile">Tài khoản của bạn</a>
+                    <a class="btn-link" href="?module=user&action=about">Thông tin cửa hàng</a>
                     <a class="btn-link" href="?module=user&action=cart">Giỏ hàng</a>
                     <a class="btn-link" href="?module=user&action=history_order">Lịch sử mua hàng</a>
                 </div>
@@ -124,7 +124,7 @@ if (!defined('_CODE')) {
                     </div>
                     <div class="phonering-alo-zalo">
                         <a
-                            href="https://zalo.me/0387440192"
+                            href="https://zalo.me/0383083743"
                             target="_blank"
                             rel="nofollow"
                             class="echbay-phonering-zalo-event"></a>
