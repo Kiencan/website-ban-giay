@@ -17,31 +17,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = getUserIdByToken();
 
     $cart_items = getRaw("SELECT * FROM cart WHERE user_id = '$user_id'");
-
-
+    $p_id = [];
+    $p_size = [];
+    $p_price = [];
+    $p_quantity = [];
     $total = 0;
     foreach ($cart_items as $item) {
         $product = oneRaw("SELECT * FROM products WHERE p_id = '" . $item['p_id'] . "'");
         $total += ($product['p_price_min'] + $product['p_price_max']) / 2 * $item['p_quantity'] * (100 - $product['discount']) / 100;
+
+        $p_id[] = $item['p_id'];
+        $p_size[] = $item['p_size'];
+        $p_price[] = ($product['p_price_min'] + $product['p_price_max']) / 2 * $item['p_quantity'] * (100 - $product['discount']) / 100;
+        $p_quantity[] = $item['p_quantity'];
     }
+
+    $p_id = implode(',', $p_id);
+    $p_size = implode(',', $p_size);
+    $p_price = implode(',', $p_price);
+    $p_quantity = implode(',', $p_quantity);
+
 
     // Tạo đơn hàng mới
     $orderData = [
         'user_id' => $user_id,
         'total' => $total,
         'order_status' => 1,
-        'payment_type' => $payment_method
+        'payment_type' => $payment_method,
+        'p_id' => $p_id,
+        'p_size' => $p_size,
+        'p_price' => $p_price,
+        'p_quantity' => $p_quantity,
     ];
 
     $order_id = insertAndGetId('orders', $orderData);
-    // // Cập nhật thông tin giao hàng
-    // $sql = "UPDATE user SET 
-    //             fullname = '$fullname',
-    //             address = '$address',
-    //             phone = '$phone',
-    //             email = '$email'
-    //             WHERE user_id = '$user_id'";
-    // query($sql);
+    // Cập nhật thông tin giao hàng
+    $sql = "UPDATE user SET 
+                fullname = '$fullname',
+                address = '$address',
+                phone = '$phone',
+                email = '$email'
+                WHERE user_id = '$user_id'";
+    query($sql);
 
 
     // Lấy thông tin đơn hàng
@@ -154,8 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             <!-- Phương thức thanh toán -->
                             <div class="mt-4">
-                                <h6 class="mb-3">Phương thức thanh toán:</h6>
-                                <div><?php echo $payment_method; ?></div>
+                                <div class="mb-3"><strong>Phương thức thanh toán:</strong> <?php echo $payment_method; ?></div>
                             </div>
                         </div>
                     </div>
