@@ -361,6 +361,8 @@ $(document).ready(function () {
     });
   });
 });
+
+// Send mail to admin
 $(document).ready(function () {
   $("#send-to-admin-button").on("click", function (e) {
     e.preventDefault();
@@ -431,6 +433,7 @@ $(document).ready(function () {
   });
 });
 
+// update price on button
 $(document).ready(function () {
   $(".itemQty").on("change", function () {
     var $el = $(this).closest("tr");

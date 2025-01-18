@@ -16,6 +16,7 @@ if (!isLogin()) {
 
 $listOrders = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id INNER JOIN product_name ON products.p_name_id = product_name.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id WHERE user_id = '$user_id'");
 $productImage = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $listOrders[0]["p_id"] . "'");
+$user = oneRaw("SELECT * FROM user WHERE user_id = '$user_id'");
 // echo '<pre>';
 // print_r($productImage);
 // echo '</pre>';
@@ -42,19 +43,19 @@ layouts('header', $title);
                 <div class="col-md-12 col-lg-6 col-xl-7">
                     <div class="form-item">
                         <label class="form-label my-3">Họ và tên <sup>*</sup></label>
-                        <input type="text" class="form-control" name="fullname" required>
+                        <input type="text" class="form-control" name="fullname" value="<?php echo $user['fullname'] ?>">
                     </div>
                     <div class="form-item">
                         <label class="form-label my-3">Địa chỉ <sup>*</sup></label>
-                        <input type="text" class="form-control" name="address" placeholder="Số nhà, tên đường, xã/phường, quận/huyện, thành phố,..." required>
+                        <input type="text" class="form-control" name="address" placeholder="Số nhà, tên đường, xã/phường, quận/huyện, thành phố,..." value="<?php echo $user['address'] ?>">
                     </div>
                     <div class="form-item">
                         <label class="form-label my-3">Số điện thoại<sup>*</sup></label>
-                        <input type="tel" class="form-control" name="phone" required>
+                        <input type="tel" class="form-control" name="phone" value="<?php echo $user['phone'] ?>">
                     </div>
                     <div class="form-item">
                         <label class="form-label my-3">Email<sup>*</sup></label>
-                        <input type="email" class="form-control" name="email" required>
+                        <input type="email" class="form-control" name="email" value="<?php echo $user['email'] ?>">
                     </div>
                     <!-- <div class="form-check my-3">
                         <input type="checkbox" class="form-check-input" id="Account-1" name="Accounts" value="Accounts">

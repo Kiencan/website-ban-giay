@@ -52,13 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $order_id = insertAndGetId('orders', $orderData);
     // Cập nhật thông tin giao hàng
-    $sql = "UPDATE user SET 
-                fullname = '$fullname',
-                address = '$address',
-                phone = '$phone',
-                email = '$email'
-                WHERE user_id = '$user_id'";
-    query($sql);
+    // $sql = "UPDATE user SET 
+    //             fullname = '$fullname',
+    //             address = '$address',
+    //             phone = '$phone',
+    //             email = '$email'
+    //             WHERE user_id = '$user_id'";
+    // query($sql);
 
 
     // Lấy thông tin đơn hàng
