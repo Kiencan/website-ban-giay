@@ -9,9 +9,9 @@ $title = [
 
 // Kiểm tra trạng thái đăng nhập
 $user_id = getUserIdByToken();
-if (!isLogin()) {
-    redirect('?module=auth&action=login');
-}
+// if (!isLogin()) {
+//     redirect('?module=auth&action=login');
+// }
 layouts('header', $title);
 ?>
 <!-- Contact Start -->

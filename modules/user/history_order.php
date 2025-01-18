@@ -36,6 +36,7 @@ foreach ($listOrder as $order) {
             "p_price" => $p_prices[$index] ?? null,
             "p_quantity" => $p_quantities[$index] ?? null,
             "order_create_at" => $order['order_create_at'],
+            "payment_id" => $order['payment_id'],
         ];
     }
 }
@@ -58,11 +59,13 @@ layouts('header', $title);
             <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col" width="50">Id</th>
                         <th scope="col">Sản phẩm</th>
                         <th scope="col">Tên</th>
                         <th scope="col">Size</th>
                         <th scope="col">Giá</th>
                         <th scope="col">Ngày đặt hàng</th>
+                        <th scope="col">Mua lại</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,6 +79,9 @@ layouts('header', $title);
                             $productImage = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $item["p_id"] . "'");
                     ?>
                             <tr>
+                                <td>
+                                    <p class="mb-0 mt-4"><?php echo $item["payment_id"]; ?></p>
+                                </td>
                                 <th scope="row">
                                     <div class="d-flex align-items-center">
                                         <a href="?module=user&action=shop-detail&p_id=<?php echo $item["p_id"]; ?>">
@@ -94,6 +100,9 @@ layouts('header', $title);
                                 </td>
                                 <td>
                                     <p class="mb-0 mt-4"><?php echo $item["order_create_at"]; ?></p>
+                                </td>
+                                <td>
+                                    <a href="?module=user&action=shop-detail&p_id=<?php echo $item["p_id"]; ?>" class="btn btn-success">Mua lại</a>
                                 </td>
                             </tr>
                         <?php

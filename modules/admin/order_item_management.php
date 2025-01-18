@@ -18,10 +18,30 @@ if (!isLogin()) {
 if (!isAdmin()) {
     redirect('?module=user&action=trangchu');
 }
-$listOrder = getRaw("SELECT * FROM cart INNER JOIN products ON cart.p_id = products.p_id INNER JOIN product_name ON products.p_name_id = products.p_name_id INNER JOIN collection ON product_name.collection_id = collection.collection_id INNER JOIN user ON cart.user_id = user.user_id ORDER BY cart.user_id");
+$listOrder = getRaw("SELECT * FROM orders");
 // echo '<pre>';
 // print_r($listOrder);
 // echo '</pre>';
+
+$result = [];
+
+foreach ($listOrder as $order) {
+    $p_ids = explode(',', $order['p_id']);
+    $p_sizes = explode(',', $order['p_size']);
+    $p_prices = explode(',', $order['p_price']);
+    $p_quantities = explode(',', $order['p_quantity']);
+
+    foreach ($p_ids as $index => $p_id) {
+        $result[] = [
+            "p_id" => $p_id,
+            "p_size" => $p_sizes[$index] ?? null,
+            "p_price" => $p_prices[$index] ?? null,
+            "p_quantity" => $p_quantities[$index] ?? null,
+            "order_create_at" => $order['order_create_at'],
+            "payment_id" => $order['payment_id'],
+        ];
+    }
+}
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
 
