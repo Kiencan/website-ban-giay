@@ -12,10 +12,15 @@ $user_id = getUserIdByToken();
 
 $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
 $listProd = getRaw("SELECT * FROM products");
-
+$user_if = oneRaw("SELECT * FROM user WHERE user_id = '$user_id'");
+$productt = getRaw("SELECT * FROM orders WHERE user_id = '$user_id'");
+$count = 0;
+foreach ($productt as $product) :
+    $p_id_values = explode(',', $product['p_id']); 
+    $count = $count + count($p_id_values);
+endforeach;
 layouts('header', $title);
 ?>
-
 <div class="container emp-profile">
             <form>
                 <div class="row">
@@ -31,12 +36,12 @@ layouts('header', $title);
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                        Tên khách hàng
+                                        Tên khách hàng : <?php echo $user_if['fullname']; ?>
                                     </h5>
                                     <h6>
-                                        ID: 
+                                        ID: <?php echo $user_if['user_id']; ?>
                                     </h6>
-                                    <p class="proile-rating">Số đơn thành công: <span>Sửa đây</span></p>
+                                    <p class="proile-rating">Số đơn thành công: <span><?php echo $count; ?></span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Thông tin</a>
@@ -72,7 +77,7 @@ layouts('header', $title);
                                                 <label>Tên đăng nhập</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Sửa đây</p>
+                                                <p><?php echo $user_if['username']; ?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -80,7 +85,7 @@ layouts('header', $title);
                                                 <label>Tên</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Sửa đây</p>
+                                                <p><?php echo $user_if['fullname']; ?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -88,7 +93,7 @@ layouts('header', $title);
                                                 <label>Email</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Sửa đây</p>
+                                                <p><?php echo $user_if['email']; ?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -96,7 +101,7 @@ layouts('header', $title);
                                                 <label>Số điện thọai</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Sửa đây</p>
+                                                <p><?php echo $user_if['phone']; ?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -104,7 +109,7 @@ layouts('header', $title);
                                                 <label>Địa chỉ</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Sửa đây</p>
+                                                <p><?php echo $user_if['address']; ?></p>
                                             </div>
                                         </div>
                                 </div>
