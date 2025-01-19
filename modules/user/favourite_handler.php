@@ -2,8 +2,10 @@
 if (!defined('_CODE')) {
     die('Access denied');
 }
+if (!isLogin()) {
+    redirect('?module=auth&action=login');
+}
 $userId = getUserIdByToken();
-
 if (isset($_POST['product_id'])) {
     $p_id = $_POST['product_id'];
     $fav = oneRaw("SELECT * FROM favourite WHERE user_id = '$userId' AND p_id = '$p_id'");

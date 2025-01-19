@@ -2,6 +2,9 @@
 if (!defined('_CODE')) {
     die('Access denied');
 }
+if (!isLogin()) {
+    redirect('?module=auth&action=login');
+}
 
 $user_id = getUserIdByToken();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

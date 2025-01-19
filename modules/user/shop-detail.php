@@ -588,46 +588,40 @@ layouts('header', $title);
           LIMIT 8");
       foreach ($sanphamlq as $lq): ?>
         <div class="rounded position-relative giamgia-item">
-          <a href="?module=user&action=shop-detail&p_id=<?php echo $lq['p_id']; ?>">
-            <div class="img-item">
+
+          <div class="img-item">
+            <a href="?module=user&action=shop-detail&p_id=<?php echo $lq['p_id']; ?>">
               <img
                 src="<?php echo _WEB_HOST_TEMPLATE ?>/image/<?php echo $lq['product_image']; ?>"
                 class="img-fluid w-100 rounded-top"
                 alt="" />
+            </a>
+          </div>
+          <div
+            class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+            style="top: 10px; left: 10px">
+            <?php echo $lq['category_name']; ?>
+          </div>
+          <div class="p-4 border-top-0 rounded-bottom">
+            <h4><?php echo $lq['p_name_custom']; ?></h4>
+            <p>
+              Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%
+            </p>
+            <p>
+              <span style="text-decoration: line-through"><?php echo number_format($lq['p_price_max'] / (1 - $lq['discount'] / 100), 0, ',', '.'); ?> VNĐ</span>
+              <span style="font-weight: bold; color: black"><?php echo number_format($lq['p_price_min'], 0, ',', '.'); ?> VNĐ</span>
+            </p>
+            <div class="d-flex justify-content-between flex-lg-wrap">
+              <button
+                class="btn border border-secondary rounded-circle p-auto me-2 heart-button" data-product-id="<?php echo $lq['p_id'] ?>">
+                <i class="fa fa-heart"></i>
+                <!-- Icon trái tim -->
+              </button>
+              <a
+                href="?module=user&action=shop-detail&p_id=<?php echo $lq['p_id']; ?>"
+                class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
             </div>
-            <div
-              class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-              style="top: 10px; left: 10px">
-              <?php echo $lq['category_name']; ?>
-            </div>
-            <div class="p-4 border-top-0 rounded-bottom">
-              <h4><?php echo $lq['p_name_custom']; ?></h4>
-              <p>
-                Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%
-              </p>
-              <p>
-                <span style="text-decoration: line-through"><?php echo number_format($lq['p_price_max'] / (1 - $lq['discount'] / 100), 0, ',', '.'); ?> VNĐ</span>
-                <span style="font-weight: bold; color: black"><?php echo number_format($lq['p_price_min'], 0, ',', '.'); ?> VNĐ</span>
-              </p>
-              <div class="d-flex justify-content-between flex-lg-wrap">
-                <a
-                  href="#"
-                  class="btn border border-secondary rounded-circle p-auto me-2"
-                  style="
-                      background-color: rgb(255, 255, 255);
-                      color: #4856dd; 
-                      width: 40px;
-                      height: 40px;
-                    ">
-                  <i class="fa fa-heart"></i>
-                  <!-- Icon trái tim -->
-                </a>
-                <a
-                  href="#"
-                  class="btn border border-secondary rounded-pill px-3"><i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng</a>
-              </div>
-            </div>
-          </a>
+          </div>
         </div>
       <?php endforeach; ?>
     </div>
