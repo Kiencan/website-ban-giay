@@ -23,25 +23,27 @@ $listOrder = getRaw("SELECT * FROM orders");
 // print_r($listOrder);
 // echo '</pre>';
 
-$result = [];
-
+$products = [];
+// Xử lý dữ liệu
 foreach ($listOrder as $order) {
     $p_ids = explode(',', $order['p_id']);
     $p_sizes = explode(',', $order['p_size']);
-    $p_prices = explode(',', $order['p_price']);
     $p_quantities = explode(',', $order['p_quantity']);
 
+    $result = [];
     foreach ($p_ids as $index => $p_id) {
-        $result[] = [
-            "p_id" => $p_id,
-            "p_size" => $p_sizes[$index] ?? null,
-            "p_price" => $p_prices[$index] ?? null,
-            "p_quantity" => $p_quantities[$index] ?? null,
-            "order_create_at" => $order['order_create_at'],
-            "payment_id" => $order['payment_id'],
-        ];
+        $shoeName = oneRaw("SELECT p_name_custom FROM products WHERE p_id = '$p_id'")['p_name_custom'];
+        $size = $p_sizes[$index] ?? '';
+        $quantity = $p_quantities[$index] ?? '0';
+        $result[] = "x$quantity $shoeName size $size";
     }
+
+    // Kết hợp chuỗi theo yêu cầu
+    $finalString = implode(" <br> ", $result);
+    array_push($products, $finalString);
 }
+// print_r($products);
+
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
 
@@ -129,41 +131,46 @@ $smg_types = getFlashData('smg_types');
             </div>
 
             <div class="container-fluid px-4">
-
                 <div class="row my-5">
                     <div class="col overflow-auto">
                         <table class="table bg-white rounded shadow-sm table-hover" id="datatable">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="50">ID</th>
-                                    <th scope="col">Tên khách hàng</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Địa chỉ</th>
+                                    <th scope="col" width="50">Mã đơn hàng</th>
+                                    <th scope="col">Tên người nhận</th>
+                                    <th scope="col">Địa chỉ nhận hàng</th>
                                     <th scope="col">Số điện thoại</th>
                                     <th scope="col">Sản phẩm</th>
                                     <th scope="col">Tổng tiền</th>
+                                    <th scope="col">Ngày đặt hàng</th>
+                                    <th scope="col">Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 if (!empty($listOrder)):
-                                    $count = 0;
-                                    foreach ($listOrder as $item):
-                                        $count++;
+                                    for ($i = 0; $i < count($listOrder); $i++):
                                 ?>
                                         <tr>
-                                            <td><?php echo $item['cart_id'] ?></td>
-                                            <td><?php echo $item['fullname'] ?></td>
-                                            <td><?php echo $item['email'] ?></td>
-                                            <td><?php echo $item['address'] ?></td>
-                                            <td><?php echo $item['phone'] ?></td>
-                                            <td><?php echo $item['collection_name'] ?></td>
-                                            <td><?php echo $item['p_price_min'] ?></td>
-
+                                            <td><?php echo $listOrder[$i]['payment_id'] ?></td>
+                                            <td><?php echo $listOrder[$i]['receiver_name'] ?></td>
+                                            <td><?php echo $listOrder[$i]['receiver_address'] ?></td>
+                                            <td><?php echo $listOrder[$i]['phone_number'] ?></td>
+                                            <td><?php echo $products[$i] ?></td>
+                                            <td><?php echo number_format($listOrder[$i]['total'], 0, ',', '.') ?> VNĐ</td>
+                                            <td><?php echo $listOrder[$i]['order_create_at'] ?></td>
+                                            <td><?php
+                                                if ($listOrder[$i]['order_status'] == 0) {
+                                                    echo '<a href="' . "?module=admin&action=order_item_edit&id=" . $listOrder[$i]['payment_id'] . '" class="btn btn-danger">Đang chuẩn bị</a>';
+                                                } else if ($listOrder[$i]['order_status'] == 1) {
+                                                    echo '<a href="' . "?module=admin&action=order_item_edit&id=" . $listOrder[$i]['payment_id'] . '" class="btn btn-warning">Đang giao hàng</span>';
+                                                } else {
+                                                    echo '<a href="' . "?module=admin&action=order_item_edit&id=" . $listOrder[$i]['payment_id'] . '" class="btn btn-success">Đã nhận hàng</span>';
+                                                }
+                                                ?></td>
                                         </tr>
                                     <?php
-                                    endforeach;
-
+                                    endfor;
                                 else:
                                     ?>
                                     <tr>

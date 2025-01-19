@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST["email"];
     $phone = $_POST["phone"];
     $address = $_POST["address"];
-    $note = $_POST["note"] ?? '';
     $payment_method = $_POST["payment_method"];
 
     $user_id = getUserIdByToken();
@@ -41,8 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Tạo đơn hàng mới
     $orderData = [
         'user_id' => $user_id,
+        'receiver_name' => $fullname,
+        'receiver_address' => $address,
+        'phone_number' => $phone,
         'total' => $total,
-        'order_status' => 1,
+        'order_status' => 0,
         'payment_type' => $payment_method,
         'p_id' => $p_id,
         'p_size' => $p_size,
@@ -59,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //             email = '$email'
     //             WHERE user_id = '$user_id'";
     // query($sql);
-
 
     // Lấy thông tin đơn hàng
     $order = oneRaw("SELECT * FROM orders WHERE payment_id = '$order_id'");

@@ -40,21 +40,21 @@ layouts('header', $title);
         <h1 class="mb-4">Thông tin đơn hàng</h1>
         <form action="?module=user&action=success" method="POST">
             <div class="row g-5">
-                <div class="col-md-12 col-lg-6 col-xl-7">
+                <div class="col-md-12 col-lg-6">
                     <div class="form-item">
-                        <label class="form-label my-3">Họ và tên <sup>*</sup></label>
-                        <input type="text" class="form-control" name="fullname" value="<?php echo $user['fullname'] ?>">
+                        <label class="form-label my-3">Tên người nhận <sup class="text-danger">*</sup></label>
+                        <input type="text" class="form-control" name="fullname" value="<?php echo $user['fullname'] ?>" required>
                     </div>
                     <div class="form-item">
-                        <label class="form-label my-3">Địa chỉ <sup>*</sup></label>
-                        <input type="text" class="form-control" name="address" placeholder="Số nhà, tên đường, xã/phường, quận/huyện, thành phố,..." value="<?php echo $user['address'] ?>">
+                        <label class="form-label my-3">Địa chỉ nhận hàng <sup class="text-danger">*</sup></label>
+                        <input type="text" class="form-control" name="address" placeholder="Số nhà, tên đường, xã/phường, quận/huyện, thành phố,..." value="<?php echo $user['address'] ?>" required>
                     </div>
                     <div class="form-item">
-                        <label class="form-label my-3">Số điện thoại<sup>*</sup></label>
-                        <input type="tel" class="form-control" name="phone" value="<?php echo $user['phone'] ?>">
+                        <label class="form-label my-3">Số điện thoại người nhận <sup class="text-danger">*</sup></label>
+                        <input type="tel" class="form-control" name="phone" value="<?php echo $user['phone'] ?>" required>
                     </div>
                     <div class="form-item">
-                        <label class="form-label my-3">Email<sup>*</sup></label>
+                        <label class="form-label my-3">Email <sup class="text-danger">*</sup></label>
                         <input type="email" class="form-control" name="email" value="<?php echo $user['email'] ?>">
                     </div>
                     <!-- <div class="form-check my-3">
@@ -62,24 +62,25 @@ layouts('header', $title);
                         <label class="form-check-label" for="Account-1">Create an account?</label>
                     </div> -->
                     <hr>
-                    <div class="form-check my-3">
+                    <!-- <div class="form-check my-3">
                         <input class="form-check-input" type="checkbox" id="Address-1" name="Address" value="Address">
                         <label class="form-check-label" for="Address-1">Chuyển tới địa chỉ khác</label>
                     </div>
                     <div class="form-item">
                         <textarea name="note" class="form-control" spellcheck="false" cols="30" rows="11" placeholder="Ghi chú"></textarea>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="col-md-12 col-lg-6 col-xl-5">
+                <div class="col-md-12 col-lg-6">
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Sản phẩm</th>
                                     <th scope="col">Tên</th>
+                                    <th scope="col" width="5%">Size</th>
                                     <th scope="col">Giá</th>
-                                    <th scope="col" width="20%">Số lượng</th>
-                                    <th scope="col">Tổng giá</th>
+                                    <th scope="col" width="5%">Số lượng</th>
+                                    <th scope="col" width="22%">Tổng giá</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,10 +100,11 @@ layouts('header', $title);
                                                     <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $productImage["product_image"]; ?> " class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
                                                 </div>
                                             </th>
-                                            <td class="py-5"><?php echo $item["p_name"] . " " . $item["p_color"]; ?></td>
+                                            <td class="py-5"><?php echo $item["p_name_custom"]; ?></td>
+                                            <td class="py-5"><?php echo is_int((float)$item['p_size']) ? (int)$item['p_size'] : (float)$item['p_size']; ?></td>
                                             <td class="py-5"><?php echo number_format(($item['p_price_min'] + $item['p_price_max']) / 2 * (100 - $item['discount']) / 100, 0, ',', '.') ?></td>
                                             <td class="py-5"><?php echo $item["p_quantity"] ?></td>
-                                            <td class="py-5"><?php echo number_format(($item['p_price_min'] + $item['p_price_max']) / 2 * $item["p_quantity"] * (100 - $item['discount']) / 100, 0, ',', '.') ?></td>
+                                            <td class="py-5"><?php echo number_format(($item['p_price_min'] + $item['p_price_max']) / 2 * $item["p_quantity"] * (100 - $item['discount']) / 100, 0, ',', '.') ?> VNĐ</td>
                                         </tr>
                                     <?php endforeach;
                                     ?>
@@ -114,9 +116,9 @@ layouts('header', $title);
                                         </td>
                                         <td class="py-5"></td>
                                         <td class="py-5"></td>
-                                        <td class="py-5">
+                                        <td class="py-5" width="22%">
                                             <div class="py-3 border-bottom border-top">
-                                                <p class="mb-0 text-dark"><?php echo number_format($total, 0, ',', '.') ?></p>
+                                                <p class="mb-0 text-dark"><?php echo number_format($total, 0, ',', '.') ?> VNĐ</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -143,14 +145,14 @@ layouts('header', $title);
                             </div>
                         </div>
                     </div>
-                    <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
+                    <!-- <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
                         <div class="col-12">
                             <div class="form-check text-start my-3">
                                 <input type="radio" class="form-check-input bg-primary border-0" id="Transfer-4" name="payment_method" value="Paypal" required>
                                 <label class="form-check-label" for="Transfer-4">Paypal</label>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row g-4 text-center align-items-center justify-content-center pt-4">
                         <button type="submit" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Đặt hàng</button>
                     </div>

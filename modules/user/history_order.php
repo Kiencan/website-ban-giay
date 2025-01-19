@@ -59,56 +59,66 @@ layouts('header', $title);
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col" width="50">Id</th>
+                        <th scope="col" width="10%">Mã đơn hàng</th>
                         <th scope="col">Sản phẩm</th>
                         <th scope="col">Tên</th>
                         <th scope="col">Size</th>
                         <th scope="col">Giá</th>
-                        <th scope="col">Ngày đặt hàng</th>
                         <th scope="col">Mua lại</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-
                     if (!empty($result)):
-                        $count = 0;
-                        foreach ($result as $item):
-                            $count++;
-                            $product_name = oneRaw("SELECT p_name_custom FROM products WHERE p_id = '" . $item["p_id"] . "'");
-                            $productImage = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $item["p_id"] . "'");
+                        // Nhóm sản phẩm theo payment_id
+                        $groupedOrders = [];
+                        foreach ($result as $item) {
+                            $groupedOrders[$item['payment_id']][] = $item;
+                        }
+
+                        foreach ($groupedOrders as $payment_id => $items):
+                            // Hiển thị hàng chính (thông tin đơn hàng)
+                            $firstItem = $items[0];
                     ?>
                             <tr>
-                                <td>
-                                    <p class="mb-0 mt-4"><?php echo $item["payment_id"]; ?></p>
+                                <td rowspan="<?php echo count($items) + 1; ?>">
+                                    <p class="mb-0 mt-4"><?php echo $payment_id; ?></p>
                                 </td>
-                                <th scope="row">
-                                    <div class="d-flex align-items-center">
-                                        <a href="?module=user&action=shop-detail&p_id=<?php echo $item["p_id"]; ?>">
-                                            <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $productImage["product_image"]; ?> " class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-                                        </a>
-                                    </div>
-                                </th>
-                                <td>
-                                    <p class="mb-0 mt-4"><?php echo $product_name['p_name_custom']; ?></p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4"><?php echo is_int((float)$item['p_size']) ? (int)$item['p_size'] : (float)$item['p_size']; ?></p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4"><?php echo number_format($item['p_price'], 0, ',', '.') ?> VNĐ</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4"><?php echo $item["order_create_at"]; ?></p>
-                                </td>
-                                <td>
-                                    <a href="?module=user&action=shop-detail&p_id=<?php echo $item["p_id"]; ?>" class="btn btn-success">Mua lại</a>
+                                <td colspan="6">
+                                    <p class="mb-0 mt-4">Ngày đặt hàng: <?php echo $firstItem["order_create_at"]; ?></p>
                                 </td>
                             </tr>
+                            <?php
+                            // Hiển thị hàng con (sản phẩm trong đơn hàng)
+                            foreach ($items as $item):
+                                $product_name = oneRaw("SELECT p_name_custom FROM products WHERE p_id = '" . $item["p_id"] . "'");
+                                $productImage = oneRaw("SELECT product_image FROM product_image WHERE p_id = '" . $item["p_id"] . "'");
+                            ?>
+                                <tr>
+                                    <th scope="row">
+                                        <div class="d-flex align-items-center">
+                                            <a href="?module=user&action=shop-detail&p_id=<?php echo $item["p_id"]; ?>">
+                                                <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $productImage["product_image"]; ?> " class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+                                            </a>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <p class="mb-0 mt-4"><?php echo $product_name['p_name_custom']; ?></p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 mt-4"><?php echo is_int((float)$item['p_size']) ? (int)$item['p_size'] : (float)$item['p_size']; ?></p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 mt-4"><?php echo number_format($item['p_price'], 0, ',', '.') ?> VNĐ</p>
+                                    </td>
+                                    <td>
+                                        <a href="?module=user&action=shop-detail&p_id=<?php echo $item["p_id"]; ?>" class="btn btn-success">Mua lại</a>
+                                    </td>
+                                </tr>
                         <?php
+                            endforeach;
                         endforeach;
                     else:
-                        $total = 0;
                         ?>
                         <tr>
                             <td colspan="7">
@@ -123,6 +133,7 @@ layouts('header', $title);
         </div>
     </div>
 </div>
+
 <!-- Favourite Page End -->
 <?php
 layouts('footer');

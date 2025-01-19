@@ -7,10 +7,16 @@ $filterAll = filter();
 
 if (!empty($filterAll['id'])) {
     $orderId = $filterAll['id'];
-    $orderDetail = oneRaw("SELECT * FROM order_item WHERE order_id = $orderId");
+    $orderDetail = oneRaw("SELECT * FROM orders WHERE payment_id = $orderId");
     if ($orderDetail > 0) {
-        $updateOrder['order_status'] = 1;
-        $updateOrder = update('order_item', $updateOrder, "order_id = '$orderId'");
+        if ($orderDetail['order_status'] == 0) {
+            $updateOrder['order_status'] = 1;
+        } elseif ($orderDetail['order_status'] == 1) {
+            $updateOrder['order_status'] = 2;
+        } else {
+            $updateOrder['order_status'] = 2;
+        }
+        $updateOrder = update('orders', $updateOrder, "payment_id = '$orderId'");
         if ($updateOrder) {
             setFlashData('smg', 'Xử lý đơn hàng thành công');
             setFlashData('smg_types', 'success');

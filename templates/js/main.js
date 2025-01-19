@@ -577,3 +577,56 @@ $(document).ready(function () {
     });
   }
 });
+
+// Xử lý xóa favorite
+$(document).ready(function () {
+  $(".deleteFavorite").click(function (e) {
+    e.preventDefault(); // Ngăn gửi form truyền thống
+
+    const form = $(this).closest("form");
+    const p_id = form.find(".p_id").val();
+
+    $.ajax({
+      url: "?module=user&action=favourite_delete", // URL xử lý xóa
+      method: "POST",
+      dataType: "json",
+      data: { p_id: p_id },
+      success: function (response) {
+        if (response.status === "success") {
+          alert("Đã xóa sản phẩm khỏi danh sách yêu thích!");
+          form.closest("tr").remove(); // Xóa dòng sản phẩm khỏi giao diện
+        } else {
+          alert("Có lỗi xảy ra: " + response.message);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Lỗi:", error);
+        alert("Không thể xóa sản phẩm. Vui lòng thử lại.");
+      },
+    });
+  });
+});
+
+$(document).ready(function () {
+  $(".heart-button").click(function () {
+    const productId = $(this).data("product-id");
+    $.ajax({
+      url: "?module=user&action=favourite_handler",
+      method: "POST",
+      dataType: "json",
+      data: { product_id: productId },
+      success: function (response) {
+        // Parse the response
+        console.log(response.status);
+        if (response.status === "added") {
+          $(this).addClass("active");
+        } else if (response.status === "removed") {
+          $(this).removeClass("active");
+        }
+      },
+      error: function (error) {
+        console.error("Error:", error);
+      },
+    });
+  });
+});
