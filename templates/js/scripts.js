@@ -28,15 +28,18 @@ function loadProducts(page = 1, brand = "") {
       data.products.forEach((product) => {
         productContainer.append(`
                 <div class="col-md-6 col-lg-3 col-xl-4" style="cursor: pointer;">
-                  <a href="?module=user&action=shop-detail&p_id=${
-                    product.p_id
-                  }">
+                  
                     <div class="rounded position-relative my-item">
+                    
                       <div class="img-item">
-                        <img src="${BASE_URL}/image/${product.product_image}" 
-                        class="img-fluid w-100 rounded-top" 
-                        alt="">
-                      </div>
+                        <a href="?module=user&action=shop-detail&p_id=${
+                          product.p_id
+                        }">
+                          <img src="${BASE_URL}/image/${product.product_image}" 
+                          class="img-fluid w-100 rounded-top" 
+                          alt="">
+                        </div>
+                        </a>
                       <div 
                         class="text-white bg-secondary px-3 py-1 rounded position-absolute" 
                         style="top: 10px; left: 10px;">
@@ -57,17 +60,12 @@ function loadProducts(page = 1, brand = "") {
                             ).toLocaleString("vi-VN")}VNĐ</span>
                         </p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
-                          <a 
-                            href="#" 
-                            class="btn border border-secondary rounded-circle p-auto me-2" 
-                            style="
-                            background-color: rgb(255, 255, 255); 
-                            color: #4856dd; 
-                            width: 40px; 
-                            height: 40px;
-                          ">
+                          <button  
+                            class="btn border border-secondary rounded-circle p-auto me-2 heart-button" data-product-id="${
+                              product.p_id
+                            }" >
                             <i class="fa fa-heart"></i>
-                          </a>
+                          </button>
                           <a href="?module=user&action=shop-detail&p_id=${
                             product.p_id
                           }" class="btn border border-secondary rounded-pill px-3">
@@ -76,7 +74,6 @@ function loadProducts(page = 1, brand = "") {
                         </div>
                       </div>
                     </div>
-                  </a>
                 </div>
                 `);
       });

@@ -315,10 +315,9 @@ layouts('header', $title);
                             ?>
                           </span>
                         </p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
+                        <div class="d-flex justify-content-center flex-wrap hainut">
                           <button
-                            class="btn border border-secondary rounded-circle p-auto me-2 heart-button"
-                            data-product-id="<?php echo $value['p_id']; ?>">
+                            class="btn border border-secondary rounded-circle p-auto me-2 heart-button" value="" data-product-id="<?php echo $value['p_id'] ?>">
                             <i class="fa fa-heart"></i>
                           </button>
                           <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
@@ -376,20 +375,11 @@ layouts('header', $title);
                               ?>
                             </span>
                           </p>
-                          <div class="d-flex justify-content-between flex-lg-wrap">
-                            <a
-                              href="#"
-                              class="btn border border-secondary rounded-circle p-auto me-2"
-                              style="
-                              background-color: rgb(255, 255, 255);
-                              color: white;
-                              width: 40px;
-                              height: 40px;
-                            ">
+                          <div class="d-flex justify-content-center flex-wrap hainut">
+                            <button
+                              class="btn border border-secondary rounded-circle p-auto me-2 heart-button" value="" data-product-id="<?php echo $value['p_id'] ?>">
                               <i class="fa fa-heart"></i>
-                              <!-- Icon trái tim -->
-                            </a>
-
+                            </button>
                             <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
                               <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
                             </a>
@@ -446,20 +436,11 @@ layouts('header', $title);
                               ?>
                             </span>
                           </p>
-                          <div class="d-flex justify-content-between flex-lg-wrap">
-                            <a
-                              href="#"
-                              class="btn border border-secondary rounded-circle p-auto me-2"
-                              style="
-                              background-color: rgb(255, 255, 255);
-                              color: white;
-                              width: 40px;
-                              height: 40px;
-                            ">
+                          <div class="d-flex justify-content-center flex-wrap hainut">
+                            <button
+                              class="btn border border-secondary rounded-circle p-auto me-2 heart-button" value="" data-product-id="<?php echo $value['p_id'] ?>">
                               <i class="fa fa-heart"></i>
-                              <!-- Icon trái tim -->
-                            </a>
-
+                            </button>
                             <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
                               <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
                             </a>
@@ -516,20 +497,11 @@ layouts('header', $title);
                               ?>
                             </span>
                           </p>
-                          <div class="d-flex justify-content-between flex-lg-wrap">
-                            <a
-                              href="#"
-                              class="btn border border-secondary rounded-circle p-auto me-2"
-                              style="
-                              background-color: rgb(255, 255, 255);
-                              color: white;
-                              width: 40px;
-                              height: 40px;
-                            ">
+                          <div class="d-flex justify-content-center flex-wrap hainut">
+                            <button
+                              class="btn border border-secondary rounded-circle p-auto me-2 heart-button" value="" data-product-id="<?php echo $value['p_id'] ?>">
                               <i class="fa fa-heart"></i>
-                              <!-- Icon trái tim -->
-                            </a>
-
+                            </button>
                             <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
                               <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
                             </a>
@@ -591,49 +563,42 @@ layouts('header', $title);
         $imgD = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $value['p_id'] . "'");
       ?>
         <div class="rounded position-relative giamgia-item">
-          <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">
-            <div class="img-item">
+
+          <div class="img-item">
+            <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>">
               <img
                 src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $imgD['product_image'] ?>"
                 class="img-fluid w-100 rounded-top"
                 alt="" />
+            </a>
+          </div>
+          <div
+            class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+            style="top: 10px; left: 10px">
+            <?php echo $value['category_name'] ?>
+          </div>
+          <div class="p-4 border-top-0 rounded-bottom">
+            <h4><?php echo $value['p_name_custom'] ?></h4>
+            <p>
+              Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%
+            </p>
+            <p>
+              <span style="font-weight: bold; color: black">
+                <?php
+                echo number_format($value['p_price_min'], 0, ',', '.') . ' VNĐ - ' . number_format($value['p_price_max'], 0, ',', '.') . ' VNĐ';
+                ?>
+              </span>
+            </p>
+            <div class="d-flex justify-content-center flex-wrap hainut">
+              <button
+                class="btn border border-secondary rounded-circle p-auto me-2 heart-button" value="" data-product-id="<?php echo $value['p_id'] ?>">
+                <i class="fa fa-heart"></i>
+              </button>
+              <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">
+                <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+              </a>
             </div>
-            <div
-              class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-              style="top: 10px; left: 10px">
-              <?php echo $value['category_name'] ?>
-            </div>
-            <div class="p-4 border-top-0 rounded-bottom">
-              <h4><?php echo $value['p_name_custom'] ?></h4>
-              <p>
-                Cam kết chính hãng. Bảo hành trọn đời. Sản phẩm mới 100%
-              </p>
-              <p>
-                <span style="font-weight: bold; color: black">
-                  <?php
-                  echo number_format($value['p_price_min'], 0, ',', '.') . ' VNĐ - ' . number_format($value['p_price_max'], 0, ',', '.') . ' VNĐ';
-                  ?>
-                </span>
-              </p>
-              <div class="d-flex justify-content-between flex-lg-wrap">
-                <a
-                  href="#"
-                  class="btn border border-secondary rounded-circle p-auto me-2"
-                  style="
-                  background-color: rgb(255, 255, 255);
-                  color: white;
-                  width: 40px;
-                  height: 40px;">
-                  <i class="fa fa-heart heart-icon"></i>
-                  <!-- Icon trái tim -->
-                </a>
-
-                <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3 add-cart">
-                  <i class="fa fa-shopping-bag me-2 bag-icon"></i>Thêm vào giỏ hàng
-                </a>
-              </div>
-            </div>
-          </a>
+          </div>
         </div>
       <?php
       endforeach;
