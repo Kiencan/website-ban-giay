@@ -334,8 +334,8 @@ layouts('header', $title);
                 role="tabpanel"
                 aria-labelledby="nav-mission-tab">
                 <?php
-                  $comments = getRaw("SELECT * FROM comments WHERE p_id = '" . $product['p_id'] . "'");
-                foreach($comments as $comment) :?>
+                $comments = getRaw("SELECT * FROM comments WHERE p_id = '" . $product['p_id'] . "'");
+                foreach ($comments as $comment) : ?>
                   <div class="d-flex">
                     <img
                       src="<?php echo _WEB_HOST_TEMPLATE ?>/image/avatar.jpg"
@@ -382,7 +382,7 @@ layouts('header', $title);
                     name="tencuaban"
                     type="text"
                     class="form-control border-0 me-4"
-                    placeholder="Tên của bạn *" />
+                    placeholder="Tên của bạn *" required />
                 </div>
               </div>
               <div class="col-lg-6">
@@ -403,7 +403,7 @@ layouts('header', $title);
                     cols="30"
                     rows="8"
                     placeholder="Đánh giá *"
-                    spellcheck="false"></textarea>
+                    spellcheck="false" required></textarea>
                 </div>
               </div>
               <div class="col-lg-12">
@@ -411,8 +411,7 @@ layouts('header', $title);
                   <div class="d-flex align-items-center">
                     <p class="mb-0 me-3">Mức độ hài lòng:</p>
                     <div
-                      class="d-flex align-items-center"
-                      style="">
+                      class="d-flex align-items-center">
                       <div class="stars">
                         <span class="star" data-value="1">&#9733;</span>
                         <span class="star" data-value="2">&#9733;</span>
@@ -423,7 +422,7 @@ layouts('header', $title);
                     </div>
                   </div>
                   <input type="hidden" name="rating" id="rating" value="0">
-                  <input type="hidden" name="productId" id="productId" value="<?php echo $product['p_id'];?>">
+                  <input type="hidden" name="productId" id="productId" value="<?php echo $product['p_id']; ?>">
                   <button
                     type="submit"
                     class="btn border border-secondary text-primary rounded-pill px-4 py-3">
