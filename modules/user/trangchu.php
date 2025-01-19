@@ -253,7 +253,7 @@ layouts('header', $title);
                         </span>
                         <div class="d-flex justify-content-center flex-wrap hainut">
                           <button
-                            class="btn border border-secondary rounded-circle p-auto me-2 heart-button" value="" data-prouct-id="<?php echo $value['p_id'] ?>">
+                            class="btn border border-secondary rounded-circle p-auto me-2 heart-button" value="" data-product-id="<?php echo $value['p_id'] ?>">
                             <i class="fa fa-heart"></i>
                           </button>
                           <a href="?module=user&action=shop-detail&p_id=<?php echo $value['p_id'] ?>" class="btn border border-secondary rounded-pill px-3">

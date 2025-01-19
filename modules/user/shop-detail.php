@@ -333,62 +333,33 @@ layouts('header', $title);
                 id="nav-mission"
                 role="tabpanel"
                 aria-labelledby="nav-mission-tab">
-                <div class="d-flex">
-                  <img
-                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/avatar.jpg"
-                    class="img-fluid rounded-circle p-3"
-                    style="width: 100px; height: 100px"
-                    alt="" />
-                  <div class="">
-                    <p class="mb-2" style="font-size: 14px">
-                      April 12, 2024
-                    </p>
-                    <div class="d-flex justify-content-between">
-                      <h5>Jason Smith</h5>
-                      <div class="d-flex mb-3" id="icon-start">
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
+                <?php
+                  $comments = getRaw("SELECT * FROM comments WHERE p_id = '" . $product['p_id'] . "'");
+                foreach($comments as $comment) :?>
+                  <div class="d-flex">
+                    <img
+                      src="<?php echo _WEB_HOST_TEMPLATE ?>/image/avatar.jpg"
+                      class="img-fluid rounded-circle p-3"
+                      style="width: 100px; height: 100px"
+                      alt="" />
+                    <div class="">
+                      <p class="mb-2" style="font-size: 14px">
+                        <?php echo $comment['comment_time']; ?>
+                      </p>
+                      <div class="d-flex justify-content-between">
+                        <h5><?php echo $comment['user_name']; ?></h5>
+                        <div class="d-flex mb-3" id="icon-start">
+                          <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <i class="fa fa-star <?php echo $i <= $comment['rating'] ? 'text-warning' : 'text-secondary'; ?>"></i>
+                          <?php endfor; ?>
+                        </div>
                       </div>
+                      <p>
+                        <?php echo $comment['comment_content']; ?>
+                      </p>
                     </div>
-                    <p>
-                      The generated Lorem Ipsum is therefore always free
-                      from repetition injected humour, or non-characteristic
-                      words etc. Susp endisse ultricies nisi vel quam
-                      suscipit
-                    </p>
                   </div>
-                </div>
-                <div class="d-flex">
-                  <img
-                    src="<?php echo _WEB_HOST_TEMPLATE ?>/image/avatar.jpg"
-                    class="img-fluid rounded-circle p-3"
-                    style="width: 100px; height: 100px"
-                    alt="" />
-                  <div class="">
-                    <p class="mb-2" style="font-size: 14px">
-                      April 12, 2024
-                    </p>
-                    <div class="d-flex justify-content-between">
-                      <h5>Sam Peters</h5>
-                      <div class="d-flex mb-3">
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-muted"></i>
-                      </div>
-                    </div>
-                    <p class="text-dark">
-                      The generated Lorem Ipsum is therefore always free
-                      from repetition injected humour, or non-characteristic
-                      words etc. Susp endisse ultricies nisi vel quam
-                      suscipit
-                    </p>
-                  </div>
-                </div>
+                <?php endforeach ?>
               </div>
               <div class="tab-pane" id="nav-vision" role="tabpanel">
                 <p class="text-dark">
@@ -402,12 +373,13 @@ layouts('header', $title);
               </div>
             </div>
           </div>
-          <form action="#">
+          <form action="?module=user&action=comment" method="POST">
             <h4 class="mb-5 fw-bold">Đánh giá sản phẩm</h4>
             <div class="row g-4">
               <div class="col-lg-6">
                 <div class="border-bottom rounded">
                   <input
+                    name="tencuaban"
                     type="text"
                     class="form-control border-0 me-4"
                     placeholder="Tên của bạn *" />
@@ -416,6 +388,7 @@ layouts('header', $title);
               <div class="col-lg-6">
                 <div class="border-bottom rounded">
                   <input
+                    name="emailcuaban"
                     type="email"
                     class="form-control border-0"
                     placeholder="Email *" />
@@ -424,7 +397,7 @@ layouts('header', $title);
               <div class="col-lg-12">
                 <div class="border-bottom rounded my-4">
                   <textarea
-                    name=""
+                    name="danhgiacuaban"
                     id=""
                     class="form-control border-0"
                     cols="30"
@@ -439,18 +412,22 @@ layouts('header', $title);
                     <p class="mb-0 me-3">Mức độ hài lòng:</p>
                     <div
                       class="d-flex align-items-center"
-                      style="font-size: 12px">
-                      <i class="fa fa-star text-muted"></i>
-                      <i class="fa fa-star text-muted"></i>
-                      <i class="fa fa-star text-muted"></i>
-                      <i class="fa fa-star text-muted"></i>
-                      <i class="fa fa-star text-muted"></i>
+                      style="">
+                      <div class="stars">
+                        <span class="star" data-value="1">&#9733;</span>
+                        <span class="star" data-value="2">&#9733;</span>
+                        <span class="star" data-value="3">&#9733;</span>
+                        <span class="star" data-value="4">&#9733;</span>
+                        <span class="star" data-value="5">&#9733;</span>
+                      </div>
                     </div>
                   </div>
-                  <a
-                    href="#"
+                  <input type="hidden" name="rating" id="rating" value="0">
+                  <input type="hidden" name="productId" id="productId" value="<?php echo $product['p_id'];?>">
+                  <button
+                    type="submit"
                     class="btn border border-secondary text-primary rounded-pill px-4 py-3">
-                    Bình luận</a>
+                    Bình luận</button>
                 </div>
               </div>
             </div>

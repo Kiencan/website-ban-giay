@@ -9,7 +9,7 @@ if (isset($_POST['product_id'])) {
     $fav = oneRaw("SELECT * FROM favourite WHERE user_id = '$userId' AND p_id = '$p_id'");
     if ($fav) {
         delete('favourite', "user_id = '$userId' AND p_id = '$p_id'");
-        echo json_encode(['status' => 'removed', 'message' => 'Xoa thanh cong.']);
+        echo json_encode(['status' => 'removed', 'message' => 'Đã xóa sản phẩm khỏi mục yêu thích']);
     } else {
         $data = [
             'user_id' => $userId,
@@ -18,9 +18,9 @@ if (isset($_POST['product_id'])) {
         ];
         $updateFavourite = insert('favourite', $data);
         if ($updateFavourite) {
-            echo json_encode(['status' => 'success', 'message' => 'Cập nhật số lượng sản phẩm thành công.']);
+            echo json_encode(['status' => 'success', 'message' => 'Đã thêm vào mục yêu thích']);
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Không thể cập nhật số lượng sản phẩm.']);
+            echo json_encode(['status' => 'error', 'message' => 'Không thể thêm vào mục yêu thích']);
         }
     }
 }

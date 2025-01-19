@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2025 at 06:51 PM
+-- Generation Time: Jan 19, 2025 at 02:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -140,9 +140,40 @@ CREATE TABLE `comments` (
   `comment_id` int(11) NOT NULL,
   `p_id` varchar(50) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `user_name` varchar(50) DEFAULT NULL,
+  `rating` int(11) DEFAULT NULL,
   `comment_time` datetime DEFAULT current_timestamp(),
   `comment_content` varchar(2000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`comment_id`, `p_id`, `user_id`, `user_name`, `rating`, `comment_time`, `comment_content`) VALUES
+(6, 'FX8707', 14, 'Lê Trung Kiên', 4, '2025-01-19 08:27:12', 'Sản phẩm tuyệt vời'),
+(7, 'FX8707', 14, 'Lê Trung Kiên', 0, '2025-01-19 08:27:22', 'Sản phẩm tuyệt vời'),
+(8, 'FX8707', 14, 'Lê Trung Kiên', 0, '2025-01-19 08:27:51', 'Sản phẩm tuyệt vời');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favourite`
+--
+
+CREATE TABLE `favourite` (
+  `favourite_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `p_id` varchar(50) DEFAULT NULL,
+  `favourite` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `favourite`
+--
+
+INSERT INTO `favourite` (`favourite_id`, `user_id`, `p_id`, `favourite`) VALUES
+(38, 14, 'JH8812', 1);
 
 -- --------------------------------------------------------
 
@@ -160,17 +191,20 @@ CREATE TABLE `orders` (
   `total` int(13) DEFAULT NULL,
   `order_status` int(1) DEFAULT NULL,
   `order_create_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `payment_type` varchar(50) DEFAULT NULL
+  `payment_type` varchar(50) DEFAULT NULL,
+  `receiver_name` varchar(50) DEFAULT NULL,
+  `phone_number` varchar(12) DEFAULT NULL,
+  `receiver_address` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`payment_id`, `user_id`, `p_id`, `p_size`, `p_price`, `p_quantity`, `total`, `order_status`, `order_create_at`, `payment_type`) VALUES
-(13, 14, 'JI2551,HP5790', NULL, '1032000,820000', '1,1', 1852000, 1, '2025-01-17 00:00:00', '0'),
-(14, 14, 'JI2551,HP5790', NULL, '1032000,820000', '1,1', 1852000, 1, '2025-01-17 23:46:45', 'Thanh toán khi nhận hàng'),
-(15, 14, '384857-01,553558-141,553558-152', '36.0,39.0,40.0', '1740000,1519000,1020000', '3,1,1', 4279000, 1, '2025-01-18 00:36:36', 'Thanh toán khi nhận hàng');
+INSERT INTO `orders` (`payment_id`, `user_id`, `p_id`, `p_size`, `p_price`, `p_quantity`, `total`, `order_status`, `order_create_at`, `payment_type`, `receiver_name`, `phone_number`, `receiver_address`) VALUES
+(13, 14, 'JI2551,HP5790', NULL, '1032000,820000', '1,1', 1852000, 2, '2025-01-17 00:00:00', '0', NULL, NULL, NULL),
+(14, 14, 'JI2551,HP5790', NULL, '1032000,820000', '1,1', 1852000, 0, '2025-01-17 23:46:45', 'Thanh toán khi nhận hàng', NULL, NULL, NULL),
+(15, 14, '384857-01,553558-141,553558-152', '36.0,39.0,40.0', '1740000,1519000,1020000', '3,1,1', 4279000, 1, '2025-01-18 00:36:36', 'Thanh toán khi nhận hàng', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -509,6 +543,13 @@ CREATE TABLE `token_login` (
   `last_active` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `token_login`
+--
+
+INSERT INTO `token_login` (`id`, `user_id`, `token`, `create_at`, `last_active`) VALUES
+(149, 14, 'c63561dd0c7593b3839b1900437bfbc0eb1534ec', '2025-01-19 08:18:53', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -585,6 +626,12 @@ ALTER TABLE `comments`
   ADD KEY `p_id` (`p_id`);
 
 --
+-- Indexes for table `favourite`
+--
+ALTER TABLE `favourite`
+  ADD PRIMARY KEY (`favourite_id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -657,7 +704,13 @@ ALTER TABLE `collection`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `favourite`
+--
+ALTER TABLE `favourite`
+  MODIFY `favourite_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -681,7 +734,7 @@ ALTER TABLE `product_name`
 -- AUTO_INCREMENT for table `token_login`
 --
 ALTER TABLE `token_login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT for table `user`

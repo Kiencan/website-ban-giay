@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = delete('favourite', "user_id = '$user_id' AND p_id = '$p_id'");
 
         if ($result) {
-            echo json_encode(['status' => 'success', 'message' => 'Xóa sản phẩm thành công.']);
+            echo json_encode(['status' => 'success', 'message' => 'Đã xóa sản khỏi mục yêu thích']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Không thể xóa sản phẩm']);
         }

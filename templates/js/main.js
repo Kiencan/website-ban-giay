@@ -593,10 +593,21 @@ $(document).ready(function () {
       data: { p_id: p_id },
       success: function (response) {
         if (response.status === "success") {
-          alert("Đã xóa sản phẩm khỏi danh sách yêu thích!");
+          Swal.fire({
+            icon: "info",
+            title: "Thành công",
+            text: response.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           form.closest("tr").remove(); // Xóa dòng sản phẩm khỏi giao diện
         } else {
-          alert("Có lỗi xảy ra: " + response.message);
+          Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: response.message,
+            showConfirmButton: true,
+          });
         }
       },
       error: function (xhr, status, error) {
@@ -618,15 +629,40 @@ $(document).ready(function () {
       success: function (response) {
         // Parse the response
         console.log(response.status);
-        if (response.status === "added") {
-          $(this).addClass("active");
-        } else if (response.status === "removed") {
-          $(this).removeClass("active");
+        if (response.status === "success") {
+          Swal.fire({
+            icon: "info",
+            title: "Thành công",
+            text: response.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Đã xóa",
+            text: response.message,
+            showConfirmButton: true,
+          });
         }
       },
       error: function (error) {
         console.error("Error:", error);
       },
+    });
+  });
+});
+
+//Star rating
+document.addEventListener("DOMContentLoaded", () => {
+  const stars = document.querySelectorAll(".stars .star");
+  const ratingInput = document.getElementById("rating");
+  stars.forEach((star, index) => {
+    star.addEventListener("click", () => {
+      ratingInput.value = index + 1; // Lưu giá trị sao
+      stars.forEach((s, i) => {
+        s.style.color = i <= index ? "gold" : "gray"; // Đổi màu sao
+      });
     });
   });
 });
