@@ -16,74 +16,68 @@ layouts('header-admin', $title);
 $filterId = filter();
 $p_id = $filterId['p_id'];
 
-if (isPost()) {
-    $filterAll = filter();
+if (isset($_FILES['product_image']) && count($_FILES['product_image']['name']) > 0) {
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+    $targetDir = _WEB_PATH_TEMPLATE . 'image/';
+    $errors = [];
 
-    $errors = []; // mảng chứa lỗi
-
-    if (empty($_FILES['product_image']['name'])) {
-        $errors['product_image']['required'] = 'Vui lòng upload ảnh.';
-    } else {
-        // Get file information
-        $imageName = $_FILES['product_image']['name'];
-        $imageSize = $_FILES['product_image']['size'];
-        $imageTemp = $_FILES['product_image']['tmp_name'];
-        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif']; // Allowed file types
+    foreach ($_FILES['product_image']['name'] as $key => $imageName) {
+        $imageSize = $_FILES['product_image']['size'][$key];
+        $imageTemp = $_FILES['product_image']['tmp_name'][$key];
         $fileExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
-
-        // Set target directory
-        $targetDir = _WEB_PATH_TEMPLATE . 'image/';
-        $targetFilePath = $targetDir . $imageName;
+        $targetFilePath = $targetDir . basename($imageName);
 
         // Validate file type
         if (!in_array($fileExtension, $allowedTypes)) {
-            $errors['product_image']['type'] = 'Chỉ chấp nhận các định dạng ảnh: JPG, JPEG, PNG, GIF.';
+            $errors['product_image'][$key]['type'] = "Ảnh '$imageName' không đúng định dạng.";
         }
 
-        // Validate file size (e.g., 5MB maximum)
+        // Validate file size (5MB max per file)
         if ($imageSize > 5 * 1024 * 1024) {
-            $errors['product_image']['size'] = 'Dung lượng ảnh không được vượt quá 5MB.';
+            $errors['product_image'][$key]['size'] = "Ảnh '$imageName' vượt quá 5MB.";
         }
 
         // Check if file already exists
         if (file_exists($targetFilePath)) {
-            $errors['product_image']['exists'] = 'File này đã tồn tại. Vui lòng chọn một ảnh khác hoặc đổi tên file.';
+            $errors['product_image'][$key]['exists'] = "Ảnh '$imageName' đã tồn tại.";
         }
     }
 
     if (empty($errors)) {
-        $image = $_FILES['product_image']['name'];
-        $imageTemp = $_FILES['product_image']['tmp_name'];
-        $targetDir =  _WEB_PATH_TEMPLATE . 'image/';
-        $targetFilePath = $targetDir . basename($image);
+        foreach ($_FILES['product_image']['tmp_name'] as $key => $imageTemp) {
+            $imageName = $_FILES['product_image']['name'][$key];
+            $targetFilePath = $targetDir . basename($imageName);
 
-        $dataInsert['product_image'] = basename($image);
-        $dataInsert['p_id'] = $p_id;
+            $dataInsert = [
+                'product_image' => basename($imageName),
+                'p_id' => $p_id
+            ];
 
-        $insertStatus = insert('product_image', $dataInsert);
-        if ($insertStatus) {
-            if (move_uploaded_file($imageTemp, $targetFilePath)) {
-                setFlashData('smg', 'Thêm hình ảnh sản phẩm thành công!');
-                setFlashData('smg_types', 'success');
-                redirect('?module=admin&action=product_edit&p_id=' . $p_id);
+            $insertStatus = insert('product_image', $dataInsert);
+            if ($insertStatus) {
+                if (!move_uploaded_file($imageTemp, $targetFilePath)) {
+                    setFlashData('smg', "Upload ảnh '$imageName' không thành công!");
+                    setFlashData('smg_types', 'danger');
+                    redirect('?module=admin&action=product_image_add&p_id=' . $p_id);
+                }
             } else {
-                setFlashData('smg', 'Upload ảnh không thành công!');
+                setFlashData('smg', "Lỗi khi lưu ảnh '$imageName' vào cơ sở dữ liệu.");
                 setFlashData('smg_types', 'danger');
                 redirect('?module=admin&action=product_image_add&p_id=' . $p_id);
             }
-        } else {
-            setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
-            setFlashData('smg_types', 'danger');
-            redirect('?module=admin&action=product_image_add&p_id=' . $p_id);
         }
+        setFlashData('smg', 'Tất cả ảnh đã được tải lên thành công!');
+        setFlashData('smg_types', 'success');
+        redirect('?module=admin&action=product_edit&p_id=' . $p_id);
     } else {
         setFlashData('smg', 'Vui lòng kiểm tra lại thông tin');
         setFlashData('smg_types', 'danger');
         setFlashData('errors', $errors);
-        setFlashData('old', $filterAll);
+        setFlashData('old', $_FILES['product_image']);
         redirect('?module=admin&action=product_image_add&p_id=' . $p_id);
     }
 }
+
 
 $smg = getFlashData('smg');
 $smg_types = getFlashData('smg_types');
@@ -184,7 +178,7 @@ $old = getFlashData('old');
                             <div class="col">
                                 <div class="form-group mg-form">
                                     <label for="">Ảnh sản phẩm</label>
-                                    <input id="productImage" class="form-control" type="file" name="product_image" accept="image/*" onchange="previewImage(event)" />
+                                    <input id="productImage" class="form-control" type="file" name="product_image[]" accept="image/*" multiple onchange="previewImages(event)" />
                                     <?php
                                     echo form_error('product_image', '<p class="text-danger">', '</p>', $errors);
                                     ?>

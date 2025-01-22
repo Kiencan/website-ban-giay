@@ -132,7 +132,7 @@ $smg_types = getFlashData('smg_types');
                                 ?>
                                         <tr>
                                             <td><?php echo $item['comment_id'] ?></td>
-                                            <td><?php echo $item['p_name'] ?></td>
+                                            <td><?php echo $item['p_name_custom'] ?></td>
                                             <td><?php echo $item['fullname'] ?></td>
                                             <td><?php echo $item['email'] ?></td>
                                             <td><?php echo $item['comment_time'] ?></td>

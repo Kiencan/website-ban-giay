@@ -26,7 +26,11 @@ layouts('header', $title);
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="./templates/image/avt.jpg" alt="" style="width: 200px; height: 200px" />
+                    <?php if (!empty($user_if['avatar'])) : ?>
+                        <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $user_if['avatar'] ?>" alt="" style="width: 200px; height: 200px" />
+                    <?php else: ?>
+                        <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/avatar.jpg" ?>" alt="" style="width: 200px; height: 200px" />
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="col-md-6">
@@ -46,7 +50,7 @@ layouts('header', $title);
                 </div>
             </div>
             <div class="col-md-2">
-                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Đổi mật khẩu" />
+                <a href="?module=user&action=change_password" class="btn profile-edit-btn" name="btnAddMore">Đổi mật khẩu</a>
             </div>
         </div>
         <div class="row">
@@ -55,7 +59,9 @@ layouts('header', $title);
                     <p>WORK LINK</p>
                     <a href="?module=user&action=trangchu">Trang chủ</a><br />
                     <a href="?module=user&action=cart">Giỏ hàng</a><br />
-                    <a href="?module=user&action=favourite">Mục yêu thích</a>
+                    <a href="?module=user&action=favourite">Mục yêu thích</a> <br />
+                    <a href="?module=user&action=order_tracking">Theo dõi đơn hàng</a>
+
                     <p>Danh mục</p>
                     <a href="?module=user&action=shop&id=bestSelling">Bán chạy</a><br />
                     <a href="?module=user&action=shop&id=discount">Giảm giá</a><br />
@@ -68,14 +74,7 @@ layouts('header', $title);
             <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Tên đăng nhập</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><?php echo $user_if['username']; ?></p>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Tên</label>
@@ -110,6 +109,7 @@ layouts('header', $title);
                         </div>
                     </div>
                 </div>
+                <a href="?module=user&action=profile_edit" class="btn btn-success">Cập nhật thông tin</a>
             </div>
         </div>
 </div>

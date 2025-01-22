@@ -4,7 +4,7 @@ if (!defined('_CODE')) {
 }
 
 $title = [
-    'pageTitle' => 'Trang lịch sử mua hàng'
+    'pageTitle' => 'Trang theo dõi đơn hàng'
 ];
 
 
@@ -15,7 +15,7 @@ if (!isLogin()) {
 }
 $user_id = getUserIdByToken();
 
-$listOrder = getRaw("SELECT * FROM orders WHERE user_id = '$user_id' AND order_status = 2");
+$listOrder = getRaw("SELECT * FROM orders WHERE user_id = '$user_id' AND order_status != 2");
 // echo '<pre>';
 // print_r($listOrder);
 // echo '</pre>';
@@ -37,6 +37,7 @@ foreach ($listOrder as $order) {
             "p_quantity" => $p_quantities[$index] ?? null,
             "order_create_at" => $order['order_create_at'],
             "payment_id" => $order['payment_id'],
+            "order_status" => $order['order_status']
         ];
     }
 }
@@ -47,7 +48,7 @@ layouts('header', $title);
 ?>
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
-    <h1 class="text-center text-white display-6">Lịch sử mua hàng</h1>
+    <h1 class="text-center text-white display-6">Theo dõi đơn hàng</h1>
 </div>
 <!-- Single Page Header End -->
 
@@ -64,7 +65,7 @@ layouts('header', $title);
                         <th scope="col">Tên</th>
                         <th scope="col">Size</th>
                         <th scope="col">Giá</th>
-                        <th scope="col">Mua lại</th>
+                        <th scope="col">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -112,7 +113,13 @@ layouts('header', $title);
                                         <p class="mb-0 mt-4"><?php echo number_format($item['p_price'], 0, ',', '.') ?> VNĐ</p>
                                     </td>
                                     <td>
-                                        <a href="?module=user&action=shop-detail&p_id=<?php echo $item["p_id"]; ?>" class="btn btn-success">Mua lại</a>
+                                        <?php
+                                        if ($item['order_status'] == 0) {
+                                            echo '<span class="btn btn-danger">Đang chuẩn bị</span>';
+                                        } elseif ($item['order_status'] == 1) {
+                                            echo '<span class="btn btn-warning">Đang giao hàng</span>';
+                                        }
+                                        ?>
                                     </td>
                                 </tr>
                         <?php

@@ -4,7 +4,7 @@ if (!defined('_CODE')) {
     die('Access denied');
 }
 
-$title = ['pageTitle' => 'Khôi phương mật khẩu'];
+$title = ['pageTitle' => 'Khôi phục mật khẩu'];
 layouts('header-login', $title);
 
 $token = filter()['token'];

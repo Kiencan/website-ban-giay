@@ -447,7 +447,7 @@ $(document).ready(function () {
     $.ajax({
       url: "?module=user&action=update_total_price",
       method: "POST",
-      cache: false,
+      dataType: "json",
       data: {
         cart_id: cart_id,
         p_quantity: p_quantity,
@@ -455,18 +455,32 @@ $(document).ready(function () {
         p_price_max: p_price_max,
       },
       success: function (response) {
-        var data = JSON.parse(response);
-        let total_price = data.total_price.toLocaleString("vi-VN");
-        $el.find(".total-price").text(total_price);
-        let total = data.total;
-        console.log(total);
-        $(".thanh_tien").text(total + " VNĐ");
-        let ship_fee = data.ship_fee;
-        console.log(ship_fee);
-        $(".tien_ship").text(ship_fee + " VNĐ");
-        let grand_total = data.grand_total;
-        console.log(grand_total);
-        $(".tong_thanh_toan").text(grand_total + " VNĐ");
+        if (response.status === "error") {
+          Swal.fire({
+            icon: "error",
+            title: "Lỗi",
+            text: response.message,
+            showConfirmButton: true,
+          });
+        } else if (response.status === "exists") {
+          let total_price = data.total_price.toLocaleString("vi-VN");
+          $el.find(".total-price").text(total_price);
+          let total = data.total;
+          console.log(total);
+          $(".thanh_tien").text(total + " VNĐ");
+          let ship_fee = data.ship_fee;
+          console.log(ship_fee);
+          $(".tien_ship").text(ship_fee + " VNĐ");
+          let grand_total = data.grand_total;
+          console.log(grand_total);
+          $(".tong_thanh_toan").text(grand_total + " VNĐ");
+          Swal.fire({
+            icon: "info",
+            title: "Thông báo",
+            text: response.message,
+            showConfirmButton: true,
+          });
+        }
       },
       error: function () {
         Swal.fire({
