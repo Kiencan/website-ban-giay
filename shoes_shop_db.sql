@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2025 at 02:31 AM
+-- Generation Time: Jan 22, 2025 at 06:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,7 +64,9 @@ CREATE TABLE `cart` (
 INSERT INTO `cart` (`cart_id`, `user_id`, `p_id`, `p_size`, `total_price`, `p_quantity`) VALUES
 (47, 17, 'DD1503-118', 37.5, 3980000, 2),
 (70, 14, 'DD1503-118', 36.5, 1990000, 1),
-(71, 14, 'DD1503-118', 39.0, 1990000, 1);
+(71, 14, 'DD1503-118', 39.0, 1990000, 1),
+(75, 12, 'HQ1763', 43.0, 0, 0),
+(76, 12, 'HQ1763', 44.0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -173,7 +175,8 @@ CREATE TABLE `favourite` (
 --
 
 INSERT INTO `favourite` (`favourite_id`, `user_id`, `p_id`, `favourite`) VALUES
-(38, 14, 'JH8812', 1);
+(38, 14, 'JH8812', 1),
+(40, NULL, 'JH8812', 1);
 
 -- --------------------------------------------------------
 
@@ -204,7 +207,8 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`payment_id`, `user_id`, `p_id`, `p_size`, `p_price`, `p_quantity`, `total`, `order_status`, `order_create_at`, `payment_type`, `receiver_name`, `phone_number`, `receiver_address`) VALUES
 (13, 14, 'JI2551,HP5790', NULL, '1032000,820000', '1,1', 1852000, 2, '2025-01-17 00:00:00', '0', NULL, NULL, NULL),
 (14, 14, 'JI2551,HP5790', NULL, '1032000,820000', '1,1', 1852000, 0, '2025-01-17 23:46:45', 'Thanh toán khi nhận hàng', NULL, NULL, NULL),
-(15, 14, '384857-01,553558-141,553558-152', '36.0,39.0,40.0', '1740000,1519000,1020000', '3,1,1', 4279000, 1, '2025-01-18 00:36:36', 'Thanh toán khi nhận hàng', NULL, NULL, NULL);
+(15, 14, '384857-01,553558-141,553558-152', '36.0,39.0,40.0', '1740000,1519000,1020000', '3,1,1', 4279000, 1, '2025-01-18 00:36:36', 'Thanh toán khi nhận hàng', NULL, NULL, NULL),
+(16, 12, 'DD1391-100', '39.0', '0', '0', 0, 0, '2025-01-19 09:26:07', 'Thanh toán khi nhận hàng', 'Lê Trung Kiên đẹp trai', '0353693404', 'Nguyen Trai Street');
 
 -- --------------------------------------------------------
 
@@ -543,13 +547,6 @@ CREATE TABLE `token_login` (
   `last_active` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `token_login`
---
-
-INSERT INTO `token_login` (`id`, `user_id`, `token`, `create_at`, `last_active`) VALUES
-(149, 14, 'c63561dd0c7593b3839b1900437bfbc0eb1534ec', '2025-01-19 08:18:53', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -558,6 +555,7 @@ INSERT INTO `token_login` (`id`, `user_id`, `token`, `create_at`, `last_active`)
 
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
+  `avatar` varchar(50) DEFAULT NULL,
   `username` varchar(20) DEFAULT NULL,
   `password` varchar(20) DEFAULT NULL,
   `fullname` varchar(100) DEFAULT NULL,
@@ -576,15 +574,15 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `username`, `password`, `fullname`, `address`, `phone`, `email`, `forgotToken`, `activeToken`, `status`, `isAdmin`, `create_at`, `update_at`) VALUES
-(9, 'thuycute1412', '12345678', 'Phạm Thu Thủy', NULL, '0353693404', 'letrungkien6_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-16 14:30:51', '2024-12-11 10:27:19'),
-(12, 'thuyoi', '1234567890', 'Lê Trung Kiên đẹp trai', NULL, '0353693404', 'letrungkien1_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-15 09:56:01', NULL),
-(13, 'kiendz1234', '123456789', 'Phạm Thu Thủy', '89 Phùng Hưng, Phúc La, Hà Đông, Hà Nội', '0383083743', 'phamthuthuy_t66@hus.edu.vn', NULL, NULL, 1, 1, '2024-10-27 22:28:09', '2024-11-10 13:46:14'),
-(14, 'kiendz12', '123456789', 'fdsakbfasd', 'ádfjksda', '0868925081', 'kienbestdaxua@gmail.com', NULL, NULL, 1, 1, '2024-11-15 11:26:09', NULL),
-(15, 'kiendz1', '123456789', 'Lê Trung Kiên 123', NULL, '0353693404', 'letrungkien3_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-16 00:56:55', NULL),
-(16, 'kiendz123', '123456789', 'Lê Trung', NULL, '0123456789', 'letrungkien9_t66@hus.edu.vn', NULL, NULL, 1, 1, '2024-12-11 10:30:07', NULL),
-(17, 'thuthuyne', '12345678', NULL, NULL, NULL, 'phamthuthuythuyloi@gmail.com', NULL, NULL, 1, 0, '2025-01-11 13:47:45', '2025-01-11 13:58:37'),
-(18, 'thuthuynha', '123456789', NULL, NULL, NULL, 'phamthuthuy_t66@hus.edu.vn', NULL, '819b73a4d3e119d9776629ec44c465fadc9b9858', 0, 0, '2025-01-11 13:53:10', NULL);
+INSERT INTO `user` (`user_id`, `avatar`, `username`, `password`, `fullname`, `address`, `phone`, `email`, `forgotToken`, `activeToken`, `status`, `isAdmin`, `create_at`, `update_at`) VALUES
+(9, NULL, 'thuycute1412', '12345678', 'Phạm Thu Thủy', NULL, '0353693404', 'letrungkien6_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-16 14:30:51', '2024-12-11 10:27:19'),
+(12, NULL, 'thuyoi', '1234567890', 'Lê Trung Kiên đẹp trai', NULL, '0353693404', 'letrungkien1_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-15 09:56:01', NULL),
+(13, '2023_08_09_21_41_IMG_5012.JPG', 'kien1234', '987654321', 'Phạm Thu Thủy béo', '89 Phùng Hưng, Phúc La, Hà Đông, Hà Nội', '0383083743', 'phamthuthuy_t66@hus.edu.vn', NULL, NULL, 1, 1, '2024-10-27 22:28:09', '2024-11-10 13:46:14'),
+(14, 'avt.jpg', 'kiendz12', '123456789', 'fdsakbfasd', 'ádfjksda', '0868925081', 'kienbestdaxua@gmail.com', NULL, NULL, 1, 1, '2024-11-15 11:26:09', NULL),
+(15, NULL, 'kiendz1', '123456789', 'Lê Trung Kiên 123', NULL, '0353693404', 'letrungkien3_t66@hus.edu.vn', NULL, NULL, 1, 0, '2024-11-16 00:56:55', NULL),
+(16, NULL, 'kiendz123', '123456789', 'Lê Trung', NULL, '0123456789', 'letrungkien9_t66@hus.edu.vn', NULL, NULL, 1, 1, '2024-12-11 10:30:07', NULL),
+(17, NULL, 'thuthuyne', '12345678', NULL, NULL, NULL, 'phamthuthuythuyloi@gmail.com', NULL, NULL, 1, 0, '2025-01-11 13:47:45', '2025-01-11 13:58:37'),
+(18, NULL, 'thuthuynha', '123456789', NULL, NULL, NULL, 'phamthuthuy_t66@hus.edu.vn', NULL, '819b73a4d3e119d9776629ec44c465fadc9b9858', 0, 0, '2025-01-11 13:53:10', NULL);
 
 --
 -- Indexes for dumped tables
@@ -686,7 +684,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -710,19 +708,19 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `favourite`
 --
 ALTER TABLE `favourite`
-  MODIFY `favourite_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `favourite_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `product_image`
 --
 ALTER TABLE `product_image`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=258;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
 
 --
 -- AUTO_INCREMENT for table `product_name`
@@ -734,7 +732,7 @@ ALTER TABLE `product_name`
 -- AUTO_INCREMENT for table `token_login`
 --
 ALTER TABLE `token_login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT for table `user`
