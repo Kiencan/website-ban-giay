@@ -273,21 +273,21 @@ layouts('header', $title);
                   <input type="hidden" class="p_price_min" value="<?php echo $product['p_price_min'] ?>">
                   <input type="hidden" class="quantity" value="1">
 
-                  <button type="button" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 addItemBtn" style="color: #4856dd">
+                  <button type="button" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 addItemBtn" style="color:rgb(0, 0, 0)">
                     <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
                   </button>
                 </form>
               <?php else: ?>
                 <a href="?module=user&action=login"
                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4"
-                  style="color: #4856dd">
+                  style="color:rgb(0, 0, 0)">
                   <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
                 </a>
               <?php endif; ?>
               <a
                 href="#"
                 class="btn border border-secondary rounded-pill px-4 py-2 mb-4"
-                style="color: #4856dd"><i class="fa fa-phone me-2" style="color: #4856dd"></i>Tư vấn:
+                style="color:rgb(0, 0, 0)"><i class="fa fa-phone me-2" style="color:rgb(0, 0, 0)"></i>Tư vấn:
                 0383083743</a>
             </div>
           </div>
@@ -425,7 +425,7 @@ layouts('header', $title);
                   <input type="hidden" name="productId" id="productId" value="<?php echo $product['p_id']; ?>">
                   <button
                     type="submit"
-                    class="btn border border-secondary text-primary rounded-pill px-4 py-3">
+                    class="btn border border-secondary rounded-pill px-4 py-3">
                     Bình luận</button>
                 </div>
               </div>
@@ -512,15 +512,15 @@ layouts('header', $title);
                       alt="Image" width="100px" />
                   </div>
                   <div>
-                    <h6 class="mb-2"><?php echo $listProduct['p_name_custom'] ?> </h6>
+                    <h6 class="mb-2" style = "font-family: Open Sans; font-size: 15px"><?php echo $listProduct['p_name_custom'] ?> </h6>
                     <div class="d-flex mb-2">
                       <?php for ($i = 1; $i <= 5; $i++): ?>
-                        <i class="fa fa-star <?php echo $i <= $listProduct['p_rate'] ? 'text-warning' : 'text-secondary'; ?>"></i>
-                      <?php endfor; ?>
+                        <i class="fa fa-star <?php echo $i <= $listProduct['p_rate'] ? 'text-warning' : 'text-secondary'; ?>" style="font-size: 14px;"></i>
+                        <?php endfor; ?>
                     </div>
                     <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2"><?php echo number_format($product['p_price_min'], 0, ',', '.'); ?></h5>
-                      <h5 class="text-danger text-decoration-line-through">
+                      <h5 class="fw-bold me-2"style = "font-family: Open Sans; font-size: 15px"><?php echo number_format($product['p_price_min'], 0, ',', '.'); ?></h5>
+                      <h5 class="text-danger text-decoration-line-through" style = "font-family: Open Sans; font-size: 15px">
                         <?php echo number_format($product['p_price_max'] / (1 - $product['discount'] / 100), 0, ',', '.'); ?>
                       </h5>
                     </div>

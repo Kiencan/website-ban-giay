@@ -45,10 +45,10 @@ $user_id = getUserIdByToken();
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/shop-detail.css" rel="stylesheet" />
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/about.css" rel="stylesheet" />
   <link href="<?php echo _WEB_HOST_TEMPLATE ?>/css/profile.css" rel="stylesheet" />
-</head>
+</head> 
 
 <body>
-  <!-- Spinner Start -->
+    <!-- Spinner Start -->
   <div id="spinner"
     class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" role="status"></div>
@@ -59,7 +59,7 @@ $user_id = getUserIdByToken();
   <div class="container-fluid fixed-top">
     <div
       class="container topbar d-none d-lg-block mb-3"
-      style="background-color: #4856dd">
+      style="background-color:rgb(0, 0, 0)">
       <div class="d-flex justify-content-between">
         <div class="top-info ps-2">
           <a href="?module=user&action=about" class="text-white"><small class="text-white mx-2">Về chúng tôi</small>/</a>
@@ -73,17 +73,17 @@ $user_id = getUserIdByToken();
         </div>
       </div>
     </div>
-    <div class="container px-0">
+    <div class="container px-0 mt-3">
       <nav class="navbar navbar-light bg-white navbar-expand-xl">
         <a href="?module=user&action=trangchu" class="navbar-brand">
-          <h1 class="display-6" style="color: #4856dd">3H1A Store</h1>
+        <img src="<?php echo _WEB_HOST_TEMPLATE ?>/image/logo.jpg" alt="logo" class = "img-fluid p-5 " width="200" height="200">
         </a>
-        <button
+        <button 
           class="navbar-toggler py-2 px-3"
-          type="button"
+          type="button" 
           data-bs-toggle="collapse"
           data-bs-target="#navbarCollapse">
-          <span class="fa fa-bars" style="color: #4856dd"></span>
+          <span class="fa fa-bars" style="color:rgb(0, 0, 0)"></span>
         </button>
         <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
           <div class="navbar-nav mx-auto">
@@ -95,7 +95,7 @@ $user_id = getUserIdByToken();
                 href="#"
                 class="nav-link dropdown-toggle"
                 data-bs-toggle="dropdown">Sneaker</a>
-              <div class="dropdown-menu m-0 bg-secondary rounded-0">
+              <div class="dropdown-menu m-0 rounded-0">
                 <a href="?module=user&action=shop&id=giayAdidas" class="dropdown-item">Giày Adidas</a>
                 <a href="?module=user&action=shop&id=giayNike" class="dropdown-item">Giày Nike</a>
                 <a href="??module=user&action=shop&id=giayPuma" class="dropdown-item">Giày Puma</a>
@@ -111,14 +111,14 @@ $user_id = getUserIdByToken();
 
           <div class="d-flex m-3 me-0">
             <button
-              class="btn-search btn border border-secondary rounded-circle bg-white me-4 my-auto"
+              class="btn-search btn rounded-circle bg-white me-4 my-auto"
               data-bs-toggle="modal"
               data-bs-target="#searchModal"
               style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-              <i class="fas fa-search" style="color: #4856dd; font-size: 20px;"></i>
+              <i class="fas fa-search" style="color:rgb(0, 0, 0); font-size: 20px;"></i>
             </button>
             <a href="?module=user&action=cart" class="position-relative me-4 my-auto">
-              <i class="fa fa-shopping-bag fa-2x" style="color: #4856dd"></i>
+              <i class="fa fa-shopping-bag fa-2x" style="color:rgb(0, 0, 0)"></i>
               <span
                 id="cart-count"
                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
@@ -149,7 +149,7 @@ $user_id = getUserIdByToken();
                   id="dropdownMenuButton"
                   data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  <i class="fas fa-user fa-2x" style="color: #4856dd"></i>
+                  <i class="fas fa-user fa-2x" style="color:rgb(0, 0, 0)"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                   <li><a class="dropdown-item" href="?module=user&action=profile">Trang cá nhân</a></li>

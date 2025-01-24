@@ -13,8 +13,8 @@ if (!defined('_CODE')) {
             <div class="row g-4">
                 <div class="col-lg-3">
                     <a href="#">
-                        <h1 class="mb-0" style="color: #4856dd; font-weight: 1000">
-                            3H1A Store
+                        <h1 class="mb-0" style="color:rgb(0, 0, 0); font-weight: 1000">
+                            Thu Ha Auri
                         </h1>
                         <p class="text-secondary mb-0">Chuyên hàng chính hãng</p>
                     </a>
@@ -30,7 +30,7 @@ if (!defined('_CODE')) {
                             id="send-button"
                             type="button"
                             class="btn border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
-                            style="top: 0; right: 0; background-color: #4856dd">
+                            style="top: 0; right: 0; background-color:rgb(0, 0, 0)">
                             Gửi ngay
                         </button>
                     </div>
@@ -38,17 +38,21 @@ if (!defined('_CODE')) {
                 <div class="col-lg-3">
                     <div class="d-flex justify-content-end pt-3">
                         <a
+                            target = "_blank"
                             class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
                             href=""><i class="fab fa-twitter"></i></a>
                         <a
+                            target = "_blank"
                             class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
-                            href="https://www.facebook.com/3h1a.store"><i class="fab fa-facebook-f"></i></a>
+                            href="https://www.facebook.com/profile.php?id=100015336315421"><i class="fab fa-facebook-f"></i></a>
                         <a
+                            target = "_blank"
                             class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
                             href=""><i class="fab fa-tiktok"></i></a>
                         <a
+                            target = "_blank"
                             class="btn btn-outline-secondary btn-md-square rounded-circle"
-                            href="https://www.facebook.com/3h1a.store"><i class="fa fa-phone"></i></a>
+                            href="https://zalo.me/0886065812"><i class="fa fa-phone"></i></a>
                     </div>
                 </div>
             </div>
@@ -56,9 +60,9 @@ if (!defined('_CODE')) {
         <div class="row g-5">
             <div class="col-lg-3 col-md-6">
                 <div class="footer-item">
-                    <h4 class="text-light mb-3">Tại sao nên chọn 3H1A?</h4>
+                    <h4 class="text-light mb-3">Tại sao nên chọn Thu Ha Auri?</h4>
                     <p class="mb-4">
-                        Tại 3H1A Store, chúng tôi mang đến những đôi giày chất lượng cao với mẫu mã đa dạng, từ năng động đến thanh lịch. Mỗi sản phẩm đều được chọn lọc kỹ lưỡng, đảm bảo bền bỉ và thoải mái.
+                        Tại Thu Ha Auri Store, chúng tôi mang đến những đôi giày chất lượng cao với mẫu mã đa dạng, từ năng động đến thanh lịch. Mỗi sản phẩm đều được chọn lọc kỹ lưỡng, đảm bảo bền bỉ và thoải mái.
                         Giá cả hợp lý kèm nhiều ưu đãi.
                         Dịch vụ tận tâm, giúp bạn tìm được đôi giày ưng ý.
                     </p>
@@ -110,32 +114,29 @@ if (!defined('_CODE')) {
         <div class="col-auto">
             <div class="side-right position-fixed">
                 <div class="echbay-sms-messenger">
-                    <div class="phonering-alo-alo">
                         <a
-                            href="tel:0387440192"
-                            rel="nofollow"
-                            class="echbay-phonering-alo-event"></a>
-                    </div>
-                    <div class="phonering-alo-sms">
-                        <a
-                            href="sms:0387440192"
-                            rel="nofollow"
-                            class="echbay-phonering-sms-event"></a>
-                    </div>
-                    <div class="phonering-alo-zalo">
-                        <a
-                            href="https://zalo.me/0383083743"
+                            href="https://www.facebook.com/profile.php?id=100015336315421"
                             target="_blank"
                             rel="nofollow"
-                            class="echbay-phonering-zalo-event"></a>
-                    </div>
-                    <div class="phonering-alo-messenger">
+                            class="echbay-phonering-messenger-event"><div class="phonering-alo-messenger"></div></a>
+
                         <a
-                            href="https://www.facebook.com/3h1a.store"
+                            href="https://www.facebook.com/profile.php?id=100015336315421"
                             target="_blank"
                             rel="nofollow"
-                            class="echbay-phonering-messenger-event"></a>
-                    </div>
+                            class="echbay-phonering-alo-event"><div class="phonering-alo-fb"></div></a>
+
+                        <a
+                            href="https://zalo.me/0886065812"
+                            target="_blank"
+                            rel="nofollow"
+                            class="echbay-phonering-zalo-event"><div class="phonering-alo-zalo"></div></a>
+                            
+                            <a
+                            href=""
+                            target="_blank"
+                            rel="nofollow"
+                            class="echbay-phonering-sms-event"><div class="phonering-alo-tiktok"></div></a>
                 </div>
             </div>
         </div>

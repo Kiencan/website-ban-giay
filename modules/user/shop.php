@@ -81,7 +81,7 @@ layouts('header', $title);
   </ol>
 </div>
 <!-- Single Page Header End -->
-
+ 
 <!-- Shoes Shop Start-->
 <div class="container-fluid item py-5">
   <div class="container py-5">
@@ -185,44 +185,45 @@ layouts('header', $title);
                 <h4 class="mb-3">Sản phẩm nổi bật</h4>
                 <?php
                 $featuredProducts = getRaw("
-                SELECT products.*
-                FROM products
-                INNER JOIN product_name ON products.p_name_id = product_name.p_name_id
-                INNER JOIN collection ON product_name.collection_id = collection.collection_id
-                INNER JOIN category ON collection.category_id = category.category_id
-                " . $condition . "
-                GROUP BY products.p_id
-                ORDER BY RAND()
-                LIMIT 3
-              ");
+                    SELECT products.*
+                    FROM products
+                    INNER JOIN product_name ON products.p_name_id = product_name.p_name_id
+                    INNER JOIN collection ON product_name.collection_id = collection.collection_id
+                    INNER JOIN category ON collection.category_id = category.category_id
+                    " . $condition . "
+                    GROUP BY products.p_id
+                    ORDER BY RAND()
+                    LIMIT 3
+                ");
                 if (!empty($featuredProducts)):
-                  foreach ($featuredProducts as $product):
-                    $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $product['p_id'] . "'");
+                    foreach ($featuredProducts as $product):
+                        $img = oneRaw("SELECT * FROM product_image WHERE p_id = '" . $product['p_id'] . "'");
                 ?>
-                    <div class="d-flex align-items-center justify-content-start mb-3">
-                      <div class="rounded me-4" style="width: 100px; height: 100px;">
-                        <img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $img['product_image'] ?>" class="img-fluid rounded" alt="<?php echo $product['p_name_custom']; ?>">
-                      </div>
-                      <div>
-                        <h6 class="mb-2"><?php echo $product['p_name_custom']; ?></h6>
-                        <div class="d-flex mb-2">
-                          <h5 class="fw-bold me-2"><?php echo number_format($product['p_price_min'], 0, ',', '.'); ?> đ</h5>
-                          <?php if (!empty($product['p_price_max'])): ?>
-                            <h5 class="text-danger text-decoration-line-through">
-                              <?php echo number_format($product['p_price_max'], 0, ',', '.'); ?> đ
-                            </h5>
-                          <?php endif; ?>
+                    <div class="product-item d-flex align-items-center justify-content-start mb-3">
+                        <div class="rounded me-4" style="width: 100px; height: 100px;">
+                            <img src="<?php echo _WEB_HOST_TEMPLATE . '/image/' . $img['product_image'] ?>" class="img-fluid rounded" alt="<?php echo $product['p_name_custom']; ?>">
                         </div>
-                      </div>
+                        <div>
+                            <h6 class="mb-2"><?php echo $product['p_name_custom']; ?></h6>
+                            <div class="d-flex mb-2">
+                                <h5 class="fw-bold me-2" style="font-family: Open Sans; font-size: 15px">
+                                    <?php echo number_format($product['p_price_min'], 0, ',', '.'); ?> đ
+                                </h5>
+                                <?php if (!empty($product['p_price_max'])): ?>
+                                    <h5 class="text-danger text-decoration-line-through" style = "font-family: Open Sans; font-size: 15px">
+                                        <?php echo number_format($product['p_price_max'], 0, ',', '.'); ?> đ
+                                    </h5>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
-                  <?php
-                  endforeach;
+                <?php
+                    endforeach;
                 else:
-                  ?>
-                  <p class="text-muted">Không có sản phẩm nào để hiển thị.</p>
+                ?>
+                    <p class="text-muted">Không có sản phẩm nào để hiển thị.</p>
                 <?php endif; ?>
-              </div>
-
+            </div>
 
               <div class="col-lg-12">
                 <div class="position-relative">

@@ -64,7 +64,7 @@
   align-items: center;
 }
 .topbar .top-info a small:hover {
-  color: var(--bs-secondary) !important;
+  /* color: var(--bs-secondary) !important; */
   transition: 0.5s;
 }
 .topbar .top-link {
@@ -105,7 +105,7 @@
 .navbar .navbar-nav .nav-link.active,
 .fixed-top.bg-white .navbar .navbar-nav .nav-link:hover,
 .fixed-top.bg-white .navbar .navbar-nav .nav-link.active {
-  color: #4856dd;
+  color: #000000;
   font-weight: 600; /* Tăng độ dày của chữ */
 }
 
@@ -130,10 +130,9 @@
     opacity: 0;
   }
 }
-
 .dropdown .dropdown-menu a:hover {
-  background: var(--bs-secondary);
-  color: #4856dd;
+  font-weight: 600;
+  color: #000000;
 }
 
 .navbar .nav-item:hover .dropdown-menu {
@@ -161,5 +160,5 @@
 
 .form-check-input:checked + .form-check-label {
   font-weight: bold;
-  color: #007bff;
+  color: #000000;
 }

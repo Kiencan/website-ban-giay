@@ -28,7 +28,7 @@
 
 /*** Navbar start ***/
 .navbar .hover-effect:hover {
-  background-color: #1a6fc9;
+  background-color: #000000;
 }
 
 /*** Navbar end ***/
@@ -123,12 +123,11 @@
   content: "";
   width: 35px;
   height: 35px;
-  background: #4856dd;
+  background: #000000;
   position: absolute;
   bottom: -10px;
   transform: translate(-50%);
   transform: rotate(45deg);
-  background: #4856dd;
 }
 /*** featurs End ***/
 
@@ -162,7 +161,7 @@
 
 /*** Bán chạy Start ***/
 .item .tab-class .nav-item a.active {
-  background: #4856dd !important;
+  background: #000000 !important;
 }
 
 .item .tab-class .nav-item a.active span {
@@ -268,11 +267,11 @@
 }
 
 .tab-content a {
-  color: #4856dd;
+  color: #000000;
   text-align: center;
 }
 .tab-content i {
-  color: #4856dd;
+  color: #000000;
 }
 
 .product-actions {
@@ -290,7 +289,7 @@
   overflow: hidden; /* Tránh nội dung bị tràn */
 }
 .giamgia-item i {
-  color: #4856dd;
+  color: #000000;
 }
 
 .img-item img {
@@ -432,7 +431,7 @@
 
 .counter h1 {
   margin-bottom: 0;
-  color: #4856dd;
+  color: #000000;
 }
 /*** Facts End ***/
 
@@ -526,12 +525,12 @@
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-.phonering-alo-alo {
-  background-image: url(../image/tele.png);
+.phonering-alo-fb {
+  background-image: url(../image/fb-icon.png);
 }
 
-.phonering-alo-sms {
-  background-image: url(../image/instagram.png);
+.phonering-alo-tiktok {
+  background-image: url(../image/tiktok-icon.png);
 }
 
 .phonering-alo-zalo {
@@ -559,7 +558,7 @@
 }
 
 .back-to-top:hover {
-  background-color: #007bff;
+  background-color: #000000;
 }
 
 /*** Footer Start ***/
@@ -578,7 +577,42 @@
 }
 /*** Footer End ***/
 
+/*** Sản phẩm nổi bật ***/
 .heart-button.active {
   background-color: red;
   color: white;
+}
+
+.product-item {
+  width: 100%; /* Đảm bảo mỗi sản phẩm chiếm toàn bộ chiều rộng */
+  display: flex;
+  flex-wrap: nowrap; /* Ngăn hình ảnh và thông tin sản phẩm xuống dòng */
+  align-items: center;
+  border-bottom: 1px solid #ddd; /* Thêm đường phân cách giữa các sản phẩm */
+  padding-bottom: 15px; /* Tạo khoảng cách với sản phẩm tiếp theo */
+}
+
+.product-item:last-child {
+  border-bottom: none; /* Loại bỏ viền ở sản phẩm cuối cùng */
+}
+
+.product-item img {
+  max-width: 100px; /* Giữ kích thước hình ảnh cố định */
+  max-height: 100px;
+  object-fit: cover; /* Đảm bảo ảnh không bị méo */
+}
+
+.product-item h6,
+.product-item h5 {
+  margin: 0; /* Loại bỏ khoảng trắng không cần thiết */
+}
+
+@media (max-width: 768px) {
+  .product-item {
+    flex-direction: column; /* Trên màn hình nhỏ, ảnh và text sẽ xuống hàng */
+    align-items: flex-start;
+  }
+  .product-item img {
+    margin-bottom: 10px;
+  }
 }

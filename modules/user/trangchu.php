@@ -4,7 +4,7 @@ if (!defined('_CODE')) {
 }
 
 $title = [
-  'pageTitle' => 'Trang chủ 3H1A Store'
+  'pageTitle' => 'Trang chủ Thu Ha Auri'
 ];
 
 # Lấy userId
@@ -26,8 +26,8 @@ layouts('header', $title);
           Chuyên cung cấp các loại giày thể thao, sneaker, giày chạy bộ
           <br />Chuẩn authentic, đa dạng mẫu mã, giá rẻ bao thị trường.
         </h4>
-        <h1 class="mb-5 display-3" style="color: #4856dd">
-          3H1A Store
+        <h1 class="mb-5 display-3" style="color:rgb(0, 0, 0)">
+          ThuHa Auri
           <br />
           Modern & Fashion
         </h1>
@@ -109,7 +109,7 @@ layouts('header', $title);
         <div class="featurs-item text-center rounded bg-light p-4">
           <div
             class="featurs-icon btn-square rounded-circle mb-5 mx-auto"
-            style="background-color: #4856dd">
+            style="background-color:rgb(0, 0, 0)">
             <i class="fas fa-car-side fa-3x text-white"></i>
           </div>
           <div class="featurs-content text-center">
@@ -122,7 +122,7 @@ layouts('header', $title);
         <div class="featurs-item text-center rounded bg-light p-4">
           <div
             class="featurs-icon btn-square rounded-circle mb-5 mx-auto"
-            style="background-color: #4856dd">
+            style="background-color:rgb(0, 0, 0)">
             <i class="fas fa-user-shield fa-3x text-white"></i>
           </div>
           <div class="featurs-content text-center">
@@ -135,7 +135,7 @@ layouts('header', $title);
         <div class="featurs-item text-center rounded bg-light p-4">
           <div
             class="featurs-icon btn-square rounded-circle mb-5 mx-auto"
-            style="background-color: #4856dd">
+            style="background-color:rgb(0, 0, 0)">
             <i class="fas fa-exchange-alt fa-3x text-white"></i>
           </div>
           <div class="featurs-content text-center">
@@ -148,7 +148,7 @@ layouts('header', $title);
         <div class="featurs-item text-center rounded bg-light p-4">
           <div
             class="featurs-icon btn-square rounded-circle mb-5 mx-auto"
-            style="background-color: #4856dd">
+            style="background-color:rgb(0, 0, 0)">
             <i class="fa fa-phone-alt fa-3x text-white"></i>
           </div>
           <div class="featurs-content text-center">
@@ -706,8 +706,8 @@ layouts('header', $title);
 <div class="container-fluid testimonial py-5">
   <div class="container py-5">
     <div class="testimonial-header text-center">
-      <h4 class="text-primary">Đánh giá</h4>
-      <h1 class="display-5 mb-5 text-dark">Phản hồi khách hàng</h1>
+      <h4 class="text-dark">Blog</h4>
+      <h1 class="display-5 mb-5 text-dark">Tin tức mới nhất</h1>
     </div>
     <div class="owl-carousel testimonial-carousel">
       <div class="testimonial-item img-border-radius bg-light rounded p-4">
