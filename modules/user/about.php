@@ -13,7 +13,6 @@ $user_id = getUserIdByToken();
 $listBanner = getRaw("SELECT * FROM banner ORDER BY id");
 $listProd = getRaw("SELECT * FROM products");
 $user_name = oneRaw("SELECT fullname FROM user WHERE user_id = '$user_id'");
-echo $user_name['fullname'];
 
 layouts('header', $title);
 ?>
@@ -25,7 +24,7 @@ layouts('header', $title);
             <div class="col-lg-12">
                 <div class="inner-content">
                     <!-- <h2>Về chúng tôi</h2>
-                        <span>3H1A Store – Điểm chạm phong cách, khẳng định đẳng cấp</span> -->
+                        <span>Thu Ha Auri Store – Điểm chạm phong cách, khẳng định đẳng cấp</span> -->
                 </div>
             </div>
         </div>
@@ -44,14 +43,14 @@ layouts('header', $title);
             </div>
             <div class="col-lg-6">
                 <div class="right-content">
-                    <h4>Giới thiệu về 3H1A Store</h4>
-                    <span>Với sứ mệnh khẳng định phong cách và chất lượng, 3H1A Store không chỉ chú trọng đến sự đa dạng của mẫu mã mà còn đảm bảo nguồn gốc minh bạch và uy tín của từng sản phẩm</span>
+                    <h4>Giới thiệu về Thu Ha Auri Store</h4>
+                    <span>Với sứ mệnh khẳng định phong cách và chất lượng, Thu Ha Auri Store không chỉ chú trọng đến sự đa dạng của mẫu mã mà còn đảm bảo nguồn gốc minh bạch và uy tín của từng sản phẩm</span>
                     <div class="quote">
                         <i class="fa fa-quote-left"></i>
-                        <p> 3H1A Store – Chất riêng đẳng cấp, khẳng định phong cách thời thượng. Từ các thương hiệu thời trang đình đám trên thế giới, chúng tôi giúp bạn tự tin hơn trong từng bước đi và tỏa sáng hơn với phong cách riêng.</p>
+                        <p> Thu Ha Auri Store – Chất riêng đẳng cấp, khẳng định phong cách thời thượng. Từ các thương hiệu thời trang đình đám trên thế giới, chúng tôi giúp bạn tự tin hơn trong từng bước đi và tỏa sáng hơn với phong cách riêng.</p>
                     </div>
                     <p>
-                        Đến với 3H1A Store, bạn sẽ được trải nghiệm dịch vụ tư vấn tận tình, giúp bạn lựa chọn những món đồ phù hợp với cá tính và phong cách riêng. Đặt niềm tin vào chất lượng và dịch vụ, 3H1A Store là điểm đến lý tưởng cho những tín đồ thời trang yêu thích hàng hiệu chính hãng tại Việt Nam.
+                        Đến với Thu Ha Auri Store, bạn sẽ được trải nghiệm dịch vụ tư vấn tận tình, giúp bạn lựa chọn những món đồ phù hợp với cá tính và phong cách riêng. Đặt niềm tin vào chất lượng và dịch vụ, Thu Ha Auri Store là điểm đến lý tưởng cho những tín đồ thời trang yêu thích hàng hiệu chính hãng tại Việt Nam.
                     </p>
                     <ul>
                         <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -73,7 +72,7 @@ layouts('header', $title);
             <div class="col-lg-12">
                 <div class="section-heading">
                     <h2>Thành viên</h2>
-                    <span>Đội ngũ nhân sự tại 3H1A Store – Tận tâm, chuyên nghiệp, đầy nhiệt huyết
+                    <span>Đội ngũ nhân sự tại Thu Ha Auri Store – Tận tâm, chuyên nghiệp, đầy nhiệt huyết
 
                     </span>
                 </div>
@@ -123,7 +122,7 @@ layouts('header', $title);
             <div class="col-lg-12">
                 <div class="section-heading">
                     <h2>Dịch vụ của chúng tôi</h2>
-                    <span>Tại 3H1A Store, chúng tôi không chỉ tập trung vào việc cung cấp sản phẩm thời trang chính hãng mà còn mang đến những dịch vụ vượt trội nhằm đem lại trải nghiệm mua sắm hoàn hảo nhất cho khách hàng</span>
+                    <span>Tại Thu Ha Auri Store, chúng tôi không chỉ tập trung vào việc cung cấp sản phẩm thời trang chính hãng mà còn mang đến những dịch vụ vượt trội nhằm đem lại trải nghiệm mua sắm hoàn hảo nhất cho khách hàng</span>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -136,7 +135,7 @@ layouts('header', $title);
             <div class="col-lg-4">
                 <div class="service-item">
                     <h4>Xác Thực Chính Hãng</h4>
-                    <p>Cam kết mang đến sản phẩm thời trang chính hãng là giá trị cốt lõi của 3H1A Store. Vì vậy, chúng tôi triển khai dịch vụ xác thực chính hãng cho mọi sản phẩm trước khi chúng được đưa đến tay khách hàng. Từ việc kiểm tra tem, mã QR đến việc đối chiếu chi tiết thiết kế, đội ngũ 3H1A Store luôn làm việc tỉ mỉ, cẩn trọng.</p>
+                    <p>Cam kết mang đến sản phẩm thời trang chính hãng là giá trị cốt lõi của Thu Ha Auri Store. Vì vậy, chúng tôi triển khai dịch vụ xác thực chính hãng cho mọi sản phẩm trước khi chúng được đưa đến tay khách hàng. Từ việc kiểm tra tem, mã QR đến việc đối chiếu chi tiết thiết kế, đội ngũ Thu Ha Auri Store luôn làm việc tỉ mỉ, cẩn trọng.</p>
                     <img src="./templates/image/service-02.jpg" alt="">
                 </div>
             </div>
@@ -188,7 +187,7 @@ layouts('header', $title);
                         <ul>
                             <li>Vị trí:<br><span>89 Phùng Hưng, Hà Đông, Hà Nội, Việt Nam</span></li>
                             <li>Số điện thoại:<br><span>0383083743</span></li>
-                            <li>Văn phòng:<br><span>3H1A Store</span></li>
+                            <li>Văn phòng:<br><span>Thu Ha Auri Store</span></li>
                         </ul>
                     </div>
                     <div class="col-6">
