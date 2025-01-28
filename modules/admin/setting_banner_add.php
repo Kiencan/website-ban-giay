@@ -19,64 +19,72 @@ if (isPost()) {
 
     $errors = []; // mảng chứa lỗi
 
+
     if (empty($_FILES['banner']['name'])) {
         $errors['banner']['required'] = 'Vui lòng upload ảnh.';
     } else {
-        // Get file information
-        $imageName = basename($_FILES['banner']['name']);
-        $imageSize = $_FILES['banner']['size'];
-        $imageTemp = $_FILES['banner']['tmp_name'];
-        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif']; // Allowed file types
-        $fileExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
-
-        // Set target directory
+        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
         $targetDir = _WEB_PATH_TEMPLATE . 'image/';
-        $targetFilePath = $targetDir . $imageName;
+        $errors = [];
 
-        // Validate file type
-        if (!in_array($fileExtension, $allowedTypes)) {
-            $errors['banner']['type'] = 'Chỉ chấp nhận các định dạng ảnh: JPG, JPEG, PNG, GIF.';
-        }
+        foreach ($_FILES['banner']['name'] as $key => $imageName) {
+            $imageSize = $_FILES['banner']['size'][$key];
+            $imageTemp = $_FILES['banner']['tmp_name'][$key];
+            $fileExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
+            $targetFilePath = $targetDir . basename($imageName);
 
-        // Validate file size (e.g., 5MB maximum)
-        if ($imageSize > 5 * 1024 * 1024) {
-            $errors['banner']['size'] = 'Dung lượng ảnh không được vượt quá 5MB.';
-        }
+            // Validate file type
+            if (!in_array($fileExtension, $allowedTypes)) {
+                $errors['banner'][$key]['type'] = "Ảnh '$imageName' không đúng định dạng.";
+            }
 
-        // Check if file already exists
-        if (file_exists($targetFilePath)) {
-            $errors['banner']['exists'] = 'File này đã tồn tại. Vui lòng chọn một ảnh khác hoặc đổi tên file.';
+            // Validate file size (5MB max per file)
+            if ($imageSize > 5 * 1024 * 1024) {
+                $errors['banner'][$key]['size'] = "Ảnh '$imageName' vượt quá 5MB.";
+            }
+
+            // Check if file already exists
+            if (file_exists($targetFilePath)) {
+                $errors['banner'][$key]['exists'] = "Ảnh '$imageName' đã tồn tại.";
+            }
         }
     }
 
+    if (empty($filterAll['banner_name'])) {
+        $errors['banner_name']['required'] = 'Vui lòng nhập tên banner';
+    }
 
     if (empty($errors)) {
-        $dataInsert = [
-            'banner_name' => 'banner_tren',
-            'banner' => $imageName,
-        ];
+        foreach ($_FILES['banner']['tmp_name'] as $key => $imageTemp) {
+            $imageName = $_FILES['banner']['name'][$key];
+            $targetFilePath = $targetDir . basename($imageName);
 
-        $insertStatus = insert('banner', $dataInsert);
-        if ($insertStatus) {
-            if (move_uploaded_file($imageTemp, $targetFilePath)) {
-                setFlashData('smg', 'Thêm banner thành công!');
-                setFlashData('smg_types', 'success');
-                redirect('?module=admin&action=setting_banner');
+            $dataInsert = [
+                'banner_name' => $filterAll['banner_name'],
+                'banner' => basename($imageName),
+            ];
+
+            $insertStatus = insert('banner', $dataInsert);
+            if ($insertStatus) {
+                if (!move_uploaded_file($imageTemp, $targetFilePath)) {
+                    setFlashData('smg', "Upload ảnh '$imageName' không thành công!");
+                    setFlashData('smg_types', 'danger');
+                    redirect('?module=admin&action=setting_banner_add');
+                }
             } else {
-                setFlashData('smg', 'Upload banner không thành công!');
+                setFlashData('smg', "Lỗi khi lưu ảnh '$imageName' vào cơ sở dữ liệu.");
                 setFlashData('smg_types', 'danger');
                 redirect('?module=admin&action=setting_banner_add');
             }
-        } else {
-            setFlashData('smg', 'Hệ thống đang lỗi vui lòng thử lại sau!');
-            setFlashData('smg_types', 'danger');
-            redirect('?module=admin&action=setting_banner_add');
         }
+        setFlashData('smg', 'Tất cả ảnh đã được tải lên thành công!');
+        setFlashData('smg_types', 'success');
+        redirect('?module=admin&action=setting_banner');
     } else {
         setFlashData('smg', 'Vui lòng kiểm tra lại thông tin');
         setFlashData('smg_types', 'danger');
         setFlashData('errors', $errors);
-        setFlashData('old', $filterAll);
+        setFlashData('old', $_FILES['banner']);
         redirect('?module=admin&action=setting_banner_add');
     }
 }
@@ -180,9 +188,17 @@ $old = getFlashData('old');
                             <div class="col">
                                 <div class="form-group mg-form">
                                     <label for="">Ảnh banner</label>
-                                    <input class="form-control" type="file" name="banner" />
+                                    <input id="productImage" class="form-control" type="file" name="banner[]" accept="image/*" multiple onchange="previewImages(event)" />
                                     <?php
                                     echo form_error('banner', '<p class="text-danger">', '</p>', $errors);
+                                    ?>
+                                </div>
+                                <div class="form-group mg-form">
+                                    <label for="">Tên banner</label>
+                                    <input class="form-control" type="text" placeholder="Tên banner" name="banner_name"
+                                        value="<?php echo old('banner_name', $old) ?>" />
+                                    <?php
+                                    echo form_error('banner_name', '<p class="text-danger">', '</p>', $errors);
                                     ?>
                                 </div>
                             </div>

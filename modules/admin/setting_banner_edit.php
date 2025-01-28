@@ -161,7 +161,7 @@ if (!empty($bannerDetail)) {
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-cart-shopping me-2"></i>Quản lý bộ sưu tập</a>
                 <a
                     href="?module=admin&action=product_management"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>Quản lý sản phẩm</a>
                 <a
                     href="?module=admin&action=order_item_management"
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-regular fa-newspaper me-2"></i>Quản lý đơn hàng</a>
@@ -170,7 +170,7 @@ if (!empty($bannerDetail)) {
                     class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fas fa-comment-dots me-2"></i>Quản lý bình luận</a>
                 <a
                     href="?module=admin&action=setting"
-                    class="list-group-item list-group-item-action px-4 py-3 fw-bold"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
+                    class="list-group-item list-group-item-action px-4 py-3 fw-bold active"><i class="fa-solid fa-gear me-2"></i>Cấu hình</a>
                 <a
                     href="?module=auth&action=logout"
                     class="list-group-item list-group-item-action px-4 py-3 text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
@@ -214,7 +214,7 @@ if (!empty($bannerDetail)) {
                                 <div class="form-group mg-form">
                                     <label for="">Ảnh banner</label>
                                     <input class="form-control" type="file" name="banner">
-                                    <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $banner['banner'] ?>" alt="" width="100px">
+                                    <img src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $bannerDetail['banner'] ?>" alt="" width="100px">
                                     <?php
                                     echo form_error('banner', '<p class="text-danger">', '</p>', $errors);
                                     ?>

@@ -10,7 +10,7 @@ $title = [
 # Lấy userId
 $user_id = getUserIdByToken();
 
-$listBanner = getRaw("SELECT * FROM banner ORDER BY id");
+
 $listProd = getRaw("SELECT * FROM products");
 
 layouts('header', $title);
@@ -49,21 +49,23 @@ layouts('header', $title);
           id="carouselId"
           class="carousel slide position-relative"
           data-bs-ride="carousel">
-
+          <?php
+          $banner_tren = getRaw("SELECT * FROM banner WHERE banner_name = 'banner_tren'");
+          ?>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active rounded">
               <img
-                src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $listBanner[1]['banner'] ?>"
+                src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $banner_tren[0]['banner'] ?>"
                 class="img-fluid w-100 h-100 rounded"
                 alt="First slide" />
             </div>
             <?php
-            if (!empty($listBanner)):
-              for ($i = 2; $i < count($listBanner); $i++):
+            if (!empty($banner_tren)):
+              for ($i = 1; $i < count($banner_tren); $i++):
             ?>
                 <div class="carousel-item rounded">
                   <img
-                    src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $listBanner[$i]['banner'] ?>"
+                    src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $banner_tren[$i]['banner'] ?>"
                     class="img-fluid w-100 h-100 rounded"
                     alt="Second slide" />
                 </div>
@@ -534,18 +536,19 @@ layouts('header', $title);
   <div class="container">
     <div class="row g-4 justify-content-center">
       <?php
-      for ($i = 0; $i < 6; $i++):
+      $banner_giamgia = getRaw("SELECT * FROM banner WHERE banner_name = 'banner_giamgia'");
+      foreach ($banner_giamgia as $key => $value):
       ?>
         <div class="col-6 col-sm-4 col-md-3 col-lg-2 brand">
           <a href="link_to_your_product_1" class="img-link">
             <img
-              src="https://cdn.shopify.com/s/files/1/0456/5070/6581/files/LP_D10_SAU_E.png?v=1727839574&width=1400"
+              src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $value['banner'] ?>"
               class="img-fluid"
               alt="Brand Logo" />
           </a>
         </div>
       <?php
-      endfor;
+      endforeach;
       ?>
     </div>
   </div>
@@ -637,7 +640,9 @@ layouts('header', $title);
       <div class="col-lg-6">
         <div class="position-relative">
           <img
-            src="<?php echo _WEB_HOST_TEMPLATE . "/image/" . $listBanner[0]['banner'] ?>"
+            src="<?php
+                  $banner_duoi = oneRaw("SELECT * FROM banner WHERE banner_name = 'banner_duoi'");
+                  echo _WEB_HOST_TEMPLATE . "/image/" . $banner_duoi['banner'] ?>"
             class="img-fluid w-100 rounded"
             alt="" />
           <div
