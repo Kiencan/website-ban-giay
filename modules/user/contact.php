@@ -21,7 +21,7 @@ layouts('header', $title);
             <div class="row g-4">
                 <div class="col-12">
                     <div class="text-center mx-auto" style="max-width: 700px;">
-                        <h1 class="text-primary">Liên hệ</h1>
+                        <h1>Liên hệ</h1>
                         <!-- <p class="mb-4"> <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p> -->
                     </div>
                 </div>
@@ -43,21 +43,21 @@ layouts('header', $title);
                 </div>
                 <div class="col-lg-5">
                     <div class="d-flex p-4 rounded mb-4 bg-white">
-                        <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
+                        <i class="fas fa-map-marker-alt fa-2x me-4"></i>
                         <div>
                             <h4>Địa chỉ</h4>
                             <p class="mb-2">89 Phùng Hưng - Hà Đông - Hà Nội - Việt Nam</p>
                         </div>
                     </div>
                     <div class="d-flex p-4 rounded mb-4 bg-white">
-                        <i class="fas fa-envelope fa-2x text-primary me-4"></i>
+                        <i class="fas fa-envelope fa-2x me-4"></i>
                         <div>
                             <h4>Gmail</h4>
                             <p class="mb-2">phamthuthuythuyloi@gmail.com</p>
                         </div>
                     </div>
                     <div class="d-flex p-4 rounded bg-white">
-                        <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
+                        <i class="fa fa-phone-alt fa-2x me-4"></i>
                         <div>
                             <h4>Số điện thoại</h4>
                             <p class="mb-2">0383083743</p>
