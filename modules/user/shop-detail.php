@@ -278,7 +278,7 @@ layouts('header', $title);
                   </button>
                 </form>
               <?php else: ?>
-                <a href="?module=user&action=login"
+                <a href="?module=auth&action=login"
                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4"
                   style="color:rgb(0, 0, 0)">
                   <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
@@ -512,15 +512,15 @@ layouts('header', $title);
                       alt="Image" width="100px" />
                   </div>
                   <div>
-                    <h6 class="mb-2" style = "font-family: Open Sans; font-size: 15px"><?php echo $listProduct['p_name_custom'] ?> </h6>
+                    <h6 class="mb-2" style="font-family: Open Sans; font-size: 15px"><?php echo $listProduct['p_name_custom'] ?> </h6>
                     <div class="d-flex mb-2">
                       <?php for ($i = 1; $i <= 5; $i++): ?>
                         <i class="fa fa-star <?php echo $i <= $listProduct['p_rate'] ? 'text-warning' : 'text-secondary'; ?>" style="font-size: 14px;"></i>
-                        <?php endfor; ?>
+                      <?php endfor; ?>
                     </div>
                     <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2"style = "font-family: Open Sans; font-size: 15px"><?php echo number_format($product['p_price_min'], 0, ',', '.'); ?></h5>
-                      <h5 class="text-danger text-decoration-line-through" style = "font-family: Open Sans; font-size: 15px">
+                      <h5 class="fw-bold me-2" style="font-family: Open Sans; font-size: 15px"><?php echo number_format($product['p_price_min'], 0, ',', '.'); ?></h5>
+                      <h5 class="text-danger text-decoration-line-through" style="font-family: Open Sans; font-size: 15px">
                         <?php echo number_format($product['p_price_max'] / (1 - $product['discount'] / 100), 0, ',', '.'); ?>
                       </h5>
                     </div>
@@ -546,7 +546,7 @@ layouts('header', $title);
                 elseif ($product['category_id']  == 23):
                   echo "?module=user&action=shop&id=hangkhac";
                 else:
-                  echo "?module=user&action=login";
+                  echo "?module=auth&action=login";
                 endif;
                 ?>"
                 class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Xem thêm</a>

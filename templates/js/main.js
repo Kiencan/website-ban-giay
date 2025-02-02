@@ -175,12 +175,24 @@ $(document).ready(function () {
     const p_size = $(".chon-size .form-check-input:checked").val();
     const p_quantity = $(".itemQty").val();
 
+    console.log(p_id, user_id, p_price_min, p_size, p_quantity);
+
     // Kiểm tra các giá trị trước khi gửi AJAX
     if (!p_id || !user_id || !p_price_min || !p_size || !p_quantity) {
       Swal.fire({
         icon: "warning",
         title: "Cảnh báo",
         text: "Vui lòng chọn đầy đủ thông tin sản phẩm!",
+        showConfirmButton: true,
+      });
+      return;
+    }
+
+    if (p_quantity < 1) {
+      Swal.fire({
+        icon: "warning",
+        title: "Cảnh báo",
+        text: "Vui lòng nhập số lượng hợp lệ!",
         showConfirmButton: true,
       });
       return;
@@ -435,13 +447,24 @@ $(document).ready(function () {
 
 // update price on button
 $(document).ready(function () {
-  $(".itemQty").on("change", function () {
+  $(".itemQtyCart").on("change", function () {
     var $el = $(this).closest("tr");
 
     var cart_id = $el.find(".cart_id").val();
     var p_quantity = $(this).val();
     var p_price_min = $el.find(".p_price_min").val();
     var p_price_max = $el.find(".p_price_max").val();
+    // console.log(cart_id, p_quantity, p_price_min, p_price_max);
+
+    if (p_quantity < 1) {
+      Swal.fire({
+        icon: "warning",
+        title: "Cảnh báo",
+        text: "Vui lòng nhập số lượng hợp lệ!",
+        showConfirmButton: true,
+      });
+      return;
+    }
 
     // Gửi AJAX để cập nhật số lượng và tính lại tổng giá
     $.ajax({
@@ -463,23 +486,23 @@ $(document).ready(function () {
             showConfirmButton: true,
           });
         } else if (response.status === "exists") {
-          let total_price = data.total_price.toLocaleString("vi-VN");
+          let total_price = response.total;
           $el.find(".total-price").text(total_price);
-          let total = data.total;
-          console.log(total);
-          $(".thanh_tien").text(total + " VNĐ");
-          let ship_fee = data.ship_fee;
+          console.log(total_price);
+          $(".thanh_tien").text(total_price + " VNĐ");
+          let ship_fee = 30000;
+          ship_fee = ship_fee.toLocaleString("vi-VN");
           console.log(ship_fee);
           $(".tien_ship").text(ship_fee + " VNĐ");
-          let grand_total = data.grand_total;
+          let grand_total = response.grand_total;
           console.log(grand_total);
           $(".tong_thanh_toan").text(grand_total + " VNĐ");
-          Swal.fire({
-            icon: "info",
-            title: "Thông báo",
-            text: response.message,
-            showConfirmButton: true,
-          });
+          // Swal.fire({
+          //   icon: "info",
+          //   title: "Thông báo",
+          //   text: response.message,
+          //   showConfirmButton: true,
+          // });
         }
       },
       error: function () {
@@ -496,7 +519,7 @@ $(document).ready(function () {
   // Xử lý sự kiện tăng/giảm số lượng
   $(".btn-minus, .btn-plus").on("click", function (e) {
     e.preventDefault();
-    var $input = $(this).closest(".input-group").find(".itemQty");
+    var $input = $(this).closest(".input-group").find(".itemQtyCart");
     var currentValue = parseInt($input.val()) || 0;
     if ($(this).hasClass("btn-minus") && currentValue > 0) {
       $input.val(currentValue).trigger("change");

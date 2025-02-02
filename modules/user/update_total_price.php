@@ -17,7 +17,7 @@ if (isset($_POST['p_quantity'])) {
     $grand_total = $total['sum(total_price)'] + $ship_fee;
 
     if ($updateQuantity) {
-        echo json_encode(['total_price' => $total_price, 'total' => number_format($total['sum(total_price)'], 0, ',', '.'), 'grand_total' => number_format($grand_total, 0, ',', '.')]);
+        echo json_encode(['status' => 'exists', 'total_price' => $total_price, 'total' => number_format($total['sum(total_price)'], 0, ',', '.'), 'grand_total' => number_format($grand_total, 0, ',', '.')]);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Không thể cập nhật số lượng sản phẩm.']);
     }

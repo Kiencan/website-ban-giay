@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $p_size = $_POST['p_size'] ?? null;
     $p_quantity = $_POST['p_quantity'] ?? null;
 
-    if ($p_quantity < 1) {
-        echo json_encode(['status' => 'error', 'message' => 'Số lượng không hợp lệ.']);
-    }
+    // if ($p_quantity < 1) {
+    //     echo json_encode(['status' => 'error', 'message' => 'Số lượng không hợp lệ.']);
+    // }
 
     if ($p_id && $user_id) {
         // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa

@@ -88,7 +88,7 @@ layouts('header', $title);
                                                 <i class="fa fa-minus"></i>
                                             </button>
                                         </div>
-                                        <input type="text" class="form-control form-control-sm text-center border-0 itemQty" value="<?php echo $item["p_quantity"]; ?>">
+                                        <input type="text" class="form-control form-control-sm text-center border-0 itemQtyCart" value="<?php echo $item["p_quantity"]; ?>">
                                         <div class="input-group-btn">
                                             <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                                                 <i class="fa fa-plus"></i>
